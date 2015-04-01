@@ -29,7 +29,7 @@
 		64D266AD3EC628B773887DA2 /* juce_AU_Resources.r in Rez */ = {isa = PBXBuildFile; fileRef = 9BF06582C4DEC14295ECD272 /* juce_AU_Resources.r */; };
 		6B583EB9DB34CB2A0E525B49 /* juce_audio_devices.mm in Sources */ = {isa = PBXBuildFile; fileRef = B67B0446004020839713F99F /* juce_audio_devices.mm */; };
 		6E378D101ABCEA5D005ED0D3 /* FileManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E378D0E1ABCEA5D005ED0D3 /* FileManager.cpp */; };
-		6ECB44F31ABB74FF009F8845 /* libchuck.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ECB44EE1ABB74F6009F8845 /* libchuck.a */; };
+		6EE8FDC31ACCB26C00F963A0 /* libchuck.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE8FDBE1ACCB25E00F963A0 /* libchuck.a */; };
 		868901929AB643EEF7A2A120 /* juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = E1CBB73988F22E3B9119A5F2 /* juce_audio_basics.mm */; };
 		88E6EAA9890D7F9714818D38 /* juce_audio_formats.mm in Sources */ = {isa = PBXBuildFile; fileRef = FF6F4A7D3EA1CA9C44834E71 /* juce_audio_formats.mm */; };
 		8AF36378D4C914C805B788B7 /* juce_RTAS_MacUtilities.mm in Sources */ = {isa = PBXBuildFile; fileRef = 50283FC81D42DA894AFCBAC1 /* juce_RTAS_MacUtilities.mm */; };
@@ -60,23 +60,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		6ECB44ED1ABB74F6009F8845 /* PBXContainerItemProxy */ = {
+		6EE8FDBD1ACCB25E00F963A0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6ECB44E81ABB74F5009F8845 /* libchuck.xcodeproj */;
+			containerPortal = 6EE8FDB81ACCB25E00F963A0 /* libchuck.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 09DDF97E1A9C6BB200F72155;
 			remoteInfo = libchuck;
 		};
-		6ECB44EF1ABB74F6009F8845 /* PBXContainerItemProxy */ = {
+		6EE8FDBF1ACCB25E00F963A0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6ECB44E81ABB74F5009F8845 /* libchuck.xcodeproj */;
+			containerPortal = 6EE8FDB81ACCB25E00F963A0 /* libchuck.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 0946F8561AA85B080045E1C4;
 			remoteInfo = "libchuck-iOS";
 		};
-		6ECB44F11ABB74FC009F8845 /* PBXContainerItemProxy */ = {
+		6EE8FDC11ACCB26700F963A0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6ECB44E81ABB74F5009F8845 /* libchuck.xcodeproj */;
+			containerPortal = 6EE8FDB81ACCB25E00F963A0 /* libchuck.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 09DDF97D1A9C6BB200F72155;
 			remoteInfo = libchuck;
@@ -494,7 +494,7 @@
 		6E7C96BEC53C5E12959249BB /* juce_audio_formats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_audio_formats.h; path = ../../JuceLibraryCode/modules/juce_audio_formats/juce_audio_formats.h; sourceTree = SOURCE_ROOT; };
 		6E97BE38F9CEBA0F6F4ACC02 /* juce_OpenGLFrameBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_OpenGLFrameBuffer.cpp; path = ../../JuceLibraryCode/modules/juce_opengl/opengl/juce_OpenGLFrameBuffer.cpp; sourceTree = SOURCE_ROOT; };
 		6EBA5FCB22CB5D7DBCE49781 /* juce_ArrowButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ArrowButton.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/buttons/juce_ArrowButton.h; sourceTree = SOURCE_ROOT; };
-		6ECB44E81ABB74F5009F8845 /* libchuck.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libchuck.xcodeproj; path = ../../../libchuck/libchuck.xcodeproj; sourceTree = "<group>"; };
+		6EE8FDB81ACCB25E00F963A0 /* libchuck.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libchuck.xcodeproj; path = ../../libchuck/libchuck.xcodeproj; sourceTree = "<group>"; };
 		7042E612B7A4DD642C08472B /* juce_OpenGL_osx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_OpenGL_osx.h; path = ../../JuceLibraryCode/modules/juce_opengl/native/juce_OpenGL_osx.h; sourceTree = SOURCE_ROOT; };
 		709F7C690BE9A90904B44899 /* juce_Colours.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_Colours.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/colour/juce_Colours.cpp; sourceTree = SOURCE_ROOT; };
 		712CB571BAB67FECD36407BC /* juce_FileBrowserComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_FileBrowserComponent.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/filebrowser/juce_FileBrowserComponent.cpp; sourceTree = SOURCE_ROOT; };
@@ -996,7 +996,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6ECB44F31ABB74FF009F8845 /* libchuck.a in Frameworks */,
+				6EE8FDC31ACCB26C00F963A0 /* libchuck.a in Frameworks */,
 				97D1724F30FED339BA1FCAE0 /* Accelerate.framework in Frameworks */,
 				AA32D3B2BA9F4B483A6FF28A /* AudioToolbox.framework in Frameworks */,
 				FEC164B4D1E12C146AE209D8 /* Carbon.framework in Frameworks */,
@@ -1410,7 +1410,7 @@
 				88447E88E2F3E495C721E341 /* Resources */,
 				D30ABE40A2B89197C8094ECF /* Frameworks */,
 				CC607A198CD670AA9A7FE936 /* Products */,
-				6ECB44E81ABB74F5009F8845 /* libchuck.xcodeproj */,
+				6EE8FDB81ACCB25E00F963A0 /* libchuck.xcodeproj */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -1731,11 +1731,11 @@
 			name = format;
 			sourceTree = "<group>";
 		};
-		6ECB44E91ABB74F5009F8845 /* Products */ = {
+		6EE8FDB91ACCB25E00F963A0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6ECB44EE1ABB74F6009F8845 /* libchuck.a */,
-				6ECB44F01ABB74F6009F8845 /* libchuck-iOS.a */,
+				6EE8FDBE1ACCB25E00F963A0 /* libchuck.a */,
+				6EE8FDC01ACCB25E00F963A0 /* libchuck-iOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2821,7 +2821,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				6ECB44F21ABB74FC009F8845 /* PBXTargetDependency */,
+				6EE8FDC21ACCB26700F963A0 /* PBXTargetDependency */,
 			);
 			name = ChuckPluginTest4;
 			productInstallPath = "$(HOME)/Library/Audio/Plug-Ins/Components/";
@@ -2848,8 +2848,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 6ECB44E91ABB74F5009F8845 /* Products */;
-					ProjectRef = 6ECB44E81ABB74F5009F8845 /* libchuck.xcodeproj */;
+					ProductGroup = 6EE8FDB91ACCB25E00F963A0 /* Products */;
+					ProjectRef = 6EE8FDB81ACCB25E00F963A0 /* libchuck.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -2860,18 +2860,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		6ECB44EE1ABB74F6009F8845 /* libchuck.a */ = {
+		6EE8FDBE1ACCB25E00F963A0 /* libchuck.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libchuck.a;
-			remoteRef = 6ECB44ED1ABB74F6009F8845 /* PBXContainerItemProxy */;
+			remoteRef = 6EE8FDBD1ACCB25E00F963A0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		6ECB44F01ABB74F6009F8845 /* libchuck-iOS.a */ = {
+		6EE8FDC01ACCB25E00F963A0 /* libchuck-iOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libchuck-iOS.a";
-			remoteRef = 6ECB44EF1ABB74F6009F8845 /* PBXContainerItemProxy */;
+			remoteRef = 6EE8FDBF1ACCB25E00F963A0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2957,10 +2957,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		6ECB44F21ABB74FC009F8845 /* PBXTargetDependency */ = {
+		6EE8FDC21ACCB26700F963A0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = libchuck;
-			targetProxy = 6ECB44F11ABB74FC009F8845 /* PBXContainerItemProxy */;
+			targetProxy = 6EE8FDC11ACCB26700F963A0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
