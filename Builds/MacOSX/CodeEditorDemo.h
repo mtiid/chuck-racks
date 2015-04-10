@@ -24,6 +24,7 @@
  */
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "ChuckTokeniser.h"
 
 
 //==============================================================================
@@ -39,7 +40,7 @@ public:
         setOpaque (true);
         
         // Create the editor..
-        addAndMakeVisible (editor = new CodeEditorComponent (codeDocument, &cppTokeniser));
+        addAndMakeVisible (editor = new CodeEditorComponent (codeDocument, &ckTokeniser));
         
         editor->loadContent ("\n"
                              "/*"
@@ -84,7 +85,9 @@ private:
 
 
 // this is a tokeniser to apply the C++ syntax highlighting
-CPlusPlusCodeTokeniser cppTokeniser;
+//CPlusPlusCodeTokeniser cppTokeniser;
+ChuckTokeniser ckTokeniser;
+LuaTokeniser luaTokeniser;
 
 // the editor component
 ScopedPointer<CodeEditorComponent> editor;

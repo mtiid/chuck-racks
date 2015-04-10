@@ -10,7 +10,7 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-
+//#include "ulib_pluginhost.h"
 
 
 
@@ -169,6 +169,7 @@ void ChuckPluginTest4AudioProcessor::releaseResources()
 
 void ChuckPluginTest4AudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
+    //g_hostInfo->tempo = 120;
     
     // Get current position/time info from host, otherwise set to some default
     AudioPlayHead::CurrentPositionInfo pos;

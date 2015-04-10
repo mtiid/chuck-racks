@@ -29,7 +29,9 @@
 		64D266AD3EC628B773887DA2 /* juce_AU_Resources.r in Rez */ = {isa = PBXBuildFile; fileRef = 9BF06582C4DEC14295ECD272 /* juce_AU_Resources.r */; };
 		6B583EB9DB34CB2A0E525B49 /* juce_audio_devices.mm in Sources */ = {isa = PBXBuildFile; fileRef = B67B0446004020839713F99F /* juce_audio_devices.mm */; };
 		6E378D101ABCEA5D005ED0D3 /* FileManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E378D0E1ABCEA5D005ED0D3 /* FileManager.cpp */; };
+		6EDA4C391AD1F95C0094FE52 /* ChuckTokeniser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA4C371AD1F95C0094FE52 /* ChuckTokeniser.cpp */; };
 		6EE8FDC31ACCB26C00F963A0 /* libchuck.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE8FDBE1ACCB25E00F963A0 /* libchuck.a */; };
+		6EE8FDC61ACCB7A700F963A0 /* ulib_pluginhost.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6EE8FDC41ACCB7A700F963A0 /* ulib_pluginhost.cpp */; };
 		868901929AB643EEF7A2A120 /* juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = E1CBB73988F22E3B9119A5F2 /* juce_audio_basics.mm */; };
 		88E6EAA9890D7F9714818D38 /* juce_audio_formats.mm in Sources */ = {isa = PBXBuildFile; fileRef = FF6F4A7D3EA1CA9C44834E71 /* juce_audio_formats.mm */; };
 		8AF36378D4C914C805B788B7 /* juce_RTAS_MacUtilities.mm in Sources */ = {isa = PBXBuildFile; fileRef = 50283FC81D42DA894AFCBAC1 /* juce_RTAS_MacUtilities.mm */; };
@@ -494,7 +496,11 @@
 		6E7C96BEC53C5E12959249BB /* juce_audio_formats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_audio_formats.h; path = ../../JuceLibraryCode/modules/juce_audio_formats/juce_audio_formats.h; sourceTree = SOURCE_ROOT; };
 		6E97BE38F9CEBA0F6F4ACC02 /* juce_OpenGLFrameBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_OpenGLFrameBuffer.cpp; path = ../../JuceLibraryCode/modules/juce_opengl/opengl/juce_OpenGLFrameBuffer.cpp; sourceTree = SOURCE_ROOT; };
 		6EBA5FCB22CB5D7DBCE49781 /* juce_ArrowButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ArrowButton.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/buttons/juce_ArrowButton.h; sourceTree = SOURCE_ROOT; };
+		6EDA4C371AD1F95C0094FE52 /* ChuckTokeniser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChuckTokeniser.cpp; sourceTree = "<group>"; };
+		6EDA4C381AD1F95C0094FE52 /* ChuckTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChuckTokeniser.h; sourceTree = "<group>"; };
 		6EE8FDB81ACCB25E00F963A0 /* libchuck.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libchuck.xcodeproj; path = ../../libchuck/libchuck.xcodeproj; sourceTree = "<group>"; };
+		6EE8FDC41ACCB7A700F963A0 /* ulib_pluginhost.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ulib_pluginhost.cpp; sourceTree = "<group>"; };
+		6EE8FDC51ACCB7A700F963A0 /* ulib_pluginhost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulib_pluginhost.h; sourceTree = "<group>"; };
 		7042E612B7A4DD642C08472B /* juce_OpenGL_osx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_OpenGL_osx.h; path = ../../JuceLibraryCode/modules/juce_opengl/native/juce_OpenGL_osx.h; sourceTree = SOURCE_ROOT; };
 		709F7C690BE9A90904B44899 /* juce_Colours.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_Colours.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/colour/juce_Colours.cpp; sourceTree = SOURCE_ROOT; };
 		712CB571BAB67FECD36407BC /* juce_FileBrowserComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_FileBrowserComponent.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/filebrowser/juce_FileBrowserComponent.cpp; sourceTree = SOURCE_ROOT; };
@@ -1044,8 +1050,6 @@
 		072DCEE0E2AB537232FE7603 /* VST3 */ = {
 			isa = PBXGroup;
 			children = (
-				40F94F5CEBE027FAF2C8C713 /* juce_VST3_Wrapper.cpp */,
-				F91158565818CE778BDAED37 /* juce_VST3_Wrapper.mm */,
 			);
 			name = VST3;
 			sourceTree = "<group>";
@@ -1476,7 +1480,6 @@
 		453ADDAA141B8083D5A2BE8F /* AU */ = {
 			isa = PBXGroup;
 			children = (
-				F7DE5026AE1AF3A45C1CD4B9 /* juce_AU_Wrapper.mm */,
 			);
 			name = AU;
 			sourceTree = "<group>";
@@ -1703,8 +1706,6 @@
 		66E21FD2618CBDA8AA38735C /* VST */ = {
 			isa = PBXGroup;
 			children = (
-				ECFA44E740C4491DF8F35081 /* juce_VST_Wrapper.cpp */,
-				0AE5EC0BBDCB4BEB3382630A /* juce_VST_Wrapper.mm */,
 			);
 			name = VST;
 			sourceTree = "<group>";
@@ -1767,6 +1768,8 @@
 		7371BF174E02CD1C54E55137 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				6EE8FDC41ACCB7A700F963A0 /* ulib_pluginhost.cpp */,
+				6EE8FDC51ACCB7A700F963A0 /* ulib_pluginhost.h */,
 				358F2318229424810E91D7AD /* PluginProcessor.cpp */,
 				4D2BCFE919EEA23D57377CBB /* PluginProcessor.h */,
 				C1F96D9B6D193DDD117CC893 /* PluginEditor.cpp */,
@@ -1774,6 +1777,8 @@
 				6E378D0E1ABCEA5D005ED0D3 /* FileManager.cpp */,
 				6E378D0F1ABCEA5D005ED0D3 /* FileManager.h */,
 				6E56A1221AC62FA400653985 /* CodeEditorDemo.h */,
+				6EDA4C371AD1F95C0094FE52 /* ChuckTokeniser.cpp */,
+				6EDA4C381AD1F95C0094FE52 /* ChuckTokeniser.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -1845,8 +1850,6 @@
 		78EF39480936C36549210215 /* AAX */ = {
 			isa = PBXGroup;
 			children = (
-				E8F4CDADE0658C92CBA71301 /* juce_AAX_Wrapper.cpp */,
-				09E7C3B09CE745C9E8909122 /* juce_AAX_Wrapper.mm */,
 			);
 			name = AAX;
 			sourceTree = "<group>";
@@ -2157,7 +2160,6 @@
 				EEE83F514FCA6CEA9EBD5A64 /* juce_IncludeModuleHeaders.h */,
 				D27C91EAF61BAC4FE6A06E60 /* juce_IncludeSystemHeaders.h */,
 				0F3CB2E23A68AF4172B1BCA3 /* juce_PluginHostType.h */,
-				96108C66DF61B25352853D5F /* juce_PluginUtilities.cpp */,
 				42A05C2B485A558F32DD8B8E /* juce_WindowsHooks.h */,
 			);
 			name = utility;
@@ -2482,12 +2484,7 @@
 		CE7B8E7927CB7AB968C62B2F /* RTAS */ = {
 			isa = PBXGroup;
 			children = (
-				17ACA4CBDC69CE56BA09A95C /* juce_RTAS_DigiCode1.cpp */,
-				D7D7297967138CB3B012D56E /* juce_RTAS_DigiCode2.cpp */,
-				B0EA578CC6E9DC0596D6FF1F /* juce_RTAS_DigiCode3.cpp */,
 				C3DFF88B294C00C35A1B79D3 /* juce_RTAS_WinUtilities.cpp */,
-				823F9A0EE8220B42E48E1664 /* juce_RTAS_Wrapper.cpp */,
-				50283FC81D42DA894AFCBAC1 /* juce_RTAS_MacUtilities.mm */,
 				62CA0B2384B6F5DF5CC42E95 /* juce_RTAS_DigiCode_Header.h */,
 			);
 			name = RTAS;
@@ -2929,6 +2926,7 @@
 				B78AF5C921E423033A47150A /* juce_AAX_Wrapper.mm in Sources */,
 				55AC192449BAC28E2B281D3F /* juce_AU_Wrapper.mm in Sources */,
 				868901929AB643EEF7A2A120 /* juce_audio_basics.mm in Sources */,
+				6EE8FDC61ACCB7A700F963A0 /* ulib_pluginhost.cpp in Sources */,
 				6B583EB9DB34CB2A0E525B49 /* juce_audio_devices.mm in Sources */,
 				88E6EAA9890D7F9714818D38 /* juce_audio_formats.mm in Sources */,
 				48AAC558F8025EF895AA6C25 /* juce_audio_processors.mm in Sources */,
@@ -2949,6 +2947,7 @@
 				DFF800187031BD7FD27D4ECF /* juce_video.mm in Sources */,
 				2FB4B231B2A81178847CC9FB /* juce_VST_Wrapper.cpp in Sources */,
 				E4A8EC526BC052EEB99EBE44 /* juce_VST_Wrapper.mm in Sources */,
+				6EDA4C391AD1F95C0094FE52 /* ChuckTokeniser.cpp in Sources */,
 				3A032533D193271A316E3F16 /* juce_VST3_Wrapper.cpp in Sources */,
 				5C4E7D79D01B5D2C207409D0 /* juce_VST3_Wrapper.mm in Sources */,
 			);
@@ -2979,6 +2978,7 @@
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = ChuckPluginTest4;
 				WARNING_CFLAGS = "-Wreorder";
 				ZERO_LINK = NO;
@@ -2988,7 +2988,8 @@
 		575463838B00036FC9858A1F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
@@ -3001,6 +3002,7 @@
 					"JUCER_XCODE_MAC_F6D2F4CF=1",
 					"JUCE_APP_VERSION=1.0.0",
 					"JUCE_APP_VERSION_HEX=0x10000",
+					__MACOSX_CORE__,
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GENERATE_PKGINFO_FILE = YES;
@@ -3010,6 +3012,7 @@
 					../../JuceLibraryCode/modules,
 					"$(inherited)",
 					"$(PROJECT_DIR)/../../../libchuck/",
+					"$(PROJECT_DIR)/../../../libchuck/chuck/src",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
@@ -3022,6 +3025,7 @@
 					MultitouchSupport,
 				);
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\"";
+				SDKROOT = macosx10.9;
 				SDKROOT_ppc = macosx10.5;
 				WRAPPER_EXTENSION = component;
 			};
@@ -3030,7 +3034,8 @@
 		5B1EB995899C50930C112453 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
@@ -3043,6 +3048,7 @@
 					"JUCER_XCODE_MAC_F6D2F4CF=1",
 					"JUCE_APP_VERSION=1.0.0",
 					"JUCE_APP_VERSION_HEX=0x10000",
+					__MACOSX_CORE__,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -3053,6 +3059,7 @@
 					../../JuceLibraryCode/modules,
 					"$(inherited)",
 					"$(PROJECT_DIR)/../../../libchuck/",
+					"$(PROJECT_DIR)/../../../libchuck/chuck/src",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
@@ -3065,6 +3072,7 @@
 					MultitouchSupport,
 				);
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\"";
+				SDKROOT = macosx10.9;
 				SDKROOT_ppc = macosx10.5;
 				WRAPPER_EXTENSION = component;
 			};
@@ -3084,6 +3092,7 @@
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = ChuckPluginTest4;
 				WARNING_CFLAGS = "-Wreorder";
