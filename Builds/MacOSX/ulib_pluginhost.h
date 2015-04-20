@@ -12,11 +12,29 @@
 #include <stdio.h>
 #include "chuck_dl.h"
 
-struct PluginHostInfo
+class PluginHostInfo
 {
+public:
+    PluginHostInfo();
+    
     float tempo;
     int currentBeat;
     int beatsPerMeasure;
+    
+    float quarterLength;
+    float eighthLength;
+    float sixteenthLength;
+    
+    Chuck_Event *playEvent;
+    Chuck_Event *sixteenthEvent;
+    Chuck_Event *beatStartEvent;
+    
+    void setTempo(float newTempo);
+
+    
+    void broadcastPlayEvent();
+    void broadcastBeatStartEvent();
+    void broadcast16thHit();
 };
 
 extern PluginHostInfo *g_hostInfo;

@@ -39,6 +39,7 @@ public:
         tokenType_keyword,
         tokenType_defaultClass,
         tokenType_defaultUGen,
+        tokenType_customClass,
         
         tokenType_comment,
         tokenType_operator,

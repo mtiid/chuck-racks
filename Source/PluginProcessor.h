@@ -77,6 +77,10 @@ public:
     CodeEditorDemo* codeEditorDemo;
     
     AudioPlayHead::CurrentPositionInfo lastPosInfo;
+    float previousTempo;
+    bool wasPlaying;
+    int current16th;
+    float positionInBeat;
     
 private:
     //==============================================================================

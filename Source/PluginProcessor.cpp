@@ -10,7 +10,7 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-//#include "ulib_pluginhost.h"
+#include "ulib_pluginhost.h"
 
 
 
@@ -34,12 +34,17 @@ ChuckPluginTest4AudioProcessor::ChuckPluginTest4AudioProcessor()
     
     ck = libchuck_create(&options);
     
+    libchuck_add_module(ck, (void*)pluginhost_query);
+    
     input_buffer = new float[options.buffer_size*options.num_channels];
     output_buffer = new float[options.buffer_size*options.num_channels];
     
     libchuck_vm_start(ck);
     
     codeEditorDemo = new CodeEditorDemo();
+    
+    wasPlaying=false;
+    current16th=-1;
 }
 
 ChuckPluginTest4AudioProcessor::~ChuckPluginTest4AudioProcessor()
@@ -168,9 +173,7 @@ void ChuckPluginTest4AudioProcessor::releaseResources()
 }
 
 void ChuckPluginTest4AudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
-{
-    //g_hostInfo->tempo = 120;
-    
+{    
     // Get current position/time info from host, otherwise set to some default
     AudioPlayHead::CurrentPositionInfo pos;
     if (getPlayHead() != nullptr && getPlayHead()->getCurrentPosition(pos)) {
@@ -179,6 +182,63 @@ void ChuckPluginTest4AudioProcessor::processBlock (AudioSampleBuffer& buffer, Mi
         lastPosInfo.resetToDefault();
     }
     
+    if (lastPosInfo.bpm != previousTempo)
+    {
+        g_hostInfo->setTempo(lastPosInfo.bpm);
+    }
+    
+    if(lastPosInfo.isPlaying&&!wasPlaying)
+    {
+        g_hostInfo->broadcastPlayEvent();
+    }
+    
+    
+    //DBG(pos.ppqPosition);
+
+    positionInBeat=fmod(pos.ppqPosition,1);
+    DBG(positionInBeat);
+    if (positionInBeat>0.749) //sixteenth
+    {
+        if (current16th!=3)
+        {
+            DBG("16th3");
+            g_hostInfo->broadcast16thHit();
+            current16th=3;
+        }
+    }
+    else if (positionInBeat>0.499)
+    {
+        if (current16th!=2)
+        {
+            DBG("16th2");
+            g_hostInfo->broadcast16thHit();
+            current16th=2;
+        }
+    }
+    else if (positionInBeat>0.249)
+    {
+        if (current16th!=1)
+        {
+            DBG("16th1");
+            g_hostInfo->broadcast16thHit();
+            current16th=1;
+        }
+    }
+    else if (positionInBeat>0.0)
+    {
+        if (current16th!=0)
+        {
+            DBG("16th0");
+            g_hostInfo->broadcast16thHit();
+            g_hostInfo->broadcastBeatStartEvent();
+
+            current16th=0;
+        }
+    }
+        // DBG(pos.ppqPosition);
+       // DBG("16th!");
+    
+    previousTempo=lastPosInfo.bpm;
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
     // guaranteed to be empty - they may contain garbage).
