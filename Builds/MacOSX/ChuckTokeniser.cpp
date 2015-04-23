@@ -463,7 +463,7 @@ CodeEditorComponent::ColourScheme ChuckTokeniser::getDefaultColourScheme()
         { "Keyword",        Colour (0xff0000cc) },
         { "DefaultClass",   Colour (0xffaa0000) },
         { "DefaultUGen",    Colour (0xffb83de7) },
-        { "CustomClass",    Colour (0xff555555) },
+        { "CustomClass",    Colour (0xff555500) },
         
         { "Comment",        Colour (0xff6f9d35) },
         { "Operator",       Colour (0xff225500) },

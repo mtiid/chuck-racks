@@ -25,16 +25,27 @@ public:
     float eighthLength;
     float sixteenthLength;
     
+    
     Chuck_Event *playEvent;
     Chuck_Event *sixteenthEvent;
     Chuck_Event *beatStartEvent;
+    Chuck_Event *stopEvent;
     
     void setTempo(float newTempo);
 
     
     void broadcastPlayEvent();
+    void broadcastStopEvent();
     void broadcastBeatStartEvent();
     void broadcast16thHit();
+    
+    float previousTempo;
+    float previousBar;
+    bool wasPlaying;
+    int current16th;
+    float positionInBeat;
+    float absolutePosition;
+    float lastBar;
 };
 
 extern PluginHostInfo *g_hostInfo;

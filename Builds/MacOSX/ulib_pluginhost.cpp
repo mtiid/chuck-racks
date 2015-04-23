@@ -13,6 +13,10 @@
 
 PluginHostInfo::PluginHostInfo()
 {
+    wasPlaying=false;
+    current16th=-1;
+    previousBar=-1;
+    
     tempo=120;
     quarterLength=60/tempo;
     eighthLength=30/tempo;
@@ -33,6 +37,12 @@ void PluginHostInfo::broadcastBeatStartEvent()
 {
     if(g_hostInfo->beatStartEvent != NULL)
         g_hostInfo->beatStartEvent->broadcast();
+}
+
+void PluginHostInfo::broadcastStopEvent()
+{
+    if(g_hostInfo->stopEvent != NULL)
+        g_hostInfo->stopEvent->broadcast();
 }
 
 void PluginHostInfo::setTempo(float newTempo)
@@ -78,6 +88,17 @@ CK_DLL_SFUN(pluginhost_onPlay)
     RETURN->v_object = g_hostInfo->playEvent;
 }
 
+CK_DLL_SFUN(pluginhost_onStop)
+{
+    if(g_hostInfo->stopEvent == NULL)
+    {
+        g_hostInfo->stopEvent = new Chuck_Event();
+        initialize_object(g_hostInfo->stopEvent, &t_event);
+    }
+    
+    RETURN->v_object = g_hostInfo->stopEvent;
+}
+
 CK_DLL_SFUN(pluginhost_onBeatStart)
 {
     if(g_hostInfo->beatStartEvent == NULL)
@@ -102,12 +123,39 @@ CK_DLL_SFUN(pluginhost_sixteenth)
 }
 
 
-
+CK_DLL_SFUN(pluginhost_isPlaying)
+{
+    if (g_hostInfo->wasPlaying) {
+        RETURN->v_int = 1;
+    }
+    else
+    {
+        RETURN->v_int = 0;
+    }
+    
+}
 
 CK_DLL_SFUN(pluginhost_sixteenthLength)
 {
     RETURN->v_float = g_hostInfo->sixteenthLength;
 }
+
+CK_DLL_SFUN(pluginhost_eightLength)
+{
+    RETURN->v_float = g_hostInfo->eighthLength;
+}
+
+CK_DLL_SFUN(pluginhost_quarterLength)
+{
+    RETURN->v_float = g_hostInfo->quarterLength;
+}
+
+
+CK_DLL_SFUN(pluginhost_positionInBeat)
+{
+    RETURN->v_float = g_hostInfo->positionInBeat;
+}
+
 
 
 
@@ -116,6 +164,7 @@ t_CKBOOL pluginhost_query( Chuck_DL_Query * QUERY )
 {
     g_hostInfo = new PluginHostInfo;
     g_hostInfo->playEvent = NULL;
+    g_hostInfo->stopEvent = NULL;
     g_hostInfo->sixteenthEvent = NULL;
     g_hostInfo->beatStartEvent = NULL;
 
@@ -129,12 +178,20 @@ t_CKBOOL pluginhost_query( Chuck_DL_Query * QUERY )
     
     QUERY->add_sfun(QUERY, pluginhost_onPlay, "Event", "onPlay"); //return type, chuck function name
     
-    QUERY->add_sfun(QUERY, pluginhost_onBeatStart, "Event", "onBeatStart");
+    QUERY->add_sfun(QUERY, pluginhost_onStop, "Event", "onStop");
+    
+    QUERY->add_sfun(QUERY, pluginhost_onBeatStart, "Event", "onBeat");
     
     QUERY->add_sfun(QUERY, pluginhost_sixteenthLength, "float", "sixteenthLength");
     
     QUERY->add_sfun(QUERY, pluginhost_sixteenth,"Event", "sixteenth");
     
+    
+    QUERY->add_sfun(QUERY, pluginhost_isPlaying, "int", "isPlaying");
+
+    QUERY->add_sfun(QUERY, pluginhost_positionInBeat, "float", "positionInBeat"); //returns a value between 0 and 0.9999 for the position in the beat. It can be used for finer subdivisions than 16ths.
+    
+
     
     
     QUERY->end_class(QUERY);

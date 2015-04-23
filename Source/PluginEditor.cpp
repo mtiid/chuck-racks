@@ -34,10 +34,10 @@ ChuckPluginTest4AudioProcessorEditor::ChuckPluginTest4AudioProcessorEditor (Chuc
     //browseCodeButton->addListener(this);
     
     addAndMakeVisible(getProcessor()->codeEditorDemo);
-    getProcessor()->codeEditorDemo->setBounds(0, 130, getWidth(),getHeight());
+    getProcessor()->codeEditorDemo->setBounds(0, 130, getWidth(),getHeight()-130);
     
     
-    lastFileLoaded=getProcessor()->fileManager.fileName;
+    //lastFileLoaded=getProcessor()->fileManager.fileName;
     
     
 

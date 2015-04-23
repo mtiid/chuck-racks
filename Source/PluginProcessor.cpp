@@ -43,8 +43,7 @@ ChuckPluginTest4AudioProcessor::ChuckPluginTest4AudioProcessor()
     
     codeEditorDemo = new CodeEditorDemo();
     
-    wasPlaying=false;
-    current16th=-1;
+    
 }
 
 ChuckPluginTest4AudioProcessor::~ChuckPluginTest4AudioProcessor()
@@ -182,63 +181,75 @@ void ChuckPluginTest4AudioProcessor::processBlock (AudioSampleBuffer& buffer, Mi
         lastPosInfo.resetToDefault();
     }
     
-    if (lastPosInfo.bpm != previousTempo)
+    if (lastPosInfo.bpm != g_hostInfo->previousTempo)
     {
         g_hostInfo->setTempo(lastPosInfo.bpm);
     }
     
-    if(lastPosInfo.isPlaying&&!wasPlaying)
+    if(lastPosInfo.isPlaying&&!g_hostInfo->wasPlaying)
     {
         g_hostInfo->broadcastPlayEvent();
     }
     
-    
-    //DBG(pos.ppqPosition);
+    if(!lastPosInfo.isPlaying&&g_hostInfo->wasPlaying)
+    {
+        g_hostInfo->broadcastStopEvent();
 
-    positionInBeat=fmod(pos.ppqPosition,1);
-    DBG(positionInBeat);
-    if (positionInBeat>0.749) //sixteenth
+    }
+    
+    g_hostInfo->wasPlaying=lastPosInfo.isPlaying;
+    
+    
+    g_hostInfo->positionInBeat=fmod(pos.ppqPosition,1);
+    
+    //DBG(positionInBeat);
+    if (g_hostInfo->positionInBeat>0.749) //sixteenth
     {
-        if (current16th!=3)
+        if (g_hostInfo->current16th!=3)
         {
-            DBG("16th3");
+            //DBG("16th3");
             g_hostInfo->broadcast16thHit();
-            current16th=3;
+            g_hostInfo->current16th=3;
         }
     }
-    else if (positionInBeat>0.499)
+    else if (g_hostInfo->positionInBeat>0.499)
     {
-        if (current16th!=2)
+        if (g_hostInfo->current16th!=2)
         {
-            DBG("16th2");
+            //DBG("16th2");
             g_hostInfo->broadcast16thHit();
-            current16th=2;
+            g_hostInfo->current16th=2;
         }
     }
-    else if (positionInBeat>0.249)
+    else if (g_hostInfo->positionInBeat>0.249)
     {
-        if (current16th!=1)
+        if (g_hostInfo->current16th!=1)
         {
-            DBG("16th1");
+            //DBG("16th1");
             g_hostInfo->broadcast16thHit();
-            current16th=1;
+            g_hostInfo->current16th=1;
         }
     }
-    else if (positionInBeat>0.0)
+    else if (g_hostInfo->positionInBeat>0.0)
     {
-        if (current16th!=0)
+        if (g_hostInfo->current16th!=0)
         {
-            DBG("16th0");
+            //DBG("16th0");
             g_hostInfo->broadcast16thHit();
             g_hostInfo->broadcastBeatStartEvent();
 
-            current16th=0;
+            g_hostInfo->current16th=0;
         }
     }
         // DBG(pos.ppqPosition);
        // DBG("16th!");
     
-    previousTempo=lastPosInfo.bpm;
+    g_hostInfo->previousTempo=lastPosInfo.bpm;
+    
+    
+    
+    
+    
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
     // guaranteed to be empty - they may contain garbage).

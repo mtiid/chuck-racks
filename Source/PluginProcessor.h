@@ -14,7 +14,6 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 #include "libchuck.h"
-#include "FileManager.h"
 #include "CodeEditorDemo.h"
 
 //==============================================================================
@@ -73,14 +72,10 @@ public:
     void addShred();
     void removeShred();
     
-    FileManager fileManager;
     CodeEditorDemo* codeEditorDemo;
     
     AudioPlayHead::CurrentPositionInfo lastPosInfo;
-    float previousTempo;
-    bool wasPlaying;
-    int current16th;
-    float positionInBeat;
+    
     
 private:
     //==============================================================================
