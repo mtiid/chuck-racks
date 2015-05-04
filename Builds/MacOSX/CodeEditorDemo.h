@@ -71,10 +71,10 @@ public:
 
 void resized() override
 {
-Rectangle<int> r (getLocalBounds().reduced (8));
+//Rectangle<int> r (getLocalBounds().reduced (8));
 
-fileChooser.setBounds (r.removeFromTop (25));
-editor->setBounds (r.withTrimmedTop (8));
+//fileChooser.setBounds (r.removeFromTop (25));
+//editor->setBounds (r.withTrimmedTop (8));
 }
 
 // this is the document that the editor component is showing
@@ -96,7 +96,7 @@ ScopedPointer<CodeEditorComponent> editor;
 
 void filenameComponentChanged (FilenameComponent*) override
 {
-editor->loadContent (fileChooser.getCurrentFile().loadFileAsString());
+    editor->loadContent (fileChooser.getCurrentFile().loadFileAsString());
 }
 
 JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CodeEditorDemo);

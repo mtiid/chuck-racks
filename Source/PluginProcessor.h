@@ -15,6 +15,8 @@
 
 #include "libchuck.h"
 #include "CodeEditorDemo.h"
+#include "FileContainerManagerModel.h"
+
 
 //==============================================================================
 /**
@@ -68,6 +70,10 @@ public:
     void getStateInformation (MemoryBlock& destData);
     void setStateInformation (const void* data, int sizeInBytes);
 
+    
+    
+    
+    //*********************************************************************
     void testAddShred();
     void addShred();
     void removeShred();
@@ -75,6 +81,8 @@ public:
     CodeEditorDemo* codeEditorDemo;
     
     AudioPlayHead::CurrentPositionInfo lastPosInfo;
+    
+    FileContainerManagerModel* fileContainerManagerModel;
     
     
 private:

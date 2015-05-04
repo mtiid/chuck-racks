@@ -16,6 +16,7 @@
 ChuckPluginTest4AudioProcessorEditor::ChuckPluginTest4AudioProcessorEditor (ChuckPluginTest4AudioProcessor* ownerFilter)
     : AudioProcessorEditor (ownerFilter)
 {
+    LookAndFeel::setDefaultLookAndFeel(new LookAndFeel_V3());
     // This is where our plugin's editor size is set.
     setSize (600, 700);
     addAndMakeVisible(addShredButton=new TextButton("Add Shred"));
@@ -33,12 +34,24 @@ ChuckPluginTest4AudioProcessorEditor::ChuckPluginTest4AudioProcessorEditor (Chuc
     //browseCodeButton->setBounds(120, 120, 100,100 );
     //browseCodeButton->addListener(this);
     
+    addAndMakeVisible(addFileContainerButton=new TextButton("Add file container"));
+    addFileContainerButton->setButtonText("Add file container");
+    addFileContainerButton->setBounds(220, 0, 100,100 );
+    addFileContainerButton->addListener(this);
+    
+    
+    
     addAndMakeVisible(getProcessor()->codeEditorDemo);
     getProcessor()->codeEditorDemo->setBounds(0, 130, getWidth(),getHeight()-130);
+    
+    //addAndMakeVisible(managerUI=new FileContainerManagerUI(getProcessor()->fileContainerManagerModel));
+    //getProcessor()->codeEditorDemo->setBounds(0, 130, getWidth(),getHeight()-130);
     
     
     //lastFileLoaded=getProcessor()->fileManager.fileName;
     
+    startTimer(50);
+    timerCallback();
     
 
     
@@ -61,13 +74,21 @@ void ChuckPluginTest4AudioProcessorEditor::paint (Graphics& g)
 
 void ChuckPluginTest4AudioProcessorEditor::buttonClicked(Button *buttonThatWasPressed)
 {
-    if (buttonThatWasPressed==addShredButton) {
+    if (buttonThatWasPressed==addShredButton)
+    {
         getProcessor()->addShred();
     }
     
-    if (buttonThatWasPressed==removeShredButton) {
+    if (buttonThatWasPressed==removeShredButton)
+    {
         getProcessor()->removeShred();
     }
+    
+    if (buttonThatWasPressed==addFileContainerButton)
+    {
+        getProcessor()->fileContainerManagerModel->addFileContainer();
+    }
+        
     
     
     //if (buttonThatWasPressed==browseCodeButton) {
@@ -76,3 +97,12 @@ void ChuckPluginTest4AudioProcessorEditor::buttonClicked(Button *buttonThatWasPr
     //}
 }
 
+void ChuckPluginTest4AudioProcessorEditor::timerCallback()
+{
+    
+}
+
+void ChuckPluginTest4AudioProcessorEditor::sliderValueChanged (Slider* slider)
+{
+    
+}

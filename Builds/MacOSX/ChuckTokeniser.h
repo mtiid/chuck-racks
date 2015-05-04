@@ -11,7 +11,6 @@
 
 //#include <iostream>
 
-#endif /* defined(__ChuckPluginTest4__ChuckTokeniser__) */
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
@@ -68,3 +67,6 @@ private:
     
     
 };
+
+#endif /* defined(__ChuckPluginTest4__ChuckTokeniser__) */
+

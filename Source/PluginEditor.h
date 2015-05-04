@@ -13,11 +13,12 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
+#include "FileContainerManagerUI.h"
 
 //==============================================================================
 /**
 */
-class ChuckPluginTest4AudioProcessorEditor  : public AudioProcessorEditor, public ButtonListener
+class ChuckPluginTest4AudioProcessorEditor  : public AudioProcessorEditor, public ButtonListener, public Timer, Slider::Listener 
 {
 public:
     ChuckPluginTest4AudioProcessorEditor (ChuckPluginTest4AudioProcessor* ownerFilter);
@@ -34,8 +35,16 @@ public:
     ScopedPointer<TextButton> addShredButton;
     ScopedPointer<TextButton> browseCodeButton;
     ScopedPointer<TextButton> removeShredButton;
+    ScopedPointer<TextButton> addFileContainerButton;
+    
+    ScopedPointer<FileContainerManagerUI> managerUI;
+    
     void buttonClicked(Button* buttonThatWasPressed);
     String lastFileLoaded;
+    
+    void timerCallback();
+    void sliderValueChanged (Slider* slider);
+    
     
 };
 

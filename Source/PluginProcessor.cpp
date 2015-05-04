@@ -43,7 +43,7 @@ ChuckPluginTest4AudioProcessor::ChuckPluginTest4AudioProcessor()
     
     codeEditorDemo = new CodeEditorDemo();
     
-    
+    fileContainerManagerModel = new FileContainerManagerModel();
 }
 
 ChuckPluginTest4AudioProcessor::~ChuckPluginTest4AudioProcessor()
@@ -273,6 +273,22 @@ void ChuckPluginTest4AudioProcessor::processBlock (AudioSampleBuffer& buffer, Mi
     libchuck_slave_process(ck, input_buffer, output_buffer, buffer.getNumSamples());
     
     // copy output
+    
+    MidiBuffer::Iterator midiIterator(midiMessages); //iterator to loop through our midi buffer that gets passed into the process block
+    MidiBuffer tempMidiBuffer; // temporary midi buffer where we do ou "work" and store transposed midi messages
+    MidiMessage tempMessage; // temporary midi message to store each midi message from our incoming buffer
+    int midiMessagePos; //temporary varirable to store the location of each midi message that we iterate through
+    
+    while(midiIterator.getNextEvent(tempMessage, midiMessagePos)){
+        if(tempMessage.isNoteOnOrOff()){
+            tempMessage.setNoteNumber(tempMessage.getNoteNumber() + 12); //transpose the message
+            tempMidiBuffer.addEvent(tempMessage, midiMessagePos);
+        }
+    }
+    
+    midiMessages = tempMidiBuffer; //replace the actual midi buffer with our temp buffer
+    
+    
     for (int channel = 0; channel < getNumOutputChannels(); ++channel)
     {
         float* channelData = buffer.getWritePointer (channel);
