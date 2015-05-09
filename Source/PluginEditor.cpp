@@ -39,12 +39,12 @@ ChuckPluginTest4AudioProcessorEditor::ChuckPluginTest4AudioProcessorEditor (Chuc
     addFileContainerButton->setBounds(220, 0, 100,100 );
     addFileContainerButton->addListener(this);
     
+    addAndMakeVisible(managerUI=new FileContainerManagerUI(getProcessor()->fileContainerManagerModel));
+    managerUI->setBounds(0,130, getWidth(), getHeight()-130);
+    managerUI->init();
+    //getProcessor()->codeEditorDemo->setBounds(0, 130, getWidth(),getHeight()-130);
     
-    
-    addAndMakeVisible(getProcessor()->codeEditorDemo);
-    getProcessor()->codeEditorDemo->setBounds(0, 130, getWidth(),getHeight()-130);
-    
-    //addAndMakeVisible(managerUI=new FileContainerManagerUI(getProcessor()->fileContainerManagerModel));
+    //addAndMakeVisible(getProcessor()->codeEditorDemo);
     //getProcessor()->codeEditorDemo->setBounds(0, 130, getWidth(),getHeight()-130);
     
     
@@ -87,6 +87,7 @@ void ChuckPluginTest4AudioProcessorEditor::buttonClicked(Button *buttonThatWasPr
     if (buttonThatWasPressed==addFileContainerButton)
     {
         getProcessor()->fileContainerManagerModel->addFileContainer();
+        managerUI->init();
     }
         
     

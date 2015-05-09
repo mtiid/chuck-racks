@@ -71,10 +71,10 @@ public:
 
 void resized() override
 {
-//Rectangle<int> r (getLocalBounds().reduced (8));
+Rectangle<int> r (getLocalBounds().reduced (8));
 
-//fileChooser.setBounds (r.removeFromTop (25));
-//editor->setBounds (r.withTrimmedTop (8));
+fileChooser.setBounds (r.removeFromTop (25));
+editor->setBounds (r.withTrimmedTop (8));
 }
 
 // this is the document that the editor component is showing

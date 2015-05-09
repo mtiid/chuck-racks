@@ -21,6 +21,8 @@ public:
     FileContainerUI(FileContainerModel* fileContainerModel);
     ~FileContainerUI();
     
+    void paint (Graphics& g);
+    
     ChuckTokeniser ckTokeniser;
     FileContainerModel* m_fileContainerModel;
     FilenameComponent filenameComponent;

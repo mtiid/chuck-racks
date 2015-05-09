@@ -24,13 +24,16 @@ public:
     FileContainerManagerUI(FileContainerManagerModel* managerModel);
     ~FileContainerManagerUI();
     
+    void paint(Graphics& g);
+    
     FileContainerManagerModel* m_managerModel;
     
     void timerCallback();
-    
+    void buttonClicked(Button* buttonThatWasPressed);
     void sliderValueChanged (Slider* slider);
     std::vector<ScopedPointer<FileContainerUI>> fileContainerUIs;
     void updateTopPositions();
+    void init();
     
 };
 

@@ -18,6 +18,7 @@ FileContainerUI::FileContainerUI(FileContainerModel* fileContainerModel) : filen
     
     // Create the editor..
     addAndMakeVisible (codeEditor = new CodeEditorComponent (m_fileContainerModel->codeDocument, &ckTokeniser));
+    codeEditor->setBoundsRelative(0.0, 0.2, 1.0, 0.8);
     
     if (codeEditor->getDocument().getAllContent()=="") {
     codeEditor->loadContent ("\n"
@@ -53,6 +54,11 @@ FileContainerUI::FileContainerUI(FileContainerModel* fileContainerModel) : filen
 FileContainerUI::~FileContainerUI()
 {
     filenameComponent.removeListener(this);
+}
+
+void FileContainerUI::paint (Graphics& g)
+{
+    g.fillAll(Colours::blue);
 }
 
 

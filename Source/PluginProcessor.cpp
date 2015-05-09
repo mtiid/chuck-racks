@@ -44,6 +44,7 @@ ChuckPluginTest4AudioProcessor::ChuckPluginTest4AudioProcessor()
     codeEditorDemo = new CodeEditorDemo();
     
     fileContainerManagerModel = new FileContainerManagerModel();
+    fileContainerManagerModel->addFileContainer();
 }
 
 ChuckPluginTest4AudioProcessor::~ChuckPluginTest4AudioProcessor()
