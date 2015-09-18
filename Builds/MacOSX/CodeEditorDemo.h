@@ -67,7 +67,7 @@ public:
     void paint (Graphics& g) override
     {
     g.fillAll (Colours::lightgrey);
-}
+    }
 
 void resized() override
 {
@@ -96,7 +96,7 @@ ScopedPointer<CodeEditorComponent> editor;
 
 void filenameComponentChanged (FilenameComponent*) override
 {
-    editor->loadContent (fileChooser.getCurrentFile().loadFileAsString());
+editor->loadContent (fileChooser.getCurrentFile().loadFileAsString());
 }
 
 JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CodeEditorDemo);

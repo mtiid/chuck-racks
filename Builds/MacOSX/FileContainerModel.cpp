@@ -8,8 +8,9 @@
 
 #include "FileContainerModel.h"
 
-FileContainerModel::FileContainerModel()
+FileContainerModel::FileContainerModel(chuck_inst* ck_)
 {
+    ck = ck_;
     fileChooser = new FileChooser("Open Chuck File", File::nonexistent, "*.ck");
 }
 
@@ -21,12 +22,17 @@ void FileContainerModel::addShred()
     if(result.type == chuck_result::OK)
     {
         shredIds.push_back(result.shred_id);
+        std::cout<<"shred with Id added "<<shredIds.back();
     }
 }
 void FileContainerModel::removeLastShred()
 {
+    if(shredIds.size()>0)
+    {
     libchuck_remove_shred(ck, shredIds.back());
+    std::cout<<"shred with Id removed "<<shredIds.back();
     shredIds.pop_back();
+    }
     
 }
 
@@ -60,5 +66,6 @@ void FileContainerModel::openBrowser()
     }
     
 }
+
 
 

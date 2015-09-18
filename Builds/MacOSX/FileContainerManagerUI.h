@@ -16,10 +16,12 @@
 #include "FileContainerManagerModel.h"
 
 
-class FileContainerManagerUI : public Component, public ButtonListener, public Timer, Slider::Listener
+class FileContainerManagerUI : public Component, public ButtonListener, public Timer, Slider::Listener, private ScrollBar::Listener
+
 {
 public:
     
+    ScrollBar scrollbar;
     
     FileContainerManagerUI(FileContainerManagerModel* managerModel);
     ~FileContainerManagerUI();
@@ -34,6 +36,7 @@ public:
     std::vector<ScopedPointer<FileContainerUI>> fileContainerUIs;
     void updateTopPositions();
     void init();
+    void scrollBarMoved (ScrollBar* scrollBarThatHasMoved, double newRangeStart) override;
     
 };
 

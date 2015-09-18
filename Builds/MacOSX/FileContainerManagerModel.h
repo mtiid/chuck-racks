@@ -19,12 +19,13 @@
 class FileContainerManagerModel
 {
 public:
-    FileContainerManagerModel();
+    FileContainerManagerModel(chuck_inst* ck_);
     ~FileContainerManagerModel();
-    
+    chuck_inst* ck;
     std::vector<FileContainerModel*> fileContainerModels;
     void addFileContainer();
     void removeFileContainer(FileContainerModel* whichPointer);
+    void addAllShreds();
 
     
     

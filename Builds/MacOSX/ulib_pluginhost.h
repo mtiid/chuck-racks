@@ -11,6 +11,8 @@
 
 #include <stdio.h>
 #include "chuck_dl.h"
+#include "../JuceLibraryCode/JuceHeader.h"
+
 
 class PluginHostInfo
 {
@@ -30,6 +32,8 @@ public:
     Chuck_Event *sixteenthEvent;
     Chuck_Event *beatStartEvent;
     Chuck_Event *stopEvent;
+    Chuck_Event *midiEvent;
+    
     
     void setTempo(float newTempo);
 
@@ -38,6 +42,8 @@ public:
     void broadcastStopEvent();
     void broadcastBeatStartEvent();
     void broadcast16thHit();
+    void broadcastMidiEvent();
+    void getMidiMessage(MidiMessage message);
     
     float previousTempo;
     float previousBar;
@@ -46,6 +52,10 @@ public:
     float positionInBeat;
     float absolutePosition;
     float lastBar;
+    
+    MidiBuffer* midiInputBufferP;
+    MidiBuffer* midiOutputBufferP;
+    int midiOutputBufferPos;
 };
 
 extern PluginHostInfo *g_hostInfo;

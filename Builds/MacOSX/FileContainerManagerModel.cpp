@@ -7,9 +7,9 @@
 //
 
 #include "FileContainerManagerModel.h"
-FileContainerManagerModel::FileContainerManagerModel()
+FileContainerManagerModel::FileContainerManagerModel(chuck_inst* ck_)
 {
-    
+    ck=ck_;
 }
 FileContainerManagerModel::~FileContainerManagerModel()
 {
@@ -17,7 +17,7 @@ FileContainerManagerModel::~FileContainerManagerModel()
 }
 void FileContainerManagerModel::addFileContainer()
 {
-    fileContainerModels.push_back(new FileContainerModel());
+    fileContainerModels.push_back(new FileContainerModel(ck));
 }
 
 

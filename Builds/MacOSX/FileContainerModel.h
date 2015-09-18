@@ -20,7 +20,7 @@
 class FileContainerModel
 {
 public:
-    FileContainerModel();
+    FileContainerModel(chuck_inst* ck_);
     ~FileContainerModel();
     chuck_inst *ck;
 
@@ -39,7 +39,11 @@ public:
     
     CodeDocument codeDocument;
     void openBrowser();
+
+    String lastFileLoaded;
     
+    
+
     
 private:
     

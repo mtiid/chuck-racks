@@ -11,4 +11,14 @@
 
 #include <stdio.h>
 
+class PluginPanel
+{
+public:
+    PluginPanel();
+    ~PluginPanel();
+    
+    
+    
+};
+
 #endif /* defined(__ChuckPluginTest4__ulib_PluginPanel__) */

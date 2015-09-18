@@ -31,11 +31,19 @@ public:
     
     void timerCallback();
     
-    void sliderValueChanged (Slider* slider);
-    void buttonClicked(Button* buttonThatWasPressed);
     void filenameComponentChanged (FilenameComponent*) override;
     
     int bottom;
-    void updateBottom();    
+    void updateBottom();
+    
+    ScopedPointer<TextButton> addShredButton;
+    ScopedPointer<TextButton> browseCodeButton;
+    ScopedPointer<TextButton> removeShredButton;
+    
+    void buttonClicked(Button* buttonThatWasPressed);
+    String lastFileLoaded;
+    
+    void sliderValueChanged (Slider* slider);
+
     
 };

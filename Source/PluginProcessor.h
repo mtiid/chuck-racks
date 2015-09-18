@@ -69,6 +69,9 @@ public:
     //==============================================================================
     void getStateInformation (MemoryBlock& destData);
     void setStateInformation (const void* data, int sizeInBytes);
+    
+    MidiBuffer midiInputBuffer;
+    MidiBuffer midiOutputBuffer;
 
     
     
@@ -76,6 +79,7 @@ public:
     //*********************************************************************
     void testAddShred();
     void addShred();
+    void addAllShreds();
     void removeShred();
     
     CodeEditorDemo* codeEditorDemo;

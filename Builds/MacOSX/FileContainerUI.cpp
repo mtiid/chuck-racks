@@ -16,9 +16,19 @@ FileContainerUI::FileContainerUI(FileContainerModel* fileContainerModel) : filen
     
     setOpaque (true);
     
+    addAndMakeVisible(addShredButton=new TextButton("Add Shred"));
+    addShredButton->setButtonText("Add Shred");
+    addShredButton->setBounds(0, 0, 50,50);
+    addShredButton->addListener(this);
+    
+    addAndMakeVisible(removeShredButton=new TextButton("Remove Shred"));
+    removeShredButton->setButtonText("Remove Shred");
+    removeShredButton->setBounds(120, 0, 50,50 );
+    removeShredButton->addListener(this);
+    
     // Create the editor..
     addAndMakeVisible (codeEditor = new CodeEditorComponent (m_fileContainerModel->codeDocument, &ckTokeniser));
-    codeEditor->setBoundsRelative(0.0, 0.2, 1.0, 0.8);
+    codeEditor->setBoundsRelative(0.0, 0.2, 0.8, 0.8);
     
     if (codeEditor->getDocument().getAllContent()=="") {
     codeEditor->loadContent ("\n"
@@ -72,12 +82,33 @@ void FileContainerUI::sliderValueChanged(juce::Slider *slider)
     
 }
 
-void FileContainerUI::buttonClicked(Button* buttonThatWasPressed)
-{
-    
-}
 
 void FileContainerUI::filenameComponentChanged (FilenameComponent*)
 {
     codeEditor->loadContent (filenameComponent.getCurrentFile().loadFileAsString());
 }
+
+void FileContainerUI::buttonClicked(Button *buttonThatWasPressed)
+{
+    if (buttonThatWasPressed==addShredButton)
+    {
+        m_fileContainerModel->addShred();
+    }
+    
+    if (buttonThatWasPressed==removeShredButton)
+    {
+        m_fileContainerModel->removeLastShred();
+    }
+    
+
+    
+    
+    
+    //if (buttonThatWasPressed==browseCodeButton) {
+    //    getProcessor()->fileManager.openBrowser();
+    //    lastFileLoaded=getProcessor()->fileManager.fileName;
+    //}
+}
+
+
+

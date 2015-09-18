@@ -38,13 +38,21 @@ ChuckPluginTest4AudioProcessor::ChuckPluginTest4AudioProcessor()
     
     input_buffer = new float[options.buffer_size*options.num_channels];
     output_buffer = new float[options.buffer_size*options.num_channels];
+   
     
     libchuck_vm_start(ck);
     
     codeEditorDemo = new CodeEditorDemo();
     
-    fileContainerManagerModel = new FileContainerManagerModel();
+    fileContainerManagerModel = new FileContainerManagerModel(ck);
     fileContainerManagerModel->addFileContainer();
+    
+    g_hostInfo->midiInputBufferP=(&midiInputBuffer);
+    g_hostInfo->midiOutputBufferP=(&midiOutputBuffer);
+    
+
+    
+    
 }
 
 ChuckPluginTest4AudioProcessor::~ChuckPluginTest4AudioProcessor()
@@ -275,19 +283,44 @@ void ChuckPluginTest4AudioProcessor::processBlock (AudioSampleBuffer& buffer, Mi
     
     // copy output
     
-    MidiBuffer::Iterator midiIterator(midiMessages); //iterator to loop through our midi buffer that gets passed into the process block
+    
+    
+        MidiBuffer::Iterator midiIterator(midiMessages); //iterator to loop through our midi buffer that gets passed into the process block
     MidiBuffer tempMidiBuffer; // temporary midi buffer where we do ou "work" and store transposed midi messages
     MidiMessage tempMessage; // temporary midi message to store each midi message from our incoming buffer
     int midiMessagePos; //temporary varirable to store the location of each midi message that we iterate through
+    bool doMidiBroadcast = false;
+    
+    midiInputBuffer.clear();
+    
     
     while(midiIterator.getNextEvent(tempMessage, midiMessagePos)){
-        if(tempMessage.isNoteOnOrOff()){
-            tempMessage.setNoteNumber(tempMessage.getNoteNumber() + 12); //transpose the message
-            tempMidiBuffer.addEvent(tempMessage, midiMessagePos);
-        }
+     
+         //if(tempMessage.isNoteOnOrOff()){
+           // tempMessage.setNoteNumber(tempMessage.getNoteNumber() + 12); //transpose the message
+           // tempMidiBuffer.addEvent(tempMessage, midiMessagePos);
+        //}
+     
+        midiInputBuffer.addEvent(tempMessage, midiMessagePos);
+        doMidiBroadcast = true;
+        
+        const uint8 *midiVals = tempMessage.getRawData();
+        int datasize = tempMessage.getRawDataSize();
+        //std::cout<<int(midiVals[0])<<" "<<int(midiVals[1])<<" "<<int(midiVals[2])<<std::endl;
     }
     
-    midiMessages = tempMidiBuffer; //replace the actual midi buffer with our temp buffer
+    if(doMidiBroadcast)
+    {
+        g_hostInfo->midiOutputBufferPos = 0;
+        g_hostInfo->broadcastMidiEvent();
+    }
+    
+    midiMessages = midiOutputBuffer;
+    midiOutputBuffer.clear();
+
+    
+    
+    
     
     
     for (int channel = 0; channel < getNumOutputChannels(); ++channel)
