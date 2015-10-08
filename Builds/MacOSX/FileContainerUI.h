@@ -43,6 +43,14 @@ public:
     void buttonClicked(Button* buttonThatWasPressed);
     String lastFileLoaded;
     
+    std::vector<ScopedPointer<Slider>> knobs;
+    const int knobAmount=8;
+    const int knobsPerRow=4;
+    const int knobStartX=200;
+    const int knobStartY=10;
+    const int knobSize=40;
+    const int knobSpacing =10;
+
     void sliderValueChanged (Slider* slider);
 
     

@@ -33,3 +33,12 @@ void FileContainerManagerModel::removeFileContainer(FileContainerModel* whichPoi
         //std::cout << ' ' << *it;
     }
 }
+
+void FileContainerManagerModel::addAllShreds()
+{
+     for (int i=0; i<fileContainerModels.size(); i++)
+     {
+         fileContainerModels.at(i)->addShred();
+     }
+
+}

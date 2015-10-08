@@ -31,7 +31,7 @@ public:
     void removeAllShreds();
     
     std::vector<int> shredIds;
-    std::vector<KnobInfo> knobInfo;
+    std::vector<KnobInfo> knobInfos;
     
     FileChooser* fileChooser;
     String fileName;

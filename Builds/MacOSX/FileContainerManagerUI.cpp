@@ -9,26 +9,20 @@
 #include "FileContainerManagerUI.h"
 
 
-FileContainerManagerUI::FileContainerManagerUI(FileContainerManagerModel* managerModel):scrollbar(true)
+FileContainerManagerUI::FileContainerManagerUI(FileContainerManagerModel* managerModel)
 {
     m_managerModel=managerModel;
     
-    addAndMakeVisible (scrollbar);
-    scrollbar.setRangeLimits (0.0,1.0,dontSendNotification);
-    scrollbar.setAutoHide (false);
-    scrollbar.addListener (this);
+    //mainView = new Component();
+    //mainView.setBounds(0, 0, getWidth(), getHeight());
+    scrollableView.setBounds(0,0, getWidth(), getHeight());
+    addAndMakeVisible(scrollableView);
+
+    scrollableView.setViewedComponent(&mainView);
+
     
 }
 
-/*
-void setRange (Range<double> newRange)
-{
-    visibleRange = newRange;
-    scrollbar.setCurrentRange (visibleRange);
-    updateCursorPosition();
-    repaint();
-}
- */
 
 FileContainerManagerUI::~FileContainerManagerUI()
 {
@@ -45,7 +39,9 @@ void FileContainerManagerUI::init(){
     {
         //fileContainerUIs.pop_back();
         FileContainerUI* newFileContainerUI = new FileContainerUI(m_managerModel->fileContainerModels[i]);
+        mainView.addAndMakeVisible(newFileContainerUI);
         addAndMakeVisible(newFileContainerUI);
+    
         newFileContainerUI->setBounds(100, 100, getWidth()-200, getHeight()-200);
         fileContainerUIs.push_back(newFileContainerUI);
     }
@@ -75,12 +71,12 @@ void FileContainerManagerUI::buttonClicked(Button* buttonThatWasPressed)
     
 }
 
-void FileContainerManagerUI::scrollBarMoved (ScrollBar* scrollBarThatHasMoved, double newRangeStart)
+/*void FileContainerManagerUI::scrollBarMoved (ScrollBar* scrollBarThatHasMoved, double newRangeStart)
 {
     //if (scrollBarThatHasMoved == &scrollbar)
       //  if (! (isFollowingTransport && transportSource.isPlaying()))
         //    setRange (visibleRange.movedToStartAt (newRangeStart));
-}
+}*/
 
 void FileContainerManagerUI::updateTopPositions()
 {
@@ -92,5 +88,9 @@ void FileContainerManagerUI::updateTopPositions()
             fileContainerUIs[i]->setTopLeftPosition(0, fileContainerUIs[i-1]->getBottom());
             std::cout << i << " " << fileContainerUIs[i]->getY() << std::endl;
         }
+        
+        mainView.setBounds(0, 0, getWidth(), 100*fileContainerUIs.size());
+        
+        repaint();
     }
 }

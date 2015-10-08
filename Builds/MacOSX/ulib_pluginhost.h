@@ -45,6 +45,7 @@ public:
     void broadcastMidiEvent();
     void getMidiMessage(MidiMessage message);
     
+    
     float previousTempo;
     float previousBar;
     bool wasPlaying;

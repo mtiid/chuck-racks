@@ -12,6 +12,11 @@ FileContainerModel::FileContainerModel(chuck_inst* ck_)
 {
     ck = ck_;
     fileChooser = new FileChooser("Open Chuck File", File::nonexistent, "*.ck");
+    for (int i=0; i<8; i++)
+    {
+        knobInfos.push_back(*new KnobInfo());
+    }
+    
 }
 
 void FileContainerModel::addShred()

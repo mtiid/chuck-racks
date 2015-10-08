@@ -10,8 +10,6 @@
 #define ChuckPluginTest4_KnobInfo_h
 
 
-#endif
-
 
 enum knobType
 {
@@ -22,12 +20,15 @@ enum knobType
 
 struct KnobInfo
 {
-    KnobInfo():type(linear) {};
+    KnobInfo():value01(0.5),type(linear) {};
     float value01;
     float valueConverted;
     knobType type;
     int knobId;
+    bool active;
     
     
 };
 
+
+#endif

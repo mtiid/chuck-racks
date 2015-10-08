@@ -10,11 +10,28 @@
 #define __ChuckPluginTest4__ulib_PluginPanel__
 
 #include <stdio.h>
+#include "chuck_dl.h"
+#include "../JuceLibraryCode/JuceHeader.h"
+
 
 class PluginPanel
 {
 public:
-    PluginPanel();
+    static PluginPanel * instance;
+    
+    PluginPanel()
+    {
+        if (instance==nullptr)
+        {
+            instance = new PluginPanel();
+        }
+        else
+        {
+            std::cout<<"Tried to create another instance of PluginPanel! It's a singleton!"<<std::endl;
+        }
+        
+    }
+    
     ~PluginPanel();
     
     

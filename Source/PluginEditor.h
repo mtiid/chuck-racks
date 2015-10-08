@@ -32,7 +32,7 @@ public:
         return static_cast<ChuckPluginTest4AudioProcessor *>(getAudioProcessor());
         
     }
-    ScopedPointer<TextButton> addShredButton;
+    ScopedPointer<TextButton> addAllShredsButton;
     ScopedPointer<TextButton> browseCodeButton;
     ScopedPointer<TextButton> removeShredButton;
     ScopedPointer<TextButton> addFileContainerButton;
@@ -44,6 +44,7 @@ public:
     
     void timerCallback();
     void sliderValueChanged (Slider* slider);
+    
     
     
 };

@@ -12,7 +12,7 @@ FileContainerUI::FileContainerUI(FileContainerModel* fileContainerModel) : filen
 {
     m_fileContainerModel=fileContainerModel;
     
-    setSize(400, 400);
+    setSize(600, 400);
     
     setOpaque (true);
     
@@ -49,6 +49,34 @@ FileContainerUI::FileContainerUI(FileContainerModel* fileContainerModel) : filen
     }
     
     
+    
+    for(int i=0; i<knobAmount; i++)
+    {
+        knobs.push_back(new Slider("knob"+String(i)));
+        addAndMakeVisible(knobs.back());
+        
+        knobs.back()->setRange(0.0, 1.0);
+        knobs.back()->setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
+        knobs.back()->setColour(Slider::rotarySliderFillColourId, Colours::black);
+        knobs.back()->setColour(Slider::rotarySliderOutlineColourId, Colours::black);
+        knobs.back()->addListener(this);
+        if(i<knobsPerRow)
+        {
+            std::cout<<"row 1 "<<i<<std::endl;
+            knobs.back()->setBounds(knobStartX+(i*(knobSpacing+knobSize)), knobStartY, knobSize, knobSize);
+        }
+        else
+        {
+            std::cout<<"row 2"<<i<<std::endl;
+            knobs.back()->setBounds(knobStartX+((i-knobsPerRow)*(knobSpacing+knobSize)), knobStartY+(knobSpacing+knobSize), knobSize, knobSize);
+        }
+
+    }
+    
+    
+    
+    
+    
     // Create a file chooser control to load files into it..
     addAndMakeVisible (filenameComponent);
     filenameComponent.addListener (this);
@@ -74,12 +102,26 @@ void FileContainerUI::paint (Graphics& g)
 
 void FileContainerUI::timerCallback()
 {
-    
+    //gainKnob->setValue(getProcessor()->getParameter(VolumeKnobAudioProcessor::gainParam), NotificationType::dontSendNotification);
+    for(int i=0; i<knobs.size(); i++)
+    {
+        knobs.at(i)->setValue(m_fileContainerModel->knobInfos.at(i).value01);
+
+    }
+
 }
 
 void FileContainerUI::sliderValueChanged(juce::Slider *slider)
 {
-    
+    for(int i=0; i<knobs.size(); i++)
+    {
+    if(slider == knobs.at(i))
+        {
+        //getProcessor()->setParameter(VolumeKnob6AudioProcessor::gainParam, (float)gainKnob->getValue());
+        m_fileContainerModel->knobInfos.at(i).value01=(float)knobs.at(i)->getValue();
+        std::cout<<"Slider "<<i<<" changed" << std::endl;
+        }
+    }
 }
 
 

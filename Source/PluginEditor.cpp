@@ -19,10 +19,10 @@ ChuckPluginTest4AudioProcessorEditor::ChuckPluginTest4AudioProcessorEditor (Chuc
     LookAndFeel::setDefaultLookAndFeel(new LookAndFeel_V3());
     // This is where our plugin's editor size is set.
     setSize (600, 700);
-    addAndMakeVisible(addShredButton=new TextButton("Add Shred"));
-    addShredButton->setButtonText("Add Shred");
-    addShredButton->setBounds(0, 0, 100,100 );
-    addShredButton->addListener(this);
+    addAndMakeVisible(addAllShredsButton=new TextButton("Add All Shreds"));
+    addAllShredsButton->setButtonText("Add All Shreds");
+    addAllShredsButton->setBounds(0, 0, 100,100 );
+    addAllShredsButton->addListener(this);
     
     addAndMakeVisible(removeShredButton=new TextButton("Remove Shred"));
     removeShredButton->setButtonText("Remove Shred");
@@ -78,9 +78,9 @@ void ChuckPluginTest4AudioProcessorEditor::paint (Graphics& g)
 
 void ChuckPluginTest4AudioProcessorEditor::buttonClicked(Button *buttonThatWasPressed)
 {
-    if (buttonThatWasPressed==addShredButton)
+    if (buttonThatWasPressed==addAllShredsButton)
     {
-        getProcessor()->addShred();
+        getProcessor()->fileContainerManagerModel->addAllShreds();
     }
     
     if (buttonThatWasPressed==removeShredButton)
