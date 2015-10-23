@@ -26,8 +26,6 @@ public:
     void addFileContainer();
     void removeFileContainer(FileContainerModel* whichPointer);
     void addAllShreds();
-
-    
     
 };
 

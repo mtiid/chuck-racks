@@ -9,6 +9,20 @@
 #ifndef __ChuckPluginTest4__MainViewComponent__
 #define __ChuckPluginTest4__MainViewComponent__
 
-#include <stdio.h>
+#include "../JuceLibraryCode/JuceHeader.h"
+
+class MainViewComponent : public Component
+{
+public:
+    MainViewComponent();
+    ~MainViewComponent();
+    
+    void paint (Graphics &);
+    void resized();
+    
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainViewComponent)
+    
+};
 
 #endif /* defined(__ChuckPluginTest4__MainViewComponent__) */

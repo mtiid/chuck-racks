@@ -15,12 +15,6 @@ FileContainerManagerUI::FileContainerManagerUI(FileContainerManagerModel* manage
     
     //mainView = new Component();
     //mainView.setBounds(0, 0, getWidth(), getHeight());
-    scrollableView.setBounds(0,0, getWidth(), getHeight());
-    addAndMakeVisible(scrollableView);
-
-    scrollableView.setViewedComponent(&mainView);
-
-    
 }
 
 
@@ -32,29 +26,60 @@ FileContainerManagerUI::~FileContainerManagerUI()
 }
 
 
+void FileContainerManagerUI::paint(Graphics& g){
+    
+    g.fillAll(Colours::grey);
+    g.setColour(Colours::red);
+    g.drawRect(getLocalBounds(), 1);
+    
+}
 
 void FileContainerManagerUI::init(){
+    scrollableView.setBounds(getLocalBounds());
+    mainView.setBounds(0, 0, getWidth(), getHeight());
+    addAndMakeVisible(&scrollableView);
+    scrollableView.setViewedComponent(&mainView);
+    
+    addNewFileContainerUI();
+}
+
+void FileContainerManagerUI::addNewFileContainerUI(){
     fileContainerUIs.clear();
-    for(int i =0; i< m_managerModel->fileContainerModels.size(); i++)
+    
+    for(int i=0; i< m_managerModel->fileContainerModels.size(); i++)
     {
         //fileContainerUIs.pop_back();
         FileContainerUI* newFileContainerUI = new FileContainerUI(m_managerModel->fileContainerModels[i]);
-        mainView.addAndMakeVisible(newFileContainerUI);
-        addAndMakeVisible(newFileContainerUI);
-    
-        newFileContainerUI->setBounds(100, 100, getWidth()-200, getHeight()-200);
         fileContainerUIs.push_back(newFileContainerUI);
+        mainView.addAndMakeVisible(newFileContainerUI);
+        newFileContainerUI->setBounds(0, (getHeight()-200)*i, getWidth(), getHeight()-200);
+        newFileContainerUI->init();
     }
     
-    updateTopPositions();
+    mainView.setBounds(0, 0, getWidth()-18, (getHeight()-200)*fileContainerUIs.size());
+    /*if(scrollableView.isVerticalScrollBarShown()){
+        mainView.setBounds(0, 0, getWidth()-18, (getHeight()-200)*fileContainerUIs.size());
+    }*/
+    //updateTopPositions();
     
     
-
 }
 
-void FileContainerManagerUI::paint(Graphics& g){
-    g.fillAll(Colours::red);
-}
+/*void FileContainerManagerUI::updateTopPositions()
+{
+    if(fileContainerUIs[0]!=nullptr)
+    {
+        fileContainerUIs[0]->setTopLeftPosition(0, 0);
+        for (int i=1; i<fileContainerUIs.size(); i++)
+        {
+            fileContainerUIs[i]->setTopLeftPosition(0, fileContainerUIs[i-1]->getBottom());
+            std::cout << i << " " << fileContainerUIs[i]->getY() << std::endl;
+        }
+        
+        mainView.setBounds(0, 0, getWidth(), (getHeight()-200)*fileContainerUIs.size());
+        repaint();
+    }
+}*/
 
 void FileContainerManagerUI::timerCallback()
 {
@@ -71,26 +96,3 @@ void FileContainerManagerUI::buttonClicked(Button* buttonThatWasPressed)
     
 }
 
-/*void FileContainerManagerUI::scrollBarMoved (ScrollBar* scrollBarThatHasMoved, double newRangeStart)
-{
-    //if (scrollBarThatHasMoved == &scrollbar)
-      //  if (! (isFollowingTransport && transportSource.isPlaying()))
-        //    setRange (visibleRange.movedToStartAt (newRangeStart));
-}*/
-
-void FileContainerManagerUI::updateTopPositions()
-{
-    if(fileContainerUIs[0]!=nullptr)
-    {
-        fileContainerUIs[0]->setTopLeftPosition(0, 0);
-        for (int i=1; i<fileContainerUIs.size(); i++)
-        {
-            fileContainerUIs[i]->setTopLeftPosition(0, fileContainerUIs[i-1]->getBottom());
-            std::cout << i << " " << fileContainerUIs[i]->getY() << std::endl;
-        }
-        
-        mainView.setBounds(0, 0, getWidth(), 100*fileContainerUIs.size());
-        
-        repaint();
-    }
-}

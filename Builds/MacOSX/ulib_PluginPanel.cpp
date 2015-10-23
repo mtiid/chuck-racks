@@ -6,9 +6,62 @@
 //
 //
 
+
+
 #include "ulib_PluginPanel.h"
 #include "chuck_instr.h"
 #include "chuck_type.h"
+
+
+PluginPanel *g_pluginPanel = NULL;
+
+
+PluginPanel::PluginPanel()
+{
+
+}
+
+PluginPanel::~PluginPanel()
+{
+    
+}
+
+CK_DLL_SFUN(pluginPanel_getValue)
+{
+    //RETURN->v_float = g_hostInfo->tempo;
+    t_CKINT whichKnob = GET_NEXT_INT(ARGS);
+    
+    
+    if (g_pluginPanel->fileContainerManager!=nullptr) {
+        t_CKINT shred_id = SHRED->xid;
+    }
+    
+    RETURN->v_float = 0.5;
+}
+
+
+t_CKBOOL pluginPanel_query( Chuck_DL_Query * QUERY)
+{
+    
+    g_pluginPanel = new PluginPanel;
+    
+    QUERY->begin_class(QUERY, "PluginPanel", "Object");
+    
+    QUERY->add_sfun(QUERY, pluginPanel_getValue, "float", "getValue"); //return type, chuck function name
+    
+    QUERY->add_arg(QUERY, "int", "whichKnob"); // first argument
+    
+    QUERY->end_class(QUERY);
+    
+    return TRUE;
+
+    
+    
+}
+
+
+
+
 
 /*
 t_CKBOOL pluginhost_query( Chuck_DL_Query * QUERY )

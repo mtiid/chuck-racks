@@ -11,6 +11,7 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 #include "ulib_pluginhost.h"
+#include "ulib_PluginPanel.h"
 
 
 
@@ -35,6 +36,7 @@ ChuckPluginTest4AudioProcessor::ChuckPluginTest4AudioProcessor()
     ck = libchuck_create(&options);
     
     libchuck_add_module(ck, (void*)pluginhost_query);
+    libchuck_add_module(ck, (void*)pluginPanel_query);
     
     input_buffer = new float[options.buffer_size*options.num_channels];
     output_buffer = new float[options.buffer_size*options.num_channels];

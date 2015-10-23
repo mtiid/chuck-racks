@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include "FileContainerManagerModel.h"
+#include "MainViewComponent.h"
 
 
 class FileContainerManagerUI : public Component, public ButtonListener, public Timer, Slider::Listener
@@ -33,12 +34,14 @@ public:
     void buttonClicked(Button* buttonThatWasPressed);
     void sliderValueChanged (Slider* slider);
     std::vector<ScopedPointer<FileContainerUI>> fileContainerUIs;
-    void updateTopPositions();
+    //void updateTopPositions();
     void init();
+    
+    void addNewFileContainerUI();
     
 private:
     Viewport scrollableView;
-    Component mainView;
+    MainViewComponent mainView;
     
 };
 

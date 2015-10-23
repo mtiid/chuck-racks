@@ -6,17 +6,22 @@
 //
 //
 
+
+
 #ifndef __ChuckPluginTest4__ulib_PluginPanel__
 #define __ChuckPluginTest4__ulib_PluginPanel__
 
 #include <stdio.h>
 #include "chuck_dl.h"
 #include "../JuceLibraryCode/JuceHeader.h"
-
+#include "FileContainerManagerModel.h"
 
 class PluginPanel
 {
 public:
+ 
+
+    /*
     static PluginPanel * instance;
     
     PluginPanel()
@@ -31,11 +36,23 @@ public:
         }
         
     }
+     */
+
+    PluginPanel();
     
     ~PluginPanel();
     
+    FileContainerManagerModel * fileContainerManager;
+    
+
     
     
 };
 
-#endif /* defined(__ChuckPluginTest4__ulib_PluginPanel__) */
+
+extern PluginPanel *g_pluginPanel;
+
+t_CKBOOL pluginPanel_query( Chuck_DL_Query * QUERY );
+
+
+#endif /*defined(__ChuckPluginTest4__ulib_PluginPanel__)*/
