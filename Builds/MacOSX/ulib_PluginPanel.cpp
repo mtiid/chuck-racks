@@ -11,6 +11,7 @@
 #include "ulib_PluginPanel.h"
 #include "chuck_instr.h"
 #include "chuck_type.h"
+#include "chuck_vm.h"
 
 
 PluginPanel *g_pluginPanel = NULL;

@@ -16,19 +16,28 @@ FileContainerUI::FileContainerUI(FileContainerModel* fileContainerModel) : filen
 void FileContainerUI::init(){
     setOpaque (true);
     
+    addAndMakeVisible(showHideCodeEditorButton=new ToggleButton);
+    showHideCodeEditorButton->setToggleState(true, NotificationType::dontSendNotification);
+    showHideCodeEditorButton->setButtonText("^");
+    showHideCodeEditorButton->setBounds(2, 2, 20,20);
+    showHideCodeEditorButton->setColour(TextButton::ColourIds::buttonColourId, Colours::whitesmoke);
+    showHideCodeEditorButton->addListener(this);
+    
     addAndMakeVisible(addShredButton=new TextButton("Add Shred"));
-    addShredButton->setButtonText("Add Shred");
-    addShredButton->setBoundsRelative(0, 0, .1,.1);
+    addShredButton->setButtonText("+ Shred");
+    addShredButton->setBounds(22, 2, 40,20);
+    addShredButton->setColour(TextButton::ColourIds::buttonColourId, Colours::whitesmoke);
     addShredButton->addListener(this);
     
     addAndMakeVisible(removeShredButton=new TextButton("Remove Shred"));
-    removeShredButton->setButtonText("Remove Shred");
-    removeShredButton->setBoundsRelative(.2, 0, .1,.1 );
+    removeShredButton->setButtonText("- Shred");
+    removeShredButton->setBounds(65, 2, 40, 20);
     removeShredButton->addListener(this);
     
     // Create the editor..
     addAndMakeVisible (codeEditor = new CodeEditorComponent (m_fileContainerModel->codeDocument, &ckTokeniser));
-    codeEditor->setBoundsRelative(0.0, 0.2, 1.0, 0.8);
+    
+    codeEditor->setBounds(3, 24, getWidth()-5, getHeight()-25);
     
     if (codeEditor->getDocument().getAllContent()=="") {
         codeEditor->loadContent ("\n"
@@ -50,7 +59,7 @@ void FileContainerUI::init(){
     
     
     
-    for(int i=0; i<knobAmount; i++)
+    /*for(int i=0; i<knobAmount; i++)
     {
         knobs.push_back(new Slider("knob"+String(i)));
         addAndMakeVisible(knobs.back());
@@ -71,16 +80,12 @@ void FileContainerUI::init(){
             knobs.back()->setBounds(knobStartX+((i-knobsPerRow)*(knobSpacing+knobSize)), knobStartY+(knobSpacing+knobSize), knobSize, knobSize);
         }
         
-    }
-    
-    
-    
-    
+    }*/
+
     
     // Create a file chooser control to load files into it..
     addAndMakeVisible (filenameComponent);
     filenameComponent.addListener (this);
-    
     
     startTimer(50);
     timerCallback();
@@ -95,7 +100,9 @@ FileContainerUI::~FileContainerUI()
 
 void FileContainerUI::paint (Graphics& g)
 {
-    g.fillAll(Colours::blue);
+    g.fillAll(Colours::white);
+    g.setColour(Colours::darkgrey);
+    g.drawRect(getLocalBounds(), 1);
 }
 
 
@@ -131,24 +138,25 @@ void FileContainerUI::filenameComponentChanged (FilenameComponent*)
 
 void FileContainerUI::buttonClicked(Button *buttonThatWasPressed)
 {
-    if (buttonThatWasPressed==addShredButton)
+
+    if (buttonThatWasPressed == showHideCodeEditorButton) {
+        codeEditor->setVisible(showHideCodeEditorButton->getToggleState());
+    }
+    
+    else if (buttonThatWasPressed==addShredButton)
     {
         m_fileContainerModel->addShred();
     }
     
-    if (buttonThatWasPressed==removeShredButton)
+    else if (buttonThatWasPressed==removeShredButton)
     {
         m_fileContainerModel->removeLastShred();
     }
     
-
-    
-    
-    
-    //if (buttonThatWasPressed==browseCodeButton) {
-    //    getProcessor()->fileManager.openBrowser();
-    //    lastFileLoaded=getProcessor()->fileManager.fileName;
-    //}
+    /*if (buttonThatWasPressed==browseCodeButton) {
+        getProcessor()->fileManager.openBrowser();
+        lastFileLoaded=getProcessor()->fileManager.fileName;
+    }*/
 }
 
 

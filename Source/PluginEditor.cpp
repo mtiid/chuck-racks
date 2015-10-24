@@ -10,23 +10,25 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "CustomLookAndFeel.h"
 
 
 //==============================================================================
 ChuckPluginTest4AudioProcessorEditor::ChuckPluginTest4AudioProcessorEditor (ChuckPluginTest4AudioProcessor* ownerFilter)
     : AudioProcessorEditor (ownerFilter)
 {
-    LookAndFeel::setDefaultLookAndFeel(new LookAndFeel_V3());
+    LookAndFeel::setDefaultLookAndFeel(new CustomLookAndFeel());
+    
     // This is where our plugin's editor size is set.
     setSize (600, 700);
     addAndMakeVisible(addAllShredsButton=new TextButton("Add All Shreds"));
-    addAllShredsButton->setButtonText("Add All Shreds");
-    addAllShredsButton->setBounds(0, 0, 100,100 );
+    addAllShredsButton->setButtonText("+ All Shreds");
+    addAllShredsButton->setBounds(2, 2, 80,80 );
     addAllShredsButton->addListener(this);
     
     addAndMakeVisible(removeShredButton=new TextButton("Remove Shred"));
-    removeShredButton->setButtonText("Remove Shred");
-    removeShredButton->setBounds(120, 0, 100,100 );
+    removeShredButton->setButtonText("- All Shreds");
+    removeShredButton->setBounds(84, 2, 80,80 );
     removeShredButton->addListener(this);
     
     //addAndMakeVisible(browseCodeButton=new TextButton("Browse Code"));
@@ -34,31 +36,20 @@ ChuckPluginTest4AudioProcessorEditor::ChuckPluginTest4AudioProcessorEditor (Chuc
     //browseCodeButton->setBounds(120, 120, 100,100 );
     //browseCodeButton->addListener(this);
     
-    addAndMakeVisible(addFileContainerButton=new TextButton("Add file container"));
-    addFileContainerButton->setButtonText("Add file container");
-    addFileContainerButton->setBounds(220, 0, 100,100 );
+    addAndMakeVisible(addFileContainerButton=new TextButton("Add Code Editor"));
+    addFileContainerButton->setButtonText("+ Code Editor");
+    addFileContainerButton->setBounds(166, 2, 80,80 );
     addFileContainerButton->addListener(this);
     
     
-    addAndMakeVisible(managerUI=new FileContainerManagerUI(getProcessor()->fileContainerManagerModel));
-    managerUI->setBounds(0,130, getWidth(), getHeight()-130);
+    addAndMakeVisible(managerUI=new FileContainerManagerUI(getProcessor()->getFileContainerManagerModel()));
+    managerUI->setBounds(0,90, getWidth(), getHeight()-90);
     managerUI->init();
-     
-    
-    /*
-    getProcessor()->codeEditorDemo->setBounds(0, 130, getWidth(),getHeight()-130);
-    
-    addAndMakeVisible(getProcessor()->codeEditorDemo);
-    getProcessor()->codeEditorDemo->setBounds(0, 130, getWidth(),getHeight()-130);
-    */
     
     //lastFileLoaded=getProcessor()->fileManager.fileName;
     
     startTimer(50);
     timerCallback();
-    
-
-    
 }
 
 ChuckPluginTest4AudioProcessorEditor::~ChuckPluginTest4AudioProcessorEditor()
@@ -69,18 +60,14 @@ ChuckPluginTest4AudioProcessorEditor::~ChuckPluginTest4AudioProcessorEditor()
 void ChuckPluginTest4AudioProcessorEditor::paint (Graphics& g)
 {
     g.fillAll (Colours::white);
-    g.setColour (Colours::black);
-    g.setFont (15.0f);
-    //g.drawFittedText ("File Loaded: " + lastFileLoaded,
-      //                0, 0, getWidth(), getHeight(),
-        //              Justification::topRight, 1);
+
 }
 
 void ChuckPluginTest4AudioProcessorEditor::buttonClicked(Button *buttonThatWasPressed)
 {
     if (buttonThatWasPressed==addAllShredsButton)
     {
-        getProcessor()->fileContainerManagerModel->addAllShreds();
+        getProcessor()->getFileContainerManagerModel()->addAllShreds();
     }
     
     if (buttonThatWasPressed==removeShredButton)
@@ -90,7 +77,7 @@ void ChuckPluginTest4AudioProcessorEditor::buttonClicked(Button *buttonThatWasPr
     
     if (buttonThatWasPressed==addFileContainerButton)
     {
-        getProcessor()->fileContainerManagerModel->addFileContainer();
+        getProcessor()->getFileContainerManagerModel()->addFileContainer();
         managerUI->init();
     }
         

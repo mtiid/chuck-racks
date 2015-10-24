@@ -47,7 +47,7 @@ ChuckPluginTest4AudioProcessor::ChuckPluginTest4AudioProcessor()
     codeEditorDemo = new CodeEditorDemo();
     
     fileContainerManagerModel = new FileContainerManagerModel(ck);
-    fileContainerManagerModel->addFileContainer();
+    //fileContainerManagerModel->addFileContainer();
     
     g_hostInfo->midiInputBufferP=(&midiInputBuffer);
     g_hostInfo->midiOutputBufferP=(&midiOutputBuffer);
@@ -257,10 +257,6 @@ void ChuckPluginTest4AudioProcessor::processBlock (AudioSampleBuffer& buffer, Mi
     
     g_hostInfo->previousTempo=lastPosInfo.bpm;
     
-    
-    
-    
-    
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
     // guaranteed to be empty - they may contain garbage).
@@ -287,7 +283,7 @@ void ChuckPluginTest4AudioProcessor::processBlock (AudioSampleBuffer& buffer, Mi
     
     
     
-        MidiBuffer::Iterator midiIterator(midiMessages); //iterator to loop through our midi buffer that gets passed into the process block
+    MidiBuffer::Iterator midiIterator(midiMessages); //iterator to loop through our midi buffer that gets passed into the process block
     MidiBuffer tempMidiBuffer; // temporary midi buffer where we do ou "work" and store transposed midi messages
     MidiMessage tempMessage; // temporary midi message to store each midi message from our incoming buffer
     int midiMessagePos; //temporary varirable to store the location of each midi message that we iterate through

@@ -25,26 +25,28 @@ public:
     void init();
     
     void paint (Graphics& g);
+   
+    
+    ScopedPointer<CodeEditorComponent> codeEditor;
+    
+    void timerCallback();
+    void filenameComponentChanged (FilenameComponent*) override;
+    void buttonClicked(Button* buttonThatWasPressed);
+    
+    bool isShowingCodeEditor(){return codeEditor->isVisible();};
+    
+private:
     
     ChuckTokeniser ckTokeniser;
     FileContainerModel* m_fileContainerModel;
     FilenameComponent filenameComponent;
     
-    ScopedPointer<CodeEditorComponent> codeEditor;
+    String lastFileLoaded;
     
-    void timerCallback();
-    
-    void filenameComponentChanged (FilenameComponent*) override;
-    
-    int bottom;
-    void updateBottom();
-    
+    ScopedPointer<ToggleButton> showHideCodeEditorButton;
     ScopedPointer<TextButton> addShredButton;
     ScopedPointer<TextButton> browseCodeButton;
     ScopedPointer<TextButton> removeShredButton;
-    
-    void buttonClicked(Button* buttonThatWasPressed);
-    String lastFileLoaded;
     
     std::vector<ScopedPointer<Slider>> knobs;
     const int knobAmount=8;
@@ -53,8 +55,6 @@ public:
     const int knobStartY=10;
     const int knobSize=40;
     const int knobSpacing =10;
-
-    void sliderValueChanged (Slider* slider);
-
     
+    void sliderValueChanged (Slider* slider);
 };

@@ -70,24 +70,16 @@ public:
     void getStateInformation (MemoryBlock& destData);
     void setStateInformation (const void* data, int sizeInBytes);
     
-    MidiBuffer midiInputBuffer;
-    MidiBuffer midiOutputBuffer;
-
-    
-    
     
     //*********************************************************************
+
+    
     void testAddShred();
     void addShred();
     void addAllShreds();
     void removeShred();
     
-    CodeEditorDemo* codeEditorDemo;
-    
-    AudioPlayHead::CurrentPositionInfo lastPosInfo;
-    
-    FileContainerManagerModel* fileContainerManagerModel;
-    
+    FileContainerManagerModel* getFileContainerManagerModel(){return fileContainerManagerModel;};
     
 private:
     //==============================================================================
@@ -97,8 +89,14 @@ private:
     float *input_buffer;
     float *output_buffer;
     
+    MidiBuffer midiInputBuffer;
+    MidiBuffer midiOutputBuffer;
     
-    
+    AudioPlayHead::CurrentPositionInfo lastPosInfo;
+    ScopedPointer<CodeEditorDemo> codeEditorDemo;
+
+    ScopedPointer<FileContainerManagerModel> fileContainerManagerModel;
+
 };
 
 #endif  // PLUGINPROCESSOR_H_INCLUDED

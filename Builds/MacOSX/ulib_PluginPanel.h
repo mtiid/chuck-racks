@@ -42,7 +42,7 @@ public:
     
     ~PluginPanel();
     
-    FileContainerManagerModel * fileContainerManager;
+    ScopedPointer<FileContainerManagerModel> fileContainerManager;
     
 
     

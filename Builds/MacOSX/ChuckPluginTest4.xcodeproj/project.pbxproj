@@ -48,6 +48,7 @@
 		9FE14C00037A41A8DD5E08D2 /* DiscRecording.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 206E6FCCC03DD6647D442E10 /* DiscRecording.framework */; };
 		A2CA3E5194D4C2AA9BBEF7CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37B77C1D428879308032C28 /* Cocoa.framework */; };
 		A3F73C9BBCEF82BBD4194C84 /* juce_RTAS_DigiCode1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17ACA4CBDC69CE56BA09A95C /* juce_RTAS_DigiCode1.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		A7497A411BDB4C0E00978094 /* CustomLookAndFeel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7497A3F1BDB4C0E00978094 /* CustomLookAndFeel.cpp */; };
 		AA32D3B2BA9F4B483A6FF28A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 685B3E834B154838B44ADE93 /* AudioToolbox.framework */; };
 		AAD4B0E8A247341AA6926B16 /* BinaryData5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06AB8A0B1B00A6D34C0D35F4 /* BinaryData5.cpp */; };
 		B0383B06BBDA8B1742566F4D /* juce_graphics.mm in Sources */ = {isa = PBXBuildFile; fileRef = E1751A5A7FEE45D52467E46C /* juce_graphics.mm */; };
@@ -709,6 +710,9 @@
 		A6A8DEE3EA729A22AC7CEA27 /* juce_StretchableObjectResizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_StretchableObjectResizer.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/layout/juce_StretchableObjectResizer.cpp; sourceTree = SOURCE_ROOT; };
 		A6AAC9ECFF4C5A1C46F2586A /* juce_MidiMessageCollector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_MidiMessageCollector.h; path = ../../JuceLibraryCode/modules/juce_audio_devices/midi_io/juce_MidiMessageCollector.h; sourceTree = SOURCE_ROOT; };
 		A70EC58B6F02EAD52414FA22 /* juce_ChildProcess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ChildProcess.h; path = ../../JuceLibraryCode/modules/juce_core/threads/juce_ChildProcess.h; sourceTree = SOURCE_ROOT; };
+		A7497A3C1BDB040C00978094 /* libchuck.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = libchuck.cpp; path = ../../libchuck/libchuck.cpp; sourceTree = "<group>"; };
+		A7497A3F1BDB4C0E00978094 /* CustomLookAndFeel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CustomLookAndFeel.cpp; sourceTree = "<group>"; };
+		A7497A401BDB4C0E00978094 /* CustomLookAndFeel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomLookAndFeel.h; sourceTree = "<group>"; };
 		A74D8CD0279D98404EC67CE5 /* juce_DirectoryIterator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_DirectoryIterator.h; path = ../../JuceLibraryCode/modules/juce_core/files/juce_DirectoryIterator.h; sourceTree = SOURCE_ROOT; };
 		A7A03CCE71A5B5A9D021439D /* juce_data_structures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_data_structures.h; path = ../../JuceLibraryCode/modules/juce_data_structures/juce_data_structures.h; sourceTree = SOURCE_ROOT; };
 		A7ABBE9FB1DA230D2018881D /* juce_CharacterFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_CharacterFunctions.h; path = ../../JuceLibraryCode/modules/juce_core/text/juce_CharacterFunctions.h; sourceTree = SOURCE_ROOT; };
@@ -1427,6 +1431,7 @@
 		34636A7707BE4F4C4C2E0B6A /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				A7497A3C1BDB040C00978094 /* libchuck.cpp */,
 				5A7D26DD4FE258623D696E23 /* ChuckPluginTest4 */,
 				7C0DC26007E36336E49667CD /* Juce Modules */,
 				847781C784B873B2EAAC25CD /* Juce Library Code */,
@@ -1811,6 +1816,8 @@
 				6E2B742E1AEC9A0100BFE2AA /* FilenameComponentExtra.h */,
 				6E9D22121BD9E17E00BE87A0 /* MainViewComponent.cpp */,
 				6E9D22131BD9E17E00BE87A0 /* MainViewComponent.h */,
+				A7497A3F1BDB4C0E00978094 /* CustomLookAndFeel.cpp */,
+				A7497A401BDB4C0E00978094 /* CustomLookAndFeel.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -2963,6 +2970,7 @@
 				6B583EB9DB34CB2A0E525B49 /* juce_audio_devices.mm in Sources */,
 				88E6EAA9890D7F9714818D38 /* juce_audio_formats.mm in Sources */,
 				48AAC558F8025EF895AA6C25 /* juce_audio_processors.mm in Sources */,
+				A7497A411BDB4C0E00978094 /* CustomLookAndFeel.cpp in Sources */,
 				40C9387EC19BBE64507A7CCE /* juce_core.mm in Sources */,
 				E1FF868C3EA0587900E59690 /* juce_cryptography.mm in Sources */,
 				6E2B742F1AEC9A0100BFE2AA /* FilenameComponentExtra.cpp in Sources */,
@@ -3026,6 +3034,7 @@
 		575463838B00036FC9858A1F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
@@ -3049,8 +3058,9 @@
 					../../JuceLibraryCode,
 					../../JuceLibraryCode/modules,
 					"$(inherited)",
-					"$(PROJECT_DIR)/../../../libchuck/",
-					"$(PROJECT_DIR)/../../../libchuck/chuck/src",
+					"$(PROJECT_DIR)/../../libchuck/",
+					"$(PROJECT_DIR)/../../libchuck/chuck/src",
+					"~/sdks/VST3",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
@@ -3072,6 +3082,7 @@
 		5B1EB995899C50930C112453 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
@@ -3096,8 +3107,9 @@
 					../../JuceLibraryCode,
 					../../JuceLibraryCode/modules,
 					"$(inherited)",
-					"$(PROJECT_DIR)/../../../libchuck/",
-					"$(PROJECT_DIR)/../../../libchuck/chuck/src",
+					"$(PROJECT_DIR)/../../libchuck/",
+					"$(PROJECT_DIR)/../../libchuck/chuck/src",
+					"~/sdks/VST3",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";

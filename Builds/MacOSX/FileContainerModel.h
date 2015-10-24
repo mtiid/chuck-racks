@@ -33,7 +33,7 @@ public:
     std::vector<int> shredIds;
     std::vector<KnobInfo> knobInfos;
     
-    FileChooser* fileChooser;
+    ScopedPointer<FileChooser> fileChooser;
     String fileName;
     String filePath;
     

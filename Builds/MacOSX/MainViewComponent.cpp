@@ -21,7 +21,6 @@ MainViewComponent::~MainViewComponent()
 void MainViewComponent::paint(Graphics& g)
 {
     g.fillAll(Colours::darkblue);
-    
     g.setColour(Colours::green);
     g.drawRect(getLocalBounds(), 1);
 }
