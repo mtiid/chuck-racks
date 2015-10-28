@@ -22,13 +22,13 @@ ChuckPluginTest4AudioProcessorEditor::ChuckPluginTest4AudioProcessorEditor (Chuc
     // This is where our plugin's editor size is set.
     setSize (600, 700);
     addAndMakeVisible(addAllShredsButton=new TextButton("Add All Shreds"));
-    addAllShredsButton->setButtonText("+ All Shreds");
     addAllShredsButton->setBounds(2, 2, 80,80 );
+    addAllShredsButton->setButtonText("+ All Shreds");
     addAllShredsButton->addListener(this);
     
     addAndMakeVisible(removeShredButton=new TextButton("Remove Shred"));
-    removeShredButton->setButtonText("- All Shreds");
     removeShredButton->setBounds(84, 2, 80,80 );
+    removeShredButton->setButtonText("- All Shreds");
     removeShredButton->addListener(this);
     
     //addAndMakeVisible(browseCodeButton=new TextButton("Browse Code"));
@@ -37,8 +37,8 @@ ChuckPluginTest4AudioProcessorEditor::ChuckPluginTest4AudioProcessorEditor (Chuc
     //browseCodeButton->addListener(this);
     
     addAndMakeVisible(addFileContainerButton=new TextButton("Add Code Editor"));
-    addFileContainerButton->setButtonText("+ Code Editor");
     addFileContainerButton->setBounds(166, 2, 80,80 );
+    addFileContainerButton->setButtonText("+ Code Editor");
     addFileContainerButton->addListener(this);
     
     

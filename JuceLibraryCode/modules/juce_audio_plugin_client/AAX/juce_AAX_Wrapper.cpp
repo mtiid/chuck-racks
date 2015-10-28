@@ -2,7 +2,7 @@
   ==============================================================================
 
    This file is part of the JUCE library.
-   Copyright (c) 2013 - Raw Material Software Ltd.
+   Copyright (c) 2015 - ROLI Ltd.
 
    Permission is granted to use this software under the terms of either:
    a) the GPL v2 (or any later version)
@@ -308,7 +308,7 @@ struct AAXClasses
             }
         }
 
-        virtual AAX_Result GetViewSize (AAX_Point* viewSize) const override
+        AAX_Result GetViewSize (AAX_Point* viewSize) const override
         {
             if (component != nullptr)
             {
@@ -329,12 +329,16 @@ struct AAXClasses
         {
             if (component != nullptr && component->pluginEditor != nullptr)
             {
-                AudioProcessorEditor::ParameterControlHighlightInfo info;
-                info.parameterIndex  = getParamIndexFromID (paramID);
-                info.isHighlighted   = isHighlighted;
-                info.suggestedColour = getColourFromHighlightEnum (colour);
+                if (! isBypassParam (paramID))
+                {
+                    AudioProcessorEditor::ParameterControlHighlightInfo info;
+                    info.parameterIndex  = getParamIndexFromID (paramID);
+                    info.isHighlighted   = (isHighlighted != 0);
+                    info.suggestedColour = getColourFromHighlightEnum (colour);
 
-                component->pluginEditor->setControlHighlight (info);
+                    component->pluginEditor->setControlHighlight (info);
+                }
+
                 return AAX_SUCCESS;
             }
 
@@ -425,7 +429,7 @@ struct AAXClasses
                                 public AudioProcessorListener
     {
     public:
-        JuceAAX_Processor()  : sampleRate (0), lastBufferSize (1024)
+        JuceAAX_Processor()  : sampleRate (0), lastBufferSize (1024), maxBufferSize (1024)
         {
             pluginInstance = createPluginFilterOfType (AudioProcessor::wrapperType_AAX);
             pluginInstance->setPlayHead (this);
@@ -463,13 +467,28 @@ struct AAXClasses
             return AAX_SUCCESS;
         }
 
+        juce::MemoryBlock& getTemporaryChunkMemory() const
+        {
+            ScopedLock sl (perThreadDataLock);
+            const Thread::ThreadID currentThread = Thread::getCurrentThreadId();
+
+            if (ChunkMemoryBlock::Ptr m = perThreadFilterData [currentThread])
+                return m->data;
+
+            ChunkMemoryBlock::Ptr m (new ChunkMemoryBlock());
+            perThreadFilterData.set (currentThread, m);
+            return m->data;
+        }
+
         AAX_Result GetChunkSize (AAX_CTypeID chunkID, uint32_t* oSize) const override
         {
             if (chunkID != juceChunkType)
                 return AAX_CEffectParameters::GetChunkSize (chunkID, oSize);
 
+            juce::MemoryBlock& tempFilterData = getTemporaryChunkMemory();
             tempFilterData.reset();
             pluginInstance->getStateInformation (tempFilterData);
+
             *oSize = (uint32_t) tempFilterData.getSize();
             return AAX_SUCCESS;
         }
@@ -479,8 +498,10 @@ struct AAXClasses
             if (chunkID != juceChunkType)
                 return AAX_CEffectParameters::GetChunk (chunkID, oChunk);
 
+            juce::MemoryBlock& tempFilterData = getTemporaryChunkMemory();
+
             if (tempFilterData.getSize() == 0)
-                pluginInstance->getStateInformation (tempFilterData);
+                return 20700 /*AAX_ERROR_PLUGIN_API_INVALID_THREAD*/;
 
             oChunk->fSize = (int32_t) tempFilterData.getSize();
             tempFilterData.copyTo (oChunk->fData, 0, tempFilterData.getSize());
@@ -495,6 +516,18 @@ struct AAXClasses
                 return AAX_CEffectParameters::SetChunk (chunkID, chunk);
 
             pluginInstance->setStateInformation ((void*) chunk->fData, chunk->fSize);
+
+            // Notify Pro Tools that the parameters were updated.
+            // Without it a bug happens in these circumstances:
+            // * A preset is saved with the RTAS version of the plugin (".tfx" preset format).
+            // * The preset is loaded in PT 10 using the AAX version.
+            // * The session is then saved, and closed.
+            // * The saved session is loaded, but acting as if the preset was never loaded.
+            const int numParameters = pluginInstance->getNumParameters();
+
+            for (int i = 0; i < numParameters; ++i)
+                SetParameterNormalizedValue (IndexAsParamID (i), (double) pluginInstance->getParameter(i));
+
             return AAX_SUCCESS;
         }
 
@@ -542,13 +575,41 @@ struct AAXClasses
             return result;
         }
 
+        AAX_Result GetParameterValueFromString (AAX_CParamID paramID, double* result, const AAX_IString& text) const override
+        {
+            if (isBypassParam (paramID))
+            {
+                *result = (text.Get()[0] == 'B') ? 1 : 0;
+                return AAX_SUCCESS;
+            }
+
+            if (AudioProcessorParameter* param = pluginInstance->getParameters() [getParamIndexFromID (paramID)])
+            {
+                *result = param->getValueForText (text.Get());
+                return AAX_SUCCESS;
+            }
+
+            return AAX_CEffectParameters::GetParameterValueFromString (paramID, result, text);
+        }
+
         AAX_Result GetParameterStringFromValue (AAX_CParamID paramID, double value, AAX_IString* result, int32_t maxLen) const override
         {
             if (isBypassParam (paramID))
-                result->Set (value == 0 ? "Off"
-                                        : (maxLen >= 8 ? "Bypassed" : "Byp"));
+            {
+                result->Set (value == 0 ? "Off" : (maxLen >= 8 ? "Bypassed" : "Byp"));
+            }
             else
-                result->Set (pluginInstance->getParameterText (getParamIndexFromID (paramID), maxLen).toRawUTF8());
+            {
+                const int paramIndex = getParamIndexFromID (paramID);
+                juce::String text;
+
+                if (AudioProcessorParameter* param = pluginInstance->getParameters() [paramIndex])
+                    text = param->getText ((float) value, maxLen);
+                else
+                    text = pluginInstance->getParameterText (paramIndex, maxLen);
+
+                result->Set (text.toRawUTF8());
+            }
 
             return AAX_SUCCESS;
         }
@@ -624,7 +685,11 @@ struct AAXClasses
         AAX_Result GetParameterDefaultNormalizedValue (AAX_CParamID paramID, double* result) const override
         {
             if (! isBypassParam (paramID))
+            {
                 *result = (double) pluginInstance->getParameterDefaultValue (getParamIndexFromID (paramID));
+
+                jassert (*result >= 0 && *result <= 1.0f);
+            }
 
             return AAX_SUCCESS;
         }
@@ -777,10 +842,8 @@ struct AAXClasses
 
                 for (uint32_t i = 0; i < numMidiEvents; ++i)
                 {
-                    // (This 8-byte alignment is a workaround to a bug in the AAX SDK. Hopefully can be
-                    // removed in future when the packet structure size is fixed)
-                    const AAX_CMidiPacket& m = *addBytesToPointer (midiStream->mBuffer,
-                                                                   i * ((sizeof (AAX_CMidiPacket) + 7) & ~(size_t) 7));
+                    const AAX_CMidiPacket& m = midiStream->mBuffer[i];
+
                     jassert ((int) m.mTimestamp < bufferSize);
                     midiBuffer.addEvent (m.mData, (int) m.mLength,
                                          jlimit (0, (int) bufferSize - 1, (int) m.mTimestamp));
@@ -792,7 +855,20 @@ struct AAXClasses
                 if (lastBufferSize != bufferSize)
                 {
                     lastBufferSize = bufferSize;
-                    pluginInstance->prepareToPlay (sampleRate, bufferSize);
+                    pluginInstance->setPlayConfigDetails (pluginInstance->getNumInputChannels(),
+                                                          pluginInstance->getNumOutputChannels(),
+                                                          sampleRate, bufferSize);
+
+                    if (bufferSize > maxBufferSize)
+                    {
+                        // we only call prepareToPlay here if the new buffer size is larger than
+                        // the one used last time prepareToPlay was called.
+                        // currently, this should never actually happen, because as of Pro Tools 12,
+                        // the maximum possible value is 1024, and we call prepareToPlay with that
+                        // value during initialisation.
+                        pluginInstance->prepareToPlay (sampleRate, bufferSize);
+                        maxBufferSize = bufferSize;
+                    }
                 }
 
                 const ScopedLock sl (pluginInstance->getCallbackLock());
@@ -852,9 +928,11 @@ struct AAXClasses
 
             for (int parameterIndex = 0; parameterIndex < numParameters; ++parameterIndex)
             {
+                AAX_CString paramName (audioProcessor.getParameterName (parameterIndex, 31).toRawUTF8());
+
                 AAX_IParameter* parameter
                     = new AAX_CParameter<float> (IndexAsParamID (parameterIndex),
-                                                 audioProcessor.getParameterName (parameterIndex, 31).toRawUTF8(),
+                                                 paramName,
                                                  audioProcessor.getParameterDefaultValue (parameterIndex),
                                                  AAX_CLinearTaperDelegate<float, 0>(),
                                                  AAX_CNumberDisplayDelegate<float, 3>(),
@@ -894,6 +972,7 @@ struct AAXClasses
 
             audioProcessor.setPlayConfigDetails (numberOfInputChannels, numberOfOutputChannels, sampleRate, lastBufferSize);
             audioProcessor.prepareToPlay (sampleRate, lastBufferSize);
+            maxBufferSize = lastBufferSize;
 
             check (Controller()->SetSignalLatency (audioProcessor.getLatencySamples()));
         }
@@ -905,11 +984,23 @@ struct AAXClasses
         Array<float*> channelList;
         int32_t juceChunkIndex;
         AAX_CSampleRate sampleRate;
-        int lastBufferSize;
+        int lastBufferSize, maxBufferSize;
 
-        // tempFilterData is initialized in GetChunkSize.
-        // To avoid generating it again in GetChunk, we keep it as a member.
-        mutable juce::MemoryBlock tempFilterData;
+        struct ChunkMemoryBlock  : public ReferenceCountedObject
+        {
+            juce::MemoryBlock data;
+
+            typedef ReferenceCountedObjectPtr<ChunkMemoryBlock> Ptr;
+        };
+
+        // temporary filter data is generated in GetChunkSize
+        // and the size of the data returned. To avoid generating
+        // it again in GetChunk, we need to store it somewhere.
+        // However, as GetChunkSize and GetChunk can be called
+        // on different threads, we store it in thread dependant storage
+        // in a hash map with the thread id as a key.
+        mutable HashMap<Thread::ThreadID, ChunkMemoryBlock::Ptr> perThreadFilterData;
+        CriticalSection perThreadDataLock;
 
         JUCE_DECLARE_NON_COPYABLE (JuceAAX_Processor)
     };
@@ -998,7 +1089,10 @@ struct AAXClasses
         // This value needs to match the RTAS wrapper's Type ID, so that
         // the host knows that the RTAS/AAX plugins are equivalent.
         properties->AddProperty (AAX_eProperty_PlugInID_Native,     'jcaa' + channelConfigIndex);
+
+       #if ! JucePlugin_AAXDisableAudioSuite
         properties->AddProperty (AAX_eProperty_PlugInID_AudioSuite, 'jyaa' + channelConfigIndex);
+       #endif
 
        #if JucePlugin_AAXDisableMultiMono
         properties->AddProperty (AAX_eProperty_Constraint_MultiMonoSupport, false);
@@ -1024,7 +1118,12 @@ struct AAXClasses
         check (descriptor.AddProcPtr ((void*) JuceAAX_GUI::Create,        kAAX_ProcPtrID_Create_EffectGUI));
         check (descriptor.AddProcPtr ((void*) JuceAAX_Processor::Create,  kAAX_ProcPtrID_Create_EffectParameters));
 
+       #ifdef JucePlugin_PreferredChannelConfigurations_AAX
+        const short channelConfigs[][2] = { JucePlugin_PreferredChannelConfigurations_AAX };
+       #else
         const short channelConfigs[][2] = { JucePlugin_PreferredChannelConfigurations };
+       #endif
+
         const int numConfigs = numElementsInArray (channelConfigs);
 
         // You need to actually add some configurations to the JucePlugin_PreferredChannelConfigurations

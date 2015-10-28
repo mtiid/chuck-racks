@@ -32,6 +32,7 @@ public:
         return static_cast<ChuckPluginTest4AudioProcessor *>(getAudioProcessor());
         
     }
+    
     ScopedPointer<TextButton> addAllShredsButton;
     ScopedPointer<TextButton> browseCodeButton;
     ScopedPointer<TextButton> removeShredButton;
