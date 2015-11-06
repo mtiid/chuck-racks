@@ -10,15 +10,17 @@
 
 FileContainerUI::FileContainerUI(FileContainerModel* fileContainerModel) : filenameComponent("File", File::nonexistent, true, false, false, "*.ck", String::empty,"Choose a ChucK file to open it in the editor")
 {
-    mFileContainerModel=fileContainerModel;
+    mFileContainerModel = fileContainerModel;
+    mCodeEditorVisible = mFileContainerModel->getCanBeEdited();
 }
 
 void FileContainerUI::init(){
-    //setOpaque (true);
-    setSize(getParentComponent()->getWidth(), getParentComponent()->getHeight()-200);
+    updateSize();
+
+    //setSize(getParentComponent()->getWidth(), getParentComponent()->getHeight()-200);
     addAndMakeVisible(showHideCodeEditorButton=new ToggleButton);
     showHideCodeEditorButton->setBounds(2, 2, 20,20);
-    showHideCodeEditorButton->setToggleState(true, NotificationType::dontSendNotification);
+    showHideCodeEditorButton->setToggleState(mCodeEditorVisible, NotificationType::dontSendNotification);
     showHideCodeEditorButton->setButtonText("^");
     showHideCodeEditorButton->setColour(TextButton::ColourIds::buttonColourId, Colours::whitesmoke);
     showHideCodeEditorButton->addListener(this);
@@ -35,10 +37,8 @@ void FileContainerUI::init(){
     removeShredButton->addListener(this);
     
     // Create the editor..
-    addAndMakeVisible (codeEditor = new CodeEditorComponent (mFileContainerModel->codeDocument, &ckTokeniser));
-    
-    codeEditor->setBounds(3, 24, getWidth()-5, getHeight()-25);
-    
+    addChildComponent(codeEditor = new CodeEditorComponent (mFileContainerModel->codeDocument, &ckTokeniser));
+
     if (codeEditor->getDocument().getAllContent()=="") {
         codeEditor->loadContent ("\n"
                                  "/*"
@@ -51,12 +51,10 @@ void FileContainerUI::init(){
                                  "SqrOsc osc=>dac; \n"
                                  "1::second=>now; \n"
                                  );
-    }
-    else
-    {
+    }else {
         codeEditor->loadContent(codeEditor->getDocument().getAllContent());
+        std::cout << "content loaded" << std::endl;
     }
-    
     
     
     /*for(int i=0; i<knobAmount; i++)
@@ -81,7 +79,11 @@ void FileContainerUI::init(){
         }
         
     }*/
-
+    
+    codeEditor->setBounds(3, 24, 596, 410);
+    //codeEditor->setBounds(3, 24, getParentComponent()->getWidth()-4, getParentComponent()->getHeight()-200);
+    //codeEditor->setBounds(3, 24, getWidth()-5, getHeight()-25);
+    codeEditor->setVisible(mCodeEditorVisible);
     
     // Create a file chooser control to load files into it..
     addAndMakeVisible (filenameComponent);
@@ -89,6 +91,7 @@ void FileContainerUI::init(){
     
     startTimer(50);
     //timerCallback();
+    //updateSize();
 }
 
 
@@ -103,6 +106,21 @@ void FileContainerUI::paint (Graphics& g)
     g.fillAll(Colours::white);
     g.setColour(Colours::darkgrey);
     g.drawRect(getLocalBounds(), 1);
+}
+
+void FileContainerUI::updateSize(){
+    std::cout << "update size" << std::endl;
+    if (mCodeEditorVisible) {
+        setSize(600, 410);
+        //setSize(getParentComponent()->getWidth(), getParentComponent()->getHeight()-200);
+    }else{
+        setSize(600, 25);
+        //setSize(getParentComponent()->getWidth(), 25);
+    }
+}
+
+void FileContainerUI::showHideCodeEditor(){
+    
 }
 
 
@@ -140,17 +158,11 @@ void FileContainerUI::buttonClicked(Button *buttonThatWasPressed)
 {
 
     if (buttonThatWasPressed == showHideCodeEditorButton) {
-        mCodeEditorVisble = showHideCodeEditorButton->getToggleState();
-        
-        codeEditor->setVisible(mCodeEditorVisble);
-        mFileContainerModel->setCanBeEdited(mCodeEditorVisble);
-        
-        if (mCodeEditorVisble) {
-            setSize(getParentComponent()->getWidth(), getParentComponent()->getParentComponent()->getHeight()-200);
-        }else{
-            setSize(getParentComponent()->getWidth(), 25);
-        }
-        
+        mCodeEditorVisible = showHideCodeEditorButton->getToggleState();
+        codeEditor->setVisible(mCodeEditorVisible);
+        mFileContainerModel->setCanBeEdited(mCodeEditorVisible);
+        std::cout << "Code Editor: " << mCodeEditorVisible << std::endl;
+        updateSize();
         sendChangeMessage();
     }
     

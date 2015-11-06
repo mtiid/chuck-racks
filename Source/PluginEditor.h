@@ -26,7 +26,9 @@ public:
 
     //==============================================================================
     // This is just a standard Juce paint method...
-    void paint (Graphics& g);
+    void paint (Graphics& g) override;
+    void resized() override;
+    
     ChuckPluginTest4AudioProcessor * getProcessor() const
     {
         return static_cast<ChuckPluginTest4AudioProcessor *>(getAudioProcessor());

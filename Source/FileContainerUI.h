@@ -38,7 +38,7 @@ public:
     void filenameComponentChanged (FilenameComponent*) override;
     void buttonClicked(Button* buttonThatWasPressed);
     
-    bool isShowingCodeEditor(){return mCodeEditorVisble;};
+    bool isShowingCodeEditor(){return mCodeEditorVisible;};
     
 private:
     
@@ -62,6 +62,10 @@ private:
     const int knobSpacing =10;
     
     void sliderValueChanged (Slider* slider);
+    void updateSize();
     
-    bool mCodeEditorVisble;
+    bool mCodeEditorVisible;
+    
+    void showHideCodeEditor();
+    
 };

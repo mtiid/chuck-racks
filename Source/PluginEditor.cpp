@@ -63,6 +63,11 @@ void ChuckPluginTest4AudioProcessorEditor::paint (Graphics& g)
 
 }
 
+void ChuckPluginTest4AudioProcessorEditor::resized()
+{
+    
+}
+
 void ChuckPluginTest4AudioProcessorEditor::buttonClicked(Button *buttonThatWasPressed)
 {
     if (buttonThatWasPressed==addAllShredsButton)
@@ -78,7 +83,7 @@ void ChuckPluginTest4AudioProcessorEditor::buttonClicked(Button *buttonThatWasPr
     if (buttonThatWasPressed==addFileContainerButton)
     {
         getProcessor()->getFileContainerManagerModel()->addFileContainer();
-        managerUI->init();
+        managerUI->addNewFileContainerUI(getProcessor()->getFileContainerManagerModel()->fileContainerModels.back());
     }
         
     

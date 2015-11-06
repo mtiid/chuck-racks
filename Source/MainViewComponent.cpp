@@ -20,8 +20,8 @@ MainViewComponent::~MainViewComponent()
 
 void MainViewComponent::paint(Graphics& g)
 {
-    g.fillAll(Colours::darkblue);
-    g.setColour(Colours::green);
+    g.fillAll(Colours::lightgrey);
+    g.setColour(Colours::black);
     g.drawRect(getLocalBounds(), 1);
 }
 

@@ -8,7 +8,7 @@
 
 #include "FileContainerModel.h"
 
-FileContainerModel::FileContainerModel(chuck_inst* ck_)
+FileContainerModel::FileContainerModel(chuck_inst* ck_) : canBeEdited(true)
 {
     ck = ck_;
     fileChooser = new FileChooser("Open Chuck File", File::nonexistent, "*.ck");

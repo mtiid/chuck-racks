@@ -27,13 +27,15 @@ public:
     FileContainerManagerUI(FileContainerManagerModel* managerModel);
     ~FileContainerManagerUI();
     
-    void init ();
-    void paint(Graphics& g);
-    void addNewFileContainerUI();
+    void paint(Graphics& g) override;
+    void resized() override;
+    
+    void init();
+    void addNewFileContainerUI(FileContainerModel* fileContainerModel);
     void changeListenerCallback(ChangeBroadcaster *source);
     
 private:
-    FileContainerManagerModel* m_managerModel;
+    FileContainerManagerModel* mManagerModel;
     OwnedArray<FileContainerUI> fileContainerUIs;
     
     Viewport scrollableView;
