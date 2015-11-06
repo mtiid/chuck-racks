@@ -23,7 +23,7 @@ FileContainerManagerUI::~FileContainerManagerUI(){
 
 void FileContainerManagerUI::paint(Graphics& g){
     g.fillAll(Colour(250, 250, 250));
-    g.setColour(Colours::darkgrey);
+    g.setColour(Colours::lightgrey);
     g.drawRect(getLocalBounds(), 1);
     g.setColour(Colours::darkgrey);
     g.drawFittedText("Please add a ChucK Editor", getWidth() * 0.5, getHeight() * 0.5, 100, 50, juce::Justification::centred, 2);
@@ -39,6 +39,7 @@ void FileContainerManagerUI::init(){
     mainView.setBounds(getLocalBounds());
     addAndMakeVisible(&scrollableView);
     scrollableView.setViewedComponent(&mainView);
+    scrollableView.setScrollBarsShown(true, false);
 
     //addNewFileContainerUI();
     //std::cout << "model size: " << m_managerModel->fileContainerModels.size() << std::endl;
@@ -53,6 +54,7 @@ void FileContainerManagerUI::addNewFileContainerUI(FileContainerModel* fileConta
 
     newFileContainerUI->addChangeListener(this);
     mainView.addAndMakeVisible(newFileContainerUI);
+
     newFileContainerUI->init();
     updateFileContainerUILayout();
 
@@ -68,12 +70,18 @@ void FileContainerManagerUI::updateFileContainerUILayout(){
         if (i==0) {
             currentFileContainerUI->setTopLeftPosition(0, 0);
         }else{
-            currentFileContainerUI->setTopLeftPosition(0, fileContainerUIs[i-1]->getBottom());
+            currentFileContainerUI->setTopLeftPosition(0, fileContainerUIs[i-1]->getBottom()-1);
         }
     }
     
-    if (fileContainerUIs.size() > 0)
-        mainView.setBounds(0, 0, getWidth(), fileContainerUIs.getLast()->getBottom());
+    if (fileContainerUIs.size() > 0){
+        //int editorWidth = getParentComponent()->getWidth();
+        //if (fileContainerUIs.getLast()->getBottom() > 560) {
+        //    editorWidth = editorWidth - 20;
+       // }
+        mainView.setBounds(0, 0, getParentComponent()->getWidth(), fileContainerUIs.getLast()->getBottom());
+        
+    }
     
 }
 

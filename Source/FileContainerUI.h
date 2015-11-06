@@ -66,6 +66,4 @@ private:
     
     bool mCodeEditorVisible;
     
-    void showHideCodeEditor();
-    
 };
