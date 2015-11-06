@@ -103,8 +103,12 @@ FileContainerUI::~FileContainerUI()
 
 void FileContainerUI::paint (Graphics& g)
 {
-    g.fillAll(Colours::white);
-    g.setColour(Colours::darkgrey);
+    if (mCodeEditorVisible) {
+        g.fillAll(Colour(108, 122, 137));
+    }else{
+        g.fillAll(Colour(238, 238, 238));
+    }
+    
     g.drawRect(getLocalBounds(), 1);
 }
 

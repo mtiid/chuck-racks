@@ -22,7 +22,7 @@ FileContainerManagerUI::~FileContainerManagerUI(){
 }
 
 void FileContainerManagerUI::paint(Graphics& g){
-    g.fillAll(Colours::lightgrey);
+    g.fillAll(Colour(250, 250, 250));
     g.setColour(Colours::darkgrey);
     g.drawRect(getLocalBounds(), 1);
     g.setColour(Colours::darkgrey);

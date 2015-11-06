@@ -15,37 +15,41 @@
 
 //==============================================================================
 ChuckPluginTest4AudioProcessorEditor::ChuckPluginTest4AudioProcessorEditor (ChuckPluginTest4AudioProcessor* ownerFilter)
-    : AudioProcessorEditor (ownerFilter)
+: AudioProcessorEditor (ownerFilter)
 {
     LookAndFeel::setDefaultLookAndFeel(new CustomLookAndFeel());
     
     // This is where our plugin's editor size is set.
     setSize (600, 700);
-    addAndMakeVisible(addAllShredsButton=new TextButton("Add All Shreds"));
-    addAllShredsButton->setBounds(2, 2, 80,80 );
-    addAllShredsButton->setButtonText("+ All Shreds");
-    addAllShredsButton->addListener(this);
-    
-    addAndMakeVisible(removeShredButton=new TextButton("Remove Shred"));
-    removeShredButton->setBounds(84, 2, 80,80 );
-    removeShredButton->setButtonText("- All Shreds");
-    removeShredButton->addListener(this);
-    
-    //addAndMakeVisible(browseCodeButton=new TextButton("Browse Code"));
-    //browseCodeButton->setButtonText("Browse Code");
-    //browseCodeButton->setBounds(120, 120, 100,100 );
-    //browseCodeButton->addListener(this);
-    
-    addAndMakeVisible(addFileContainerButton=new TextButton("Add Code Editor"));
-    addFileContainerButton->setBounds(166, 2, 80,80 );
-    addFileContainerButton->setButtonText("+ Code Editor");
-    addFileContainerButton->addListener(this);
-    
     
     addAndMakeVisible(managerUI=new FileContainerManagerUI(getProcessor()->getFileContainerManagerModel()));
-    managerUI->setBounds(0,90, getWidth(), getHeight()-90);
+    managerUI->setBounds(0,40, getWidth(), getHeight()-40);
     managerUI->init();
     
+    addAllShredsButton = new DrawableButton("Add All Shreds", DrawableButton::ButtonStyle::ImageFitted);
+    ScopedPointer<XmlElement> addAllShredSVGUp(XmlDocument::parse(BinaryData::addshrediconUp_svg));
+    ScopedPointer<XmlElement> addAllShredSVGDown(XmlDocument::parse(BinaryData::addshrediconDown_svg));
+    
+    addAllShredsButton->setImages(Drawable::createFromSVG(*addAllShredSVGUp), Drawable::createFromSVG(*addAllShredSVGUp), Drawable::createFromSVG(*addAllShredSVGDown));
+    addAndMakeVisible(addAllShredsButton);
+    addAllShredsButton->setBounds(2, 4, 32,32);
+    addAllShredsButton->addListener(this);
+    
+    removeAllShredsButton = new DrawableButton("Remove All Shreds", DrawableButton::ButtonStyle::ImageFitted);
+    ScopedPointer<XmlElement> removeAllShredSVGUp(XmlDocument::parse(BinaryData::removeAllShredUp_svg));
+    ScopedPointer<XmlElement> removeAllShredSVGDown(XmlDocument::parse(BinaryData::removeAllShredDown_svg));
+    removeAllShredsButton->setImages(Drawable::createFromSVG(*removeAllShredSVGUp), Drawable::createFromSVG(*removeAllShredSVGUp), Drawable::createFromSVG(*removeAllShredSVGDown));
+    addAndMakeVisible(removeAllShredsButton);
+    removeAllShredsButton->setBounds(40, 4, 32,32);
+    removeAllShredsButton->addListener(this);
+    
+    addNewFileContainerButton = new DrawableButton("Add Code Editor", DrawableButton::ButtonStyle::ImageFitted);
+    ScopedPointer<XmlElement> addFileContainerSVGUp(XmlDocument::parse(BinaryData::addcodeeditorUp_svg));
+    ScopedPointer<XmlElement> addFileContainerSVGDown(XmlDocument::parse(BinaryData::addcodeeditorDown_svg));
+    addNewFileContainerButton->setImages(Drawable::createFromSVG(*addFileContainerSVGUp), Drawable::createFromSVG(*addFileContainerSVGUp), Drawable::createFromSVG(*addFileContainerSVGDown));
+    addAndMakeVisible(addNewFileContainerButton);
+    addNewFileContainerButton->setBounds(78, 4, 32, 32);
+    addNewFileContainerButton->addListener(this);
     //lastFileLoaded=getProcessor()->fileManager.fileName;
     
     startTimer(50);
@@ -59,7 +63,9 @@ ChuckPluginTest4AudioProcessorEditor::~ChuckPluginTest4AudioProcessorEditor()
 //==============================================================================
 void ChuckPluginTest4AudioProcessorEditor::paint (Graphics& g)
 {
-    g.fillAll (Colours::white);
+    //g.fillAll (Colour(27, 43, 55));
+    g.fillAll(Colour(238, 238, 238));
+    //g.fillAll(Colour::fromString("#34495e"));
 
 }
 
@@ -75,12 +81,12 @@ void ChuckPluginTest4AudioProcessorEditor::buttonClicked(Button *buttonThatWasPr
         getProcessor()->getFileContainerManagerModel()->addAllShreds();
     }
     
-    if (buttonThatWasPressed==removeShredButton)
+    if (buttonThatWasPressed==removeAllShredsButton)
     {
         getProcessor()->removeShred();
     }
     
-    if (buttonThatWasPressed==addFileContainerButton)
+    if (buttonThatWasPressed==addNewFileContainerButton)
     {
         getProcessor()->getFileContainerManagerModel()->addFileContainer();
         managerUI->addNewFileContainerUI(getProcessor()->getFileContainerManagerModel()->fileContainerModels.back());

@@ -35,10 +35,10 @@ public:
         
     }
     
-    ScopedPointer<TextButton> addAllShredsButton;
+    //ScopedPointer<TextButton> addAllShredsButton;
     ScopedPointer<TextButton> browseCodeButton;
-    ScopedPointer<TextButton> removeShredButton;
-    ScopedPointer<TextButton> addFileContainerButton;
+    //ScopedPointer<TextButton> removeShredButton;
+    //ScopedPointer<TextButton> addFileContainerButton;
     
     ScopedPointer<FileContainerManagerUI> managerUI;
     
@@ -49,7 +49,10 @@ public:
     void sliderValueChanged (Slider* slider);
     
     
-    
+private:
+    ScopedPointer<DrawableButton> addAllShredsButton;
+    ScopedPointer<DrawableButton> removeAllShredsButton;
+    ScopedPointer<DrawableButton> addNewFileContainerButton;
 };
 
 

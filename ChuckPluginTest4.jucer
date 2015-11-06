@@ -12,10 +12,18 @@
               jucerVersion="4.0.1">
   <MAINGROUP id="hkay95" name="ChuckPluginTest4">
     <GROUP id="{21BA8925-7DBA-0C76-6E9B-2F1D8B0C76CF}" name="Resources">
-      <FILE id="o0agND" name="addcodeeditor.svg" compile="0" resource="1"
-            file="Resources/addcodeeditor.svg"/>
-      <FILE id="C5wJvf" name="addshredicon.svg" compile="0" resource="1"
-            file="Resources/addshredicon.svg"/>
+      <FILE id="C5wJvf" name="addshrediconUp.svg" compile="0" resource="1"
+            file="Resources/addshrediconUp.svg"/>
+      <FILE id="lMzoPL" name="addshrediconDown.svg" compile="0" resource="1"
+            file="Resources/addshrediconDown.svg"/>
+      <FILE id="iB4CG4" name="removeAllShredUp.svg" compile="0" resource="1"
+            file="Resources/removeAllShredUp.svg"/>
+      <FILE id="OmDfwy" name="removeAllShredDown.svg" compile="0" resource="1"
+            file="Resources/removeAllShredDown.svg"/>
+      <FILE id="o0agND" name="addcodeeditorUp.svg" compile="0" resource="1"
+            file="Resources/addcodeeditorUp.svg"/>
+      <FILE id="uJ1Afu" name="addcodeeditorDown.svg" compile="0" resource="1"
+            file="Resources/addcodeeditorDown.svg"/>
     </GROUP>
     <GROUP id="{D0073CB7-6ED0-2BAE-61D7-940DBA09947F}" name="Source">
       <FILE id="fafnpS" name="ChuckTokeniser.cpp" compile="1" resource="0"
