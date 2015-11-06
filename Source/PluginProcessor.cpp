@@ -182,7 +182,7 @@ void ChuckPluginTest4AudioProcessor::releaseResources()
     // spare memory, etc.
 }
 
-void ChuckPluginTest4AudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+void ChuckPluginTest4AudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {    
     // Get current position/time info from host, otherwise set to some default
     AudioPlayHead::CurrentPositionInfo pos;
