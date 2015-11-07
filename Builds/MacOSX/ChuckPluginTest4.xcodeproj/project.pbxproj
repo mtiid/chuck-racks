@@ -2221,7 +2221,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = ("~/sdks/VST3", "../../JuceLibraryCode", "../../JuceLibraryCode/modules", "$(PROJECT_DIR)/../../libchuck", "$(PROJECT_DIR)/../../libchuck/chuck/src", "$(inherited)");
+				HEADER_SEARCH_PATHS = ("\"~/SDKs/VST3 SDK\"", "../../JuceLibraryCode", "../../JuceLibraryCode/modules", "$(PROJECT_DIR)/../../libchuck", "$(PROJECT_DIR)/../../libchuck/chuck/src", "$(inherited)");
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
 				LIBRARY_SEARCH_PATHS = ("$(inherited)", "\"$(PROJECT_DIR)/../../libraries/mac\"");
@@ -2251,7 +2251,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = ("~/sdks/VST3", "../../JuceLibraryCode", "../../JuceLibraryCode/modules", "$(PROJECT_DIR)/../../libchuck", "$(PROJECT_DIR)/../../libchuck/chuck/src", "$(inherited)");
+				HEADER_SEARCH_PATHS = ("\"~/SDKs/VST3 SDK\"", "../../JuceLibraryCode", "../../JuceLibraryCode/modules", "$(PROJECT_DIR)/../../libchuck", "$(PROJECT_DIR)/../../libchuck/chuck/src", "$(inherited)");
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
 				LIBRARY_SEARCH_PATHS = ("$(inherited)", "\"$(PROJECT_DIR)/../../libraries/mac\"");
