@@ -26,9 +26,7 @@ public:
     FileContainerUI(FileContainerModel* fileContainerModel);
     ~FileContainerUI();
     
-    
     void init();
-    
     void paint (Graphics& g);
    
     
@@ -48,10 +46,14 @@ private:
     
     String lastFileLoaded;
     
-    ScopedPointer<ToggleButton> showHideCodeEditorButton;
-    ScopedPointer<TextButton> addShredButton;
+    ScopedPointer<DrawableButton> showHideCodeEditorButton;
+    //ScopedPointer<ToggleButton> showHideCodeEditorButton;
+    //ScopedPointer<TextButton> addShredButton;
     ScopedPointer<TextButton> browseCodeButton;
-    ScopedPointer<TextButton> removeShredButton;
+    //ScopedPointer<TextButton> removeShredButton;
+    
+    ScopedPointer<DrawableButton> addShredButton;
+    ScopedPointer<DrawableButton> removeShredButton;
     
     std::vector<ScopedPointer<Slider>> knobs;
     const int knobAmount=8;

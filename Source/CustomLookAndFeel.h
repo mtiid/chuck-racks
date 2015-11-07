@@ -18,8 +18,7 @@ public:
     ~CustomLookAndFeel();
     
 private:
-    void drawTextEditorOutline(Graphics& g, int width, int height, TextEditor& textEditor);
-  
+    void drawTextEditorOutline  (Graphics& g, int width, int height, TextEditor& textEditor) override;    
 };
 
 #endif /* defined(__ChuckPluginTest4__CustomLookAndFeel__) */

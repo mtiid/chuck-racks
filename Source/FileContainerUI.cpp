@@ -18,23 +18,65 @@ void FileContainerUI::init(){
     updateSize();
 
     //setSize(getParentComponent()->getWidth(), getParentComponent()->getHeight()-200);
-    addAndMakeVisible(showHideCodeEditorButton=new ToggleButton);
-    showHideCodeEditorButton->setBounds(2, 2, 20,20);
-    showHideCodeEditorButton->setToggleState(mCodeEditorVisible, NotificationType::dontSendNotification);
-    showHideCodeEditorButton->setButtonText("^");
-    showHideCodeEditorButton->setColour(TextButton::ColourIds::buttonColourId, Colours::whitesmoke);
-    showHideCodeEditorButton->addListener(this);
     
-    addAndMakeVisible(addShredButton=new TextButton("Add Shred"));
-    addShredButton->setBounds(22, 2, 40,20);
-    addShredButton->setButtonText("+ Shred");
-    addShredButton->setColour(TextButton::ColourIds::buttonColourId, Colours::whitesmoke);
+    //addAndMakeVisible(showHideCodeEditorButton=new ToggleButton);
+    //showHideCodeEditorButton->setBounds(2, 5, 20,20);
+    //showHideCodeEditorButton->setToggleState(mCodeEditorVisible, NotificationType::dontSendNotification);
+    //showHideCodeEditorButton->setButtonText("^");
+    //showHideCodeEditorButton->setColour(TextButton::ColourIds::buttonColourId, Colours::whitesmoke);
+    //showHideCodeEditorButton->addListener(this);
+    
+    ScopedPointer<XmlElement> expandSVGUp(XmlDocument::parse(BinaryData::collapse_svg));
+    ScopedPointer<XmlElement> collapseSVGDown(XmlDocument::parse(BinaryData::expand_svg));
+    showHideCodeEditorButton = new DrawableButton("Show/Hide Editor", DrawableButton::ButtonStyle::ImageFitted);
+    showHideCodeEditorButton->setClickingTogglesState(true);
+
+    showHideCodeEditorButton->setToggleState(true, dontSendNotification);
+    //showHideCodeEditorButton = new ToolbarButton(1,String(), Drawable::createFromSVG(*expandSVGUp), Drawable::createFromSVG(*collapseSVGDown));
+    showHideCodeEditorButton->setImages(Drawable::createFromSVG(*expandSVGUp),
+                                        nullptr,
+                                        Drawable::createFromSVG(*collapseSVGDown),
+                                        Drawable::createFromSVG(*expandSVGUp),
+                                        Drawable::createFromSVG(*collapseSVGDown),
+                                        Drawable::createFromSVG(*collapseSVGDown),
+                                        Drawable::createFromSVG(*expandSVGUp),
+                                        Drawable::createFromSVG(*collapseSVGDown));
+    showHideCodeEditorButton->setColour(DrawableButton::backgroundOnColourId, Colour(0.0f,0.0f,0.0f,0.0f));
+    addAndMakeVisible(showHideCodeEditorButton);
+    showHideCodeEditorButton->setBounds(2, 5, 20,20);
+    showHideCodeEditorButton->addListener(this);
+    //showHideCodeEditorButton->setToggleState(false, sendNotification);
+    
+    //addAndMakeVisible(addShredButton=new TextButton("Add Shred"));
+    //addShredButton->setBounds(22, 2, 40,20);
+    //addShredButton->setButtonText("+ Shred");
+    //addShredButton->setColour(TextButton::ColourIds::buttonColourId, Colours::whitesmoke);
+    //addShredButton->addListener(this);
+    
+    //addAndMakeVisible(removeShredButton=new TextButton("Remove Shred"));
+    //removeShredButton->setBounds(65, 2, 40, 20);
+    //removeShredButton->setButtonText("- Shred");
+    //removeShredButton->addListener(this);
+    
+    
+    addShredButton = new DrawableButton("Add Shreds", DrawableButton::ButtonStyle::ImageFitted);
+    ScopedPointer<XmlElement> addShredSVGUp(XmlDocument::parse(BinaryData::addshrediconUp_svg));
+    ScopedPointer<XmlElement> addShredSVGDown(XmlDocument::parse(BinaryData::addshrediconDown_svg));
+    
+    addShredButton->setImages(Drawable::createFromSVG(*addShredSVGUp), Drawable::createFromSVG(*addShredSVGUp), Drawable::createFromSVG(*addShredSVGDown));
+    addAndMakeVisible(addShredButton);
+    addShredButton->setBounds(28, 5, 20,20);
     addShredButton->addListener(this);
     
-    addAndMakeVisible(removeShredButton=new TextButton("Remove Shred"));
-    removeShredButton->setBounds(65, 2, 40, 20);
-    removeShredButton->setButtonText("- Shred");
+    removeShredButton = new DrawableButton("Remove All Shreds", DrawableButton::ButtonStyle::ImageFitted);
+    ScopedPointer<XmlElement> removeShredSVGUp(XmlDocument::parse(BinaryData::removeAllShredUp_svg));
+    ScopedPointer<XmlElement> removeShredSVGDown(XmlDocument::parse(BinaryData::removeAllShredDown_svg));
+    removeShredButton->setImages(Drawable::createFromSVG(*removeShredSVGUp), Drawable::createFromSVG(*removeShredSVGUp), Drawable::createFromSVG(*removeShredSVGDown));
+    addAndMakeVisible(removeShredButton);
+    removeShredButton->setBounds(52, 5, 20, 20);
     removeShredButton->addListener(this);
+    
+    
     
     // Create the editor..
     addChildComponent(codeEditor = new CodeEditorComponent (mFileContainerModel->codeDocument, &ckTokeniser));
@@ -80,7 +122,7 @@ void FileContainerUI::init(){
         
     }*/
     
-    codeEditor->setBounds(3, 24, 596, 410);
+    codeEditor->setBounds(3, 30, 596, 410);
     //codeEditor->setBounds(3, 24, getParentComponent()->getWidth()-4, getParentComponent()->getHeight()-200);
     //codeEditor->setBounds(3, 24, getWidth()-5, getHeight()-25);
     codeEditor->setVisible(mCodeEditorVisible);
@@ -104,11 +146,12 @@ FileContainerUI::~FileContainerUI()
 void FileContainerUI::paint (Graphics& g)
 {
     if (mCodeEditorVisible) {
-        g.fillAll(Colour(108, 122, 137));
+        g.fillAll(Colour(100, 106, 127));
     }else{
-        g.fillAll(Colour(238, 238, 238));
+        g.fillAll(Colour(50, 53, 64));
     }
     
+    g.setColour(Colour(50, 53, 64));
     g.drawRect(getLocalBounds(), 1);
 }
 
@@ -121,7 +164,7 @@ void FileContainerUI::updateSize(){
         setSize(editorWidth, 410);
         //setSize(getParentComponent()->getWidth(), getParentComponent()->getHeight()-200);
     }else{
-        setSize(editorWidth, 25);
+        setSize(editorWidth, 30);
         //setSize(getParentComponent()->getWidth(), 25);
     }
 }
@@ -162,6 +205,8 @@ void FileContainerUI::buttonClicked(Button *buttonThatWasPressed)
 
     if (buttonThatWasPressed == showHideCodeEditorButton) {
         mCodeEditorVisible = showHideCodeEditorButton->getToggleState();
+        //showHideCodeEditorButton->setToggleState(mCodeEditorVisible, dontSendNotification);
+        //std::cout << "toggle state: " << showHideCodeEditorButton->getToggleState() << std::endl;
         codeEditor->setVisible(mCodeEditorVisible);
         mFileContainerModel->setCanBeEdited(mCodeEditorVisible);
         std::cout << "Code Editor: " << mCodeEditorVisible << std::endl;

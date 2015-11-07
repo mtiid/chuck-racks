@@ -31,6 +31,9 @@ CustomLookAndFeel::CustomLookAndFeel()
     this->setColour(ListBox::backgroundColourId, backgroundGrey);
     this->setColour(ListBox::outlineColourId, Colours::black);
     
+    //Window
+    this->setColour(ScrollBar::trackColourId, Colours::red);
+    
 }
 
 CustomLookAndFeel::~CustomLookAndFeel()
@@ -53,5 +56,3 @@ void CustomLookAndFeel::drawTextEditorOutline (Graphics& g, int width, int heigh
         drawBevel (g, 0, 0, width, height + 2, 3, shadowColour, shadowColour);
     }
 }
-
-

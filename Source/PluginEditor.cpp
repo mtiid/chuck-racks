@@ -63,9 +63,8 @@ ChuckPluginTest4AudioProcessorEditor::~ChuckPluginTest4AudioProcessorEditor()
 //==============================================================================
 void ChuckPluginTest4AudioProcessorEditor::paint (Graphics& g)
 {
-    //g.fillAll (Colour(27, 43, 55));
-    g.fillAll(Colour(238, 238, 238));
-    //g.fillAll(Colour::fromString("#34495e"));
+    g.fillAll (Colour(38, 40, 49));
+    //g.fillAll(Colour(238, 238, 238));
 
 }
 

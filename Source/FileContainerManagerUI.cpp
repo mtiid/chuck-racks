@@ -22,9 +22,9 @@ FileContainerManagerUI::~FileContainerManagerUI(){
 }
 
 void FileContainerManagerUI::paint(Graphics& g){
-    g.fillAll(Colour(250, 250, 250));
-    g.setColour(Colours::lightgrey);
-    g.drawRect(getLocalBounds(), 1);
+    g.fillAll(Colour(38, 40, 49));
+    //g.setColour(Colours::lightgrey);
+    //g.drawRect(getLocalBounds(), 1);
     g.setColour(Colours::darkgrey);
     g.drawFittedText("Please add a ChucK Editor", getWidth() * 0.5, getHeight() * 0.5, 100, 50, juce::Justification::centred, 2);
 }
@@ -40,7 +40,6 @@ void FileContainerManagerUI::init(){
     addAndMakeVisible(&scrollableView);
     scrollableView.setViewedComponent(&mainView);
     scrollableView.setScrollBarsShown(true, false);
-
     //addNewFileContainerUI();
     //std::cout << "model size: " << m_managerModel->fileContainerModels.size() << std::endl;
     for (int i=0; i<mManagerModel->fileContainerModels.size(); i++){
@@ -80,7 +79,6 @@ void FileContainerManagerUI::updateFileContainerUILayout(){
         //    editorWidth = editorWidth - 20;
        // }
         mainView.setBounds(0, 0, getParentComponent()->getWidth(), fileContainerUIs.getLast()->getBottom());
-        
     }
     
 }
