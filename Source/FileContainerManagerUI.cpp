@@ -74,10 +74,6 @@ void FileContainerManagerUI::updateFileContainerUILayout(){
     }
     
     if (fileContainerUIs.size() > 0){
-        //int editorWidth = getParentComponent()->getWidth();
-        //if (fileContainerUIs.getLast()->getBottom() > 560) {
-        //    editorWidth = editorWidth - 20;
-       // }
         mainView.setBounds(0, 0, getParentComponent()->getWidth(), fileContainerUIs.getLast()->getBottom());
     }
     

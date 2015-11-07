@@ -22,8 +22,6 @@ class FileContainerManagerUI :  public Component,
 {
 public:
     
-    //ScrollBar scrollbar;
-    
     FileContainerManagerUI(FileContainerManagerModel* managerModel);
     ~FileContainerManagerUI();
     

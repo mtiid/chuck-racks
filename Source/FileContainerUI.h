@@ -47,11 +47,7 @@ private:
     String lastFileLoaded;
     
     ScopedPointer<DrawableButton> showHideCodeEditorButton;
-    //ScopedPointer<ToggleButton> showHideCodeEditorButton;
-    //ScopedPointer<TextButton> addShredButton;
     ScopedPointer<TextButton> browseCodeButton;
-    //ScopedPointer<TextButton> removeShredButton;
-    
     ScopedPointer<DrawableButton> addShredButton;
     ScopedPointer<DrawableButton> removeShredButton;
     
