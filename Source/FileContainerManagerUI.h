@@ -38,8 +38,16 @@ private:
     
     Viewport scrollableView;
     MainViewComponent mainView;
+    TabbedComponent tabView;
     
     void updateFileContainerUILayout();
+    
+    enum ViewMode{
+        TabView = 0,
+        RackView
+    };
+    
+    ViewMode currentViewMode;
     
 };
 

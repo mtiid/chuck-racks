@@ -10,29 +10,10 @@
 
 CustomLookAndFeel::CustomLookAndFeel()
 {
-    Colour backgroundGrey = Colour::fromRGB(209,209,209);
-    Colour lightGrey = Colour::fromRGB(99,99,99);
-    Colour darkGrey = Colour::fromRGB(61,61,61);
     
-    //buttons
-    this->setColour(TextButton::buttonColourId, Colours::whitesmoke);
-    
-    //sliders
-    this->setColour(Slider::thumbColourId, Colours::yellow);
-    this->setColour(Slider::backgroundColourId, backgroundGrey);
-    this->setColour(Slider::textBoxTextColourId, Colours::black);
-    this->setColour(Slider::textBoxHighlightColourId, Colours::black);
-    this->setColour(Slider::textBoxOutlineColourId, Colours::black);
-    
-    //other
-    this->setColour(TextEditor::outlineColourId, Colours::black);
-    this->setColour(TextEditor::focusedOutlineColourId, Colours::black);
-    this->setColour(TextEditor::backgroundColourId, backgroundGrey);
-    this->setColour(ListBox::backgroundColourId, backgroundGrey);
-    this->setColour(ListBox::outlineColourId, Colours::black);
-    
-    //Window
+    // Window
     this->setColour(ScrollBar::trackColourId, Colours::red);
+    this->setColour(TabbedButtonBar::tabTextColourId, Colour(38, 40, 49));
     
 }
 

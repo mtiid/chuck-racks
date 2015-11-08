@@ -9,7 +9,7 @@
 #include "FileContainerManagerUI.h"
 
 
-FileContainerManagerUI::FileContainerManagerUI(FileContainerManagerModel* managerModel)
+FileContainerManagerUI::FileContainerManagerUI(FileContainerManagerModel* managerModel): tabView(TabbedButtonBar::Orientation::TabsAtTop), currentViewMode(ViewMode::RackView)
 {
     mManagerModel=managerModel;
 }
@@ -34,12 +34,24 @@ void FileContainerManagerUI::resized(){
 }
 
 void FileContainerManagerUI::init(){
-    std::cout << "FileContainerManageUI::init" << std::endl;
-    scrollableView.setBounds(getLocalBounds());
-    mainView.setBounds(getLocalBounds());
-    addAndMakeVisible(&scrollableView);
-    scrollableView.setViewedComponent(&mainView);
-    scrollableView.setScrollBarsShown(true, false);
+    switch (currentViewMode) {
+        case ViewMode::RackView :
+            scrollableView.setBounds(getLocalBounds());
+            mainView.setBounds(getLocalBounds());
+            addAndMakeVisible(&scrollableView);
+            scrollableView.setViewedComponent(&mainView);
+            scrollableView.setScrollBarsShown(true, false);
+            break;
+            
+        case ViewMode::TabView :
+            tabView.setBounds(getLocalBounds());
+            addAndMakeVisible(tabView);
+        default:
+            break;
+    }
+  
+
+    
     //addNewFileContainerUI();
     //std::cout << "model size: " << m_managerModel->fileContainerModels.size() << std::endl;
     for (int i=0; i<mManagerModel->fileContainerModels.size(); i++){
@@ -50,12 +62,21 @@ void FileContainerManagerUI::init(){
 void FileContainerManagerUI::addNewFileContainerUI(FileContainerModel* fileContainerModel){
     FileContainerUI* newFileContainerUI = new FileContainerUI(fileContainerModel);
     fileContainerUIs.add(newFileContainerUI);
-
     newFileContainerUI->addChangeListener(this);
-    mainView.addAndMakeVisible(newFileContainerUI);
-
-    newFileContainerUI->init();
-    updateFileContainerUILayout();
+    
+    switch (currentViewMode) {
+        case ViewMode::RackView :
+            mainView.addAndMakeVisible(newFileContainerUI);
+            newFileContainerUI->init();
+            updateFileContainerUILayout();
+            break;
+        case ViewMode::TabView :
+            tabView.addTab("Test", Colour(100, 106, 127), newFileContainerUI, false);
+            newFileContainerUI->init();
+        default:
+            break;
+    }
+    
 
 }
 
@@ -80,13 +101,15 @@ void FileContainerManagerUI::updateFileContainerUILayout(){
 }
 
 void FileContainerManagerUI::changeListenerCallback(ChangeBroadcaster *source){
-    
-    // Attempt to cast the changebroadcaster as a FileContainerUI
-    FileContainerUI* fileContainerUI = dynamic_cast<FileContainerUI*>(source);
-    
-    // If successful, update our layout
-    if (fileContainerUI != nullptr ) {
-        updateFileContainerUILayout();
+    if(currentViewMode == ViewMode::RackView)
+    {
+        // Attempt to cast the changebroadcaster as a FileContainerUI
+        FileContainerUI* fileContainerUI = dynamic_cast<FileContainerUI*>(source);
+        
+        // If successful, update our layout
+        if (fileContainerUI != nullptr ) {
+            updateFileContainerUILayout();
+        }
     }
 }
 

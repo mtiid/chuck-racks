@@ -132,7 +132,8 @@ void FileContainerUI::paint (Graphics& g)
 void FileContainerUI::updateSize(){
     std::cout << "update size" << std::endl;
     
-    int editorWidth = getParentComponent()->getWidth();
+    int editorWidth = 600;
+    //int editorWidth = getParentComponent()->getWidth();
     
     if (mCodeEditorVisible) {
         setSize(editorWidth, 410);
