@@ -77,6 +77,7 @@ void ChuckPluginTest4AudioProcessorEditor::buttonClicked(Button *buttonThatWasPr
 {
     if (buttonThatWasPressed==addAllShredsButton)
     {
+        DBG("Add all shreds button pressed");
         getProcessor()->getFileContainerManagerModel()->addAllShreds();
     }
     

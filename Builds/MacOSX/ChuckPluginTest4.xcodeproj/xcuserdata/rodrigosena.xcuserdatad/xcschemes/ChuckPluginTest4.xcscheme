@@ -40,8 +40,19 @@
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <PathRunnable
-         FilePath = "/Applications/Ableton Live 9 Suite 64.app">
+         runnableDebuggingMode = "0"
+         BundleIdentifier = "com.ableton.live"
+         FilePath = "/Applications/Ableton Live 9 Suite.app">
       </PathRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "BC869343B04654F6E244BBC0"
+            BuildableName = "ChuckPluginTest4.component"
+            BlueprintName = "ChuckPluginTest4"
+            ReferencedContainer = "container:ChuckPluginTest4.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

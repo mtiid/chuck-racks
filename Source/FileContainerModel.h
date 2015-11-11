@@ -32,6 +32,7 @@ public:
     
     std::vector<int> shredIds;
     std::vector<KnobInfo> knobInfos;
+    std::vector<AudioParameterFloat> knobParameters;
     
     ScopedPointer<FileChooser> fileChooser;
     String fileName;
@@ -44,6 +45,8 @@ public:
 
     void setCanBeEdited(bool shouldEdit){ canBeEdited = shouldEdit;};
     bool getCanBeEdited(){return canBeEdited;};
+    
+    int uniqueFileContainerId;
     
 private:
     bool canBeEdited;

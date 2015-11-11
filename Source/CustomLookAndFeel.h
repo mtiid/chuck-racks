@@ -9,7 +9,7 @@
 #ifndef __ChuckPluginTest4__CustomLookAndFeel__
 #define __ChuckPluginTest4__CustomLookAndFeel__
 
-#include "JuceHeader.h"
+#include "../JuceLibraryCode/JuceHeader.h"
 
 class CustomLookAndFeel : public LookAndFeel_V3
 {

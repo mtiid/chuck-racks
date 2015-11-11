@@ -7,6 +7,7 @@
 //
 
 #include "FileContainerModel.h"
+#include <sstream>
 
 FileContainerModel::FileContainerModel(chuck_inst* ck_) : canBeEdited(true)
 {
@@ -15,7 +16,16 @@ FileContainerModel::FileContainerModel(chuck_inst* ck_) : canBeEdited(true)
     for (int i=0; i<8; i++)
     {
         knobInfos.push_back(*new KnobInfo());
+        //String name = String
+        //knobParameters.push_back(new AudioParameterFloat(S, );
     }
+    
+    ScopedPointer<Random> random = new Random();
+    uniqueFileContainerId = random->nextInt();
+    
+    std::stringstream ss;
+    ss << uniqueFileContainerId;
+    std::string uniqueFileContainerIdAsString = ss.str();
     
 }
 

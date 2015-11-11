@@ -52,6 +52,7 @@ ChuckPluginTest4AudioProcessor::ChuckPluginTest4AudioProcessor()
     g_hostInfo->midiInputBufferP=(&midiInputBuffer);
     g_hostInfo->midiOutputBufferP=(&midiOutputBuffer);
     
+    g_pluginPanel->fileContainerManager = fileContainerManagerModel;
 
     
     

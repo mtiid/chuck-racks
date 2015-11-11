@@ -95,7 +95,7 @@ private:
     AudioPlayHead::CurrentPositionInfo lastPosInfo;
     ScopedPointer<CodeEditorDemo> codeEditorDemo;
 
-    ScopedPointer<FileContainerManagerModel> fileContainerManagerModel;
+    FileContainerManagerModel * fileContainerManagerModel;
 
 };
 

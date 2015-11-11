@@ -56,7 +56,9 @@ void FileContainerUI::init(){
     addChildComponent(codeEditor = new CodeEditorComponent (mFileContainerModel->codeDocument, &ckTokeniser));
 
     if (codeEditor->getDocument().getAllContent()=="") {
-        codeEditor->loadContent ("\n"
+        codeEditor->loadContent ("//my id:"
+                                 + String(mFileContainerModel->uniqueFileContainerId) +
+                                 "\n"
                                  "/*"
                                  "\n"
                                  "   Type in your ChucK code\n"
@@ -73,7 +75,8 @@ void FileContainerUI::init(){
     }
     
     
-    /*for(int i=0; i<knobAmount; i++)
+    
+    for(int i=0; i<knobAmount; i++)
     {
         knobs.push_back(new Slider("knob"+String(i)));
         addAndMakeVisible(knobs.back());
@@ -94,7 +97,7 @@ void FileContainerUI::init(){
             knobs.back()->setBounds(knobStartX+((i-knobsPerRow)*(knobSpacing+knobSize)), knobStartY+(knobSpacing+knobSize), knobSize, knobSize);
         }
         
-    }*/
+    }
     
     codeEditor->setBounds(2, 30, 596, 378);
     //codeEditor->setBounds(3, 24, getParentComponent()->getWidth()-4, getParentComponent()->getHeight()-200);

@@ -42,3 +42,17 @@ void FileContainerManagerModel::addAllShreds()
      }
 
 }
+
+FileContainerModel* FileContainerManagerModel::findFileContainer(int askedUniqueId)
+{
+    for (int i=0; i<fileContainerModels.size(); i++)
+    {
+        //fileContainerModels.at(i)->addShred();
+        if (fileContainerModels.at(i)->uniqueFileContainerId == askedUniqueId )
+        {
+            return fileContainerModels.at(i);
+        }
+    }
+    return nullptr;
+    
+}
