@@ -28,6 +28,7 @@
             file="Resources/addcodeeditorDown.svg"/>
     </GROUP>
     <GROUP id="{D0073CB7-6ED0-2BAE-61D7-940DBA09947F}" name="Source">
+      <FILE id="qlAFMu" name="AppViewMode.h" compile="0" resource="0" file="Source/AppViewMode.h"/>
       <FILE id="fafnpS" name="ChuckTokeniser.cpp" compile="1" resource="0"
             file="Source/ChuckTokeniser.cpp"/>
       <FILE id="vjRhb0" name="ChuckTokeniser.h" compile="0" resource="0"

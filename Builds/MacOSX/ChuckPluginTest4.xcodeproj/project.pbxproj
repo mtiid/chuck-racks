@@ -493,6 +493,7 @@
 		6E97BE38F9CEBA0F6F4ACC02 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_OpenGLFrameBuffer.cpp"; path = "../../JuceLibraryCode/modules/juce_opengl/opengl/juce_OpenGLFrameBuffer.cpp"; sourceTree = "SOURCE_ROOT"; };
 		6EBA5FCB22CB5D7DBCE49781 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_ArrowButton.h"; path = "../../JuceLibraryCode/modules/juce_gui_basics/buttons/juce_ArrowButton.h"; sourceTree = "SOURCE_ROOT"; };
 		7042E612B7A4DD642C08472B = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_OpenGL_osx.h"; path = "../../JuceLibraryCode/modules/juce_opengl/native/juce_OpenGL_osx.h"; sourceTree = "SOURCE_ROOT"; };
+		7044DD9ED9367B0450A3F825 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppViewMode.h; path = ../../Source/AppViewMode.h; sourceTree = "SOURCE_ROOT"; };
 		709F7C690BE9A90904B44899 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_Colours.cpp"; path = "../../JuceLibraryCode/modules/juce_graphics/colour/juce_Colours.cpp"; sourceTree = "SOURCE_ROOT"; };
 		712CB571BAB67FECD36407BC = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_FileBrowserComponent.cpp"; path = "../../JuceLibraryCode/modules/juce_gui_basics/filebrowser/juce_FileBrowserComponent.cpp"; sourceTree = "SOURCE_ROOT"; };
 		7139F20D3AFDD6534663E5BF = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_RectanglePlacement.h"; path = "../../JuceLibraryCode/modules/juce_graphics/placement/juce_RectanglePlacement.h"; sourceTree = "SOURCE_ROOT"; };
@@ -1020,6 +1021,7 @@
 					D01DFC87579DF296327E238D,
 					E6FF43BFA0F945287EF6C634, ); name = Resources; sourceTree = "<group>"; };
 		7371BF174E02CD1C54E55137 = {isa = PBXGroup; children = (
+					7044DD9ED9367B0450A3F825,
 					44031EBA1FE062BE27783D0E,
 					E7943C776526E31A2DF69BFA,
 					17D53C11CF15A60493E9D90C,

@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include "FileContainerManagerModel.h"
 #include "MainViewComponent.h"
-
+#include "AppViewMode.h"
 
 class FileContainerManagerUI :  public Component,
                                 public ChangeListener
@@ -42,12 +42,7 @@ private:
     
     void updateFileContainerUILayout();
     
-    enum ViewMode{
-        TabView = 0,
-        RackView
-    };
-    
-    ViewMode currentViewMode;
+    AppViewMode currentViewMode;
     
 };
 

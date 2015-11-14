@@ -9,7 +9,7 @@
 #include "FileContainerManagerUI.h"
 
 
-FileContainerManagerUI::FileContainerManagerUI(FileContainerManagerModel* managerModel): tabView(TabbedButtonBar::Orientation::TabsAtTop), currentViewMode(ViewMode::RackView)
+FileContainerManagerUI::FileContainerManagerUI(FileContainerManagerModel* managerModel): tabView(TabbedButtonBar::Orientation::TabsAtTop), currentViewMode(AppViewMode::TabView)
 {
     mManagerModel=managerModel;
 }
@@ -35,7 +35,7 @@ void FileContainerManagerUI::resized(){
 
 void FileContainerManagerUI::init(){
     switch (currentViewMode) {
-        case ViewMode::RackView :
+        case AppViewMode::RackView :
             scrollableView.setBounds(getLocalBounds());
             mainView.setBounds(getLocalBounds());
             addAndMakeVisible(&scrollableView);
@@ -43,9 +43,10 @@ void FileContainerManagerUI::init(){
             scrollableView.setScrollBarsShown(true, false);
             break;
             
-        case ViewMode::TabView :
+        case AppViewMode::TabView :
             tabView.setBounds(getLocalBounds());
             addAndMakeVisible(tabView);
+            break;
         default:
             break;
     }
@@ -63,16 +64,17 @@ void FileContainerManagerUI::addNewFileContainerUI(FileContainerModel* fileConta
     FileContainerUI* newFileContainerUI = new FileContainerUI(fileContainerModel);
     fileContainerUIs.add(newFileContainerUI);
     newFileContainerUI->addChangeListener(this);
-    
+    newFileContainerUI->setViewMode(currentViewMode);
     switch (currentViewMode) {
-        case ViewMode::RackView :
+        case AppViewMode::RackView :
             mainView.addAndMakeVisible(newFileContainerUI);
             newFileContainerUI->init();
             updateFileContainerUILayout();
             break;
-        case ViewMode::TabView :
+        case AppViewMode::TabView :
             tabView.addTab("Test", Colour(100, 106, 127), newFileContainerUI, false);
             newFileContainerUI->init();
+            break;
         default:
             break;
     }
@@ -101,7 +103,7 @@ void FileContainerManagerUI::updateFileContainerUILayout(){
 }
 
 void FileContainerManagerUI::changeListenerCallback(ChangeBroadcaster *source){
-    if(currentViewMode == ViewMode::RackView)
+    if(currentViewMode == AppViewMode::RackView)
     {
         // Attempt to cast the changebroadcaster as a FileContainerUI
         FileContainerUI* fileContainerUI = dynamic_cast<FileContainerUI*>(source);

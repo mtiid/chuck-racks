@@ -12,6 +12,7 @@ FileContainerUI::FileContainerUI(FileContainerModel* fileContainerModel) : filen
 {
     mFileContainerModel = fileContainerModel;
     mCodeEditorVisible = mFileContainerModel->getCanBeEdited();
+    editorHeight = 600;
 }
 
 void FileContainerUI::init(){
@@ -96,7 +97,19 @@ void FileContainerUI::init(){
         
     }*/
     
-    codeEditor->setBounds(2, 30, 596, 378);
+    switch (currentViewMode) {
+        case AppViewMode::RackView:
+            codeEditor->setBounds(2, 30, 596, 410);
+            editorHeight = 410;
+            break;
+        case AppViewMode::TabView:
+            codeEditor->setBounds(2, 30, 596, 600);
+            editorHeight = 600;
+            break;
+        default:
+            break;
+    }
+    
     //codeEditor->setBounds(3, 24, getParentComponent()->getWidth()-4, getParentComponent()->getHeight()-200);
     //codeEditor->setBounds(3, 24, getWidth()-5, getHeight()-25);
     codeEditor->setVisible(mCodeEditorVisible);
@@ -132,11 +145,24 @@ void FileContainerUI::paint (Graphics& g)
 void FileContainerUI::updateSize(){
     std::cout << "update size" << std::endl;
     
-    int editorWidth = 600;
+    int editorWidth = 598;
+    //int editorHeight = 410;
+    
+    switch (currentViewMode) {
+        case AppViewMode::RackView :
+            editorHeight = 410;
+            break;
+        case AppViewMode::TabView :
+            editorHeight = 600;
+            break;
+        default:
+            break;
+    }
+
     //int editorWidth = getParentComponent()->getWidth();
     
     if (mCodeEditorVisible) {
-        setSize(editorWidth, 410);
+        setSize(editorWidth, editorHeight);
         //setSize(getParentComponent()->getWidth(), getParentComponent()->getHeight()-200);
     }else{
         setSize(editorWidth, 30);
@@ -203,6 +229,10 @@ void FileContainerUI::buttonClicked(Button *buttonThatWasPressed)
         getProcessor()->fileManager.openBrowser();
         lastFileLoaded=getProcessor()->fileManager.fileName;
     }*/
+}
+
+void FileContainerUI::setViewMode(AppViewMode vm){
+    currentViewMode = vm;
 }
 
 
