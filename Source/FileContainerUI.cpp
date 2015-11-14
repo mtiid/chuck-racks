@@ -8,11 +8,13 @@
 
 #include "FileContainerUI.h"
 
-FileContainerUI::FileContainerUI(FileContainerModel* fileContainerModel) : filenameComponent("File", File::nonexistent, true, false, false, "*.ck", String::empty,"Choose a ChucK file to open it in the editor")
+FileContainerUI::FileContainerUI(FileContainerModel* fileContainerModel) :
+                filenameComponent("File", File::nonexistent, true, false, false, "*.ck", String::empty,"Choose a ChucK file to open it in the editor"),
+                editorWidth(600),
+                editorHeight(600)
 {
     mFileContainerModel = fileContainerModel;
     mCodeEditorVisible = mFileContainerModel->getCanBeEdited();
-    editorHeight = 600;
 }
 
 void FileContainerUI::init(){
@@ -70,7 +72,7 @@ void FileContainerUI::init(){
                                  );
     }else {
         codeEditor->loadContent(codeEditor->getDocument().getAllContent());
-        std::cout << "content loaded" << std::endl;
+        //std::cout << "content loaded" << std::endl;
     }
     
     
@@ -99,19 +101,15 @@ void FileContainerUI::init(){
     
     switch (currentViewMode) {
         case AppViewMode::RackView:
-            codeEditor->setBounds(2, 30, 596, 410);
-            editorHeight = 410;
+            codeEditor->setBounds(1, 30, editorWidth-2, editorHeight-31);
             break;
         case AppViewMode::TabView:
-            codeEditor->setBounds(2, 30, 596, 600);
-            editorHeight = 600;
+            codeEditor->setBounds(1, 30, editorWidth-2, editorHeight);
             break;
         default:
             break;
     }
-    
-    //codeEditor->setBounds(3, 24, getParentComponent()->getWidth()-4, getParentComponent()->getHeight()-200);
-    //codeEditor->setBounds(3, 24, getWidth()-5, getHeight()-25);
+
     codeEditor->setVisible(mCodeEditorVisible);
     
     // Create a file chooser control to load files into it..
@@ -119,8 +117,6 @@ void FileContainerUI::init(){
     filenameComponent.addListener (this);
     
     startTimer(50);
-    //timerCallback();
-    //updateSize();
 }
 
 
@@ -143,30 +139,21 @@ void FileContainerUI::paint (Graphics& g)
 }
 
 void FileContainerUI::updateSize(){
-    std::cout << "update size" << std::endl;
-    
-    int editorWidth = 598;
-    //int editorHeight = 410;
-    
     switch (currentViewMode) {
         case AppViewMode::RackView :
             editorHeight = 410;
             break;
         case AppViewMode::TabView :
-            editorHeight = 600;
+            editorHeight = 629;
             break;
         default:
             break;
     }
-
-    //int editorWidth = getParentComponent()->getWidth();
     
     if (mCodeEditorVisible) {
         setSize(editorWidth, editorHeight);
-        //setSize(getParentComponent()->getWidth(), getParentComponent()->getHeight()-200);
     }else{
         setSize(editorWidth, 30);
-        //setSize(getParentComponent()->getWidth(), 25);
     }
 }
 
@@ -206,11 +193,8 @@ void FileContainerUI::buttonClicked(Button *buttonThatWasPressed)
 
     if (buttonThatWasPressed == showHideCodeEditorButton) {
         mCodeEditorVisible = showHideCodeEditorButton->getToggleState();
-        //showHideCodeEditorButton->setToggleState(mCodeEditorVisible, dontSendNotification);
-        //std::cout << "toggle state: " << showHideCodeEditorButton->getToggleState() << std::endl;
         codeEditor->setVisible(mCodeEditorVisible);
         mFileContainerModel->setCanBeEdited(mCodeEditorVisible);
-        std::cout << "Code Editor: " << mCodeEditorVisible << std::endl;
         updateSize();
         sendChangeMessage();
     }

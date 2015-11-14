@@ -66,6 +66,6 @@ private:
     void updateSize();
     
     bool mCodeEditorVisible;
-    int editorHeight;
+    int editorWidth, editorHeight;
     
 };

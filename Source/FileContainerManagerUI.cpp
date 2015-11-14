@@ -9,7 +9,7 @@
 #include "FileContainerManagerUI.h"
 
 
-FileContainerManagerUI::FileContainerManagerUI(FileContainerManagerModel* managerModel): tabView(TabbedButtonBar::Orientation::TabsAtTop), currentViewMode(AppViewMode::TabView)
+FileContainerManagerUI::FileContainerManagerUI(FileContainerManagerModel* managerModel): tabView(TabbedButtonBar::Orientation::TabsAtTop), currentViewMode(AppViewMode::RackView)
 {
     mManagerModel=managerModel;
 }
@@ -23,8 +23,6 @@ FileContainerManagerUI::~FileContainerManagerUI(){
 
 void FileContainerManagerUI::paint(Graphics& g){
     g.fillAll(Colour(38, 40, 49));
-    //g.setColour(Colours::lightgrey);
-    //g.drawRect(getLocalBounds(), 1);
     g.setColour(Colours::darkgrey);
     g.drawFittedText("Please add a ChucK Editor", getWidth() * 0.5, getHeight() * 0.5, 100, 50, juce::Justification::centred, 2);
 }
@@ -50,11 +48,7 @@ void FileContainerManagerUI::init(){
         default:
             break;
     }
-  
-
     
-    //addNewFileContainerUI();
-    //std::cout << "model size: " << m_managerModel->fileContainerModels.size() << std::endl;
     for (int i=0; i<mManagerModel->fileContainerModels.size(); i++){
         addNewFileContainerUI(mManagerModel->fileContainerModels[i]);
     }
@@ -83,7 +77,6 @@ void FileContainerManagerUI::addNewFileContainerUI(FileContainerModel* fileConta
 }
 
 void FileContainerManagerUI::updateFileContainerUILayout(){
-    std::cout << "updateFileContainerUILayout size: " << fileContainerUIs.size() << std::endl;
     // Update the vertical position of each of the file containers
     for(int i=0; i<fileContainerUIs.size(); i++)
     {
