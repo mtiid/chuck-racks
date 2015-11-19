@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "ChuckTokeniser.h"
 #include "FileContainerModel.h"
+#include "AppViewMode.h"
 
 #endif /* defined(__ChuckPluginTest4__FileContainerUI__) */
 
@@ -27,9 +28,8 @@ public:
     ~FileContainerUI();
     
     void init();
-    void paint (Graphics& g);
+    void paint (Graphics& g) override;
    
-    
     ScopedPointer<CodeEditorComponent> codeEditor;
     
     void timerCallback();
@@ -38,7 +38,10 @@ public:
     
     bool isShowingCodeEditor(){return mCodeEditorVisible;};
     
+    void setViewMode(AppViewMode vm);
+    
 private:
+    AppViewMode currentViewMode;
     
     ChuckTokeniser ckTokeniser;
     FileContainerModel* mFileContainerModel;
@@ -63,5 +66,6 @@ private:
     void updateSize();
     
     bool mCodeEditorVisible;
+    int editorWidth, editorHeight;
     
 };

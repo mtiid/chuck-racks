@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include "FileContainerManagerModel.h"
 #include "MainViewComponent.h"
-
+#include "AppViewMode.h"
 
 class FileContainerManagerUI :  public Component,
                                 public ChangeListener
@@ -38,8 +38,11 @@ private:
     
     Viewport scrollableView;
     MainViewComponent mainView;
+    TabbedComponent tabView;
     
     void updateFileContainerUILayout();
+    
+    AppViewMode currentViewMode;
     
 };
 
