@@ -254,6 +254,7 @@ void FileContainerUI::buttonClicked(Button *buttonThatWasPressed)
             AlertWindow::showMessageBoxAsync (AlertWindow::InfoIcon,
                                               "File Chooser...",
                                               "You picked: " + chosenFile.getFullPathName());
+            fc.getResult().replaceWithText(mFileContainerModel->codeDocument.getAllContent());
         }
     }
     
