@@ -32,9 +32,12 @@ public:
     void addNewFileContainerUI(FileContainerModel* fileContainerModel);
     void changeListenerCallback(ChangeBroadcaster *source);
     
+    
 private:
     FileContainerManagerModel* mManagerModel;
     OwnedArray<FileContainerUI> fileContainerUIs;
+    
+    ScopedPointer<TextEditor> console;
     
     Viewport scrollableView;
     MainViewComponent mainView;
@@ -43,6 +46,9 @@ private:
     void updateFileContainerUILayout();
     
     AppViewMode currentViewMode;
+    
+    CPlusPlusCodeTokeniser cppTokeniser;
+
     
 };
 

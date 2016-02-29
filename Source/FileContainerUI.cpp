@@ -9,7 +9,7 @@
 #include "FileContainerUI.h"
 
 FileContainerUI::FileContainerUI(FileContainerModel* fileContainerModel) :
-                filenameComponent("File", File::nonexistent, true, false, false, "*.ck", String::empty,"Choose a ChucK file to open it in the editor"),
+                //filenameComponent("File", File::nonexistent, true, false, false, "*.ck", String::empty,"Choose a ChucK file to open it in the editor"),
                 editorWidth(600),
                 editorHeight(600)
 {
@@ -55,6 +55,22 @@ void FileContainerUI::init(){
     removeShredButton->setBounds(52, 5, 20, 20);
     removeShredButton->addListener(this);
     
+    openFileButton = new TextButton("Open");
+    addAndMakeVisible(openFileButton);
+    openFileButton->setButtonText("Open");
+    openFileButton->setBounds(400, 5, 60,20);
+    openFileButton->addListener(this);
+    
+    saveFileButton = new TextButton("Save");
+    addAndMakeVisible(saveFileButton);
+    saveFileButton->setButtonText("Save");
+    saveFileButton->setBounds(470, 5, 60,20);
+    saveFileButton->addListener(this);
+    
+    
+    
+    
+    
     // Create the editor..
     addChildComponent(codeEditor = new CodeEditorComponent (mFileContainerModel->codeDocument, &ckTokeniser));
 
@@ -86,6 +102,7 @@ void FileContainerUI::init(){
         
         knobs.back()->setRange(0.0, 1.0);
         knobs.back()->setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
+        knobs.back()->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
         knobs.back()->setColour(Slider::rotarySliderFillColourId, Colours::black);
         knobs.back()->setColour(Slider::rotarySliderOutlineColourId, Colours::black);
         knobs.back()->addListener(this);
@@ -116,8 +133,8 @@ void FileContainerUI::init(){
     codeEditor->setVisible(mCodeEditorVisible);
     
     // Create a file chooser control to load files into it..
-    addAndMakeVisible (filenameComponent);
-    filenameComponent.addListener (this);
+    //addAndMakeVisible (filenameComponent);
+    //filenameComponent.addListener (this);
     
     startTimer(50);
 }
@@ -126,7 +143,7 @@ void FileContainerUI::init(){
 
 FileContainerUI::~FileContainerUI()
 {
-    filenameComponent.removeListener(this);
+    //filenameComponent.removeListener(this);
 }
 
 void FileContainerUI::paint (Graphics& g)
@@ -166,9 +183,11 @@ void FileContainerUI::timerCallback()
     //gainKnob->setValue(getProcessor()->getParameter(VolumeKnobAudioProcessor::gainParam), NotificationType::dontSendNotification);
     for(int i=0; i<knobs.size(); i++)
     {
-        knobs.at(i)->setValue(mFileContainerModel->knobInfos.at(i).value01);
+        //knobs.at(i)->setValue(mFileContainerModel->knobInfos.at(i).value01);
+        //UNCOMMENT
 
     }
+    //knobs.at(0)->setValue(mFileContainerModel->testParameter->getValue());
 
 }
 
@@ -179,16 +198,25 @@ void FileContainerUI::sliderValueChanged(juce::Slider *slider)
     if(slider == knobs.at(i))
         {
         //getProcessor()->setParameter(VolumeKnob6AudioProcessor::gainParam, (float)gainKnob->getValue());
-        mFileContainerModel->knobInfos.at(i).value01=(float)knobs.at(i)->getValue();
-        std::cout<<"Slider "<<i<<" changed" << std::endl;
+        mFileContainerModel->knobInfos.at(i).value01 = (float)knobs.at(i)->getValue();
+         
+        std::cout << "Slider " << i << " changed" << std::endl;
         }
     }
+    /*
+    if (slider == knobs.at(0))
+    {
+        mFileContainerModel->testParameter->beginChangeGesture();
+        mFileContainerModel->testParameter->setValueNotifyingHost(slider->getValue());
+        mFileContainerModel->testParameter->endChangeGesture();
+    }
+     */
 }
 
 
 void FileContainerUI::filenameComponentChanged (FilenameComponent*)
 {
-    codeEditor->loadContent (filenameComponent.getCurrentFile().loadFileAsString());
+    //codeEditor->loadContent (filenameComponent.getCurrentFile().loadFileAsString());
 }
 
 void FileContainerUI::buttonClicked(Button *buttonThatWasPressed)
@@ -212,10 +240,42 @@ void FileContainerUI::buttonClicked(Button *buttonThatWasPressed)
         mFileContainerModel->removeLastShred();
     }
     
-    /*if (buttonThatWasPressed==browseCodeButton) {
-        getProcessor()->fileManager.openBrowser();
-        lastFileLoaded=getProcessor()->fileManager.fileName;
-    }*/
+    else if (buttonThatWasPressed == saveFileButton)
+    {
+        FileChooser fc ("Choose a file to save...",
+                        File::getCurrentWorkingDirectory(),
+                        "*.ck",
+                        true);
+        
+        if (fc.browseForFileToSave (true))
+        {
+            File chosenFile = fc.getResult();
+            
+            AlertWindow::showMessageBoxAsync (AlertWindow::InfoIcon,
+                                              "File Chooser...",
+                                              "You picked: " + chosenFile.getFullPathName());
+        }
+    }
+    
+    else if (buttonThatWasPressed == openFileButton)
+    {
+        FileChooser fc ("Choose a file to open...",
+                        File::getCurrentWorkingDirectory(),
+                        "*.ck",
+                        true);
+        
+        if(fc.browseForFileToOpen())
+        {
+            String chosen;
+            fc.getResult();
+            chosen = fc.getResult().getFullPathName();
+            AlertWindow::showMessageBoxAsync (AlertWindow::InfoIcon,
+                                              "File Chooser...",
+                                              "You picked: " + chosen);
+            codeEditor->loadContent(fc.getResult().loadFileAsString());
+            //mFileContainerModel->codeDocument.
+        }
+    }
 }
 
 void FileContainerUI::setViewMode(AppViewMode vm){

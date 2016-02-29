@@ -10,6 +10,7 @@
 FileContainerManagerModel::FileContainerManagerModel(chuck_inst* ck_)
 {
     ck=ck_;
+    consoleDocument.insertText(0, "Test text");
 }
 FileContainerManagerModel::~FileContainerManagerModel()
 {
@@ -18,6 +19,7 @@ FileContainerManagerModel::~FileContainerManagerModel()
 void FileContainerManagerModel::addFileContainer()
 {
     fileContainerModels.push_back(new FileContainerModel(ck));
+    fileContainerModels.back()->setProcessorReference(getProcessor());
 }
 
 
@@ -33,6 +35,8 @@ void FileContainerManagerModel::removeFileContainer(FileContainerModel* whichPoi
         //std::cout << ' ' << *it;
     }
 }
+
+
 
 void FileContainerManagerModel::addAllShreds()
 {
@@ -54,5 +58,26 @@ FileContainerModel* FileContainerManagerModel::findFileContainer(int askedUnique
         }
     }
     return nullptr;
+    
+}
+
+
+void FileContainerManagerModel::setProcessorReference( AudioProcessor * processorReference_)
+{
+    processorReference = processorReference_;
+}
+
+AudioProcessor * FileContainerManagerModel::getProcessor()
+{
+    DBG("Entered getProcessor in fileContainerManager");
+    if(processorReference != NULL)
+    {
+        return processorReference;
+    }
+    else
+    {
+        DBG("trying to access processor reference not set in filecontainer!!");
+        return NULL;
+    }
     
 }

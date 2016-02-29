@@ -47,6 +47,8 @@ ChuckPluginTest4AudioProcessor::ChuckPluginTest4AudioProcessor()
     codeEditorDemo = new CodeEditorDemo();
     
     fileContainerManagerModel = new FileContainerManagerModel(ck);
+    fileContainerManagerModel->setProcessorReference(this);
+    
     //fileContainerManagerModel->addFileContainer();
     
     g_hostInfo->midiInputBufferP=(&midiInputBuffer);
@@ -54,7 +56,8 @@ ChuckPluginTest4AudioProcessor::ChuckPluginTest4AudioProcessor()
     
     g_pluginPanel->fileContainerManager = fileContainerManagerModel;
 
-    
+    //NormalisableRange<float> paramRange(0.0, 1.0, 0.1, 1.0);
+    //addParameter (testParameter = new AudioParameterFloat("param1", "Parameter1", paramRange, 1.0));
     
 }
 

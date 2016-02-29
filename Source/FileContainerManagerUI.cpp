@@ -11,7 +11,10 @@
 
 FileContainerManagerUI::FileContainerManagerUI(FileContainerManagerModel* managerModel): tabView(TabbedButtonBar::Orientation::TabsAtTop), currentViewMode(AppViewMode::RackView)
 {
-    mManagerModel=managerModel;
+    mManagerModel = managerModel;
+    //console = new CodeEditorComponent(mManagerModel->consoleDocument, &cppTokeniser);
+    addAndMakeVisible(console = new TextEditor("Console"));
+    
 }
 
 
@@ -22,7 +25,7 @@ FileContainerManagerUI::~FileContainerManagerUI(){
 }
 
 void FileContainerManagerUI::paint(Graphics& g){
-    g.fillAll(Colour(38, 40, 49));
+    //g.fillAll(Colour(38, 40, 49));
     g.setColour(Colours::darkgrey);
     g.drawFittedText("Please add a ChucK Editor", getWidth() * 0.5, getHeight() * 0.5, 100, 50, juce::Justification::centred, 2);
 }
@@ -32,7 +35,11 @@ void FileContainerManagerUI::resized(){
 }
 
 void FileContainerManagerUI::init(){
-    switch (currentViewMode) {
+    
+    
+    
+    switch (currentViewMode)
+    {
         case AppViewMode::RackView :
             scrollableView.setBounds(getLocalBounds());
             mainView.setBounds(getLocalBounds());
@@ -48,6 +55,14 @@ void FileContainerManagerUI::init(){
         default:
             break;
     }
+    
+    addAndMakeVisible(console);
+    console->setBounds(getLocalBounds());
+    console->setReadOnly(true);
+    console->setMultiLine(true);
+    console->setCaretVisible(false);
+    console->setScrollbarsShown(true);
+    console->setScrollBarThickness(10);
     
     for (int i=0; i<mManagerModel->fileContainerModels.size(); i++){
         addNewFileContainerUI(mManagerModel->fileContainerModels[i]);
@@ -107,5 +122,7 @@ void FileContainerManagerUI::changeListenerCallback(ChangeBroadcaster *source){
         }
     }
 }
+
+
 
 

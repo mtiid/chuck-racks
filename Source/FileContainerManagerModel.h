@@ -27,7 +27,11 @@ public:
     void removeFileContainer(FileContainerModel* whichPointer);
     void addAllShreds();
     FileContainerModel* findFileContainer(int askedUniqueId);
-    
+    void setProcessorReference( AudioProcessor * processorReference_);
+    AudioProcessor * getProcessor();
+    CodeDocument consoleDocument;
+private:
+    AudioProcessor * processorReference;
 };
 
 

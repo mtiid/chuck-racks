@@ -12,13 +12,6 @@
 FileContainerModel::FileContainerModel(chuck_inst* ck_) : canBeEdited(true)
 {
     ck = ck_;
-    fileChooser = new FileChooser("Open Chuck File", File::nonexistent, "*.ck");
-    for (int i=0; i<8; i++)
-    {
-        knobInfos.push_back(*new KnobInfo());
-        //String name = String
-        //knobParameters.push_back(new AudioParameterFloat(S, );
-    }
     
     ScopedPointer<Random> random = new Random();
     uniqueFileContainerId = random->nextInt();
@@ -27,11 +20,37 @@ FileContainerModel::FileContainerModel(chuck_inst* ck_) : canBeEdited(true)
     ss << uniqueFileContainerId;
     std::string uniqueFileContainerIdAsString = ss.str();
     
+    fileChooser = new FileChooser("Open Chuck File", File::nonexistent, "*.ck");
+    for (int i=0; i<8; i++)
+    {
+        knobInfos.push_back(*new KnobInfo());
+        //String name = String
+        //knobParameters.push_back(new AudioParameterFloat(S, );
+        
+        NormalisableRange<float> gainRange(0.0, 1.0, 0.1, 1.0);
+        //knobParameters.push_back(new AudioParameterFloat("gainParam", "Gain", gainRange, 1.0));
+        //knobParameters.push_back(*new AudioParameterFloat(String(random->nextInt()),String(random->nextInt()), gainRange, 1.0));
+
+        //getProcessor()->addParameter (knobParameters.back());
+    }
+   
+    NormalisableRange<float> gainRange(0.0, 1.0, 0.1, 1.0);
+    testParameter = new AudioParameterFloat("gainParam", "Gain", gainRange, 1.0);
+    
+    //getProcessor() -> getInputChannelName(0);
+    //getProcessor() -> addParameter(testParameter);
+    //if(getProcessor() != NULL)
+    //    getProcessor() -> addParameter(testParameter);
+    //else
+     //   DBG("getProcessor inside FileContainerModel was null");
+
+    
+    
 }
 
 void FileContainerModel::addShred()
 {
-    chuck_result result=libchuck_add_shred(ck, filePath.toRawUTF8(), codeDocument.getAllContent().toRawUTF8());
+    chuck_result result = libchuck_add_shred(ck, filePath.toRawUTF8(), codeDocument.getAllContent().toRawUTF8());
     //libchuck_add_shred(ck, fileChooser->getFullPathName().toRawUTF8(),
                        //codeEditorDemo->codeDocument.getAllContent().toRawUTF8());
     if(result.type == chuck_result::OK)
@@ -82,5 +101,23 @@ void FileContainerModel::openBrowser()
     
 }
 
+void FileContainerModel::setProcessorReference( AudioProcessor * processorReference_)
+{
+    processorReference = processorReference_;
+}
+AudioProcessor * FileContainerModel::getProcessor()
+{
+    DBG("entered getProcessor in fileContainerModel");
+    if(processorReference != NULL)
+    {
+        return processorReference;
+    }
+    else
+    {
+        DBG("trying to access processor reference not set in filecontainer!!");
+        return NULL;
+    }
+    
+}
 
 

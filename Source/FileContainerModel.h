@@ -32,7 +32,11 @@ public:
     
     std::vector<int> shredIds;
     std::vector<KnobInfo> knobInfos;
-    std::vector<AudioParameterFloat> knobParameters;
+    //std::vector<AudioParameterFloat> knobParameters;
+    //std::vector<AudioProcessorParameter*> knobParameters;
+    
+    AudioProcessorParameter* testParameter;
+
     
     ScopedPointer<FileChooser> fileChooser;
     String fileName;
@@ -47,9 +51,12 @@ public:
     bool getCanBeEdited(){return canBeEdited;};
     
     int uniqueFileContainerId;
-    
+    void setProcessorReference( AudioProcessor * processorReference_);
+    AudioProcessor * getProcessor();
 private:
     bool canBeEdited;
+    AudioProcessor * processorReference;
+
 
 };
 

@@ -45,14 +45,16 @@ private:
     
     ChuckTokeniser ckTokeniser;
     FileContainerModel* mFileContainerModel;
-    FilenameComponent filenameComponent;
-    
-    String lastFileLoaded;
+    //FilenameComponent filenameComponent;
     
     ScopedPointer<DrawableButton> showHideCodeEditorButton;
     ScopedPointer<TextButton> browseCodeButton;
     ScopedPointer<DrawableButton> addShredButton;
     ScopedPointer<DrawableButton> removeShredButton;
+    
+    ScopedPointer<TextButton> openFileButton;
+    ScopedPointer<TextButton> saveFileButton;
+
     
     std::vector<Slider *> knobs;
     const int knobAmount=8;
