@@ -56,7 +56,8 @@ void FileContainerModel::addShred()
     if(result.type == chuck_result::OK)
     {
         shredIds.push_back(result.shred_id);
-        std::cout<<"shred with Id added "<<shredIds.back()<< "\n";
+        String txt = "shred with Id:" + String(shredIds.back()) + "added";
+        ConsoleGlobal::Instance()->addText(txt);
     }
     else
     {

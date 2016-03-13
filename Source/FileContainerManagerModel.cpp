@@ -10,7 +10,6 @@
 FileContainerManagerModel::FileContainerManagerModel(chuck_inst* ck_)
 {
     ck=ck_;
-    consoleDocument.insertText(0, "Test text");
 }
 FileContainerManagerModel::~FileContainerManagerModel()
 {

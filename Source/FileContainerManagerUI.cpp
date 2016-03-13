@@ -11,7 +11,7 @@
 
 
 FileContainerManagerUI::FileContainerManagerUI(FileContainerManagerModel* managerModel): tabView(TabbedButtonBar::Orientation::TabsAtTop), currentViewMode(AppViewMode::RackView),
-consoleHeight(80)
+consoleHeight(50)
 {
     mManagerModel = managerModel;
     //console = new CodeEditorComponent(mManagerModel->consoleDocument, &cppTokeniser);

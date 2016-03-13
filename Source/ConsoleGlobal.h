@@ -31,10 +31,15 @@ public:
     
     void addText(String text)
     {
-        fullText = fullText + "\n" + text;
-        if(consoleComponent != NULL)
+        if (text.length()>1)
         {
-            consoleComponent->setText(fullText);
+            fullText = fullText + "\n" + text;
+            if(consoleComponent != NULL)
+            {
+                consoleComponent->setText(fullText);
+                consoleComponent->scrollDown();
+                consoleComponent->moveCaretToEnd();
+            }
         }
     }
     
@@ -43,6 +48,9 @@ public:
         if(consoleComponent != NULL)
         {
             consoleComponent->setText(fullText);
+            consoleComponent->scrollDown();
+            consoleComponent->moveCaretToEnd();
+
         }
     }
     
