@@ -7,14 +7,18 @@
 //
 
 #include "FileContainerManagerUI.h"
+#include "ConsoleGlobal.h"
 
 
-FileContainerManagerUI::FileContainerManagerUI(FileContainerManagerModel* managerModel): tabView(TabbedButtonBar::Orientation::TabsAtTop), currentViewMode(AppViewMode::RackView)
+FileContainerManagerUI::FileContainerManagerUI(FileContainerManagerModel* managerModel): tabView(TabbedButtonBar::Orientation::TabsAtTop), currentViewMode(AppViewMode::RackView),
+consoleHeight(80)
 {
     mManagerModel = managerModel;
     //console = new CodeEditorComponent(mManagerModel->consoleDocument, &cppTokeniser);
     addAndMakeVisible(console = new TextEditor("Console"));
-    
+    ConsoleGlobal::Instance()->setConsoleComponent(console.get());
+    ConsoleGlobal::Instance()->updateText();
+     //console.
 }
 
 
@@ -41,7 +45,8 @@ void FileContainerManagerUI::init(){
     switch (currentViewMode)
     {
         case AppViewMode::RackView :
-            scrollableView.setBounds(getLocalBounds());
+            scrollableView.setBounds(0, 0, getLocalBounds().getWidth(),
+                                     getLocalBounds().getHeight()-consoleHeight);
             mainView.setBounds(getLocalBounds());
             addAndMakeVisible(&scrollableView);
             scrollableView.setViewedComponent(&mainView);
@@ -57,7 +62,8 @@ void FileContainerManagerUI::init(){
     }
     
     addAndMakeVisible(console);
-    console->setBounds(getLocalBounds());
+    console->setBounds(0, getLocalBounds().getHeight() - consoleHeight,
+                       getLocalBounds().getWidth(), consoleHeight);
     console->setReadOnly(true);
     console->setMultiLine(true);
     console->setCaretVisible(false);

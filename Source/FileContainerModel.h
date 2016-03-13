@@ -13,6 +13,7 @@
 #include "KnobInfo.h"
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "libchuck.h"
+#include "ConsoleGlobal.h"
 
 
 

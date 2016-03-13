@@ -48,6 +48,8 @@ private:
     AppViewMode currentViewMode;
     
     CPlusPlusCodeTokeniser cppTokeniser;
+    
+    int consoleHeight;
 
     
 };

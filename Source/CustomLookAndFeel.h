@@ -22,3 +22,4 @@ private:
 };
 
 #endif /* defined(__ChuckPluginTest4__CustomLookAndFeel__) */
+

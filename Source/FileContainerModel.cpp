@@ -52,23 +52,44 @@ void FileContainerModel::addShred()
 {
     chuck_result result = libchuck_add_shred(ck, filePath.toRawUTF8(), codeDocument.getAllContent().toRawUTF8());
     //libchuck_add_shred(ck, fileChooser->getFullPathName().toRawUTF8(),
-                       //codeEditorDemo->codeDocument.getAllContent().toRawUTF8());
+    //codeEditorDemo->codeDocument.getAllContent().toRawUTF8());
     if(result.type == chuck_result::OK)
     {
         shredIds.push_back(result.shred_id);
-        std::cout<<"shred with Id added "<<shredIds.back();
+        std::cout<<"shred with Id added "<<shredIds.back()<< "\n";
+    }
+    else
+    {
+        std::string resStr(libchuck_last_error_string(ck));
+        std::cout<<"problem add shred:" + resStr << "\n";
+        ConsoleGlobal::Instance()->addText(resStr);
+        //CONSOLE ADD TEXT
+        
     }
 }
 void FileContainerModel::removeLastShred()
 {
     if(shredIds.size()>0)
     {
-    libchuck_remove_shred(ck, shredIds.back());
-    std::cout<<"shred with Id removed "<<shredIds.back();
-    shredIds.pop_back();
+        chuck_result result = libchuck_remove_shred(ck, shredIds.back());
+        if(result.type == chuck_result::OK)
+        {
+            std::cout<<"shred with Id removed "<<shredIds.back() << "\n";
+            shredIds.pop_back();
+        }
+        else
+        {
+            std::string resStr(libchuck_last_error_string(ck));
+            std::cout<<"problem removing shred:" + resStr << "\n";
+            ConsoleGlobal::Instance()->addText(resStr);
+            ///getProcessor()->fileContainerManagerModel->addTextToConsole(resStr);
+            //CONSOLE ADD TEXT
+        }
+        
     }
     
 }
+
 
 void FileContainerModel::replaceShred()
 {

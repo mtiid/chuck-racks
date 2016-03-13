@@ -18,6 +18,8 @@
 //==============================================================================
 ChuckPluginTest4AudioProcessor::ChuckPluginTest4AudioProcessor()
 {
+    //ConsoleGlobal *ConsoleGlobal::instance = 0;
+    
     fprintf(stderr, "ChuckPluginTest4AudioProcessor::ChuckPluginTest4AudioProcessor\n");
     chuck_options options;
     libchuck_options_reset(&options);
