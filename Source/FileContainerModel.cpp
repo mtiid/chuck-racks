@@ -51,13 +51,15 @@ FileContainerModel::FileContainerModel(chuck_inst* ck_) : canBeEdited(true)
 void FileContainerModel::addShred()
 {
     chuck_result result = libchuck_add_shred(ck, filePath.toRawUTF8(), codeDocument.getAllContent().toRawUTF8());
+    std::cout << "result type: " << result.type << " result id" << result.shred_id << "\n";
     //libchuck_add_shred(ck, fileChooser->getFullPathName().toRawUTF8(),
     //codeEditorDemo->codeDocument.getAllContent().toRawUTF8());
-    if(result.type == chuck_result::OK)
+    if(result.type == chuck_result::OK || result.type == chuck_result::ERR_TIMEOUT)
+        // TODO ask spencer why it's returning error timeout and fix that
     {
         shredIds.push_back(result.shred_id);
-        String txt = "shred with Id:" + String(shredIds.back()) + "added";
-        ConsoleGlobal::Instance()->addText(txt);
+        String txt = "shred with Id: " + String(shredIds.back()) + " added";
+        //ConsoleGlobal::Instance()->addText(txt);
     }
     else
     {
@@ -68,27 +70,45 @@ void FileContainerModel::addShred()
         
     }
 }
+
 void FileContainerModel::removeLastShred()
 {
+    //std::cout<< "remove last shred called";
+    std::cout<<"shredIds size:" << shredIds.size() << "\n";
+
     if(shredIds.size()>0)
     {
-        chuck_result result = libchuck_remove_shred(ck, shredIds.back());
-        if(result.type == chuck_result::OK)
-        {
-            std::cout<<"shred with Id removed "<<shredIds.back() << "\n";
-            shredIds.pop_back();
-        }
-        else
-        {
-            std::string resStr(libchuck_last_error_string(ck));
-            std::cout<<"problem removing shred:" + resStr << "\n";
-            ConsoleGlobal::Instance()->addText(resStr);
-            ///getProcessor()->fileContainerManagerModel->addTextToConsole(resStr);
-            //CONSOLE ADD TEXT
-        }
+        std::cout<<"shredIds to be removed:" << shredIds.back() << "\n";
+
+        removeShred(shredIds.back());
         
+        shredIds.pop_back();
     }
-    
+    else
+    {
+        ConsoleGlobal::Instance()->addText("No shreds to remove");
+    }
+}
+
+void FileContainerModel::removeShred(int idNumber)
+{
+    //std::cout<<"shred to be removed:" << idNumber << "\n";
+
+    chuck_result result = libchuck_remove_shred(ck, idNumber);
+    if(result.type == chuck_result::OK)
+    {
+        std::cout<<"shred with Id removed "<< idNumber << "\n";
+        ConsoleGlobal::Instance()->addText("shred with Id removed "+ String(idNumber));
+    }
+    else
+    {
+        std::string resStr(libchuck_last_error_string(ck));
+        std::cout<<"problem removing shred:" + String(idNumber) << "\n";
+        //ConsoleGlobal::Instance()->addText("problem removing shred:" + String(idNumber));
+        ///getProcessor()->fileContainerManagerModel->addTextToConsole(resStr);
+        //CONSOLE ADD TEXT
+    }
+
 }
 
 
@@ -109,6 +129,11 @@ void FileContainerModel::removeAllShreds()
     while (!shredIds.empty())
     {
         removeLastShred();
+    }
+    
+    //Horrible hack. Remove after finding out why libchuck_remove_shred is not returning chuck_result::OK
+    for (int i = 0; i<20; i++) {
+        removeShred(i);
     }
 }
 

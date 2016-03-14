@@ -28,6 +28,7 @@ public:
     
     void addShred();
     void removeLastShred();
+    void removeShred(int idNumber);
     void replaceShred();
     void removeAllShreds();
     

@@ -1,0 +1,56 @@
+CHUCK RACKS DOCUMENTATION
+for alpha 1.0
+
+
+use  ‘adc =>’ to get audio from the host channel into chuck
+
+printing to console using <<< >>> doesn’t work yet.
+
+running more than 1 instance of chuck racks will crash the host
+
+FUNCTIONS:
+
+float PluginHost.getTempo()
+-Returns current tempo in BPM
+
+Event PluginHost.onPlay()
+-Returns an event when play button is pressed
+
+Event PluginHost.onStop()
+-Returns an event when the stop button is pressed
+       
+Event PluginHost.onBeat()
+-Returns an event on the start of each bar
+    
+Event PluginHost.sixteenth()
+-Returns an event at the beginning of each 16th note
+    
+int PluginHost.isPlaying()
+-Returns a 1 if the host is playing. Otherwise it returns 0.
+
+float PluginHost.positionInBeat()
+-Returns a value between 0 and 0.9999 for the position in the beat. It can be used for finer subdivisions than 16ths.
+
+Event PluginHost.onMidi()
+-Returns an event when a midi message is received from host.
+
+int PluginHost.recvMidi(MidiMsg msg)
+-Used to receive midi messages from host. Returns a 1 if message was received. 
+Example:
+	MidiMsg msg;
+
+	while(true)
+	{
+    		PluginHost.onMidi() => now;
+    		while(PluginHost.recvMidi(msg))
+    		{
+        		<<< msg.data1, msg.data2, msg.data3 >>>;
+    		}
+	}
+
+
+
+if you have questions contact me at rodrigosena@alum.calarts.edu
+
+
+    

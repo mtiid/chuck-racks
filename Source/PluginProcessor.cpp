@@ -379,33 +379,3 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new ChuckPluginTest4AudioProcessor();
 }
-
-void ChuckPluginTest4AudioProcessor::testAddShred()
-{
-    libchuck_add_shred(ck, "SqrOsc", "SqrOsc osc => dac; 1::day => now;");
-}
-
-void ChuckPluginTest4AudioProcessor::addShred()
-{
-    //libchuck_add_shred(ck, fileManager.filePath, NULL);
-    //libchuck_add_shred(ck, fileManager.filePath.toRawUTF8(), NULL);
-    
-    //libchuck_add_shred(ck, codeEditorDemo->fileChooser.getResult().getFullPathName().toRawUTF8(),
-                       //codeEditorDemo->codeDocument.getAllContent().toRawUTF8());
-    
-    
-    libchuck_add_shred(ck, codeEditorDemo->fileChooser.getCurrentFile().getFullPathName().toRawUTF8(),
-                       codeEditorDemo->codeDocument.getAllContent().toRawUTF8());
-    //String name="SqrOsc";
-    //libchuck_add_shred(ck, name, "SqrOsc osc => dac; 1::day => now;");
-    
-
-}
-
-
-
-
-void ChuckPluginTest4AudioProcessor::removeShred()
-{
-    libchuck_remove_shred(ck, 1);
-}

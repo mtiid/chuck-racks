@@ -74,11 +74,6 @@ public:
     //*********************************************************************
 
     
-    void testAddShred();
-    void addShred();
-    void addAllShreds();
-    void removeShred();
-    
     FileContainerManagerModel* getFileContainerManagerModel(){return fileContainerManagerModel;};
     
     

@@ -47,6 +47,7 @@ void FileContainerUI::init(){
     addShredButton->setBounds(28, 5, 20,20);
     addShredButton->addListener(this);
     
+    /*
     removeShredButton = new DrawableButton("Remove All Shreds", DrawableButton::ButtonStyle::ImageFitted);
     ScopedPointer<XmlElement> removeShredSVGUp(XmlDocument::parse(BinaryData::removeAllShredUp_svg));
     ScopedPointer<XmlElement> removeShredSVGDown(XmlDocument::parse(BinaryData::removeAllShredDown_svg));
@@ -54,7 +55,8 @@ void FileContainerUI::init(){
     addAndMakeVisible(removeShredButton);
     removeShredButton->setBounds(52, 5, 20, 20);
     removeShredButton->addListener(this);
-    
+    */
+     
     openFileButton = new TextButton("Open");
     addAndMakeVisible(openFileButton);
     openFileButton->setButtonText("Open");
@@ -75,26 +77,36 @@ void FileContainerUI::init(){
     addChildComponent(codeEditor = new CodeEditorComponent (mFileContainerModel->codeDocument, &ckTokeniser));
 
     if (codeEditor->getDocument().getAllContent()=="") {
-        codeEditor->loadContent ("//my id:"
-                                 + String(mFileContainerModel->uniqueFileContainerId) +
-                                 "\n"
-                                 "/*"
-                                 "\n"
-                                 "   Type in your ChucK code\n"
-                                 "   or load a file\n"
-                                 "\n"
-                                 "*/\n"
-                                 "\n"
-                                 "SqrOsc osc=>dac; \n"
-                                 "1::second=>now; \n"
-                                 );
+        codeEditor->loadContent(
+//        ("//my id:"
+//                                 + String(mFileContainerModel->uniqueFileContainerId) +
+//                                 "\n"
+//                                 "/*"
+//                                 "\n"
+//                                 "   Type in your ChucK code\n"
+//                                 "   or load a file\n"
+//                                 "\n"
+//                                 "*/\n"
+//                                 "\n"
+//                                 "SqrOsc osc=>dac; \n"
+//                                 "1::second=>now; \n"
+//                                 );
+        "SqrOsc osc => dac;"
+        "\n"
+        "while(true) \n"
+        "{\n"
+            
+        "   Std.rand2f(30, 1000)=>osc.freq;\n"
+        "   PluginHost.sixteenth()=>now; //synced with daw (press play)\n"
+        "}"
+                                );
     }else {
         codeEditor->loadContent(codeEditor->getDocument().getAllContent());
         //std::cout << "content loaded" << std::endl;
     }
     
     
-    
+    /*
     for(int i=0; i<knobAmount; i++)
     {
         knobs.push_back(new Slider("knob"+String(i)));
@@ -118,6 +130,7 @@ void FileContainerUI::init(){
         }
         
     }
+     */
     
     switch (currentViewMode) {
         case AppViewMode::RackView:

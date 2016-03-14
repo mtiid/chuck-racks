@@ -83,7 +83,7 @@ void ChuckPluginTest4AudioProcessorEditor::buttonClicked(Button *buttonThatWasPr
     
     if (buttonThatWasPressed==removeAllShredsButton)
     {
-        getProcessor()->removeShred();
+        getProcessor()->getFileContainerManagerModel()->removeAllShreds();
     }
     
     if (buttonThatWasPressed==addNewFileContainerButton)
