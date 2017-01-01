@@ -18,20 +18,20 @@
 //==============================================================================
 /**
 */
-class ChuckPluginTest4AudioProcessorEditor  : public AudioProcessorEditor, public ButtonListener, public Timer, Slider::Listener 
+class ChuckRacksAudioProcessorEditor  : public AudioProcessorEditor, public ButtonListener, public Timer, Slider::Listener 
 {
 public:
-    ChuckPluginTest4AudioProcessorEditor (ChuckPluginTest4AudioProcessor* ownerFilter);
-    ~ChuckPluginTest4AudioProcessorEditor();
+    ChuckRacksAudioProcessorEditor (ChuckRacksAudioProcessor* ownerFilter);
+    ~ChuckRacksAudioProcessorEditor();
 
     //==============================================================================
     // This is just a standard Juce paint method...
     void paint (Graphics& g) override;
     void resized() override;
     
-    ChuckPluginTest4AudioProcessor * getProcessor() const
+    ChuckRacksAudioProcessor * getProcessor() const
     {
-        return static_cast<ChuckPluginTest4AudioProcessor *>(getAudioProcessor());
+        return static_cast<ChuckRacksAudioProcessor *>(getAudioProcessor());
         
     }
     

@@ -1,6 +1,6 @@
 //
 //  FileContainerManagerUI.cpp
-//  ChuckPluginTest4
+//  ChuckRacks
 //
 //  Created by Rodrigo Sena on 4/22/15.
 //
@@ -103,14 +103,16 @@ void FileContainerManagerUI::updateFileContainerUILayout(){
     {
         FileContainerUI* currentFileContainerUI = fileContainerUIs[i];
 
-        if (i==0) {
+        if (i==0)
+        {
             currentFileContainerUI->setTopLeftPosition(0, 0);
         }else{
             currentFileContainerUI->setTopLeftPosition(0, fileContainerUIs[i-1]->getBottom()-1);
         }
     }
     
-    if (fileContainerUIs.size() > 0){
+    if ( fileContainerUIs.size() > 0 )
+    {
         mainView.setBounds(0, 0, getParentComponent()->getWidth(), fileContainerUIs.getLast()->getBottom());
     }
     

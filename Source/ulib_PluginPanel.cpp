@@ -1,6 +1,6 @@
 //
 //  ulib_PluginPanel.cpp
-//  ChuckPluginTest4
+//  ChuckRacks
 //
 //  Created by Rodrigo Sena on 4/22/15.
 //

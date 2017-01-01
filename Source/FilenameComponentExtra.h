@@ -1,19 +1,19 @@
 //
 //  FilenameComponentExtra.h
-//  ChuckPluginTest4
+//  ChuckRacks
 //
 //  Created by Rodrigo Sena on 4/25/15.
 //
 //
 
-#ifndef __ChuckPluginTest4__FilenameComponentExtra__
-#define __ChuckPluginTest4__FilenameComponentExtra__
+#ifndef __ChuckRacks__FilenameComponentExtra__
+#define __ChuckRacks__FilenameComponentExtra__
 
 #include <stdio.h>
 #include "../JuceLibraryCode/JuceHeader.h"
 
 
-#endif /* defined(__ChuckPluginTest4__FilenameComponentExtra__) */
+#endif /* defined(__ChuckRacks__FilenameComponentExtra__) */
 
 
 class FilenameComponentExtra  : public Component,

@@ -1,20 +1,20 @@
 //
 //  FileContainerUI.h
-//  ChuckPluginTest4
+//  ChuckRacks
 //
 //  Created by Rodrigo Sena on 4/22/15.
 //
 //
 
-#ifndef __ChuckPluginTest4__FileContainerUI__
-#define __ChuckPluginTest4__FileContainerUI__
+#ifndef __ChuckRacks__FileContainerUI__
+#define __ChuckRacks__FileContainerUI__
 
 #include <stdio.h>
 #include "ChuckTokeniser.h"
 #include "FileContainerModel.h"
 #include "AppViewMode.h"
 
-#endif /* defined(__ChuckPluginTest4__FileContainerUI__) */
+#endif /* defined(__ChuckRacks__FileContainerUI__) */
 
 class FileContainerUI : public Component,
                         private FilenameComponentListener,

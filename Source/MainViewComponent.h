@@ -1,13 +1,13 @@
 //
 //  MainViewComponent.h
-//  ChuckPluginTest4
+//  ChuckRacks
 //
 //  Created by Rodrigo Sena on 10/22/15.
 //
 //
 
-#ifndef __ChuckPluginTest4__MainViewComponent__
-#define __ChuckPluginTest4__MainViewComponent__
+#ifndef __ChuckRacks__MainViewComponent__
+#define __ChuckRacks__MainViewComponent__
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
@@ -25,4 +25,4 @@ private:
     
 };
 
-#endif /* defined(__ChuckPluginTest4__MainViewComponent__) */
+#endif /* defined(__ChuckRacks__MainViewComponent__) */

@@ -1,13 +1,13 @@
 //
 //  FileContainerManagerModel.h
-//  ChuckPluginTest4
+//  ChuckRacks
 //
 //  Created by Rodrigo Sena on 4/22/15.
 //
 //
 
-#ifndef __ChuckPluginTest4__FileContainerManagerModel__
-#define __ChuckPluginTest4__FileContainerManagerModel__
+#ifndef __ChuckRacks__FileContainerManagerModel__
+#define __ChuckRacks__FileContainerManagerModel__
 
 #include <stdio.h>
 
@@ -37,5 +37,5 @@ private:
 
 
 
-#endif /* defined(__ChuckPluginTest4__FileContainerManagerModel__) */
+#endif /* defined(__ChuckRacks__FileContainerManagerModel__) */
 

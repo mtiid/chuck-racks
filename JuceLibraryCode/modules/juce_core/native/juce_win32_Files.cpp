@@ -65,7 +65,7 @@ namespace WindowsFileHelpers
         path.copyToUTF16 (pathCopy, numBytes);
 
         if (PathStripToRoot (pathCopy))
-            path = static_cast <const WCHAR*> (pathCopy);
+            path = static_cast<const WCHAR*> (pathCopy);
 
         return path;
     }
@@ -120,6 +120,7 @@ namespace WindowsFileHelpers
 const juce_wchar File::separator = '\\';
 const String File::separatorString ("\\");
 
+void* getUser32Function (const char*);
 
 //==============================================================================
 bool File::exists() const
@@ -217,6 +218,15 @@ bool File::copyInternal (const File& dest) const
 bool File::moveInternal (const File& dest) const
 {
     return MoveFile (fullPath.toWideCharPointer(), dest.getFullPathName().toWideCharPointer()) != 0;
+}
+
+bool File::replaceInternal (const File& dest) const
+{
+    void* lpExclude = 0;
+    void* lpReserved = 0;
+
+    return ReplaceFile (dest.getFullPathName().toWideCharPointer(), fullPath.toWideCharPointer(),
+                        0, REPLACEFILE_IGNORE_MERGE_ERRORS, lpExclude, lpReserved) != 0;
 }
 
 Result File::createDirectoryInternal (const String& fileName) const
@@ -324,7 +334,7 @@ Result FileOutputStream::truncate()
 }
 
 //==============================================================================
-void MemoryMappedFile::openInternal (const File& file, AccessMode mode)
+void MemoryMappedFile::openInternal (const File& file, AccessMode mode, bool exclusive)
 {
     jassert (mode == readOnly || mode == readWrite);
 
@@ -347,7 +357,8 @@ void MemoryMappedFile::openInternal (const File& file, AccessMode mode)
         access = FILE_MAP_ALL_ACCESS;
     }
 
-    HANDLE h = CreateFile (file.getFullPathName().toWideCharPointer(), accessMode, FILE_SHARE_READ, 0,
+    HANDLE h = CreateFile (file.getFullPathName().toWideCharPointer(), accessMode,
+                           exclusive ? 0 : (FILE_SHARE_READ | (mode == readWrite ? FILE_SHARE_WRITE : 0)), 0,
                            createType, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, 0);
 
     if (h != INVALID_HANDLE_VALUE)
@@ -523,7 +534,9 @@ bool File::isOnHardDisk() const
     if (fullPath.toLowerCase()[0] <= 'b' && fullPath[1] == ':')
         return n != DRIVE_REMOVABLE;
 
-    return n != DRIVE_CDROM && n != DRIVE_REMOTE;
+    return n != DRIVE_CDROM
+        && n != DRIVE_REMOTE
+        && n != DRIVE_NO_ROOT_DIR;
 }
 
 bool File::isOnRemovableDrive() const
@@ -643,6 +656,13 @@ bool File::isShortcut() const
 
 File File::getLinkedTarget() const
 {
+   #if JUCE_WINDOWS
+    typedef DWORD (WINAPI* GetFinalPathNameByHandleFunc) (HANDLE, LPTSTR, DWORD, DWORD);
+
+    static GetFinalPathNameByHandleFunc getFinalPathNameByHandle
+             = (GetFinalPathNameByHandleFunc) getUser32Function ("GetFinalPathNameByHandle");
+
+    if (getFinalPathNameByHandle != nullptr)
     {
         HANDLE h = CreateFile (getFullPathName().toWideCharPointer(),
                                GENERIC_READ, FILE_SHARE_READ, nullptr,
@@ -650,25 +670,28 @@ File File::getLinkedTarget() const
 
         if (h != INVALID_HANDLE_VALUE)
         {
-            DWORD requiredSize = ::GetFinalPathNameByHandleW (h, nullptr, 0, FILE_NAME_NORMALIZED);
-
-            if (requiredSize > 0)
+            if (DWORD requiredSize = getFinalPathNameByHandle (h, nullptr, 0, 0 /* FILE_NAME_NORMALIZED */))
             {
-                HeapBlock<WCHAR> buffer (requiredSize + 2);
-                buffer.clear (requiredSize + 2);
+                HeapBlock<WCHAR> buffer (requiredSize + 2, true);
 
-                requiredSize = ::GetFinalPathNameByHandleW (h, buffer, requiredSize, FILE_NAME_NORMALIZED);
-
-                if (requiredSize > 0)
+                if (getFinalPathNameByHandle (h, buffer, requiredSize, 0 /* FILE_NAME_NORMALIZED */) > 0)
                 {
                     CloseHandle (h);
-                    return File (String (buffer));
+
+                    const StringRef prefix ("\\\\?\\");
+                    const String path (buffer);
+
+                    // It turns out that GetFinalPathNameByHandleW prepends \\?\ to the path.
+                    // This is not a bug, it's feature. See MSDN for more information.
+                    return File (path.startsWith (prefix) ? path.substring (prefix.length())
+                                                          : path);
                 }
             }
 
             CloseHandle (h);
         }
     }
+   #endif
 
     File result (*this);
     String p (getFullPathName());
@@ -717,7 +740,7 @@ class DirectoryIterator::NativeIterator::Pimpl
 {
 public:
     Pimpl (const File& directory, const String& wildCard)
-        : directoryWithWildCard (File::addTrailingSeparator (directory.getFullPathName()) + wildCard),
+        : directoryWithWildCard (directory.getFullPathName().isNotEmpty() ? File::addTrailingSeparator (directory.getFullPathName()) + wildCard : String()),
           handle (INVALID_HANDLE_VALUE)
     {
     }
@@ -787,14 +810,8 @@ bool DirectoryIterator::NativeIterator::next (String& filenameFound,
 //==============================================================================
 bool JUCE_CALLTYPE Process::openDocument (const String& fileName, const String& parameters)
 {
-    HINSTANCE hInstance = 0;
-
-    JUCE_TRY
-    {
-        hInstance = ShellExecute (0, 0, fileName.toWideCharPointer(),
-                                  parameters.toWideCharPointer(), 0, SW_SHOWDEFAULT);
-    }
-    JUCE_CATCH_ALL
+    HINSTANCE hInstance = ShellExecute (0, 0, fileName.toWideCharPointer(),
+                                        parameters.toWideCharPointer(), 0, SW_SHOWDEFAULT);
 
     return hInstance > (HINSTANCE) 32;
 }

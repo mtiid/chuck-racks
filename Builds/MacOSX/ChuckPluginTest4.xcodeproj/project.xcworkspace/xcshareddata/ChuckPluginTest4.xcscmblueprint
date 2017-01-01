@@ -10,7 +10,7 @@
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "21526ABB-A6BA-4C82-B993-DF4024AD3B25",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "F4E869A7E73111097F43EC3FC633E0DE52682C00" : "ChuckPluginTest4",
+    "F4E869A7E73111097F43EC3FC633E0DE52682C00" : "ChuckPluginTest4\/",
     "B7DB09816AD1E97200BED07992493B6405AF64FF" : "ChuckPluginTest4libchuck",
     "98B762A2A4792C7EA78DFB742C343473354589B7" : "ChuckPluginTest4libchuck\/chuck"
   },

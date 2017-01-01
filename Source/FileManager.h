@@ -1,17 +1,17 @@
 //
 //  FileManager.h
-//  ChuckPluginTest4
+//  ChuckRacks
 //
 //  Created by Rodrigo Sena on 3/20/15.
 //
 //
 
-#ifndef __ChuckPluginTest4__FileManager__
-#define __ChuckPluginTest4__FileManager__
+#ifndef __ChuckRacks__FileManager__
+#define __ChuckRacks__FileManager__
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-#endif /* defined(__ChuckPluginTest4__FileManager__) */
+#endif /* defined(__ChuckRacks__FileManager__) */
 
 class FileManager
 {

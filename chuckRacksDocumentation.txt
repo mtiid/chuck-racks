@@ -1,12 +1,17 @@
 CHUCK RACKS DOCUMENTATION
 for alpha 1.0
 
+TO INSTALL: drag ChuckRacks.vst to your VST folder
+(usually HD/Library/Audio/Plug-Ins/VST or HD/Users/Username/Library/Audio/Plug-Ins/VST)
+
 
 use  ‘adc =>’ to get audio from the host channel into chuck
 
 printing to console using <<< >>> doesn’t work yet.
 
 running more than 1 instance of chuck racks will crash the host
+
+
 
 FUNCTIONS:
 

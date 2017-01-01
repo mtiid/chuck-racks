@@ -1,6 +1,6 @@
 //
 //  FileContainerUI.cpp
-//  ChuckPluginTest4
+//  ChuckRacks
 //
 //  Created by Rodrigo Sena on 4/22/15.
 //
@@ -74,7 +74,7 @@ void FileContainerUI::init(){
     
     
     // Create the editor..
-    addChildComponent(codeEditor = new CodeEditorComponent (mFileContainerModel->codeDocument, &ckTokeniser));
+    addChildComponent(codeEditor = new CodeEditorComponent (mFileContainerModel->getCodeDocument(), &ckTokeniser));
 
     if (codeEditor->getDocument().getAllContent()=="") {
         codeEditor->loadContent(
@@ -91,6 +91,7 @@ void FileContainerUI::init(){
 //                                 "SqrOsc osc=>dac; \n"
 //                                 "1::second=>now; \n"
 //                                 );
+        /*
         "SqrOsc osc => dac;"
         "\n"
         "while(true) \n"
@@ -99,7 +100,22 @@ void FileContainerUI::init(){
         "   Std.rand2f(30, 1000)=>osc.freq;\n"
         "   PluginHost.sixteenth()=>now; //synced with daw (press play)\n"
         "}"
-                                );
+         */
+                                
+        "SqrOsc osc => dac;\n"
+        "0.1=> osc.gain;\n"
+        "while(true)\n"
+        "{\n"
+        "   Std.rand2(30, 80) => int randomMidiNote;\n"
+        "   Std.mtof( randomMidiNote )=> float noteFreq; // mtof == Midi To Frequency\n"
+        "   noteFreq => osc.freq;\n"
+        "   repeat ( Std.rand2(1, 3) ) //1,2 or 3 sixteenths\n"
+        "   {\n"
+        "      PluginHost.sixteenth()=>now; //synced with daw (press play)\n"
+        "   }\n"
+        "}"
+        //TODO: Add a default file (from examples ) and load that instead of hardcoding this
+        );
     }else {
         codeEditor->loadContent(codeEditor->getDocument().getAllContent());
         //std::cout << "content loaded" << std::endl;
@@ -132,24 +148,24 @@ void FileContainerUI::init(){
     }
      */
     
-    switch (currentViewMode) {
+    switch ( currentViewMode ) {
         case AppViewMode::RackView:
-            codeEditor->setBounds(1, 30, editorWidth-2, editorHeight-31);
+            codeEditor->setBounds( 1, 30, editorWidth-2, editorHeight-31 );
             break;
         case AppViewMode::TabView:
-            codeEditor->setBounds(1, 30, editorWidth-2, editorHeight);
+            codeEditor->setBounds( 1, 30, editorWidth-2, editorHeight );
             break;
         default:
             break;
     }
 
-    codeEditor->setVisible(mCodeEditorVisible);
+    codeEditor->setVisible( mCodeEditorVisible );
     
     // Create a file chooser control to load files into it..
     //addAndMakeVisible (filenameComponent);
     //filenameComponent.addListener (this);
     
-    startTimer(50);
+    startTimer( 50 );
 }
 
 
@@ -159,9 +175,10 @@ FileContainerUI::~FileContainerUI()
     //filenameComponent.removeListener(this);
 }
 
-void FileContainerUI::paint (Graphics& g)
+void FileContainerUI::paint( Graphics& g )
 {
-    if (mCodeEditorVisible) {
+    if ( mCodeEditorVisible )
+    {
         g.fillAll(Colour(100, 106, 127));
     }else{
         g.fillAll(Colour(50, 53, 64));
@@ -171,8 +188,10 @@ void FileContainerUI::paint (Graphics& g)
     g.drawRect(getLocalBounds(), 1);
 }
 
-void FileContainerUI::updateSize(){
-    switch (currentViewMode) {
+void FileContainerUI::updateSize()
+{
+    switch (currentViewMode)
+    {
         case AppViewMode::RackView :
             editorHeight = 410;
             break;
@@ -183,7 +202,8 @@ void FileContainerUI::updateSize(){
             break;
     }
     
-    if (mCodeEditorVisible) {
+    if (mCodeEditorVisible)
+    {
         setSize(editorWidth, editorHeight);
     }else{
         setSize(editorWidth, 30);
@@ -194,7 +214,7 @@ void FileContainerUI::updateSize(){
 void FileContainerUI::timerCallback()
 {
     //gainKnob->setValue(getProcessor()->getParameter(VolumeKnobAudioProcessor::gainParam), NotificationType::dontSendNotification);
-    for(int i=0; i<knobs.size(); i++)
+    for( int i=0; i<knobs.size(); i++ )
     {
         //knobs.at(i)->setValue(mFileContainerModel->knobInfos.at(i).value01);
         //UNCOMMENT
@@ -243,12 +263,12 @@ void FileContainerUI::buttonClicked(Button *buttonThatWasPressed)
         sendChangeMessage();
     }
     
-    else if (buttonThatWasPressed==addShredButton)
+    else if ( buttonThatWasPressed == addShredButton )
     {
         mFileContainerModel->addShred();
     }
     
-    else if (buttonThatWasPressed==removeShredButton)
+    else if (buttonThatWasPressed == removeShredButton )
     {
         mFileContainerModel->removeLastShred();
     }
@@ -260,14 +280,14 @@ void FileContainerUI::buttonClicked(Button *buttonThatWasPressed)
                         "*.ck",
                         true);
         
-        if (fc.browseForFileToSave (true))
+        if ( fc.browseForFileToSave (true) )
         {
             File chosenFile = fc.getResult();
             
             AlertWindow::showMessageBoxAsync (AlertWindow::InfoIcon,
                                               "File Chooser...",
                                               "You picked: " + chosenFile.getFullPathName());
-            fc.getResult().replaceWithText(mFileContainerModel->codeDocument.getAllContent());
+            fc.getResult().replaceWithText(mFileContainerModel->getCodeDocument().getAllContent());
         }
     }
     
@@ -278,7 +298,7 @@ void FileContainerUI::buttonClicked(Button *buttonThatWasPressed)
                         "*.ck",
                         true);
         
-        if(fc.browseForFileToOpen())
+        if( fc.browseForFileToOpen() )
         {
             String chosen;
             fc.getResult();
@@ -292,7 +312,8 @@ void FileContainerUI::buttonClicked(Button *buttonThatWasPressed)
     }
 }
 
-void FileContainerUI::setViewMode(AppViewMode vm){
+void FileContainerUI::setViewMode( AppViewMode vm )
+{
     currentViewMode = vm;
 }
 

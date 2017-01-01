@@ -1,6 +1,6 @@
 //
 //  FileManager.cpp
-//  ChuckPluginTest4
+//  ChuckRacks
 //
 //  Created by Rodrigo Sena on 3/20/15.
 //

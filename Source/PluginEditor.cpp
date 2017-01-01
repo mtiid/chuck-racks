@@ -14,7 +14,7 @@
 
 
 //==============================================================================
-ChuckPluginTest4AudioProcessorEditor::ChuckPluginTest4AudioProcessorEditor (ChuckPluginTest4AudioProcessor* ownerFilter)
+ChuckRacksAudioProcessorEditor::ChuckRacksAudioProcessorEditor (ChuckRacksAudioProcessor* ownerFilter)
 : AudioProcessorEditor (ownerFilter)
 {
     LookAndFeel::setDefaultLookAndFeel(new CustomLookAndFeel());
@@ -56,24 +56,24 @@ ChuckPluginTest4AudioProcessorEditor::ChuckPluginTest4AudioProcessorEditor (Chuc
     timerCallback();
 }
 
-ChuckPluginTest4AudioProcessorEditor::~ChuckPluginTest4AudioProcessorEditor()
+ChuckRacksAudioProcessorEditor::~ChuckRacksAudioProcessorEditor()
 {
 }
 
 //==============================================================================
-void ChuckPluginTest4AudioProcessorEditor::paint (Graphics& g)
+void ChuckRacksAudioProcessorEditor::paint (Graphics& g)
 {
     g.fillAll (Colour(38, 40, 49));
     //g.fillAll(Colour(238, 238, 238));
 
 }
 
-void ChuckPluginTest4AudioProcessorEditor::resized()
+void ChuckRacksAudioProcessorEditor::resized()
 {
     
 }
 
-void ChuckPluginTest4AudioProcessorEditor::buttonClicked(Button *buttonThatWasPressed)
+void ChuckRacksAudioProcessorEditor::buttonClicked(Button *buttonThatWasPressed)
 {
     if (buttonThatWasPressed==addAllShredsButton)
     {
@@ -100,12 +100,12 @@ void ChuckPluginTest4AudioProcessorEditor::buttonClicked(Button *buttonThatWasPr
     //}
 }
 
-void ChuckPluginTest4AudioProcessorEditor::timerCallback()
+void ChuckRacksAudioProcessorEditor::timerCallback()
 {
     
 }
 
-void ChuckPluginTest4AudioProcessorEditor::sliderValueChanged (Slider* slider)
+void ChuckRacksAudioProcessorEditor::sliderValueChanged (Slider* slider)
 {
     
 }

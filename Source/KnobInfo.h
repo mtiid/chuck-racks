@@ -1,13 +1,13 @@
 //
 //  Knob.h
-//  ChuckPluginTest4
+//  ChuckRacks
 //
 //  Created by Rodrigo Sena on 4/24/15.
 //
 //
 
-#ifndef ChuckPluginTest4_KnobInfo_h
-#define ChuckPluginTest4_KnobInfo_h
+#ifndef ChuckRacks_KnobInfo_h
+#define ChuckRacks_KnobInfo_h
 
 
 

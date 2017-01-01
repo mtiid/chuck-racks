@@ -16,11 +16,11 @@
 
 
 //==============================================================================
-ChuckPluginTest4AudioProcessor::ChuckPluginTest4AudioProcessor()
+ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
 {
     //ConsoleGlobal *ConsoleGlobal::instance = 0;
     
-    fprintf(stderr, "ChuckPluginTest4AudioProcessor::ChuckPluginTest4AudioProcessor\n");
+    fprintf(stderr, "ChuckRacksAudioProcessor::ChuckRacksAudioProcessor\n");
     chuck_options options;
     libchuck_options_reset(&options);
 //    options.buffer_size = getBlockSize();
@@ -34,7 +34,7 @@ ChuckPluginTest4AudioProcessor::ChuckPluginTest4AudioProcessor()
     options.num_channels = 2;
     options.sample_rate = 44100;
 
-    
+    //TODO: check if a valid instance of chuck is running (how do I do this?)
     ck = libchuck_create(&options);
     
     libchuck_add_module(ck, (void*)pluginhost_query);
@@ -63,9 +63,9 @@ ChuckPluginTest4AudioProcessor::ChuckPluginTest4AudioProcessor()
     
 }
 
-ChuckPluginTest4AudioProcessor::~ChuckPluginTest4AudioProcessor()
+ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor()
 {
-    fprintf(stderr, "ChuckPluginTest4AudioProcessor::~ChuckPluginTest4AudioProcessor\n");
+    fprintf(stderr, "ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor\n");
 
     libchuck_destroy(ck);
     ck = NULL;
@@ -75,56 +75,56 @@ ChuckPluginTest4AudioProcessor::~ChuckPluginTest4AudioProcessor()
 }
 
 //==============================================================================
-const String ChuckPluginTest4AudioProcessor::getName() const
+const String ChuckRacksAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-int ChuckPluginTest4AudioProcessor::getNumParameters()
+int ChuckRacksAudioProcessor::getNumParameters()
 {
     return 0;
 }
 
-float ChuckPluginTest4AudioProcessor::getParameter (int index)
+float ChuckRacksAudioProcessor::getParameter (int index)
 {
     return 0.0f;
 }
 
-void ChuckPluginTest4AudioProcessor::setParameter (int index, float newValue)
+void ChuckRacksAudioProcessor::setParameter (int index, float newValue)
 {
 }
 
-const String ChuckPluginTest4AudioProcessor::getParameterName (int index)
-{
-    return String::empty;
-}
-
-const String ChuckPluginTest4AudioProcessor::getParameterText (int index)
+const String ChuckRacksAudioProcessor::getParameterName (int index)
 {
     return String::empty;
 }
 
-const String ChuckPluginTest4AudioProcessor::getInputChannelName (int channelIndex) const
+const String ChuckRacksAudioProcessor::getParameterText (int index)
+{
+    return String::empty;
+}
+
+const String ChuckRacksAudioProcessor::getInputChannelName (int channelIndex) const
 {
     return String (channelIndex + 1);
 }
 
-const String ChuckPluginTest4AudioProcessor::getOutputChannelName (int channelIndex) const
+const String ChuckRacksAudioProcessor::getOutputChannelName (int channelIndex) const
 {
     return String (channelIndex + 1);
 }
 
-bool ChuckPluginTest4AudioProcessor::isInputChannelStereoPair (int index) const
+bool ChuckRacksAudioProcessor::isInputChannelStereoPair (int index) const
 {
     return true;
 }
 
-bool ChuckPluginTest4AudioProcessor::isOutputChannelStereoPair (int index) const
+bool ChuckRacksAudioProcessor::isOutputChannelStereoPair (int index) const
 {
     return true;
 }
 
-bool ChuckPluginTest4AudioProcessor::acceptsMidi() const
+bool ChuckRacksAudioProcessor::acceptsMidi() const
 {
    #if JucePlugin_WantsMidiInput
     return true;
@@ -133,7 +133,7 @@ bool ChuckPluginTest4AudioProcessor::acceptsMidi() const
    #endif
 }
 
-bool ChuckPluginTest4AudioProcessor::producesMidi() const
+bool ChuckRacksAudioProcessor::producesMidi() const
 {
    #if JucePlugin_ProducesMidiOutput
     return true;
@@ -142,53 +142,53 @@ bool ChuckPluginTest4AudioProcessor::producesMidi() const
    #endif
 }
 
-bool ChuckPluginTest4AudioProcessor::silenceInProducesSilenceOut() const
+bool ChuckRacksAudioProcessor::silenceInProducesSilenceOut() const
 {
     return false;
 }
 
-double ChuckPluginTest4AudioProcessor::getTailLengthSeconds() const
+double ChuckRacksAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int ChuckPluginTest4AudioProcessor::getNumPrograms()
+int ChuckRacksAudioProcessor::getNumPrograms()
 {
     return 1;
 }
 
-int ChuckPluginTest4AudioProcessor::getCurrentProgram()
+int ChuckRacksAudioProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void ChuckPluginTest4AudioProcessor::setCurrentProgram (int index)
+void ChuckRacksAudioProcessor::setCurrentProgram (int index)
 {
 }
 
-const String ChuckPluginTest4AudioProcessor::getProgramName (int index)
+const String ChuckRacksAudioProcessor::getProgramName (int index)
 {
     return String::empty;
 }
 
-void ChuckPluginTest4AudioProcessor::changeProgramName (int index, const String& newName)
+void ChuckRacksAudioProcessor::changeProgramName (int index, const String& newName)
 {
 }
 
 //==============================================================================
-void ChuckPluginTest4AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void ChuckRacksAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 }
 
-void ChuckPluginTest4AudioProcessor::releaseResources()
+void ChuckRacksAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
 }
 
-void ChuckPluginTest4AudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+void ChuckRacksAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {    
     // Get current position/time info from host, otherwise set to some default
     AudioPlayHead::CurrentPositionInfo pos;
@@ -349,25 +349,25 @@ void ChuckPluginTest4AudioProcessor::processBlock (AudioBuffer<float>& buffer, M
 }
 
 //==============================================================================
-bool ChuckPluginTest4AudioProcessor::hasEditor() const
+bool ChuckRacksAudioProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-AudioProcessorEditor* ChuckPluginTest4AudioProcessor::createEditor()
+AudioProcessorEditor* ChuckRacksAudioProcessor::createEditor()
 {
-    return new ChuckPluginTest4AudioProcessorEditor (this);
+    return new ChuckRacksAudioProcessorEditor (this);
 }
 
 //==============================================================================
-void ChuckPluginTest4AudioProcessor::getStateInformation (MemoryBlock& destData)
+void ChuckRacksAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 }
 
-void ChuckPluginTest4AudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void ChuckRacksAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
@@ -377,5 +377,5 @@ void ChuckPluginTest4AudioProcessor::setStateInformation (const void* data, int 
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new ChuckPluginTest4AudioProcessor();
+    return new ChuckRacksAudioProcessor();
 }

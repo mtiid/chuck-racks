@@ -1,6 +1,6 @@
 //
 //  CustomLookAndFeel.cpp
-//  ChuckPluginTest4
+//  ChuckRacks
 //
 //  Created by Jordan Hochenbaum on 10/23/15.
 //

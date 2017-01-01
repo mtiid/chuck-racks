@@ -1,13 +1,13 @@
 //
 //  ChuckTokeniser.h
-//  ChuckPluginTest4
+//  ChuckRacks
 //
 //  Created by Rodrigo Sena on 4/5/15.
 //
 //
 
-#ifndef __ChuckPluginTest4__ChuckTokeniser__
-#define __ChuckPluginTest4__ChuckTokeniser__
+#ifndef __ChuckRacks__ChuckTokeniser__
+#define __ChuckRacks__ChuckTokeniser__
 
 //#include <iostream>
 
@@ -68,5 +68,5 @@ private:
     
 };
 
-#endif /* defined(__ChuckPluginTest4__ChuckTokeniser__) */
+#endif /* defined(__ChuckRacks__ChuckTokeniser__) */
 

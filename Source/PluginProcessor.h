@@ -16,17 +16,18 @@
 #include "libchuck.h"
 #include "CodeEditorDemo.h"
 #include "FileContainerManagerModel.h"
+#include "Defines.h"
 
 
 //==============================================================================
 /**
 */
-class ChuckPluginTest4AudioProcessor  : public AudioProcessor
+class ChuckRacksAudioProcessor  : public AudioProcessor
 {
 public:
     //==============================================================================
-    ChuckPluginTest4AudioProcessor();
-    ~ChuckPluginTest4AudioProcessor();
+    ChuckRacksAudioProcessor();
+    ~ChuckRacksAudioProcessor();
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock);
@@ -79,7 +80,7 @@ public:
     
 private:
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChuckPluginTest4AudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChuckRacksAudioProcessor)
     
     chuck_inst *ck;
     float *input_buffer;

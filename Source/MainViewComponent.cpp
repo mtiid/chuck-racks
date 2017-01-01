@@ -1,6 +1,6 @@
 //
 //  MainViewComponent.cpp
-//  ChuckPluginTest4
+//  ChuckRacks
 //
 //  Created by Rodrigo Sena on 10/22/15.
 //

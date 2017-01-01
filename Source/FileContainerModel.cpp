@@ -1,6 +1,6 @@
 //
 //  FileContainerModel.cpp
-//  ChuckPluginTest4
+//  ChuckRacks
 //
 //  Created by Rodrigo Sena on 4/22/15.
 //
@@ -76,11 +76,11 @@ void FileContainerModel::removeLastShred()
     //std::cout<< "remove last shred called";
     std::cout<<"shredIds size:" << shredIds.size() << "\n";
 
-    if(shredIds.size()>0)
+    if( shredIds.size() > 0 )
     {
         std::cout<<"shredIds to be removed:" << shredIds.back() << "\n";
 
-        removeShred(shredIds.back());
+        removeShred( shredIds.back() );
         
         shredIds.pop_back();
     }
@@ -114,50 +114,53 @@ void FileContainerModel::removeShred(int idNumber)
 
 void FileContainerModel::replaceShred()
 {
-    chuck_result result=libchuck_replace_shred(ck, shredIds.back(), filePath.toRawUTF8(),
-                                               codeDocument.getAllContent().toRawUTF8());
-    if(result.type == chuck_result::OK)
+    chuck_result result = libchuck_replace_shred( ck, shredIds.back(), filePath.toRawUTF8(),
+                                               codeDocument.getAllContent().toRawUTF8() );
+    if( result.type == chuck_result::OK )
     {
         shredIds.pop_back();
-        shredIds.push_back(result.shred_id);
+        shredIds.push_back( result.shred_id );
     }
     
 }
 void FileContainerModel::removeAllShreds()
 {
     
-    while (!shredIds.empty())
+    while ( !shredIds.empty() )
     {
         removeLastShred();
     }
     
     //Horrible hack. Remove after finding out why libchuck_remove_shred is not returning chuck_result::OK
-    for (int i = 0; i<20; i++) {
+    for ( int i = 0; i<20; i++ )
+    {
         removeShred(i);
     }
 }
 
 void FileContainerModel::openBrowser()
 {
-    if (fileChooser->browseForFileToOpen())
+    if ( fileChooser->browseForFileToOpen() )
     {
-        File chuckFile (fileChooser->getResult());
+        File chuckFile ( fileChooser->getResult() );
         fileName = chuckFile.getFileName();
         filePath = chuckFile.getFullPathName();
     }
     
 }
 
-void FileContainerModel::setProcessorReference( AudioProcessor * processorReference_)
+void FileContainerModel::setProcessor( AudioProcessor * processor_)
 {
-    processorReference = processorReference_;
+    processor = processor_; //TODO: Get rid of this and just use a static reference/ function in PluginProcessor
 }
+
 AudioProcessor * FileContainerModel::getProcessor()
 {
+    //TODO: Get rid of this and just use a static reference/ function in PluginProcessor
     DBG("entered getProcessor in fileContainerModel");
-    if(processorReference != NULL)
+    if( processor != NULL )
     {
-        return processorReference;
+        return processor;
     }
     else
     {
@@ -167,4 +170,8 @@ AudioProcessor * FileContainerModel::getProcessor()
     
 }
 
+CodeDocument& FileContainerModel::getCodeDocument()
+{
+    return codeDocument;
+}
 

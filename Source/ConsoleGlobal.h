@@ -1,6 +1,6 @@
 //
 //  ConsoleGlobal.hpp
-//  ChuckPluginTest4
+//  ChuckRacks
 //
 //  Created by Rodrigo Sena on 3/12/16.
 //
@@ -29,35 +29,11 @@ public:
         return instance;
     }
     
-    void addText(String text)
-    {
-        if (text.length()>1)
-        {
-            fullText = fullText + "\n" + text;
-            if(consoleComponent != NULL)
-            {
-                consoleComponent->setText(fullText);
-                consoleComponent->scrollDown();
-                consoleComponent->moveCaretToEnd();
-            }
-        }
-    }
-    
-    void updateText()
-    {
-        if(consoleComponent != NULL)
-        {
-            consoleComponent->setText(fullText);
-            consoleComponent->scrollDown();
-            consoleComponent->moveCaretToEnd();
+    void addText( String text );
+    void updateText();
+    void setConsoleComponent(TextEditor * console);
 
-        }
-    }
     
-    void setConsoleComponent(TextEditor * console)
-    {
-        consoleComponent = console;
-    }
 private:
     TextEditor * consoleComponent;
     String fullText;

@@ -1,6 +1,6 @@
 //
 //  FileContainerManagerUI.h
-//  ChuckPluginTest4
+//  ChuckRacks
 //
 //  Created by Rodrigo Sena on 4/22/15.
 //
@@ -9,8 +9,8 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 
-#ifndef __ChuckPluginTest4__FileContainerManagerUI__
-#define __ChuckPluginTest4__FileContainerManagerUI__
+#ifndef __ChuckRacks__FileContainerManagerUI__
+#define __ChuckRacks__FileContainerManagerUI__
 
 #include <stdio.h>
 #include "FileContainerManagerModel.h"
@@ -54,4 +54,4 @@ private:
     
 };
 
-#endif /* defined(__ChuckPluginTest4__FileContainerManagerUI__) */
+#endif /* defined(__ChuckRacks__FileContainerManagerUI__) */
