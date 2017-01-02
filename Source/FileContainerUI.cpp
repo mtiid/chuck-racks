@@ -7,6 +7,7 @@
 //
 
 #include "FileContainerUI.h"
+#include "Defines.h"
 
 FileContainerUI::FileContainerUI(FileContainerModel* fileContainerModel) :
                 //filenameComponent("File", File::nonexistent, true, false, false, "*.ck", String::empty,"Choose a ChucK file to open it in the editor"),
@@ -122,7 +123,7 @@ void FileContainerUI::init(){
     }
     
     
-    /*
+#ifdef  USE_VER1_KNOBS
     for(int i=0; i<knobAmount; i++)
     {
         knobs.push_back(new Slider("knob"+String(i)));
@@ -146,7 +147,7 @@ void FileContainerUI::init(){
         }
         
     }
-     */
+#endif //USE_VER1_KNOBS
     
     switch ( currentViewMode ) {
         case AppViewMode::RackView:
@@ -214,14 +215,14 @@ void FileContainerUI::updateSize()
 void FileContainerUI::timerCallback()
 {
     //gainKnob->setValue(getProcessor()->getParameter(VolumeKnobAudioProcessor::gainParam), NotificationType::dontSendNotification);
+#ifdef USE_VER1_KNOBS
     for( int i=0; i<knobs.size(); i++ )
     {
-        //knobs.at(i)->setValue(mFileContainerModel->knobInfos.at(i).value01);
-        //UNCOMMENT
+        knobs.at(i)->setValue(mFileContainerModel->knobInfos.at(i).value01);
 
     }
     //knobs.at(0)->setValue(mFileContainerModel->testParameter->getValue());
-
+#endif //USE_VER1_KNOBS
 }
 
 void FileContainerUI::sliderValueChanged(juce::Slider *slider)

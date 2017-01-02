@@ -83,6 +83,7 @@
               file="Source/ConsoleGlobal.cpp"/>
         <FILE id="CGriOm" name="ConsoleGlobal.h" compile="0" resource="0" file="Source/ConsoleGlobal.h"/>
       </GROUP>
+      <FILE id="gHAc7u" name="Defines.h" compile="0" resource="0" file="Source/Defines.h"/>
       <GROUP id="{57A4279F-008A-1E9F-E16C-D3650CA35BFB}" name="Chuck extensions">
         <FILE id="UsHU7H" name="ulib_pluginhost.cpp" compile="1" resource="0"
               file="Source/ulib_pluginhost.cpp"/>
