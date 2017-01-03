@@ -53,8 +53,8 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
     
     //fileContainerManagerModel->addFileContainer();
     
-    g_hostInfo->midiInputBufferP=(&midiInputBuffer);
-    g_hostInfo->midiOutputBufferP=(&midiOutputBuffer);
+    g_hostInfo->midiInputBufferP = (&midiInputBuffer);
+    g_hostInfo->midiOutputBufferP = (&midiOutputBuffer);
     
     g_pluginPanel->fileContainerManager = fileContainerManagerModel;
 
@@ -214,10 +214,10 @@ void ChuckRacksAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
 
     }
     
-    g_hostInfo->wasPlaying=lastPosInfo.isPlaying;
+    g_hostInfo->wasPlaying = lastPosInfo.isPlaying;
     
     
-    g_hostInfo->positionInBeat=fmod(pos.ppqPosition,1);
+    g_hostInfo->positionInBeat = fmod( pos.ppqPosition,1 );
     
     //DBG(positionInBeat);
     if (g_hostInfo->positionInBeat>0.749) //sixteenth
@@ -269,11 +269,11 @@ void ChuckRacksAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
     // I've added this to avoid people getting screaming feedback
     // when they first compile the plugin, but obviously you don't need to
     // this code if your algorithm already fills all the output channels.
-    for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
+    for (int i = getTotalNumInputChannels(); i < getTotalNumOutputChannels(); ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
     // copy input
-    for (int channel = 0; channel < getNumInputChannels(); ++channel)
+    for (int channel = 0; channel < getTotalNumInputChannels(); ++channel)
     {
         float* channelData = buffer.getWritePointer (channel);
         
@@ -327,7 +327,7 @@ void ChuckRacksAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
     
     
     
-    for (int channel = 0; channel < getNumOutputChannels(); ++channel)
+    for (int channel = 0; channel < getTotalNumOutputChannels(); ++channel)
     {
         float* channelData = buffer.getWritePointer (channel);
 

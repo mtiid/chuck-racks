@@ -244,7 +244,7 @@ CK_DLL_SFUN(pluginhost_recvMidi)
         
         ret_val = 1;
         
-        g_hostInfo->midiInputBufferP->clear(); //fix this! Just eliminate first message in midiInpufBuffer
+        g_hostInfo->midiInputBufferP->clear(); //TODO fix this! Just eliminate first message in midiInpufBuffer. hack
         
         
     }
@@ -273,6 +273,8 @@ CK_DLL_SFUN(pluginhost_sendMidi)
     
     RETURN->v_int = 1;
 }
+
+
 
 
 t_CKBOOL pluginhost_query( Chuck_DL_Query * QUERY )
