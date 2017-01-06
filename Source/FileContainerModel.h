@@ -53,7 +53,6 @@ private:
     chuck_inst *ck;
 
     bool canBeEdited;
-    AudioProcessor * processor;
     String lastFileLoaded;
     
     AudioProcessorParameter* testParameter;

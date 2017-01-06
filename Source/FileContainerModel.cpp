@@ -7,6 +7,7 @@
 //
 
 #include "FileContainerModel.h"
+#include "PluginProcessor.h"
 #include <sstream>
 
 FileContainerModel::FileContainerModel(chuck_inst* ck_) : canBeEdited(true)
@@ -149,25 +150,10 @@ void FileContainerModel::openBrowser()
     
 }
 
-void FileContainerModel::setProcessor( AudioProcessor * processor_)
-{
-    processor = processor_; //TODO: Get rid of this and just use a static reference/ function in PluginProcessor
-}
-
 AudioProcessor * FileContainerModel::getProcessor()
 {
-    //TODO: Get rid of this and just use a static reference/ function in PluginProcessor
-    DBG("entered getProcessor in fileContainerModel");
-    if( processor != NULL )
-    {
-        return processor;
-    }
-    else
-    {
-        DBG("trying to access processor reference not set in filecontainer!!");
-        return NULL;
-    }
-    
+    AudioProcessor * processor = ChuckRacksAudioProcessor::getProcessor();
+    return processor;
 }
 
 CodeDocument& FileContainerModel::getCodeDocument()

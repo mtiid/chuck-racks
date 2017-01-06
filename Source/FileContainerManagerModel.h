@@ -11,9 +11,11 @@
 
 #include <stdio.h>
 
+//#include "PluginProcessor.h"
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "FileContainerModel.h"
 #include "FileContainerUI.h"
+
 
 
 class FileContainerManagerModel
@@ -28,11 +30,10 @@ public:
     void addAllShreds();
     void removeAllShreds();
     FileContainerModel* findFileContainer(int askedUniqueId);
-    void setProcessorReference( AudioProcessor * processorReference_);
     AudioProcessor * getProcessor();
     CodeDocument consoleDocument;
 private:
-    AudioProcessor * processorReference;
+
 };
 
 

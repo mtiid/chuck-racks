@@ -13,12 +13,14 @@
 #include "ulib_pluginhost.h"
 #include "ulib_PluginPanel.h"
 
-
+AudioProcessor * ChuckRacksAudioProcessor::processorInstance = NULL;
 
 //==============================================================================
 ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
 {
     //ConsoleGlobal *ConsoleGlobal::instance = 0;
+    
+    processorInstance = this;
     
     fprintf(stderr, "ChuckRacksAudioProcessor::ChuckRacksAudioProcessor\n");
     chuck_options options;
@@ -49,7 +51,6 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
     codeEditorDemo = new CodeEditorDemo();
     
     fileContainerManagerModel = new FileContainerManagerModel(ck);
-    fileContainerManagerModel->setProcessorReference(this);
     
     //fileContainerManagerModel->addFileContainer();
     

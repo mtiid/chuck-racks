@@ -76,6 +76,7 @@ public:
 
     
     FileContainerManagerModel* getFileContainerManagerModel(){return fileContainerManagerModel;};
+    static AudioProcessor * getProcessor() { return processorInstance; };
     
     
 private:
@@ -93,6 +94,7 @@ private:
     ScopedPointer<CodeEditorDemo> codeEditorDemo;
 
     FileContainerManagerModel * fileContainerManagerModel;
+    static AudioProcessor * processorInstance;
 
 };
 

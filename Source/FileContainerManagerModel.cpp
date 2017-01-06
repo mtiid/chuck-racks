@@ -7,6 +7,7 @@
 //
 
 #include "FileContainerManagerModel.h"
+#include "PluginProcessor.h"
 
 FileContainerManagerModel::FileContainerManagerModel( chuck_inst* ck_ )
 {
@@ -21,7 +22,6 @@ FileContainerManagerModel::~FileContainerManagerModel()
 void FileContainerManagerModel::addFileContainer()
 {
     fileContainerModels.push_back( new FileContainerModel( ck ) );
-    fileContainerModels.back()->setProcessor( getProcessor() );
 }
 
 
@@ -73,22 +73,8 @@ FileContainerModel* FileContainerManagerModel::findFileContainer( int askedUniqu
 }
 
 
-void FileContainerManagerModel::setProcessorReference( AudioProcessor * processorReference_)
-{
-    processorReference = processorReference_;
-}
-
 AudioProcessor * FileContainerManagerModel::getProcessor()
 {
-    DBG("Entered getProcessor in fileContainerManager");
-    if(processorReference != NULL)
-    {
-        return processorReference;
-    }
-    else
-    {
-        DBG("trying to access processor reference not set in filecontainer!!");
-        return NULL;
-    }
-    
+    AudioProcessor * processor = ChuckRacksAudioProcessor::getProcessor();
+    return processor;
 }
