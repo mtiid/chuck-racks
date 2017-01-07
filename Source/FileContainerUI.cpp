@@ -126,7 +126,7 @@ void FileContainerUI::init(){
         "{\n"
         "    while(true)\n"
         "    {\n"
-        "        PluginPanel.getValue( myId, 0 ) => osc.gain;\n"
+        "        PluginPanel.getValue( myId, 0 ) => osc.gain; //knob 0 controls volume \n"
         "        10::ms => now;\n"
         "    }\n"
         "}\n"
