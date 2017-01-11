@@ -14,8 +14,6 @@
 #include "FileContainerModel.h"
 #include "AppViewMode.h"
 
-#endif /* defined(__ChuckRacks__FileContainerUI__) */
-
 class FileContainerUI : public Component,
                         private FilenameComponentListener,
                         public ButtonListener,
@@ -71,3 +69,6 @@ private:
     int editorWidth, editorHeight;
     
 };
+
+#endif /* defined(__ChuckRacks__FileContainerUI__) */
+
