@@ -10,9 +10,9 @@
 #include "Defines.h"
 
 FileContainerUI::FileContainerUI(FileContainerModel* fileContainerModel) :
-                //filenameComponent("File", File::nonexistent, true, false, false, "*.ck", String::empty,"Choose a ChucK file to open it in the editor"),
-                editorWidth(600),
-                editorHeight(600)
+//filenameComponent("File", File::nonexistent, true, false, false, "*.ck", String::empty,"Choose a ChucK file to open it in the editor"),
+editorWidth(600),
+editorHeight(600)
 {
     mFileContainerModel = fileContainerModel;
     mCodeEditorVisible = mFileContainerModel->getCanBeEdited();
@@ -49,15 +49,15 @@ void FileContainerUI::init(){
     addShredButton->addListener(this);
     
     /*
-    removeShredButton = new DrawableButton("Remove All Shreds", DrawableButton::ButtonStyle::ImageFitted);
-    ScopedPointer<XmlElement> removeShredSVGUp(XmlDocument::parse(BinaryData::removeAllShredUp_svg));
-    ScopedPointer<XmlElement> removeShredSVGDown(XmlDocument::parse(BinaryData::removeAllShredDown_svg));
-    removeShredButton->setImages(Drawable::createFromSVG(*removeShredSVGUp), Drawable::createFromSVG(*removeShredSVGUp), Drawable::createFromSVG(*removeShredSVGDown));
-    addAndMakeVisible(removeShredButton);
-    removeShredButton->setBounds(52, 5, 20, 20);
-    removeShredButton->addListener(this);
-    */
-     
+     removeShredButton = new DrawableButton("Remove All Shreds", DrawableButton::ButtonStyle::ImageFitted);
+     ScopedPointer<XmlElement> removeShredSVGUp(XmlDocument::parse(BinaryData::removeAllShredUp_svg));
+     ScopedPointer<XmlElement> removeShredSVGDown(XmlDocument::parse(BinaryData::removeAllShredDown_svg));
+     removeShredButton->setImages(Drawable::createFromSVG(*removeShredSVGUp), Drawable::createFromSVG(*removeShredSVGUp), Drawable::createFromSVG(*removeShredSVGDown));
+     addAndMakeVisible(removeShredButton);
+     removeShredButton->setBounds(52, 5, 20, 20);
+     removeShredButton->addListener(this);
+     */
+    
     openFileButton = new TextButton("Open");
     addAndMakeVisible(openFileButton);
     openFileButton->setButtonText("Open");
@@ -70,68 +70,66 @@ void FileContainerUI::init(){
     saveFileButton->setBounds(470, 5, 60,20);
     saveFileButton->addListener(this);
     
-    
-    
-    
-    
     // Create the editor..
     addChildComponent(codeEditor = new CodeEditorComponent (mFileContainerModel->getCodeDocument(), &ckTokeniser));
+    
+    codeEditor->setFont(Font(14));
 
     if (codeEditor->getDocument().getAllContent()=="") {
         codeEditor->loadContent(
-//        (
+                                //        (
                                 "//my id:"
-                                 + String(mFileContainerModel->getUniqueFCId()) +
-                                 "\n"
+                                + String(mFileContainerModel->getUniqueFCId()) +
+                                "\n"
                                 + String(mFileContainerModel->getUniqueFCId()) +
                                 " => int myId; \n"
-//                                 "/*"
-//                                 "\n"
-//                                 "   Type in your ChucK code\n"
-//                                 "   or load a file\n"
-//                                 "\n"
-//                                 "*/\n"
-//                                 "\n"
-//                                 "SqrOsc osc=>dac; \n"
-//                                 "1::second=>now; \n"
-//                                 );
-        /*
-        "SqrOsc osc => dac;"
-        "\n"
-        "while(true) \n"
-        "{\n"
-            
-        "   Std.rand2f(30, 1000)=>osc.freq;\n"
-        "   PluginHost.sixteenth()=>now; //synced with daw (press play)\n"
-        "}"
-         */
+                                //                                 "/*"
+                                //                                 "\n"
+                                //                                 "   Type in your ChucK code\n"
+                                //                                 "   or load a file\n"
+                                //                                 "\n"
+                                //                                 "*/\n"
+                                //                                 "\n"
+                                //                                 "SqrOsc osc=>dac; \n"
+                                //                                 "1::second=>now; \n"
+                                //                                 );
+                                /*
+                                 "SqrOsc osc => dac;"
+                                 "\n"
+                                 "while(true) \n"
+                                 "{\n"
+                                 
+                                 "   Std.rand2f(30, 1000)=>osc.freq;\n"
+                                 "   PluginHost.sixteenth()=>now; //synced with daw (press play)\n"
+                                 "}"
+                                 */
                                 
-        "SqrOsc osc => dac;\n"
-        "0.1=> osc.gain;\n"
-        "\n"
-        "spork ~ updateVolume();\n"
-        "while(true)\n"
-        "{\n"
-        "    Std.rand2(30, 80) => int randomMidiNote;\n"
-        "    Std.mtof( randomMidiNote )=> float noteFreq; // mtof == Midi To Frequency\n"
-        "    noteFreq => osc.freq;\n"
-        "    //PluginPanel.getValue( myId, 0 ) => osc.gain;\n"
-        "    repeat ( Std.rand2(1, 3) ) //1,2 or 3 sixteenths\n"
-        "    {\n"
-        "        PluginHost.sixteenth()=>now; //synced with daw (press play)\n"
-        "    }\n"
-        "}\n"
-        "\n"
-        "fun void updateVolume()\n"
-        "{\n"
-        "    while(true)\n"
-        "    {\n"
-        "        PluginPanel.getValue( myId, 0 ) => osc.gain; //knob 0 controls volume \n"
-        "        10::ms => now;\n"
-        "    }\n"
-        "}\n"
+                                "SqrOsc osc => dac;\n"
+                                "0.1=> osc.gain;\n"
+                                "\n"
+                                "spork ~ updateVolume();\n"
+                                "while(true)\n"
+                                "{\n"
+                                "    Std.rand2(30, 80) => int randomMidiNote;\n"
+                                "    Std.mtof( randomMidiNote )=> float noteFreq; // mtof == Midi To Frequency\n"
+                                "    noteFreq => osc.freq;\n"
+                                "    //PluginPanel.getValue( myId, 0 ) => osc.gain;\n"
+                                "    repeat ( Std.rand2(1, 3) ) //1,2 or 3 sixteenths\n"
+                                "    {\n"
+                                "        PluginHost.sixteenth()=>now; //synced with daw (press play)\n"
+                                "    }\n"
+                                "}\n"
+                                "\n"
+                                "fun void updateVolume()\n"
+                                "{\n"
+                                "    while(true)\n"
+                                "    {\n"
+                                "        PluginPanel.getValue( myId, 0 ) => osc.gain; //knob 0 controls volume \n"
+                                "        10::ms => now;\n"
+                                "    }\n"
+                                "}\n"
                                 //TODO: Add a default file (from examples ) and load that instead of hardcoding this
-        );
+                                );
     }else {
         codeEditor->loadContent(codeEditor->getDocument().getAllContent());
         //std::cout << "content loaded" << std::endl;
@@ -174,7 +172,7 @@ void FileContainerUI::init(){
         default:
             break;
     }
-
+    
     codeEditor->setVisible( mCodeEditorVisible );
     
     // Create a file chooser control to load files into it..
@@ -234,7 +232,7 @@ void FileContainerUI::timerCallback()
     for( int i=0; i<knobs.size(); i++ )
     {
         knobs.at(i)->setValue(mFileContainerModel->knobInfos.at(i).value01);
-
+        
     }
     //knobs.at(0)->setValue(mFileContainerModel->testParameter->getValue());
 #endif //USE_VER1_KNOBS
@@ -244,21 +242,21 @@ void FileContainerUI::sliderValueChanged(juce::Slider *slider)
 {
     for(int i=0; i<knobs.size(); i++)
     {
-    if(slider == knobs.at(i))
+        if(slider == knobs.at(i))
         {
-        //getProcessor()->setParameter(VolumeKnob6AudioProcessor::gainParam, (float)gainKnob->getValue());
-        mFileContainerModel->knobInfos.at(i).value01 = (float)knobs.at(i)->getValue();
-         
-        std::cout << "Slider " << i << " changed" << std::endl;
+            //getProcessor()->setParameter(VolumeKnob6AudioProcessor::gainParam, (float)gainKnob->getValue());
+            mFileContainerModel->knobInfos.at(i).value01 = (float)knobs.at(i)->getValue();
+            
+            std::cout << "Slider " << i << " changed" << std::endl;
         }
     }
     /*
-    if (slider == knobs.at(0))
-    {
-        mFileContainerModel->testParameter->beginChangeGesture();
-        mFileContainerModel->testParameter->setValueNotifyingHost(slider->getValue());
-        mFileContainerModel->testParameter->endChangeGesture();
-    }
+     if (slider == knobs.at(0))
+     {
+     mFileContainerModel->testParameter->beginChangeGesture();
+     mFileContainerModel->testParameter->setValueNotifyingHost(slider->getValue());
+     mFileContainerModel->testParameter->endChangeGesture();
+     }
      */
 }
 
@@ -270,7 +268,7 @@ void FileContainerUI::filenameComponentChanged (FilenameComponent*)
 
 void FileContainerUI::buttonClicked(Button *buttonThatWasPressed)
 {
-
+    
     if (buttonThatWasPressed == showHideCodeEditorButton) {
         mCodeEditorVisible = showHideCodeEditorButton->getToggleState();
         codeEditor->setVisible(mCodeEditorVisible);
