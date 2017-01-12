@@ -42,11 +42,11 @@ public:
     
     ScopedPointer<FileContainerManagerUI> managerUI;
     
-    void buttonClicked(Button* buttonThatWasPressed);
+    void buttonClicked(Button* buttonThatWasPressed) override;
     String lastFileLoaded;
     
-    void timerCallback();
-    void sliderValueChanged (Slider* slider);
+    void timerCallback() override;
+    void sliderValueChanged (Slider* slider) override;
     
     
 private:

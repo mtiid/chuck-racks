@@ -15,9 +15,6 @@
 #include "libchuck.h"
 #include "ConsoleGlobal.h"
 
-
-
-
 class FileContainerModel
 {
 public:
@@ -32,8 +29,8 @@ public:
     void removeAllShreds();
     
     std::vector<int> shredIds;
-    std::vector<KnobInfo> knobInfos;
-    //std::vector<AudioParameterFloat> knobParameters;
+    //std::vector<KnobInfo> knobInfos;
+    std::vector<AudioParameterFloat*> knobParameters;
     //std::vector<AudioProcessorParameter*> knobParameters;
 
     void openBrowser();
@@ -54,9 +51,6 @@ private:
 
     bool canBeEdited;
     String lastFileLoaded;
-    
-    AudioProcessorParameter* testParameter;
-    
     
     ScopedPointer<FileChooser> fileChooser;
     String fileName;

@@ -81,19 +81,19 @@ const String ChuckRacksAudioProcessor::getName() const
     return JucePlugin_Name;
 }
 
-int ChuckRacksAudioProcessor::getNumParameters()
+/*int ChuckRacksAudioProcessor::getNumParameters()
 {
     return 0;
-}
+}*/
 
-float ChuckRacksAudioProcessor::getParameter (int index)
+/*float ChuckRacksAudioProcessor::getParameter (int index)
 {
     return 0.0f;
 }
 
 void ChuckRacksAudioProcessor::setParameter (int index, float newValue)
 {
-}
+}*/
 
 const String ChuckRacksAudioProcessor::getParameterName (int index)
 {

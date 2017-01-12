@@ -64,10 +64,6 @@
               file="Source/FileContainerManagerUI.h"/>
       </GROUP>
       <GROUP id="{0BC81339-FAE6-5E28-35C5-650F3530477F}" name="other">
-        <FILE id="ypB9AV" name="FloatParameter.cpp" compile="1" resource="0"
-              file="Source/FloatParameter.cpp"/>
-        <FILE id="Dy2vhL" name="FloatParameter.h" compile="0" resource="0"
-              file="Source/FloatParameter.h"/>
         <FILE id="D8L9oz" name="FileManager.cpp" compile="1" resource="0" file="Source/FileManager.cpp"/>
         <FILE id="BmV8oO" name="FileManager.h" compile="0" resource="0" file="Source/FileManager.h"/>
         <FILE id="WrylZB" name="FilenameComponentExtra.cpp" compile="1" resource="0"
