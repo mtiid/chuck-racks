@@ -32,17 +32,15 @@ public:
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
 
-    void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages) override;
-
+    //void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages) override;
+    void processBlock (AudioSampleBuffer&, MidiBuffer&) override;
+    
     //==============================================================================
     AudioProcessorEditor* createEditor() override;
     bool hasEditor() const override;
 
     //==============================================================================
     const String getName() const override;
-
-    const String getParameterName (int index) override;
-    const String getParameterText (int index) override;
 
     const String getInputChannelName (int channelIndex) const override;
     const String getOutputChannelName (int channelIndex) const override;

@@ -52,15 +52,10 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
     
     fileContainerManagerModel = new FileContainerManagerModel(ck);
     
-    //fileContainerManagerModel->addFileContainer();
-    
     g_hostInfo->midiInputBufferP = (&midiInputBuffer);
     g_hostInfo->midiOutputBufferP = (&midiOutputBuffer);
     
     g_pluginPanel->fileContainerManager = fileContainerManagerModel;
-
-    //NormalisableRange<float> paramRange(0.0, 1.0, 0.1, 1.0);
-    //addParameter (testParameter = new AudioParameterFloat("param1", "Parameter1", paramRange, 1.0));
     
 }
 
@@ -79,30 +74,6 @@ ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor()
 const String ChuckRacksAudioProcessor::getName() const
 {
     return JucePlugin_Name;
-}
-
-/*int ChuckRacksAudioProcessor::getNumParameters()
-{
-    return 0;
-}*/
-
-/*float ChuckRacksAudioProcessor::getParameter (int index)
-{
-    return 0.0f;
-}
-
-void ChuckRacksAudioProcessor::setParameter (int index, float newValue)
-{
-}*/
-
-const String ChuckRacksAudioProcessor::getParameterName (int index)
-{
-    return String::empty;
-}
-
-const String ChuckRacksAudioProcessor::getParameterText (int index)
-{
-    return String::empty;
 }
 
 const String ChuckRacksAudioProcessor::getInputChannelName (int channelIndex) const
@@ -189,7 +160,8 @@ void ChuckRacksAudioProcessor::releaseResources()
     // spare memory, etc.
 }
 
-void ChuckRacksAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+//void ChuckRacksAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {    
     // Get current position/time info from host, otherwise set to some default
     AudioPlayHead::CurrentPositionInfo pos;
