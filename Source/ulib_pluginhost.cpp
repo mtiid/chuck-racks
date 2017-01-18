@@ -265,16 +265,12 @@ CK_DLL_SFUN(pluginhost_sendMidi)
 {
     Chuck_Object *_msg = GET_NEXT_OBJECT(ARGS);
     
-    // get next msg from JUCE
-    
-    // if no msg, return 0
-    // if msg return 1
-    
     unsigned char byte1 = OBJ_MEMBER_INT(_msg, MidiMsg_offset_data1);
     unsigned char byte2 = OBJ_MEMBER_INT(_msg, MidiMsg_offset_data2);
     unsigned char byte3 = OBJ_MEMBER_INT(_msg, MidiMsg_offset_data3);
     
-    
+    juce::MidiMessage midiMessage(byte1, byte2, byte3);
+    g_hostInfo->midiOutputBufferP->addEvent( midiMessage, 0); //TODO: find if there's a way of getting a close sample instead of using 0
     
     RETURN->v_int = 1;
 }
