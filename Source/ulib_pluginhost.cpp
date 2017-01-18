@@ -28,6 +28,9 @@ PluginHostInfo::PluginHostInfo()
     quarterLength=60/tempo;
     eighthLength=30/tempo;
     sixteenthLength=15/tempo;
+    
+    tempMidiBuffer = new MidiBuffer();
+
 }
 
 
@@ -218,35 +221,37 @@ CK_DLL_SFUN(pluginhost_recvMidi)
     // get next msg from JUCE
     MidiBuffer::Iterator iterator(*g_hostInfo->midiInputBufferP);
     MidiMessage messageIn;
-    //int position = 0;
-    //if(iterator.getNextEvent(messageIn, g_hostInfo->midiOutputBufferPos))
-    //{
+    
     int pos = 0;
-    if(iterator.getNextEvent(messageIn, pos))
+    
+    if(!g_hostInfo->midiInputBufferP->isEmpty())
     {
-//        iterator.getNextEvent(messageIn, g_hostInfo->midiOutputBufferPos);
+        if(iterator.getNextEvent(messageIn, pos))
+        {
+            const uint8 *midivals = messageIn.getRawData();
+            int datasize = messageIn.getRawDataSize();
+            //DBG(String(*messageIn.getRawData()));
+            
+            // if no msg, return 0
+            // if msg return 1
+            
+            if(datasize>0)
+                byte1 = midivals[0];
+            if(datasize>1)
+                byte2 = midivals[1];
+            if(datasize>2)
+                byte3 = midivals[2];
+            
+            ret_val = 1;
+            
+        }
+        g_hostInfo->tempMidiBuffer->clear();
         
-        const uint8 *midivals = messageIn.getRawData();
-        int datasize = messageIn.getRawDataSize();
-        //DBG(String(*messageIn.getRawData()));
-        
-        // if no msg, return 0
-        // if msg return 1
-        
-        
-        
-        if(datasize>0)
-            byte1 = midivals[0];
-        if(datasize>1)
-            byte2 = midivals[1];
-        if(datasize>2)
-            byte3 = midivals[2];
-        
-        ret_val = 1;
-        
-        g_hostInfo->midiInputBufferP->clear(); //TODO fix this! Just eliminate first message in midiInpufBuffer. hack
-        
-        
+        while( iterator.getNextEvent(messageIn, pos) )
+        {
+            g_hostInfo->tempMidiBuffer->addEvent(messageIn, pos); //adds all events not used in here to temp buffer
+        }
+        g_hostInfo->midiInputBufferP->swapWith( *g_hostInfo->tempMidiBuffer ); //swaps old buffer with new buffer without used event
     }
     
     OBJ_MEMBER_INT(_msg, MidiMsg_offset_data1) = byte1;
