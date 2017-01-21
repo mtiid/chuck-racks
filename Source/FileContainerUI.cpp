@@ -150,12 +150,12 @@ void FileContainerUI::init(){
         knobs.back()->addListener(this);
         if(i<knobsPerRow)
         {
-            std::cout<<"row 1 "<<i<<std::endl;
+            //std::cout<<"row 1 "<<i<<std::endl;
             knobs.back()->setBounds(knobStartX+(i*(knobSpacing+knobSize)), knobStartY, knobSize, knobSize);
         }
         else
         {
-            std::cout<<"row 2"<<i<<std::endl;
+            //std::cout<<"row 2"<<i<<std::endl;
             knobs.back()->setBounds(knobStartX+((i-knobsPerRow)*(knobSpacing+knobSize)), knobStartY+(knobSpacing+knobSize), knobSize, knobSize);
         }
         
@@ -232,7 +232,7 @@ void FileContainerUI::timerCallback()
     for( int i=0; i<knobs.size(); i++ )
     {
         //knobs.at(i)->setValue(mFileContainerModel->getProcessor()->getParameter getValue(), dontSendNotification);
-        knobs.at(i)->setValue(mFileContainerModel->knobParameters.at(i)->get(), dontSendNotification);
+        knobs.at(i)->setValue(mFileContainerModel->knobParameters.at(i)->getValue(), dontSendNotification);
     }
     //knobs.at(0)->setValue(mFileContainerModel->testParameter->getValue());
 #endif //USE_VER1_KNOBS
@@ -244,7 +244,6 @@ void FileContainerUI::sliderValueChanged(juce::Slider *slider)
     {
         if(slider == knobs.at(i))
         {
-            //getProcessor()->setParameter(VolumeKnob6AudioProcessor::gainParam, (float)gainKnob->getValue());
             //mFileContainerModel->getProcessor()->getParameters()[i]->beginChangeGesture();
             //mFileContainerModel->getProcessor()->getParameters()[i]->setValueNotifyingHost(slider->getValue());
             //mFileContainerModel->getProcessor()->getParameters()[i]->endChangeGesture();

@@ -21,7 +21,7 @@
 class FileContainerManagerModel
 {
 public:
-    FileContainerManagerModel(chuck_inst* ck_);
+    FileContainerManagerModel(chuck_inst* ck_, AudioProcessor* p_);
     ~FileContainerManagerModel();
     chuck_inst* ck;
     std::vector<FileContainerModel*> fileContainerModels;
@@ -30,9 +30,11 @@ public:
     void addAllShreds();
     void removeAllShreds();
     FileContainerModel* findFileContainer(int askedUniqueId);
-    AudioProcessor * getProcessor();
+    //AudioProcessor * getProcessor();
     CodeDocument consoleDocument;
+
 private:
+    AudioProcessor* processor;
 
 };
 

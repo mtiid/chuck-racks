@@ -57,7 +57,7 @@ CK_DLL_SFUN(pluginPanel_getValue)
     if (thisFileContainer != nullptr)
     {
         //RETURN->v_float = 1.0;
-        RETURN->v_float = thisFileContainer->knobParameters.at(whichKnob)->get();
+        RETURN->v_float = thisFileContainer->knobParameters.at(whichKnob)->getValue();
     }
     else
     {

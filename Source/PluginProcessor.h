@@ -32,6 +32,10 @@ public:
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
 
+    #ifndef JucePlugin_PreferredChannelConfigurations
+     bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
+    #endif
+    
     //void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages) override;
     void processBlock (AudioSampleBuffer&, MidiBuffer&) override;
     
@@ -49,7 +53,6 @@ public:
 
     bool acceptsMidi() const override;
     bool producesMidi() const override;
-    bool silenceInProducesSilenceOut() const override;
     double getTailLengthSeconds() const override;
 
     //==============================================================================
@@ -68,9 +71,9 @@ public:
 
     
     FileContainerManagerModel* getFileContainerManagerModel(){return fileContainerManagerModel;};
-    static AudioProcessor * getProcessor() { return processorInstance; };
+    AudioProcessor * getProcessor() { return this; };
     
-    
+    //AudioParameterFloat* addNewParameter();
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChuckRacksAudioProcessor)
@@ -83,11 +86,12 @@ private:
     MidiBuffer midiOutputBuffer;
     
     AudioPlayHead::CurrentPositionInfo lastPosInfo;
-    ScopedPointer<CodeEditorDemo> codeEditorDemo;
+    //ScopedPointer<CodeEditorDemo> codeEditorDemo;
 
-    FileContainerManagerModel * fileContainerManagerModel;
-    static AudioProcessor * processorInstance;
-
+    FileContainerManagerModel*  fileContainerManagerModel;
+    //AudioProcessor * processorInstance;
+    //AudioParameterFloat* param;
+    //Array<AudioParameterFloat*> params;
 };
 
 #endif  // PLUGINPROCESSOR_H_INCLUDED
