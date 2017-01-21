@@ -27,24 +27,7 @@ FileContainerModel::FileContainerModel(chuck_inst* ck_,
     
     for (int i=0; i<8; i++)
         knobParameters.push_back( processor->getParameters().getUnchecked(i) );
-    /*for (int i=0; i<8; i++)
-    {
-        //knobInfos.push_back(*new KnobInfo());
-        //String name = String
-        //knobParameters.push_back(new AudioParameterFloat(S, );
-        
-        NormalisableRange<float> paramRange(0.0, 1.0, 0.1, 1.0);
-        String id = String(i+1);
-        //std::cout << id << std::endl;
-        AudioParameterFloat* param = new AudioParameterFloat(id, id, paramRange, 1.0);
-        processor->addParameter(param);
-        param->beginChangeGesture();
-        param->setValueNotifyingHost(1.0);
-        param->endChangeGesture();
-        //getProcessor()->addParameter( param );
-        //AudioParameterFloat* param =  dynamic_cast<ChuckRacksAudioProcessor*>(getProcessor())->addNewParameter();
-        knobParameters.push_back( param );
-    }*/
+
 }
 
 void FileContainerModel::addShred()
@@ -147,12 +130,6 @@ void FileContainerModel::openBrowser()
     }
     
 }
-
-/*AudioProcessor* FileContainerModel::getProcessor()
-{
-    //AudioProcessor* processor = ChuckRacksAudioProcessor::getProcessor();
-    return processor;
-}*/
 
 CodeDocument& FileContainerModel::getCodeDocument()
 {

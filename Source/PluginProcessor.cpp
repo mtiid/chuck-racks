@@ -31,8 +31,6 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
 {
     //ConsoleGlobal *ConsoleGlobal::instance = 0;
     
-    //processorInstance = this;
-    
     fprintf(stderr, "ChuckRacksAudioProcessor::ChuckRacksAudioProcessor\n");
     chuck_options options;
     libchuck_options_reset(&options);
@@ -58,9 +56,7 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
     
     
     libchuck_vm_start(ck);
-    
-    //codeEditorDemo = new CodeEditorDemo();
-    
+        
     fileContainerManagerModel = new FileContainerManagerModel(ck, this);
     
     g_hostInfo->midiInputBufferP = (&midiInputBuffer);
@@ -68,22 +64,14 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
     
     g_pluginPanel->fileContainerManager = fileContainerManagerModel;
     
-    //NormalisableRange<float> paramRange(0.0, 1.0, 0.1, 1.0);
-    //AudioParameterFloat* param = new AudioParameterFloat("something", "Something", paramRange, 1.0);
-    //addParameter( param );
-    
     for (int i=0; i<127; i++)
     {
-        //knobInfos.push_back(*new KnobInfo());
-        //String name = String
-        //knobParameters.push_back(new AudioParameterFloat(S, );
-        
+
         NormalisableRange<float> paramRange(0.0, 1.0, 0.1, 1.0);
         String id = String(i+1);
         AudioParameterFloat* param = new AudioParameterFloat(id, id, paramRange, 1.0);
         addParameter(param);
-        //getProcessor()->addParameter( param );
-        //AudioParameterFloat* param =  dynamic_cast<ChuckRacksAudioProcessor*>(getProcessor())->addNewParameter();
+       
     }
 }
 
@@ -359,29 +347,9 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
             channelData[i] = output_buffer[i*2+channel];
         }
     }
-    
-    
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    //    for (int channel = 0; channel < getNumInputChannels(); ++channel)
-    //    {
-    //        float* channelData = buffer.getWritePointer (channel);
-    //
-    //        // ..do something to the data...
-    //    }
 }
 
-/*AudioParameterFloat* ChuckRacksAudioProcessor::addNewParameter(){
- NormalisableRange<float> paramRange(0.0, 1.0, 0.1, 1.0);
- ScopedPointer<Random> random = new Random();
- String id = String(abs(random->nextInt()));
- AudioParameterFloat* param = new AudioParameterFloat(id, id, paramRange, 1.0);
- addParameter( param );
- //param->setValueNotifyingHost(0.5);
- std::cout << "adding parameter" << std::endl;
- //params.add(param);
- return param;
- }*/
+
 
 //==============================================================================
 bool ChuckRacksAudioProcessor::hasEditor() const

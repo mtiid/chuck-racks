@@ -30,7 +30,7 @@ public:
     void addAllShreds();
     void removeAllShreds();
     FileContainerModel* findFileContainer(int askedUniqueId);
-    //AudioProcessor * getProcessor();
+    
     CodeDocument consoleDocument;
 
 private:

@@ -13,7 +13,6 @@ FileContainerManagerModel::FileContainerManagerModel( chuck_inst* ck_, AudioProc
 {
     ck = ck_;
     processor = p_;
-    //addFileContainer();
 }
 
 FileContainerManagerModel::~FileContainerManagerModel()
@@ -24,21 +23,18 @@ FileContainerManagerModel::~FileContainerManagerModel()
 void FileContainerManagerModel::addFileContainer()
 {
     fileContainerModels.push_back( new FileContainerModel(ck, processor) );
-    //processor->updateHostDisplay();
 }
 
 
 void FileContainerManagerModel::removeFileContainer( FileContainerModel* whichPointer )
 {
-    //for (std::vector<FileContainerModel*>::iterator it = fileContainerModels.begin(); it != fileContainerModels.end(); ++it)
+    
     for ( int i=0; i<fileContainerModels.size(); i++ )
     {
         if (fileContainerModels[i] == whichPointer) {
             fileContainerModels.erase( fileContainerModels.begin() + i );
             break;
         }
-       
-        //std::cout << ' ' << *it;
     }
 }
 
@@ -74,10 +70,3 @@ FileContainerModel* FileContainerManagerModel::findFileContainer( int askedUniqu
     
     return nullptr;
 }
-
-
-/*AudioProcessor * FileContainerManagerModel::getProcessor()
-{
-    //AudioProcessor * processor = ChuckRacksAudioProcessor::getProcessor();
-    return processor;
-}*/

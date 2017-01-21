@@ -29,8 +29,7 @@ public:
     void removeAllShreds();
     
     std::vector<int> shredIds;
-    //std::vector<KnobInfo> knobInfos;
-    //std::vector<AudioParameterFloat*> knobParameters;
+
     std::vector<AudioProcessorParameter*> knobParameters;
 
     void openBrowser();
@@ -38,8 +37,6 @@ public:
     void setCanBeEdited( bool shouldEdit ){ canBeEdited = shouldEdit; };
     bool getCanBeEdited(){ return canBeEdited; };
     
-    //void setProcessor( AudioProcessor * processor_);
-    //AudioProcessor * getProcessor();
     const int getUniqueFCId() { return uniqueFileContainerId; };
     
     CodeDocument& getCodeDocument();

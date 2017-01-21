@@ -73,7 +73,6 @@ public:
     FileContainerManagerModel* getFileContainerManagerModel(){return fileContainerManagerModel;};
     AudioProcessor * getProcessor() { return this; };
     
-    //AudioParameterFloat* addNewParameter();
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChuckRacksAudioProcessor)
@@ -86,12 +85,9 @@ private:
     MidiBuffer midiOutputBuffer;
     
     AudioPlayHead::CurrentPositionInfo lastPosInfo;
-    //ScopedPointer<CodeEditorDemo> codeEditorDemo;
 
     FileContainerManagerModel*  fileContainerManagerModel;
-    //AudioProcessor * processorInstance;
-    //AudioParameterFloat* param;
-    //Array<AudioParameterFloat*> params;
+ 
 };
 
 #endif  // PLUGINPROCESSOR_H_INCLUDED
