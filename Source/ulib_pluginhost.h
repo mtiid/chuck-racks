@@ -56,7 +56,10 @@ public:
     
     MidiBuffer* midiInputBufferP;
     MidiBuffer* midiOutputBufferP;
+    MidiBuffer* tempMidiBuffer;
+
     int midiOutputBufferPos;
+
 };
 
 extern PluginHostInfo *g_hostInfo;
