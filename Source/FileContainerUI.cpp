@@ -72,9 +72,9 @@ void FileContainerUI::init(){
     
     // Create the editor..
     addChildComponent(codeEditor = new CodeEditorComponent (mFileContainerModel->getCodeDocument(), &ckTokeniser));
-    
-    codeEditor->setFont(Font(14));
 
+    codeEditor->setFont(Font(Font::getDefaultMonospacedFontName(), 14.0, 0));
+    
     if (codeEditor->getDocument().getAllContent()=="") {
         codeEditor->loadContent(
                                 //        (
