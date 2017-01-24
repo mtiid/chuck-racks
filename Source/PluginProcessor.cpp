@@ -1,41 +1,52 @@
 /*
-  ==============================================================================
-
-    This file was auto-generated!
-
-    It contains the basic startup code for a Juce application.
-
-  ==============================================================================
-*/
+ ==============================================================================
+ 
+ This file was auto-generated!
+ 
+ It contains the basic startup code for a Juce application.
+ 
+ ==============================================================================
+ */
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 #include "ulib_pluginhost.h"
 #include "ulib_PluginPanel.h"
 
-AudioProcessor * ChuckRacksAudioProcessor::processorInstance = NULL;
+//AudioProcessor * ChuckRacksAudioProcessor::processorInstance = NULL;
 
 //==============================================================================
 ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
+#ifndef JucePlugin_PreferredChannelConfigurations
+    : AudioProcessor (BusesProperties()
+                    #if ! JucePlugin_IsMidiEffect
+                     #if ! JucePlugin_IsSynth
+                      .withInput  ("Input",  AudioChannelSet::stereo(), true)
+                     #endif
+                      .withOutput ("Output", AudioChannelSet::stereo(), true)
+                    #endif
+                  )
+#endif
+
 {
     //ConsoleGlobal *ConsoleGlobal::instance = 0;
     
-    processorInstance = this;
+    //processorInstance = this;
     
     fprintf(stderr, "ChuckRacksAudioProcessor::ChuckRacksAudioProcessor\n");
     chuck_options options;
     libchuck_options_reset(&options);
-//    options.buffer_size = getBlockSize();
-//    options.adaptive_buffer_size = 0;
-//    options.num_channels = getNumOutputChannels();
-//    options.sample_rate = getSampleRate();
+    //    options.buffer_size = getBlockSize();
+    //    options.adaptive_buffer_size = 0;
+    //    options.num_channels = getNumOutputChannels();
+    //    options.sample_rate = getSampleRate();
     options.slave = true;
     // hardcode (HACK!)
     options.buffer_size = 512;
     options.adaptive_buffer_size = 0;
     options.num_channels = 2;
     options.sample_rate = 44100;
-
+    
     //TODO: check if a valid instance of chuck is running (how do I do this?)
     ck = libchuck_create(&options);
     
@@ -44,30 +55,42 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
     
     input_buffer = new float[options.buffer_size*options.num_channels];
     output_buffer = new float[options.buffer_size*options.num_channels];
-   
+    
     
     libchuck_vm_start(ck);
     
-    codeEditorDemo = new CodeEditorDemo();
+    //codeEditorDemo = new CodeEditorDemo();
     
-    fileContainerManagerModel = new FileContainerManagerModel(ck);
-    
-    //fileContainerManagerModel->addFileContainer();
+    fileContainerManagerModel = new FileContainerManagerModel(ck, this);
     
     g_hostInfo->midiInputBufferP = (&midiInputBuffer);
     g_hostInfo->midiOutputBufferP = (&midiOutputBuffer);
     
     g_pluginPanel->fileContainerManager = fileContainerManagerModel;
-
-    //NormalisableRange<float> paramRange(0.0, 1.0, 0.1, 1.0);
-    //addParameter (testParameter = new AudioParameterFloat("param1", "Parameter1", paramRange, 1.0));
     
+    //NormalisableRange<float> paramRange(0.0, 1.0, 0.1, 1.0);
+    //AudioParameterFloat* param = new AudioParameterFloat("something", "Something", paramRange, 1.0);
+    //addParameter( param );
+    
+    for (int i=0; i<127; i++)
+    {
+        //knobInfos.push_back(*new KnobInfo());
+        //String name = String
+        //knobParameters.push_back(new AudioParameterFloat(S, );
+        
+        NormalisableRange<float> paramRange(0.0, 1.0, 0.1, 1.0);
+        String id = String(i+1);
+        AudioParameterFloat* param = new AudioParameterFloat(id, id, paramRange, 1.0);
+        addParameter(param);
+        //getProcessor()->addParameter( param );
+        //AudioParameterFloat* param =  dynamic_cast<ChuckRacksAudioProcessor*>(getProcessor())->addNewParameter();
+    }
 }
 
 ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor()
 {
     fprintf(stderr, "ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor\n");
-
+    
     libchuck_destroy(ck);
     ck = NULL;
     
@@ -79,30 +102,6 @@ ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor()
 const String ChuckRacksAudioProcessor::getName() const
 {
     return JucePlugin_Name;
-}
-
-int ChuckRacksAudioProcessor::getNumParameters()
-{
-    return 0;
-}
-
-float ChuckRacksAudioProcessor::getParameter (int index)
-{
-    return 0.0f;
-}
-
-void ChuckRacksAudioProcessor::setParameter (int index, float newValue)
-{
-}
-
-const String ChuckRacksAudioProcessor::getParameterName (int index)
-{
-    return String::empty;
-}
-
-const String ChuckRacksAudioProcessor::getParameterText (int index)
-{
-    return String::empty;
 }
 
 const String ChuckRacksAudioProcessor::getInputChannelName (int channelIndex) const
@@ -127,25 +126,20 @@ bool ChuckRacksAudioProcessor::isOutputChannelStereoPair (int index) const
 
 bool ChuckRacksAudioProcessor::acceptsMidi() const
 {
-   #if JucePlugin_WantsMidiInput
+#if JucePlugin_WantsMidiInput
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
 bool ChuckRacksAudioProcessor::producesMidi() const
 {
-   #if JucePlugin_ProducesMidiOutput
+#if JucePlugin_ProducesMidiOutput
     return true;
-   #else
+#else
     return false;
-   #endif
-}
-
-bool ChuckRacksAudioProcessor::silenceInProducesSilenceOut() const
-{
-    return false;
+#endif
 }
 
 double ChuckRacksAudioProcessor::getTailLengthSeconds() const
@@ -181,6 +175,7 @@ void ChuckRacksAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    
 }
 
 void ChuckRacksAudioProcessor::releaseResources()
@@ -189,8 +184,33 @@ void ChuckRacksAudioProcessor::releaseResources()
     // spare memory, etc.
 }
 
-void ChuckRacksAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
-{    
+#ifndef JucePlugin_PreferredChannelConfigurations
+bool ChuckRacksAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+{
+#if JucePlugin_IsMidiEffect
+    ignoreUnused (layouts);
+    return true;
+#else
+    // This is the place where you check if the layout is supported.
+    // In this template code we only support mono or stereo.
+    if (layouts.getMainOutputChannelSet() != AudioChannelSet::mono()
+        && layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
+        return false;
+    
+    // This checks if the input layout matches the output layout
+#if ! JucePlugin_IsSynth
+    if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
+        return false;
+#endif
+    
+    return true;
+#endif
+}
+#endif
+
+void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+//void ChuckRacksAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+{
     // Get current position/time info from host, otherwise set to some default
     AudioPlayHead::CurrentPositionInfo pos;
     if (getPlayHead() != nullptr && getPlayHead()->getCurrentPosition(pos)) {
@@ -212,7 +232,7 @@ void ChuckRacksAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
     if(!lastPosInfo.isPlaying&&g_hostInfo->wasPlaying)
     {
         g_hostInfo->broadcastStopEvent();
-
+        
     }
     
     g_hostInfo->wasPlaying = lastPosInfo.isPlaying;
@@ -255,12 +275,14 @@ void ChuckRacksAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
             //DBG("16th0");
             g_hostInfo->broadcast16thHit();
             g_hostInfo->broadcastBeatStartEvent();
-
+            
             g_hostInfo->current16th=0;
+            //param->setValueNotifyingHost(.5);
+            
         }
     }
-        // DBG(pos.ppqPosition);
-       // DBG("16th!");
+    // DBG(pos.ppqPosition);
+    // DBG("16th!");
     
     g_hostInfo->previousTempo=lastPosInfo.bpm;
     
@@ -272,7 +294,7 @@ void ChuckRacksAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
     // this code if your algorithm already fills all the output channels.
     for (int i = getTotalNumInputChannels(); i < getTotalNumOutputChannels(); ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
-
+    
     // copy input
     for (int channel = 0; channel < getTotalNumInputChannels(); ++channel)
     {
@@ -300,12 +322,12 @@ void ChuckRacksAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
     
     
     while(midiIterator.getNextEvent(tempMessage, midiMessagePos)){
-     
-         //if(tempMessage.isNoteOnOrOff()){
-           // tempMessage.setNoteNumber(tempMessage.getNoteNumber() + 12); //transpose the message
-           // tempMidiBuffer.addEvent(tempMessage, midiMessagePos);
+        
+        //if(tempMessage.isNoteOnOrOff()){
+        // tempMessage.setNoteNumber(tempMessage.getNoteNumber() + 12); //transpose the message
+        // tempMidiBuffer.addEvent(tempMessage, midiMessagePos);
         //}
-     
+        
         midiInputBuffer.addEvent(tempMessage, midiMessagePos);
         doMidiBroadcast = true;
         
@@ -322,7 +344,7 @@ void ChuckRacksAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
     
     midiMessages = midiOutputBuffer;
     midiOutputBuffer.clear();
-
+    
     
     
     
@@ -331,23 +353,35 @@ void ChuckRacksAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
     for (int channel = 0; channel < getTotalNumOutputChannels(); ++channel)
     {
         float* channelData = buffer.getWritePointer (channel);
-
+        
         for (int i = 0; i < buffer.getNumSamples(); i++)
         {
             channelData[i] = output_buffer[i*2+channel];
         }
     }
-
+    
     
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
-//    for (int channel = 0; channel < getNumInputChannels(); ++channel)
-//    {
-//        float* channelData = buffer.getWritePointer (channel);
-//
-//        // ..do something to the data...
-//    }
+    //    for (int channel = 0; channel < getNumInputChannels(); ++channel)
+    //    {
+    //        float* channelData = buffer.getWritePointer (channel);
+    //
+    //        // ..do something to the data...
+    //    }
 }
+
+/*AudioParameterFloat* ChuckRacksAudioProcessor::addNewParameter(){
+ NormalisableRange<float> paramRange(0.0, 1.0, 0.1, 1.0);
+ ScopedPointer<Random> random = new Random();
+ String id = String(abs(random->nextInt()));
+ AudioParameterFloat* param = new AudioParameterFloat(id, id, paramRange, 1.0);
+ addParameter( param );
+ //param->setValueNotifyingHost(0.5);
+ std::cout << "adding parameter" << std::endl;
+ //params.add(param);
+ return param;
+ }*/
 
 //==============================================================================
 bool ChuckRacksAudioProcessor::hasEditor() const

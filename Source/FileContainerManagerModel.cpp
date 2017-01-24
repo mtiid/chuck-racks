@@ -9,9 +9,11 @@
 #include "FileContainerManagerModel.h"
 #include "PluginProcessor.h"
 
-FileContainerManagerModel::FileContainerManagerModel( chuck_inst* ck_ )
+FileContainerManagerModel::FileContainerManagerModel( chuck_inst* ck_, AudioProcessor* p_)
 {
     ck = ck_;
+    processor = p_;
+    //addFileContainer();
 }
 
 FileContainerManagerModel::~FileContainerManagerModel()
@@ -21,7 +23,8 @@ FileContainerManagerModel::~FileContainerManagerModel()
 
 void FileContainerManagerModel::addFileContainer()
 {
-    fileContainerModels.push_back( new FileContainerModel( ck ) );
+    fileContainerModels.push_back( new FileContainerModel(ck, processor) );
+    //processor->updateHostDisplay();
 }
 
 
@@ -68,13 +71,13 @@ FileContainerModel* FileContainerManagerModel::findFileContainer( int askedUniqu
             return fileContainerModels.at(i);
         }
     }
-    return nullptr;
     
+    return nullptr;
 }
 
 
-AudioProcessor * FileContainerManagerModel::getProcessor()
+/*AudioProcessor * FileContainerManagerModel::getProcessor()
 {
-    AudioProcessor * processor = ChuckRacksAudioProcessor::getProcessor();
+    //AudioProcessor * processor = ChuckRacksAudioProcessor::getProcessor();
     return processor;
-}
+}*/

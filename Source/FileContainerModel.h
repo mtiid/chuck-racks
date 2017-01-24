@@ -15,13 +15,10 @@
 #include "libchuck.h"
 #include "ConsoleGlobal.h"
 
-
-
-
 class FileContainerModel
 {
 public:
-    FileContainerModel( chuck_inst* ck_ );
+    FileContainerModel( chuck_inst* ck_, AudioProcessor* p_ );
     ~FileContainerModel();
 
     
@@ -32,17 +29,17 @@ public:
     void removeAllShreds();
     
     std::vector<int> shredIds;
-    std::vector<KnobInfo> knobInfos;
-    //std::vector<AudioParameterFloat> knobParameters;
-    //std::vector<AudioProcessorParameter*> knobParameters;
+    //std::vector<KnobInfo> knobInfos;
+    //std::vector<AudioParameterFloat*> knobParameters;
+    std::vector<AudioProcessorParameter*> knobParameters;
 
     void openBrowser();
 
     void setCanBeEdited( bool shouldEdit ){ canBeEdited = shouldEdit; };
     bool getCanBeEdited(){ return canBeEdited; };
     
-    void setProcessor( AudioProcessor * processor_);
-    AudioProcessor * getProcessor();
+    //void setProcessor( AudioProcessor * processor_);
+    //AudioProcessor * getProcessor();
     const int getUniqueFCId() { return uniqueFileContainerId; };
     
     CodeDocument& getCodeDocument();
@@ -51,12 +48,10 @@ public:
 private:
     
     chuck_inst *ck;
-
+    AudioProcessor* processor;
+    
     bool canBeEdited;
     String lastFileLoaded;
-    
-    AudioProcessorParameter* testParameter;
-    
     
     ScopedPointer<FileChooser> fileChooser;
     String fileName;

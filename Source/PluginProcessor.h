@@ -18,7 +18,6 @@
 #include "FileContainerManagerModel.h"
 #include "Defines.h"
 
-
 //==============================================================================
 /**
 */
@@ -30,55 +29,51 @@ public:
     ~ChuckRacksAudioProcessor();
 
     //==============================================================================
-    void prepareToPlay (double sampleRate, int samplesPerBlock);
-    void releaseResources();
+    void prepareToPlay (double sampleRate, int samplesPerBlock) override;
+    void releaseResources() override;
 
-    void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages);
+    #ifndef JucePlugin_PreferredChannelConfigurations
+     bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
+    #endif
+    
+    //void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages) override;
+    void processBlock (AudioSampleBuffer&, MidiBuffer&) override;
+    
+    //==============================================================================
+    AudioProcessorEditor* createEditor() override;
+    bool hasEditor() const override;
 
     //==============================================================================
-    AudioProcessorEditor* createEditor();
-    bool hasEditor() const;
+    const String getName() const override;
+
+    const String getInputChannelName (int channelIndex) const override;
+    const String getOutputChannelName (int channelIndex) const override;
+    bool isInputChannelStereoPair (int index) const override;
+    bool isOutputChannelStereoPair (int index) const override;
+
+    bool acceptsMidi() const override;
+    bool producesMidi() const override;
+    double getTailLengthSeconds() const override;
 
     //==============================================================================
-    const String getName() const;
-
-    int getNumParameters();
-
-    float getParameter (int index);
-    void setParameter (int index, float newValue);
-
-    const String getParameterName (int index);
-    const String getParameterText (int index);
-
-    const String getInputChannelName (int channelIndex) const;
-    const String getOutputChannelName (int channelIndex) const;
-    bool isInputChannelStereoPair (int index) const;
-    bool isOutputChannelStereoPair (int index) const;
-
-    bool acceptsMidi() const;
-    bool producesMidi() const;
-    bool silenceInProducesSilenceOut() const;
-    double getTailLengthSeconds() const;
+    int getNumPrograms() override;
+    int getCurrentProgram() override;
+    void setCurrentProgram (int index) override;
+    const String getProgramName (int index) override;
+    void changeProgramName (int index, const String& newName) override;
 
     //==============================================================================
-    int getNumPrograms();
-    int getCurrentProgram();
-    void setCurrentProgram (int index);
-    const String getProgramName (int index);
-    void changeProgramName (int index, const String& newName);
-
-    //==============================================================================
-    void getStateInformation (MemoryBlock& destData);
-    void setStateInformation (const void* data, int sizeInBytes);
+    void getStateInformation (MemoryBlock& destData) override;
+    void setStateInformation (const void* data, int sizeInBytes) override;
     
     
     //*********************************************************************
 
     
     FileContainerManagerModel* getFileContainerManagerModel(){return fileContainerManagerModel;};
-    static AudioProcessor * getProcessor() { return processorInstance; };
+    AudioProcessor * getProcessor() { return this; };
     
-    
+    //AudioParameterFloat* addNewParameter();
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChuckRacksAudioProcessor)
@@ -91,11 +86,12 @@ private:
     MidiBuffer midiOutputBuffer;
     
     AudioPlayHead::CurrentPositionInfo lastPosInfo;
-    ScopedPointer<CodeEditorDemo> codeEditorDemo;
+    //ScopedPointer<CodeEditorDemo> codeEditorDemo;
 
-    FileContainerManagerModel * fileContainerManagerModel;
-    static AudioProcessor * processorInstance;
-
+    FileContainerManagerModel*  fileContainerManagerModel;
+    //AudioProcessor * processorInstance;
+    //AudioParameterFloat* param;
+    //Array<AudioParameterFloat*> params;
 };
 
 #endif  // PLUGINPROCESSOR_H_INCLUDED

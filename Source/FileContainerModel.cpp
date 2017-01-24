@@ -10,10 +10,12 @@
 #include "PluginProcessor.h"
 #include <sstream>
 
-FileContainerModel::FileContainerModel(chuck_inst* ck_) : canBeEdited(true)
+FileContainerModel::FileContainerModel(chuck_inst* ck_,
+                                       AudioProcessor* p_) :
+                                        canBeEdited(true)
 {
     ck = ck_;
-    
+    processor = p_;
     ScopedPointer<Random> random = new Random();
     uniqueFileContainerId = random->nextInt();
     
@@ -22,31 +24,27 @@ FileContainerModel::FileContainerModel(chuck_inst* ck_) : canBeEdited(true)
     std::string uniqueFileContainerIdAsString = ss.str();
     
     fileChooser = new FileChooser("Open Chuck File", File::nonexistent, "*.ck");
+    
     for (int i=0; i<8; i++)
+        knobParameters.push_back( processor->getParameters().getUnchecked(i) );
+    /*for (int i=0; i<8; i++)
     {
-        knobInfos.push_back(*new KnobInfo());
+        //knobInfos.push_back(*new KnobInfo());
         //String name = String
         //knobParameters.push_back(new AudioParameterFloat(S, );
         
-        NormalisableRange<float> gainRange(0.0, 1.0, 0.1, 1.0);
-        //knobParameters.push_back(new AudioParameterFloat("gainParam", "Gain", gainRange, 1.0));
-        //knobParameters.push_back(*new AudioParameterFloat(String(random->nextInt()),String(random->nextInt()), gainRange, 1.0));
-
-        //getProcessor()->addParameter (knobParameters.back());
-    }
-   
-    NormalisableRange<float> gainRange(0.0, 1.0, 0.1, 1.0);
-    testParameter = new AudioParameterFloat("gainParam", "Gain", gainRange, 1.0);
-    
-    //getProcessor() -> getInputChannelName(0);
-    //getProcessor() -> addParameter(testParameter);
-    //if(getProcessor() != NULL)
-    //    getProcessor() -> addParameter(testParameter);
-    //else
-     //   DBG("getProcessor inside FileContainerModel was null");
-
-    
-    
+        NormalisableRange<float> paramRange(0.0, 1.0, 0.1, 1.0);
+        String id = String(i+1);
+        //std::cout << id << std::endl;
+        AudioParameterFloat* param = new AudioParameterFloat(id, id, paramRange, 1.0);
+        processor->addParameter(param);
+        param->beginChangeGesture();
+        param->setValueNotifyingHost(1.0);
+        param->endChangeGesture();
+        //getProcessor()->addParameter( param );
+        //AudioParameterFloat* param =  dynamic_cast<ChuckRacksAudioProcessor*>(getProcessor())->addNewParameter();
+        knobParameters.push_back( param );
+    }*/
 }
 
 void FileContainerModel::addShred()
@@ -150,11 +148,11 @@ void FileContainerModel::openBrowser()
     
 }
 
-AudioProcessor * FileContainerModel::getProcessor()
+/*AudioProcessor* FileContainerModel::getProcessor()
 {
-    AudioProcessor * processor = ChuckRacksAudioProcessor::getProcessor();
+    //AudioProcessor* processor = ChuckRacksAudioProcessor::getProcessor();
     return processor;
-}
+}*/
 
 CodeDocument& FileContainerModel::getCodeDocument()
 {

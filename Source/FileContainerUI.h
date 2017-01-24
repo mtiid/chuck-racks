@@ -30,9 +30,9 @@ public:
    
     ScopedPointer<CodeEditorComponent> codeEditor;
     
-    void timerCallback();
+    void timerCallback() override;
     void filenameComponentChanged (FilenameComponent*) override;
-    void buttonClicked(Button* buttonThatWasPressed);
+    void buttonClicked(Button* buttonThatWasPressed) override;
     
     bool isShowingCodeEditor(){return mCodeEditorVisible;};
     
@@ -62,7 +62,7 @@ private:
     const int knobSize=40;
     const int knobSpacing =10;
     
-    void sliderValueChanged (Slider* slider);
+    void sliderValueChanged (Slider* slider) override;
     void updateSize();
     
     bool mCodeEditorVisible;
