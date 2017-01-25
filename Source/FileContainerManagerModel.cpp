@@ -67,7 +67,14 @@ void FileContainerManagerModel::removeAllShreds()
 
 FileContainerModel* FileContainerManagerModel::findFileContainer( int askedUniqueId )
 {
-    return fileContainerModelCollection.find(askedUniqueId)->second;
+    auto it = fileContainerModelCollection.find(askedUniqueId);
+    if (it != fileContainerModelCollection.end())
+        return it->second;
+    else
+        return nullptr;
+
+    
+   // return fileContainerModelCollection.find(askedUniqueId)->second;
     /*for (int i=0; i<fileContainerModels.size(); i++)
     {
         //fileContainerModels.at(i)->addShred();
