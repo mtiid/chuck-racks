@@ -70,8 +70,8 @@ void FileContainerManagerUI::init(){
     console->setScrollbarsShown(true);
     console->setScrollBarThickness(10);
     
-    for (int i=0; i<mManagerModel->fileContainerModels.size(); i++){
-        addNewFileContainerUI(mManagerModel->fileContainerModels[i]);
+    for (int i=0; i<mManagerModel->fileContainerModelCollection.size(); i++){
+        addNewFileContainerUI(mManagerModel->fileContainerModelCollection.at(i));
     }
 }
 

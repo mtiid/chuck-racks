@@ -24,7 +24,7 @@ public:
     FileContainerManagerModel(chuck_inst* ck_, AudioProcessor* p_);
     ~FileContainerManagerModel();
     chuck_inst* ck;
-    std::vector<FileContainerModel*> fileContainerModels;
+    //std::vector<FileContainerModel*> fileContainerModels;
     FileContainerModel* addFileContainer();
     void removeFileContainer(FileContainerModel* fc);
     void addAllShreds();

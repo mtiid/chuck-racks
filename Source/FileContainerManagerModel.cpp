@@ -13,7 +13,6 @@ FileContainerManagerModel::FileContainerManagerModel( chuck_inst* ck_, AudioProc
 {
     ck = ck_;
     processor = p_;
-    
 }
 
 FileContainerManagerModel::~FileContainerManagerModel()
