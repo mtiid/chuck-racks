@@ -81,15 +81,16 @@ void ChuckRacksAudioProcessorEditor::buttonClicked(Button *buttonThatWasPressed)
         getProcessor()->getFileContainerManagerModel()->addAllShreds();
     }
     
-    if (buttonThatWasPressed==removeAllShredsButton)
+    else if (buttonThatWasPressed==removeAllShredsButton)
     {
         getProcessor()->getFileContainerManagerModel()->removeAllShreds();
     }
     
-    if (buttonThatWasPressed==addNewFileContainerButton)
+    else if (buttonThatWasPressed==addNewFileContainerButton)
     {
-        getProcessor()->getFileContainerManagerModel()->addFileContainer();
-        managerUI->addNewFileContainerUI(getProcessor()->getFileContainerManagerModel()->fileContainerModels.back());
+        auto fc = getProcessor()->getFileContainerManagerModel()->addFileContainer();
+        managerUI->addNewFileContainerUI(fc);
+        //managerUI->addNewFileContainerUI(getProcessor()->getFileContainerManagerModel()->fileContainerModels.back());
     }
         
     

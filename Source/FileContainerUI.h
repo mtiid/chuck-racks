@@ -53,8 +53,8 @@ private:
     ScopedPointer<TextButton> openFileButton;
     ScopedPointer<TextButton> saveFileButton;
 
-    
-    std::vector<Slider *> knobs;
+    OwnedArray<Slider> knobs;
+    //std::vector<Slider *> knobs;
     const int knobAmount=8;
     const int knobsPerRow=4;
     const int knobStartX=200;

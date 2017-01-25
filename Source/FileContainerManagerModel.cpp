@@ -13,6 +13,7 @@ FileContainerManagerModel::FileContainerManagerModel( chuck_inst* ck_, AudioProc
 {
     ck = ck_;
     processor = p_;
+    
 }
 
 FileContainerManagerModel::~FileContainerManagerModel()
@@ -20,46 +21,55 @@ FileContainerManagerModel::~FileContainerManagerModel()
 
 }
 
-void FileContainerManagerModel::addFileContainer()
+FileContainerModel* FileContainerManagerModel::addFileContainer()
 {
-    fileContainerModels.push_back( new FileContainerModel(ck, processor) );
+    FileContainerModel* fc = new FileContainerModel(ck, processor);
+    fileContainerModelCollection.insert( std::make_pair(fc->getUniqueFCId(), fc) );
+    return fc;
+    //fileContainerModels.push_back( new FileContainerModel(ck, processor) );
 }
 
 
-void FileContainerManagerModel::removeFileContainer( FileContainerModel* whichPointer )
+void FileContainerManagerModel::removeFileContainer( FileContainerModel* fc )
 {
-    
-    for ( int i=0; i<fileContainerModels.size(); i++ )
+    fileContainerModelCollection.erase( fc->getUniqueFCId() );
+    delete fc;
+    /*for ( int i=0; i<fileContainerModels.size(); i++ )
     {
         if (fileContainerModels[i] == whichPointer) {
             fileContainerModels.erase( fileContainerModels.begin() + i );
             break;
         }
-    }
+    }*/
 }
 
 
 
 void FileContainerManagerModel::addAllShreds()
 {
-     for ( int i=0; i<fileContainerModels.size(); i++ )
+    for (auto it : fileContainerModelCollection)
+        it.second->addShred();
+    /*for ( int i=0; i<fileContainerModels.size(); i++ )
      {
          fileContainerModels.at(i)->addShred();
-     }
+     }*/
 
 }
 
 void FileContainerManagerModel::removeAllShreds()
 {
-    for ( int i=0; i < fileContainerModels.size(); i++ )
+    for (auto it : fileContainerModelCollection)
+        it.second->removeAllShreds();
+    /*for ( int i=0; i < fileContainerModels.size(); i++ )
     {
         fileContainerModels.at(i)->removeAllShreds();
-    }
+    }*/
 }
 
 FileContainerModel* FileContainerManagerModel::findFileContainer( int askedUniqueId )
 {
-    for (int i=0; i<fileContainerModels.size(); i++)
+    return fileContainerModelCollection.find(askedUniqueId)->second;
+    /*for (int i=0; i<fileContainerModels.size(); i++)
     {
         //fileContainerModels.at(i)->addShred();
         if (fileContainerModels.at(i)->getUniqueFCId() == askedUniqueId )
@@ -68,5 +78,5 @@ FileContainerModel* FileContainerManagerModel::findFileContainer( int askedUniqu
         }
     }
     
-    return nullptr;
+    return nullptr;*/
 }

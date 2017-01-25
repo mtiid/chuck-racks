@@ -139,22 +139,24 @@ void FileContainerUI::init(){
 #ifdef  USE_VER1_KNOBS
     for(int i=0; i<knobAmount; i++)
     {
-        knobs.push_back(new Slider("knob"+String(i)));
-        addAndMakeVisible(knobs.back());
+        knobs.add(new Slider("knob"+String(i)));
+        //knobs.push_back(new Slider("knob"+String(i)));
+        addAndMakeVisible(knobs.getLast());
+        //addAndMakeVisible(knobs.back());
         
-        knobs.back()->setRange(0.0, 1.0);
-        knobs.back()->setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
-        knobs.back()->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
-        knobs.back()->setColour(Slider::rotarySliderFillColourId, Colours::black);
-        knobs.back()->setColour(Slider::rotarySliderOutlineColourId, Colours::black);
-        knobs.back()->addListener(this);
+        knobs.getLast()->setRange(0.0, 1.0);
+        knobs.getLast()->setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
+        knobs.getLast()->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
+        knobs.getLast()->setColour(Slider::rotarySliderFillColourId, Colours::black);
+        knobs.getLast()->setColour(Slider::rotarySliderOutlineColourId, Colours::black);
+        knobs.getLast()->addListener(this);
         if(i<knobsPerRow)
         {
-            knobs.back()->setBounds(knobStartX+(i*(knobSpacing+knobSize)), knobStartY, knobSize, knobSize);
+            knobs.getLast()->setBounds(knobStartX+(i*(knobSpacing+knobSize)), knobStartY, knobSize, knobSize);
         }
         else
         {
-            knobs.back()->setBounds(knobStartX+((i-knobsPerRow)*(knobSpacing+knobSize)), knobStartY+(knobSpacing+knobSize), knobSize, knobSize);
+            knobs.getLast()->setBounds(knobStartX+((i-knobsPerRow)*(knobSpacing+knobSize)), knobStartY+(knobSpacing+knobSize), knobSize, knobSize);
         }
         
     }
@@ -228,7 +230,7 @@ void FileContainerUI::timerCallback()
 #ifdef USE_VER1_KNOBS
     for( int i=0; i<knobs.size(); i++ )
     {
-        knobs.at(i)->setValue(mFileContainerModel->knobParameters.at(i)->getValue(), dontSendNotification);
+        knobs[i]->setValue(mFileContainerModel->knobParameters.at(i)->getValue(), dontSendNotification);
     }
 #endif //USE_VER1_KNOBS
 }
@@ -237,7 +239,7 @@ void FileContainerUI::sliderValueChanged(juce::Slider *slider)
 {
     for(int i=0; i<knobs.size(); i++)
     {
-        if(slider == knobs.at(i))
+        if(slider == knobs[i])
         {
             mFileContainerModel->knobParameters.at(i)->beginChangeGesture();
             mFileContainerModel->knobParameters.at(i)->setValueNotifyingHost(slider->getValue());

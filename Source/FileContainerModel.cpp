@@ -30,6 +30,10 @@ FileContainerModel::FileContainerModel(chuck_inst* ck_,
 
 }
 
+FileContainerModel::~FileContainerModel(){
+    
+}
+
 void FileContainerModel::addShred()
 {
     chuck_result result = libchuck_add_shred(ck, filePath.toRawUTF8(), codeDocument.getAllContent().toRawUTF8());
