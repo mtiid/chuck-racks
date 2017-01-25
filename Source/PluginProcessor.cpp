@@ -84,6 +84,7 @@ ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor()
     
     if(input_buffer) { delete[] input_buffer; input_buffer = NULL; }
     if(output_buffer) { delete[] output_buffer; output_buffer = NULL; }
+    
 }
 
 //==============================================================================

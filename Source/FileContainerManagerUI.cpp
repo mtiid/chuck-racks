@@ -70,9 +70,12 @@ void FileContainerManagerUI::init(){
     console->setScrollbarsShown(true);
     console->setScrollBarThickness(10);
     
-    for (int i=0; i<mManagerModel->fileContainerModelCollection.size(); i++){
-        addNewFileContainerUI(mManagerModel->fileContainerModelCollection.at(i));
-    }
+    for (auto& fc : mManagerModel->fileContainerModelCollection)
+        addNewFileContainerUI(fc.second);
+    /*for (int i=0; i<mManagerModel->fileContainerModelCollection.size(); i++){
+        mManagerModel->fileContainerModelCollection.at(i)->getUniqueFCId();
+        addNewFileContainerUI(mManagerModel->fileContainerModelCollection[i]);
+    }*/
 }
 
 void FileContainerManagerUI::addNewFileContainerUI(FileContainerModel* fileContainerModel){
