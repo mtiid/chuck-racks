@@ -29,11 +29,12 @@ void FileContainerUI::init(){
     showHideCodeEditorButton->setImages(Drawable::createFromSVG(*expandSVGUp),
                                         nullptr,
                                         Drawable::createFromSVG(*collapseSVGDown),
-                                        Drawable::createFromSVG(*expandSVGUp),
+                                        nullptr,
                                         Drawable::createFromSVG(*collapseSVGDown),
-                                        Drawable::createFromSVG(*collapseSVGDown),
+                                        nullptr,
                                         Drawable::createFromSVG(*expandSVGUp),
-                                        Drawable::createFromSVG(*collapseSVGDown));
+                                        nullptr);
+    
     showHideCodeEditorButton->setColour(DrawableButton::backgroundOnColourId, Colour(0.0f,0.0f,0.0f,0.0f));
     addAndMakeVisible(showHideCodeEditorButton);
     showHideCodeEditorButton->setBounds(2, 5, 20,20);
