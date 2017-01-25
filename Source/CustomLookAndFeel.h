@@ -18,7 +18,8 @@ public:
     ~CustomLookAndFeel();
     
 private:
-    void drawTextEditorOutline  (Graphics& g, int width, int height, TextEditor& textEditor) override;    
+    void drawTextEditorOutline  (Graphics& g, int width, int height, TextEditor& textEditor) override;
+    void drawTableHeaderBackground (Graphics& g, TableHeaderComponent& header) override;
 };
 
 #endif /* defined(__ChuckRacks__CustomLookAndFeel__) */

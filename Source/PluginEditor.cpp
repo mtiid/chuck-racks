@@ -50,7 +50,34 @@ ChuckRacksAudioProcessorEditor::ChuckRacksAudioProcessorEditor (ChuckRacksAudioP
     addAndMakeVisible(addNewFileContainerButton);
     addNewFileContainerButton->setBounds(78, 4, 32, 32);
     addNewFileContainerButton->addListener(this);
-    //lastFileLoaded=getProcessor()->fileManager.fileName;
+    
+    
+    openParameterListButton = new DrawableButton("Open Parameter List", DrawableButton::ButtonStyle::ImageFitted);
+    ScopedPointer<XmlElement> openParameterListSVGRight(XmlDocument::parse(BinaryData::collapse_svg));
+    ScopedPointer<XmlElement> openParameterListSVGLeft(XmlDocument::parse(BinaryData::open_svg));
+    openParameterListButton->setClickingTogglesState(true);
+    openParameterListButton->setToggleState(false, dontSendNotification);
+    openParameterListButton->setImages(Drawable::createFromSVG(*openParameterListSVGRight),
+                                        nullptr,
+                                        Drawable::createFromSVG(*openParameterListSVGLeft),
+                                        nullptr,
+                                        Drawable::createFromSVG(*openParameterListSVGLeft),
+                                        nullptr,
+                                        Drawable::createFromSVG(*openParameterListSVGRight),
+                                        nullptr);
+    
+    openParameterListButton->setColour(DrawableButton::backgroundOnColourId, Colour(0.0f,0.0f,0.0f,1.0f));
+    openParameterListButton->setColour(DrawableButton::backgroundColourId, Colour(0.0f,0.0f,0.0f,1.0f));
+    addAndMakeVisible(openParameterListButton);
+    openParameterListButton->setBounds(566, 4, 32, 32);
+    openParameterListButton->addListener(this);
+    
+    
+    parameterUI = new ParameterMapUI();
+
+    parameterUI->setBounds(getWidth()-370, 40, 370, getBottom()-40);
+    addChildComponent(parameterUI);
+    //addAndMakeVisible(parameterUI);
     
     startTimer(50);
     timerCallback();
@@ -90,7 +117,12 @@ void ChuckRacksAudioProcessorEditor::buttonClicked(Button *buttonThatWasPressed)
     {
         auto fc = getProcessor()->getFileContainerManagerModel()->addFileContainer();
         managerUI->addNewFileContainerUI(fc);
+        getProcessor()->updateParamNames();
         //managerUI->addNewFileContainerUI(getProcessor()->getFileContainerManagerModel()->fileContainerModels.back());
+    }
+    
+    else if (buttonThatWasPressed == openParameterListButton){
+        parameterUI->setVisible(openParameterListButton->getToggleState());
     }
         
     

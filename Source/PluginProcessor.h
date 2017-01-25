@@ -17,7 +17,7 @@
 #include "CodeEditorDemo.h"
 #include "FileContainerManagerModel.h"
 #include "Defines.h"
-
+#include "FloatParameter.h"
 //==============================================================================
 /**
 */
@@ -72,6 +72,8 @@ public:
     
     FileContainerManagerModel* getFileContainerManagerModel(){return fileContainerManagerModel;};
     AudioProcessor * getProcessor() { return this; };
+    
+    void updateParamNames();
     
 private:
     //==============================================================================

@@ -69,10 +69,10 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
 
         NormalisableRange<float> paramRange(0.0, 1.0, 0.1, 1.0);
         String id = String(i+1);
-        AudioParameterFloat* param = new AudioParameterFloat(id, id, paramRange, 1.0);
+        FloatParameter* param = new FloatParameter(id, id, paramRange, 1.0);
         addParameter(param);
-       
     }
+    //dynamic_cast<FloatParameter*>(getParameters().getUnchecked(0))->setName("Yes!");
 }
 
 ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor()
@@ -85,6 +85,16 @@ ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor()
     if(input_buffer) { delete[] input_buffer; input_buffer = NULL; }
     if(output_buffer) { delete[] output_buffer; output_buffer = NULL; }
     
+}
+
+void ChuckRacksAudioProcessor::updateParamNames(){
+    
+    ScopedPointer<Random> random = new Random();
+    String randomName = String(random->nextInt());
+    
+    dynamic_cast<FloatParameter*>(getParameters().getUnchecked(0))->setName(randomName);
+
+    updateHostDisplay();
 }
 
 //==============================================================================

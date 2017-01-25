@@ -24,6 +24,7 @@ FileContainerModel* FileContainerManagerModel::addFileContainer()
 {
     FileContainerModel* fc = new FileContainerModel(ck, processor);
     fileContainerModelCollection.insert( std::make_pair(fc->getUniqueFCId(), fc) );
+    
     return fc;
     //fileContainerModels.push_back( new FileContainerModel(ck, processor) );
 }

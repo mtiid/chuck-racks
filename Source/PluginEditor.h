@@ -14,11 +14,15 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 #include "FileContainerManagerUI.h"
+#include "ParameterMapUI.h"
 
 //==============================================================================
 /**
 */
-class ChuckRacksAudioProcessorEditor  : public AudioProcessorEditor, public ButtonListener, public Timer, Slider::Listener 
+class ChuckRacksAudioProcessorEditor  : public AudioProcessorEditor,
+                                        public ButtonListener,
+                                        public Timer,
+                                        Slider::Listener
 {
 public:
     ChuckRacksAudioProcessorEditor (ChuckRacksAudioProcessor* ownerFilter);
@@ -53,6 +57,10 @@ private:
     ScopedPointer<DrawableButton> addAllShredsButton;
     ScopedPointer<DrawableButton> removeAllShredsButton;
     ScopedPointer<DrawableButton> addNewFileContainerButton;
+    ScopedPointer<DrawableButton> openParameterListButton;
+
+    
+    ScopedPointer<ParameterMapUI> parameterUI;
 };
 
 

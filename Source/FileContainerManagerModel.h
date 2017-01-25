@@ -32,7 +32,7 @@ public:
     FileContainerModel* findFileContainer(int askedUniqueId);
     
     CodeDocument consoleDocument;
-    std::map< int, FileContainerModel* > fileContainerModelCollection;
+    std::map<int, FileContainerModel*> fileContainerModelCollection;
 
 private:
     AudioProcessor* processor;
