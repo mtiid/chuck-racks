@@ -10,8 +10,9 @@
 
 #include "ParameterMapUI.h"
 
-ParameterMapUI::ParameterMapUI() : numRows(512)
+ParameterMapUI::ParameterMapUI(AudioProcessor* p_) : numRows(0)
 {
+    processor = p_;
     
     addAndMakeVisible(table);
     table.setRowHeight (20);
@@ -20,17 +21,36 @@ ParameterMapUI::ParameterMapUI() : numRows(512)
     // give it a border
     //table.setColour (ListBox::outlineColourId, Colours::black);
     //table.setOutlineThickness (1);
-    table.getHeader().addColumn("#", 1, 30, TableHeaderComponent::defaultFlags);
-    table.getHeader().addColumn("Parameter Name", 2, 300, TableHeaderComponent::notSortable);
+    table.getHeader().addColumn("#", 1, 30, TableHeaderComponent::notSortable);
+    table.getHeader().addColumn("Parameter Name", 2, 280, TableHeaderComponent::notSortable);
+    //table.getHeader().addColumn("Add New", 3, 60, TableHeaderComponent::notSortable);
     
+    table.setColour(TableListBox::backgroundColourId, Colour(38, 40, 49));
+    //addRow();
+    //addRow();
     //parameterListModel.insert(std::make_pair(0, String("Cutoff")));
-    for (int i=0; i<numRows; i++) {
+    /*for (int i=0; i<numRows; i++) {
         parameterListModel.insert(std::make_pair(i, String("not assigned")));
-    }
+    }*/
     
     table.setAutoSizeMenuOptionShown(false);
-    //table.getHeader().setStretchToFitActive(true);
+    table.getHeader().setStretchToFitActive(true);
     
+    ScopedPointer<XmlElement> addShredSVGUp(XmlDocument::parse(BinaryData::addshrediconUp_svg));
+    ScopedPointer<XmlElement> addShredSVGDown(XmlDocument::parse(BinaryData::addshrediconDown_svg));
+    addNewButton = new DrawableButton("Add New Parameter", DrawableButton::ButtonStyle::ImageFitted);
+    addNewButton->setImages(Drawable::createFromSVG(*addShredSVGUp),
+                                        nullptr,
+                                        Drawable::createFromSVG(*addShredSVGDown),
+                                        nullptr,
+                                        Drawable::createFromSVG(*addShredSVGDown),
+                                        nullptr,
+                                        Drawable::createFromSVG(*addShredSVGUp),
+                                        nullptr);
+    
+    addNewButton->setColour(DrawableButton::backgroundOnColourId, Colour(0.0f,0.0f,0.0f,0.0f));
+    addAndMakeVisible(addNewButton);
+    addNewButton->addListener(this);
 }
 
 ParameterMapUI::~ParameterMapUI(){
@@ -38,12 +58,32 @@ ParameterMapUI::~ParameterMapUI(){
 }
 
 void ParameterMapUI::paint (Graphics& g){
-    g.fillAll(Colour(40, 43, 34));
+    g.fillAll(Colour(50, 53, 64));
+
+    //g.setColour(Colour(40, 43, 34));
+    //g.fillAll(Colours::black);
+    //g.fillAll(Colour(40, 43, 34));
     //g.fillAll(Colours::black.withAlpha (0.8f));
 }
 
 void ParameterMapUI::resized(){
     table.setBoundsInset (BorderSize<int> (1));
+    addNewButton->setBounds(getWidth()-28, 2, 26, 26);
+}
+
+void ParameterMapUI::buttonClicked (Button* buttonThatWasClicked){
+    if (buttonThatWasClicked == addNewButton) {
+        addRow();
+    }
+}
+
+void ParameterMapUI::addRow(){
+    if (numRows+1 < 512)
+        parameterListModel.insert(std::make_pair(numRows, String("not assigned")));
+    
+    numRows++;
+    table.resized();
+
 }
 
 // This is overloaded from TableListBoxModel, and must return the total number of rows in our table
@@ -60,10 +100,11 @@ void ParameterMapUI::paintRowBackground (Graphics& g, int rowNumber,
    
     if (rowIsSelected)
         g.fillAll (Colours::lightslategrey);
-    else if (rowNumber % 2)
-        g.fillAll (Colour(100, 106, 127));
+    //else if (rowNumber % 2)
+    //    g.fillAll (Colour(100, 106, 127));
     else
-        g.fillAll(Colour(28, 30, 37));
+        g.fillAll(Colour(38, 40, 49));
+        //g.fillAll(Colour(28, 30, 37));
 }
 
 // This is overloaded from TableListBoxModel, and must paint any cells that aren't using custom
@@ -74,7 +115,6 @@ void ParameterMapUI::paintCell (Graphics& g, int rowNumber, int columnId,
     g.setColour (Colours::black.withAlpha (0.2f));
     g.fillRect (width - 1, 0, 1, height);
     
-    g.setColour (Colours::black);
     g.setFont (font);
 
     
@@ -82,11 +122,15 @@ void ParameterMapUI::paintCell (Graphics& g, int rowNumber, int columnId,
     {
         String text;
         if (columnId == 1){
+            g.setColour (Colour(62, 172, 133));
             text = String(rowNumber);
         }
         
         else if (columnId == 2){
+            g.setColour (Colours::grey);
             text = parameterListModel.at(rowNumber);
+        }else{
+            text = String();
         }
         
         g.drawText (text, 2, 0, width - 4, height, Justification::centredLeft, true);
@@ -123,7 +167,13 @@ String ParameterMapUI::getText (const int columnNumber, const int rowNumber) con
 
 void ParameterMapUI::setText (const int columnNumber, const int rowNumber, const String& newText)
 {
-    //const String& columnName = table.getHeader().getColumnName (columnNumber);
-    parameterListModel.find(rowNumber)->second = newText;
+    String text = newText;
+    
+    if (text.isEmpty())
+        text = "not assigned";
+    
+    parameterListModel.find(rowNumber)->second = text;
+    static_cast<ChuckRacksAudioProcessor *>(processor)->updateParamNames(rowNumber, text);
+    table.deselectRow(rowNumber);
     //dataList->getChildElement (rowNumber)->setAttribute (columnName, newText);
 }

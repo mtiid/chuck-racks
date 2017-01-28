@@ -73,7 +73,7 @@ public:
     FileContainerManagerModel* getFileContainerManagerModel(){return fileContainerManagerModel;};
     AudioProcessor * getProcessor() { return this; };
     
-    void updateParamNames();
+    void updateParamNames(int num, String newText);
     
 private:
     //==============================================================================

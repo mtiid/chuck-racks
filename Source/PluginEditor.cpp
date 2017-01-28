@@ -73,7 +73,7 @@ ChuckRacksAudioProcessorEditor::ChuckRacksAudioProcessorEditor (ChuckRacksAudioP
     openParameterListButton->addListener(this);
     
     
-    parameterUI = new ParameterMapUI();
+    parameterUI = new ParameterMapUI(getProcessor());
 
     parameterUI->setBounds(getWidth()-370, 40, 370, getBottom()-40);
     addChildComponent(parameterUI);
@@ -91,8 +91,9 @@ ChuckRacksAudioProcessorEditor::~ChuckRacksAudioProcessorEditor()
 void ChuckRacksAudioProcessorEditor::paint (Graphics& g)
 {
     g.fillAll (Colour(38, 40, 49));
-    //g.fillAll(Colour(238, 238, 238));
-
+    
+    g.setColour(Colour(40, 43, 34));
+   // g.drawRect(getLocalBounds(), 1);
 }
 
 void ChuckRacksAudioProcessorEditor::resized()
@@ -117,7 +118,7 @@ void ChuckRacksAudioProcessorEditor::buttonClicked(Button *buttonThatWasPressed)
     {
         auto fc = getProcessor()->getFileContainerManagerModel()->addFileContainer();
         managerUI->addNewFileContainerUI(fc);
-        getProcessor()->updateParamNames();
+        //getProcessor()->updateParamNames();
         //managerUI->addNewFileContainerUI(getProcessor()->getFileContainerManagerModel()->fileContainerModels.back());
     }
     

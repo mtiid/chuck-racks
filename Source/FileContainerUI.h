@@ -16,7 +16,7 @@
 
 class FileContainerUI : public Component,
                         private FilenameComponentListener,
-                        public ButtonListener,
+                        public Button::Listener,
                         public Timer,
                         public Slider::Listener,
                         public ChangeBroadcaster

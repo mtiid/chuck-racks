@@ -13,16 +13,21 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include <map>
+#include "PluginProcessor.h"
 
-class ParameterMapUI : public Component,
-                        public TableListBoxModel
+class ParameterMapUI :  public Component,
+                        public TableListBoxModel,
+                        public Button::Listener
 {
+    
 public:
-    ParameterMapUI();
+    ParameterMapUI(AudioProcessor* p_);
     ~ParameterMapUI();
     
     void paint (Graphics &) override;
     void resized() override;
+    
+    void addRow();
     
     // TableListBoxModel overrides
     int getNumRows () override;
@@ -40,13 +45,17 @@ public:
     String getText (const int columnNumber, const int rowNumber) const;
     TableListBox table;
     
-private:
-    Font font;
+    void buttonClicked (Button*);
     
+private:
+    //ScopedPointer<TextButton> addNewButton;
+    ScopedPointer<DrawableButton> addNewButton;
+    
+    Font font;
     int numRows;
     
     std::map<int, String> parameterListModel;
-
+    AudioProcessor* processor;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ParameterMapUI)
 };
@@ -74,6 +83,7 @@ public:
     void textWasEdited() override
     {
         owner.setText (columnId, row, getText());
+        //std::cout << getText() << std::endl;
     }
     
     // Our demo code will call this when we may need to update our contents

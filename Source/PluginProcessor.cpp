@@ -87,13 +87,10 @@ ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor()
     
 }
 
-void ChuckRacksAudioProcessor::updateParamNames(){
-    
-    ScopedPointer<Random> random = new Random();
-    String randomName = String(random->nextInt());
-    
-    dynamic_cast<FloatParameter*>(getParameters().getUnchecked(0))->setName(randomName);
-
+void ChuckRacksAudioProcessor::updateParamNames(int num, String newText){
+    FloatParameter* p = dynamic_cast<FloatParameter*>(getParameters().getUnchecked(num));
+    p->setName(newText);
+    p->setValueNotifyingHost(p->getValueFrom0to1());
     updateHostDisplay();
 }
 

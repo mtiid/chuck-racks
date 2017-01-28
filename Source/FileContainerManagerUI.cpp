@@ -90,7 +90,7 @@ void FileContainerManagerUI::addNewFileContainerUI(FileContainerModel* fileConta
             updateFileContainerUILayout();
             break;
         case AppViewMode::TabView :
-            tabView.addTab("Test", Colour(100, 106, 127), newFileContainerUI, false);
+            tabView.addTab("New", Colour(100, 106, 127), newFileContainerUI, false);
             newFileContainerUI->init();
             break;
         default:

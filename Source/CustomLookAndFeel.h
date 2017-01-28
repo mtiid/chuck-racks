@@ -18,8 +18,14 @@ public:
     ~CustomLookAndFeel();
     
 private:
+    void drawButtonBackground (Graphics& g, Button& button, const Colour& backgroundColour,
+                               bool isMouseOverButton, bool isButtonDown) override;
     void drawTextEditorOutline  (Graphics& g, int width, int height, TextEditor& textEditor) override;
     void drawTableHeaderBackground (Graphics& g, TableHeaderComponent& header) override;
+    void drawTableHeaderColumn (Graphics& g, const String& columnName, int /*columnId*/,
+                                int width, int height, bool isMouseOver, bool isMouseDown,
+                                int columnFlags) override;
+
 };
 
 #endif /* defined(__ChuckRacks__CustomLookAndFeel__) */
