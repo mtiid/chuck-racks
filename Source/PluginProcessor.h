@@ -73,6 +73,8 @@ public:
     FileContainerManagerModel* getFileContainerManagerModel(){return fileContainerManagerModel;};
     AudioProcessor * getProcessor() { return this; };
     
+    std::map<int, String>* getParameterListModel(){return parameterListModel;};
+    bool mapNewParam();
     void updateParamNames(int num, String newText);
     
 private:
@@ -89,6 +91,8 @@ private:
     AudioPlayHead::CurrentPositionInfo lastPosInfo;
 
     FileContainerManagerModel*  fileContainerManagerModel;
+    std::map<int, String>* parameterListModel;
+
  
 };
 

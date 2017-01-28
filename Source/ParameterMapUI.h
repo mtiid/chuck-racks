@@ -45,7 +45,7 @@ public:
     String getText (const int columnNumber, const int rowNumber) const;
     TableListBox table;
     
-    void buttonClicked (Button*);
+    void buttonClicked (Button*) override;
     
 private:
     //ScopedPointer<TextButton> addNewButton;
@@ -54,9 +54,9 @@ private:
     Font font;
     int numRows;
     
-    std::map<int, String> parameterListModel;
-    AudioProcessor* processor;
-    
+    ChuckRacksAudioProcessor* processor;
+    std::map<int, String>* parameterListModel;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ParameterMapUI)
 };
 

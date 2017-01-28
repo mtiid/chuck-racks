@@ -12,8 +12,8 @@
 
 ParameterMapUI::ParameterMapUI(AudioProcessor* p_) : numRows(0)
 {
-    processor = p_;
-    
+    processor = static_cast<ChuckRacksAudioProcessor*>(p_);
+    parameterListModel = processor->getParameterListModel();
     addAndMakeVisible(table);
     table.setRowHeight (20);
     table.setModel (this);
@@ -78,10 +78,11 @@ void ParameterMapUI::buttonClicked (Button* buttonThatWasClicked){
 }
 
 void ParameterMapUI::addRow(){
-    if (numRows+1 < 512)
-        parameterListModel.insert(std::make_pair(numRows, String("not assigned")));
+    //if (numRows+1 < 512)
+    //    parameterListModel.insert(std::make_pair(numRows, String("not assigned")));
     
-    numRows++;
+    //numRows++;
+    processor->mapNewParam();
     table.resized();
 
 }
@@ -89,7 +90,7 @@ void ParameterMapUI::addRow(){
 // This is overloaded from TableListBoxModel, and must return the total number of rows in our table
 int ParameterMapUI::getNumRows()
 {
-    return numRows;
+    return parameterListModel->size();
 }
 
 // This is overloaded from TableListBoxModel, and should fill in the background of the whole row
@@ -117,9 +118,11 @@ void ParameterMapUI::paintCell (Graphics& g, int rowNumber, int columnId,
     
     g.setFont (font);
 
-    
-    if ( parameterListModel.at(rowNumber).isNotEmpty() )
+    //std::map<int, String> pModel(processor->getParameterListModel());
+    std::cout << "painting " << rowNumber << " " << columnId << std::endl;
+    if ( parameterListModel->at(rowNumber).isNotEmpty() )
     {
+        std::cout << "dfdfsdf" << std::endl;
         String text;
         if (columnId == 1){
             g.setColour (Colour(62, 172, 133));
@@ -128,7 +131,7 @@ void ParameterMapUI::paintCell (Graphics& g, int rowNumber, int columnId,
         
         else if (columnId == 2){
             g.setColour (Colours::grey);
-            text = parameterListModel.at(rowNumber);
+            text = parameterListModel->at(rowNumber);
         }else{
             text = String();
         }
@@ -161,19 +164,22 @@ Component* ParameterMapUI::refreshComponentForCell (int rowNumber, int columnId,
 
 String ParameterMapUI::getText (const int columnNumber, const int rowNumber) const
 {
-    return parameterListModel.find(rowNumber)->second;
+    //std::map<int, String> pModel (processor->getParameterListModel());
+    //std::cout << processor->getParameterListModel().find(rowNumber)->second << std::endl;
+    return parameterListModel->find(rowNumber)->second;
     //return dataList->getChildElement (rowNumber)->getStringAttribute ( getAttributeNameForColumnId(columnNumber));
 }
 
 void ParameterMapUI::setText (const int columnNumber, const int rowNumber, const String& newText)
 {
     String text = newText;
-    
+
     if (text.isEmpty())
         text = "not assigned";
-    
-    parameterListModel.find(rowNumber)->second = text;
-    static_cast<ChuckRacksAudioProcessor *>(processor)->updateParamNames(rowNumber, text);
+    //std::map<int, String> pModel (processor->getParameterListModel());
+
+    parameterListModel->find(rowNumber)->second = text;
+    processor->updateParamNames(rowNumber, text);
     table.deselectRow(rowNumber);
     //dataList->getChildElement (rowNumber)->setAttribute (columnName, newText);
 }

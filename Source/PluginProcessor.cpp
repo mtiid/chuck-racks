@@ -72,6 +72,8 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
         FloatParameter* param = new FloatParameter(id, id, paramRange, 1.0);
         addParameter(param);
     }
+    
+    parameterListModel = new std::map<int, String>;
     //dynamic_cast<FloatParameter*>(getParameters().getUnchecked(0))->setName("Yes!");
 }
 
@@ -87,11 +89,23 @@ ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor()
     
 }
 
+bool ChuckRacksAudioProcessor::mapNewParam(){
+    int numRows = parameterListModel->size();
+    if (numRows+1 < 512){
+        parameterListModel->insert(std::make_pair(numRows, String("not assigned")));
+        return true;
+    }else{
+        return false;
+    }
+}
+
 void ChuckRacksAudioProcessor::updateParamNames(int num, String newText){
     FloatParameter* p = dynamic_cast<FloatParameter*>(getParameters().getUnchecked(num));
     p->setName(newText);
     p->setValueNotifyingHost(p->getValueFrom0to1());
     updateHostDisplay();
+    std::cout << newText << std::endl;
+
 }
 
 //==============================================================================
