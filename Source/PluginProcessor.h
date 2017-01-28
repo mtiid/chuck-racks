@@ -93,7 +93,7 @@ private:
     FileContainerManagerModel*  fileContainerManagerModel;
     std::map<int, String>* parameterListModel;
 
- 
+    //AudioProcessorValueTreeState parameters;
 };
 
 #endif  // PLUGINPROCESSOR_H_INCLUDED

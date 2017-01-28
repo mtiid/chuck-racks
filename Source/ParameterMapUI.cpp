@@ -119,10 +119,10 @@ void ParameterMapUI::paintCell (Graphics& g, int rowNumber, int columnId,
     g.setFont (font);
 
     //std::map<int, String> pModel(processor->getParameterListModel());
-    std::cout << "painting " << rowNumber << " " << columnId << std::endl;
+    //std::cout << "painting " << rowNumber << " " << columnId << std::endl;
     if ( parameterListModel->at(rowNumber).isNotEmpty() )
     {
-        std::cout << "dfdfsdf" << std::endl;
+        //std::cout << "dfdfsdf" << std::endl;
         String text;
         if (columnId == 1){
             g.setColour (Colour(62, 172, 133));

@@ -25,7 +25,7 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
                      #endif
                       .withOutput ("Output", AudioChannelSet::stereo(), true)
                     #endif
-                  )
+                  )//,parameters (*this, nullptr)
 #endif
 
 {
@@ -390,12 +390,51 @@ void ChuckRacksAudioProcessor::getStateInformation (MemoryBlock& destData)
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
+    
+    // Create outer XML element
+    XmlElement xml("CHUCKPLUGINSETTINGS");
+    
+    XmlElement* parameterInfoElement = new XmlElement("PARAMETERS");
+    for (int i=0; i<parameterListModel->size(); ++i) {
+        if (FloatParameter* p = dynamic_cast<FloatParameter*>(getParameters().getUnchecked(i))) {
+            parameterInfoElement->setAttribute(p->getName(50), p->getValue());
+            std::cout << "storing: " << parameterInfoElement->getAttributeName(i) << " " << parameterInfoElement->getAttributeValue(i) << std::endl;
+        }
+    }
+    
+    xml.addChildElement(parameterInfoElement);
+    
+    copyXmlToBinary(xml, destData);
 }
 
 void ChuckRacksAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+    
+    ScopedPointer<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
+    
+    if (xmlState != nullptr) {
+        //make sure it's actually our type of xml object
+        if (xmlState->hasTagName("CHUCKPLUGINSETTINGS")) {
+            
+            forEachXmlChildElement (*xmlState, child)
+            {
+                if (child->hasTagName ("PARAMETERS"))
+                {
+                    for (int i=0; i<2; ++i) {
+                        //if (FloatParameter* p = dynamic_cast<FloatParameter*>(getParameters().getUnchecked(i))) {
+                        //p->setValueNotifyingHost((float) child->getDoubleAttribute(p->getName(50),p->getValue()));
+                        mapNewParam();
+                        parameterListModel->at(i) = child->getAttributeName(i);
+                        updateParamNames(i, child->getAttributeName(i));
+                        std::cout << parameterListModel->at(i) << std::endl;
+                        //}
+                    }
+                }
+            }
+        }
+    }
 }
 
 //==============================================================================
