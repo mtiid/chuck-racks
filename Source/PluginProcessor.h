@@ -76,6 +76,7 @@ public:
     std::map<int, String>* getParameterListModel(){return parameterListModel;};
     bool mapNewParam();
     void updateParamNames(int num, String newText);
+    float getParamValue(String paramName);
     
 private:
     //==============================================================================

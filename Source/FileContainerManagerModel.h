@@ -34,8 +34,9 @@ public:
     CodeDocument consoleDocument;
     std::map<int, FileContainerModel*> fileContainerModelCollection;
 
-private:
     AudioProcessor* processor;
+    
+private:
     
 };
 

@@ -14,7 +14,6 @@
 #include "chuck_vm.h"
 #include <string>
 
-
 PluginPanel *g_pluginPanel = NULL;
 
 
@@ -37,11 +36,14 @@ CK_DLL_SFUN(pluginPanel_getValue)
     //std::string filename = SHRED->code->filename;
     //std::string arg1 = SHRED->args[0];
     
-    t_CKINT containerId = GET_NEXT_INT(ARGS);
+    //t_CKINT containerId = GET_NEXT_INT(ARGS);
     
-    t_CKINT whichKnob = GET_NEXT_INT(ARGS);
+    //t_CKINT whichKnob = GET_NEXT_INT(ARGS);
     
-    
+    //Chuck_String paramName;
+    //SET_CK_STRING(paramName, GET_NEXT_STRING(ARGS));
+    Chuck_String paramName = *GET_NEXT_STRING(ARGS);
+
     //if (g_pluginPanel->fileContainerManager!=nullptr) {
     //    t_CKINT shred_id = SHRED->xid;
     //}
@@ -52,7 +54,7 @@ CK_DLL_SFUN(pluginPanel_getValue)
     */ // I don't remember what this is for... Maybe for a newer version of chucklib? Ask Spencer
     
     
-    FileContainerModel * thisFileContainer = g_pluginPanel->fileContainerManager->findFileContainer(containerId);
+    /*FileContainerModel * thisFileContainer = g_pluginPanel->fileContainerManager->findFileContainer(containerId);
     
     if (thisFileContainer != nullptr)
     {
@@ -63,9 +65,13 @@ CK_DLL_SFUN(pluginPanel_getValue)
     {
         DBG("File container called from PluginPanel.getValue is null!");
          RETURN->v_float = 0.0;
-    }
+    }*/
+    ChuckRacksAudioProcessor* proc = static_cast<ChuckRacksAudioProcessor*>(g_pluginPanel->fileContainerManager->processor);
     
-   
+    float val = proc->getParamValue( String(paramName.str) );
+    DBG( val );
+    
+    RETURN->v_float = val;
 }
 
 // chuck object and functions definitions
@@ -79,9 +85,10 @@ t_CKBOOL pluginPanel_query( Chuck_DL_Query * QUERY)
     
     QUERY->add_sfun(QUERY, pluginPanel_getValue, "float", "getValue"); //return type, chuck function name
     
-    QUERY->add_arg(QUERY, "int", "containerId"); // first argument
-    
-    QUERY->add_arg(QUERY, "int", "whichKnob");
+    //QUERY->add_arg(QUERY, "int", "containerId"); // first argument
+    //QUERY->add_arg(QUERY, "int", "whichKnob");
+
+    QUERY->add_arg(QUERY, "Chuck_String", "paramName");
     QUERY->end_class(QUERY);
     
     return TRUE;

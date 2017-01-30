@@ -15,6 +15,8 @@
 #include "chuck_dl.h"
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "FileContainerManagerModel.h"
+#include "PluginProcessor.h"
+
 
 class PluginPanel
 {

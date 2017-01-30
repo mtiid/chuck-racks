@@ -107,6 +107,18 @@ void ChuckRacksAudioProcessor::updateParamNames(int num, String newText){
     updateHostDisplay();
 }
 
+float ChuckRacksAudioProcessor::getParamValue(String paramName){
+    for (int i=0; i<getParameterListModel()->size(); i++)
+    {
+        if (getParameterID(i) == paramName)
+        {
+            return getParameter(i);
+        }
+    }
+    return -1;
+}
+
+
 //==============================================================================
 const String ChuckRacksAudioProcessor::getName() const
 {
