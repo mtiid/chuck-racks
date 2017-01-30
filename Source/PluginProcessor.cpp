@@ -110,7 +110,7 @@ void ChuckRacksAudioProcessor::updateParamNames(int num, String newText){
 float ChuckRacksAudioProcessor::getParamValue(String paramName){
     for (int i=0; i<getParameterListModel()->size(); i++)
     {
-        if (getParameterID(i) == paramName)
+        if (getParameterName(i) == paramName)
         {
             return getParameter(i);
         }

@@ -22,33 +22,10 @@ class PluginPanel
 {
 public:
  
-
-    /*
-    static PluginPanel * instance;
-    
-    PluginPanel()
-    {
-        if (instance==nullptr)
-        {
-            instance = new PluginPanel();
-        }
-        else
-        {
-            std::cout<<"Tried to create another instance of PluginPanel! It's a singleton!"<<std::endl;
-        }
-        
-    }
-     */
-
     PluginPanel();
-    
     ~PluginPanel();
     
     ScopedPointer<FileContainerManagerModel> fileContainerManager;
-    
-
-    
-    
 };
 
 
