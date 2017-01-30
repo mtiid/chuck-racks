@@ -64,7 +64,7 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
     
     g_pluginPanel->fileContainerManager = fileContainerManagerModel;
     
-    for (int i=0; i<127; i++)
+    for (int i=0; i<512; i++)
     {
 
         NormalisableRange<float> paramRange(0.0, 1.0, 0.1, 1.0);
@@ -102,10 +102,9 @@ bool ChuckRacksAudioProcessor::mapNewParam(){
 void ChuckRacksAudioProcessor::updateParamNames(int num, String newText){
     FloatParameter* p = dynamic_cast<FloatParameter*>(getParameters().getUnchecked(num));
     p->setName(newText);
-    p->setValueNotifyingHost(p->getValueFrom0to1());
+    p->setValueNotifyingHost(p->getValue());
+    parameterListModel->at(num) = newText;
     updateHostDisplay();
-    std::cout << newText << std::endl;
-
 }
 
 //==============================================================================
@@ -422,14 +421,16 @@ void ChuckRacksAudioProcessor::setStateInformation (const void* data, int sizeIn
             {
                 if (child->hasTagName ("PARAMETERS"))
                 {
-                    for (int i=0; i<2; ++i) {
-                        //if (FloatParameter* p = dynamic_cast<FloatParameter*>(getParameters().getUnchecked(i))) {
+                    for (int i=0; i<child->getNumAttributes(); ++i) {
+                        if (FloatParameter* p = dynamic_cast<FloatParameter*>(getParameters().getUnchecked(i))) {
+                            
+                        p->setValueNotifyingHost(child->getDoubleAttribute(child->getAttributeName(i)));
                         //p->setValueNotifyingHost((float) child->getDoubleAttribute(p->getName(50),p->getValue()));
                         mapNewParam();
                         parameterListModel->at(i) = child->getAttributeName(i);
                         updateParamNames(i, child->getAttributeName(i));
                         std::cout << parameterListModel->at(i) << std::endl;
-                        //}
+                        }
                     }
                 }
             }
