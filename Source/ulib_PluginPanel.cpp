@@ -37,7 +37,6 @@ CK_DLL_SFUN(pluginPanel_getValue)
     ChuckRacksAudioProcessor* proc = static_cast<ChuckRacksAudioProcessor*>(g_pluginPanel->fileContainerManager->processor);
     
     float val = proc->getParamValue( String(paramName->str) );
-    DBG( val );
     
     RETURN->v_float = val;
 }
