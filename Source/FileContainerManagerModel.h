@@ -29,6 +29,7 @@ public:
     void removeFileContainer(FileContainerModel* fc);
     void addAllShreds();
     void removeAllShreds();
+    int getNumFileContainers(){return fileContainerModelCollection.size();};
     FileContainerModel* findFileContainer(int askedUniqueId);
     
     CodeDocument consoleDocument;
