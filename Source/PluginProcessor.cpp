@@ -415,7 +415,19 @@ void ChuckRacksAudioProcessor::getStateInformation (MemoryBlock& destData)
     
     xml.addChildElement(parameterInfoElement);
     
+   /* XmlElement* fileContainerElement = new XmlElement("FILECONTAINERS");
+    for (int i=0; i<fileContainerManagerModel->getNumFileContainers(); ++i) {
+        FileContainerModel* f = fileContainerManagerModel->fileContainerModelCollection.at(i);
+        fileContainerElement->setAttribute(String(i), "yippie");
+
+        //fileContainerElement->setAttribute(String(f->getUniqueFCId()), f->getCodeDocument().getAllContent());
+        DBG("writingXML: " << String(fileContainerElement->getAttributeName(i)));
+    }
+    
+    xml.addChildElement(fileContainerElement);
+*/
     copyXmlToBinary(xml, destData);
+
 }
 
 void ChuckRacksAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
@@ -433,6 +445,7 @@ void ChuckRacksAudioProcessor::setStateInformation (const void* data, int sizeIn
             {
                 if (child->hasTagName ("PARAMETERS"))
                 {
+                    DBG("restoring parameters...") ;
                     for (int i=0; i<child->getNumAttributes(); ++i) {
                         if (FloatParameter* p = dynamic_cast<FloatParameter*>(getParameters().getUnchecked(i))) {
                             
@@ -443,6 +456,16 @@ void ChuckRacksAudioProcessor::setStateInformation (const void* data, int sizeIn
                         updateParamNames(i, child->getAttributeName(i));
                         std::cout << parameterListModel->at(i) << std::endl;
                         }
+                    }
+                }
+                
+                else if (child->hasTagName("FILECONTAINERS"))
+                {
+                    DBG("restoring filecontainers...") ;
+                    for (int i=0; i<child->getNumAttributes(); ++i) {
+                        FileContainerModel* f = fileContainerManagerModel->addFileContainer();
+                        f->getCodeDocument().insertText(0, child->getStringAttribute(child->getAttributeName(i)));
+                        
                     }
                 }
             }
