@@ -91,15 +91,8 @@ void CustomLookAndFeel::drawTableHeaderBackground (Graphics& g, TableHeaderCompo
 
     Rectangle<int> r (header.getLocalBounds());
     
-    //g.setColour (Colours::black.withAlpha (0.5f));
-    //g.fillRect (r.removeFromBottom (1));
-    
-   // g.setColour (Colour(81, 86, 107));
-   // g.fillRect (r);
-    
     g.setColour(Colour(40, 43, 34));
     g.drawRect(r, 1);
-    //g.setColour (Colours::black.withAlpha (0.5f));
     
     for (int i = header.getNumColumns (true); --i >= 0;)
         g.fillRect (header.getColumnPosition (i).removeFromRight (1));
@@ -116,18 +109,7 @@ void CustomLookAndFeel::drawTableHeaderColumn (Graphics& g, const String& column
     
     Rectangle<int> area (width, height);
     area.reduce (4, 0);
-    
-    /*if ((columnFlags & (TableHeaderComponent::sortedForwards | TableHeaderComponent::sortedBackwards)) != 0)
-    {
-        Path sortArrow;
-        sortArrow.addTriangle (0.0f, 0.0f,
-                               0.5f, (columnFlags & TableHeaderComponent::sortedForwards) != 0 ? -0.8f : 0.8f,
-                               1.0f, 0.0f);
-        
-        g.setColour (Colour (0x99000000));
-        g.fillPath (sortArrow, sortArrow.getTransformToScaleToFit (area.removeFromRight (height / 2).reduced (2).toFloat(), true));
-    }*/
-    
+
     g.setColour (Colours::black);
     g.setFont (Font (height * 0.5f, Font::bold));
     g.drawFittedText (columnName, area, Justification::centredLeft, 1);
