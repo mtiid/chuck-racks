@@ -1,12 +1,12 @@
 /*
-  ==============================================================================
-
-    ParameterMapUI.cpp
-    Created: 24 Jan 2017 10:37:37pm
-    Author:  Jordan Hochenbaum
-
-  ==============================================================================
-*/
+ ==============================================================================
+ 
+ ParameterMapUI.cpp
+ Created: 24 Jan 2017 10:37:37pm
+ Author:  Jordan Hochenbaum
+ 
+ ==============================================================================
+ */
 
 #include "ParameterMapUI.h"
 
@@ -21,17 +21,9 @@ ParameterMapUI::ParameterMapUI(AudioProcessor* p_) : numRows(0)
     // give it a border
     //table.setColour (ListBox::outlineColourId, Colours::black);
     //table.setOutlineThickness (1);
-    table.getHeader().addColumn("#", 1, 30, TableHeaderComponent::notSortable);
+    table.getHeader().addColumn(String(), 1, 22, TableHeaderComponent::notSortable);
     table.getHeader().addColumn("Parameter Name", 2, 280, TableHeaderComponent::notSortable);
-    //table.getHeader().addColumn("Add New", 3, 60, TableHeaderComponent::notSortable);
-    
-    table.setColour(TableListBox::backgroundColourId, Colour(38, 40, 49));
-    //addRow();
-    //addRow();
-    //parameterListModel.insert(std::make_pair(0, String("Cutoff")));
-    /*for (int i=0; i<numRows; i++) {
-        parameterListModel.insert(std::make_pair(i, String("not assigned")));
-    }*/
+    table.getHeader().addColumn("Map", 3, 12, TableHeaderComponent::notSortable);
     
     table.setAutoSizeMenuOptionShown(false);
     table.getHeader().setStretchToFitActive(true);
@@ -40,13 +32,13 @@ ParameterMapUI::ParameterMapUI(AudioProcessor* p_) : numRows(0)
     ScopedPointer<XmlElement> addShredSVGDown(XmlDocument::parse(BinaryData::addshrediconDown_svg));
     addNewButton = new DrawableButton("Add New Parameter", DrawableButton::ButtonStyle::ImageFitted);
     addNewButton->setImages(Drawable::createFromSVG(*addShredSVGUp),
-                                        nullptr,
-                                        Drawable::createFromSVG(*addShredSVGDown),
-                                        nullptr,
-                                        Drawable::createFromSVG(*addShredSVGDown),
-                                        nullptr,
-                                        Drawable::createFromSVG(*addShredSVGUp),
-                                        nullptr);
+                            nullptr,
+                            Drawable::createFromSVG(*addShredSVGDown),
+                            nullptr,
+                            Drawable::createFromSVG(*addShredSVGDown),
+                            nullptr,
+                            Drawable::createFromSVG(*addShredSVGUp),
+                            nullptr);
     
     addNewButton->setColour(DrawableButton::backgroundOnColourId, Colour(0.0f,0.0f,0.0f,0.0f));
     addAndMakeVisible(addNewButton);
@@ -59,7 +51,6 @@ ParameterMapUI::~ParameterMapUI(){
 
 void ParameterMapUI::paint (Graphics& g){
     g.fillAll(Colour(50, 53, 64));
-
     //g.setColour(Colour(40, 43, 34));
     //g.fillAll(Colours::black);
     //g.fillAll(Colour(40, 43, 34));
@@ -68,7 +59,7 @@ void ParameterMapUI::paint (Graphics& g){
 
 void ParameterMapUI::resized(){
     table.setBoundsInset (BorderSize<int> (1));
-    addNewButton->setBounds(getWidth()-28, 2, 26, 26);
+    addNewButton->setBounds(9, 2, 26, 26);
 }
 
 void ParameterMapUI::buttonClicked (Button* buttonThatWasClicked){
@@ -78,13 +69,15 @@ void ParameterMapUI::buttonClicked (Button* buttonThatWasClicked){
 }
 
 void ParameterMapUI::addRow(){
-    //if (numRows+1 < 512)
-    //    parameterListModel.insert(std::make_pair(numRows, String("not assigned")));
-    
-    //numRows++;
     processor->mapNewParam();
     table.resized();
+    
+}
 
+void ParameterMapUI::updateParamMap(int num){
+    processor->setParameterNotifyingHost(num,
+                                         processor->getParamValue(parameterListModel->at(num))
+                                         );
 }
 
 // This is overloaded from TableListBoxModel, and must return the total number of rows in our table
@@ -98,33 +91,26 @@ void ParameterMapUI::paintRowBackground (Graphics& g, int rowNumber,
                                          int /*width*/, int /*height*/,
                                          bool rowIsSelected)
 {
-   
-    if (rowIsSelected)
-        g.fillAll (Colours::lightslategrey);
-    //else if (rowNumber % 2)
-    //    g.fillAll (Colour(100, 106, 127));
-    else
-        g.fillAll(Colour(38, 40, 49));
-        //g.fillAll(Colour(28, 30, 37));
+    g.fillAll(Colour(38, 40, 49));
 }
 
 // This is overloaded from TableListBoxModel, and must paint any cells that aren't using custom
 // components.
 void ParameterMapUI::paintCell (Graphics& g, int rowNumber, int columnId,
-                int width, int height, bool /*rowIsSelected*/)
+                                int width, int height, bool /*rowIsSelected*/)
 {
     g.setColour (Colours::black.withAlpha (0.2f));
     g.fillRect (width - 1, 0, 1, height);
     
     g.setFont (font);
-
-    //std::map<int, String> pModel(processor->getParameterListModel());
-    //std::cout << "painting " << rowNumber << " " << columnId << std::endl;
+    
+    Justification justification = Justification::centredLeft;
+    
     if ( parameterListModel->at(rowNumber).isNotEmpty() )
     {
-        //std::cout << "dfdfsdf" << std::endl;
         String text;
         if (columnId == 1){
+            justification = Justification::centred;
             g.setColour (Colour(62, 172, 133));
             text = String(rowNumber);
         }
@@ -136,13 +122,13 @@ void ParameterMapUI::paintCell (Graphics& g, int rowNumber, int columnId,
             text = String();
         }
         
-        g.drawText (text, 2, 0, width - 4, height, Justification::centredLeft, true);
+        g.drawText (text, 2, 0, width - 4, height, justification, true);
     }
 }
 
 // This is overloaded from TableListBoxModel, and must update any custom components that we're using
 Component* ParameterMapUI::refreshComponentForCell (int rowNumber, int columnId, bool /*isRowSelected*/,
-                                    Component* existingComponentToUpdate)
+                                                    Component* existingComponentToUpdate)
 {
     if (columnId == 1) // The ID and Length columns do not have a custom component
     {
@@ -150,16 +136,29 @@ Component* ParameterMapUI::refreshComponentForCell (int rowNumber, int columnId,
         return nullptr;
     }
     
+    else if(columnId ==2){
+        // The other columns are editable text columns, for which we use the custom Label component
+        EditableTextCustomComponent* textLabel = static_cast<EditableTextCustomComponent*> (existingComponentToUpdate);
+        
+        // same as above...
+        if (textLabel == nullptr)
+            textLabel = new EditableTextCustomComponent (*this);
+        
+        textLabel->setRowAndColumn (rowNumber, columnId);
+        return textLabel;
+    }
     
-    // The other columns are editable text columns, for which we use the custom Label component
-    EditableTextCustomComponent* textLabel = static_cast<EditableTextCustomComponent*> (existingComponentToUpdate);
-    
-    // same as above...
-    if (textLabel == nullptr)
-        textLabel = new EditableTextCustomComponent (*this);
-    
-    textLabel->setRowAndColumn (rowNumber, columnId);
-    return textLabel;
+    else if (columnId == 3){
+        ButtonCustomComponent* buttonComp = static_cast<ButtonCustomComponent*> (existingComponentToUpdate);
+        if (buttonComp == nullptr)
+            buttonComp = new ButtonCustomComponent(*this);
+        
+        buttonComp->setRowAndColumn(rowNumber, columnId);
+        return buttonComp;
+    }else{
+        jassert (existingComponentToUpdate == nullptr);
+        return nullptr;
+    }
 }
 
 String ParameterMapUI::getText (const int columnNumber, const int rowNumber) const
@@ -173,11 +172,11 @@ String ParameterMapUI::getText (const int columnNumber, const int rowNumber) con
 void ParameterMapUI::setText (const int columnNumber, const int rowNumber, const String& newText)
 {
     String text = newText;
-
+    
     if (text.isEmpty())
         text = "not assigned";
     //std::map<int, String> pModel (processor->getParameterListModel());
-
+    
     parameterListModel->find(rowNumber)->second = text;
     processor->updateParamNames(rowNumber, text);
     table.deselectRow(rowNumber);

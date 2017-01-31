@@ -16,7 +16,13 @@ CustomLookAndFeel::CustomLookAndFeel()
     this->setColour(TabbedButtonBar::tabTextColourId, Colour(38, 40, 49));
     
     // Buttons
-    this->setColour(TextButton::buttonColourId, Colours::transparentBlack);
+    //this->setColour(TextButton::buttonColourId, Colours::transparentBlack);
+    
+    //TextEditor
+    this->setColour(TextEditor::highlightColourId, Colours::transparentBlack);
+    
+    //Table
+    this->setColour(TableListBox::backgroundColourId, Colour(38, 40, 49));
 }
 
 CustomLookAndFeel::~CustomLookAndFeel()
@@ -25,7 +31,7 @@ CustomLookAndFeel::~CustomLookAndFeel()
 }
 
 void CustomLookAndFeel::drawButtonBackground (Graphics& g, Button& button, const Colour& backgroundColour,
-                           bool isMouseOverButton, bool isButtonDown)
+                                              bool isMouseOverButton, bool isButtonDown)
 {
     Colour baseColour (backgroundColour.withMultipliedSaturation (button.hasKeyboardFocus (true) ? 1.3f : 0.9f)
                        .withMultipliedAlpha (button.isEnabled() ? 0.9f : 0.5f));
@@ -88,7 +94,7 @@ void CustomLookAndFeel::drawTextEditorOutline (Graphics& g, int width, int heigh
 void CustomLookAndFeel::drawTableHeaderBackground (Graphics& g, TableHeaderComponent& header)
 {
     g.fillAll(Colour(100, 106, 127));
-
+    
     Rectangle<int> r (header.getLocalBounds());
     
     g.setColour(Colour(40, 43, 34));
@@ -98,19 +104,19 @@ void CustomLookAndFeel::drawTableHeaderBackground (Graphics& g, TableHeaderCompo
         g.fillRect (header.getColumnPosition (i).removeFromRight (1));
 }
 
-void CustomLookAndFeel::drawTableHeaderColumn (Graphics& g, const String& columnName, int /*columnId*/,
-                                            int width, int height, bool isMouseOver, bool isMouseDown,
-                                            int columnFlags)
+void CustomLookAndFeel::drawTableHeaderColumn (Graphics& g, const String& columnName, int columnId,
+                                               int width, int height, bool isMouseOver, bool isMouseDown,
+                                               int columnFlags)
 {
-    if (isMouseDown)
-        g.fillAll (Colour (0x8899aadd));
-    else if (isMouseOver)
-        g.fillAll (Colour (0x5599aadd));
     
     Rectangle<int> area (width, height);
     area.reduce (4, 0);
-
+    
     g.setColour (Colours::black);
     g.setFont (Font (height * 0.5f, Font::bold));
-    g.drawFittedText (columnName, area, Justification::centredLeft, 1);
+    if(columnId == 1){
+        g.drawFittedText (columnName, area, Justification::centred, 1);
+    }else{
+        g.drawFittedText (columnName, area, Justification::centredLeft, 1);
+    }
 }

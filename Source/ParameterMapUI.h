@@ -28,6 +28,7 @@ public:
     void resized() override;
     
     void addRow();
+    void updateParamMap(int num);
     
     // TableListBoxModel overrides
     int getNumRows () override;
@@ -97,6 +98,48 @@ public:
 private:
     ParameterMapUI& owner;
     int row, columnId;
+    
+    
+};
+
+//==============================================================================
+// This is a custom Button component, which we use for the table's parameter map trigger column.
+class ButtonCustomComponent  : public Button
+{
+public:
+    ButtonCustomComponent (ParameterMapUI& pm)  : Button(String()), owner (pm)
+    {
+    }
+    
+    
+    void clicked(){
+        owner.updateParamMap(row);
+    }
+    
+    // Our demo code will call this when we may need to update our contents
+    void setRowAndColumn (const int newRow, const int newColumn)
+    {
+        row = newRow;
+        columnId = newColumn;
+    }
+    
+    void paintButton (Graphics &g, bool isMouseOverButton, bool isButtonDown){
+        Colour colourToSet = Colour(62, 172, 133).withAlpha(0.2f);
+        if (isMouseOverButton) {
+            g.setColour(Colours::grey.withAlpha(0.6f));
+        }
+        
+        if(isButtonDown){
+            g.setColour(colourToSet.withAlpha(0.8f));
+        }
+        g.fillRect(0, 0, getWidth(), getHeight());
+    }
+    
+private:
+    ParameterMapUI& owner;
+    int row, columnId;
+    
+    
 };
 
 
