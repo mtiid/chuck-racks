@@ -14,7 +14,7 @@
     a shared resource pointer to keep a count across plugins
  
     note: this only works assuming that the host will open multiple
-    instances of your plugin on the same thread
+    instances of your plugin on the same process
  
     @see SharedResourcePointer
  */

@@ -39,8 +39,8 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
     {
         AlertWindow::showMessageBox (AlertWindow::AlertIconType::NoIcon,
                                     "Warning",
-                                    "app needs to know if it's construction failed so it can open safely.",
-                                    "Crash",
+                                    "Only a single instance of chuck rack may run at once.",
+                                    "Okay",
                                      nullptr);
         
     }
