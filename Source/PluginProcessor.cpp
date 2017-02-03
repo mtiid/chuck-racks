@@ -36,8 +36,8 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
     if (thisInstaceCount > 1)
     {
         AlertWindow::showMessageBox (AlertWindow::AlertIconType::NoIcon,
-                                     "Warning",
-                                     "Only a single instance of chuck rack may run at once.",
+                                     "Sorry!",
+                                     "Currently only a single instance of ChuckRacks may run at once.\n This will be fixed in a future update.",
                                      "Okay",
                                      nullptr);
         
