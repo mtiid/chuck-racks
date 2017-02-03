@@ -103,6 +103,7 @@ ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor()
     if(input_buffer) { delete[] input_buffer; input_buffer = NULL; }
     if(output_buffer) { delete[] output_buffer; output_buffer = NULL; }
     
+    instanceCount->decrementCount();
 }
 
 bool ChuckRacksAudioProcessor::mapNewParam(){
@@ -409,7 +410,11 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
 //==============================================================================
 bool ChuckRacksAudioProcessor::hasEditor() const
 {
-    return true; // (change this to false if you choose to not supply an editor)
+    if (mInstaceCount == 1) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 AudioProcessorEditor* ChuckRacksAudioProcessor::createEditor()

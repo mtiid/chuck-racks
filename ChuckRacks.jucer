@@ -129,18 +129,18 @@
                        cppLanguageStandard="c++11" binaryPath=""/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_core" path="../../juce-grapefruit-osx/modules"/>
-        <MODULEPATH id="juce_events" path="../../juce-grapefruit-osx/modules"/>
-        <MODULEPATH id="juce_graphics" path="../../juce-grapefruit-osx/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../juce-grapefruit-osx/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../../juce-grapefruit-osx/modules"/>
-        <MODULEPATH id="juce_audio_basics" path="../../juce-grapefruit-osx/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../../juce-grapefruit-osx/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../../juce-grapefruit-osx/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../../juce-grapefruit-osx/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="../../juce-grapefruit-osx/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../../juce-grapefruit-osx/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../../juce-grapefruit-osx/modules"/>
+        <MODULEPATH id="juce_core" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_events" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_graphics" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_data_structures" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="JuceLibraryCode/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
