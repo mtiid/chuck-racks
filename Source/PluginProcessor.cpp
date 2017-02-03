@@ -33,13 +33,15 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
     
     instanceCount->incrementCount();
     
-    if (instanceCount->getCount() > 1)
+    mInstaceCount = instanceCount->getCount();
+    
+    if (mInstaceCount > 1)
     {
         AlertWindow::showMessageBox (AlertWindow::AlertIconType::NoIcon,
                                     "Warning",
-                                    "Only one instance of chuck racks may run at once.",
+                                    "app needs to know if it's construction failed so it can open safely.",
                                     "Crash",
-                                     NULL);
+                                     nullptr);
         
     }
 
@@ -66,8 +68,10 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
     input_buffer = new float[options.buffer_size*options.num_channels];
     output_buffer = new float[options.buffer_size*options.num_channels];
     
-    
-    libchuck_vm_start(ck);
+    if (mInstaceCount == 1)
+    {
+        libchuck_vm_start(ck);
+    }
         
     fileContainerManagerModel = new FileContainerManagerModel(ck, this);
     
@@ -208,7 +212,6 @@ void ChuckRacksAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
-    
 }
 
 void ChuckRacksAudioProcessor::releaseResources()
@@ -339,7 +342,10 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
         }
     }
     
-    libchuck_slave_process(ck, input_buffer, output_buffer, buffer.getNumSamples());
+    if (mInstaceCount == 1)
+    {
+        libchuck_slave_process(ck, input_buffer, output_buffer, buffer.getNumSamples());
+    }
     
     // copy output
     
@@ -389,7 +395,11 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
         
         for (int i = 0; i < buffer.getNumSamples(); i++)
         {
-            channelData[i] = output_buffer[i*2+channel];
+            if (mInstaceCount == 1) {
+                channelData[i] = output_buffer[i*2+channel];
+            } else {
+                channelData[i] = 0;
+            }
         }
     }
 }

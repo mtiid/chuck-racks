@@ -96,6 +96,7 @@ private:
     std::map<int, String>* parameterListModel;
     
     SharedResourcePointer<instanceCounter> instanceCount;
+    int mInstaceCount;
 
     //AudioProcessorValueTreeState parameters;
 };
