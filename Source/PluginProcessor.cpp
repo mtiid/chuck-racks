@@ -29,6 +29,19 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
 #endif
 
 {
+    instanceCounter->incrementCount();
+    
+    thisInstaceCount = instanceCounter->getCount();
+    
+    if (thisInstaceCount > 1)
+    {
+        AlertWindow::showMessageBox (AlertWindow::AlertIconType::NoIcon,
+                                     "Warning",
+                                     "Only a single instance of chuck rack may run at once.",
+                                     "Okay",
+                                     nullptr);
+        
+    }
     //ConsoleGlobal *ConsoleGlobal::instance = 0;
     
     fprintf(stderr, "ChuckRacksAudioProcessor::ChuckRacksAudioProcessor\n");
@@ -54,9 +67,11 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
     input_buffer = new float[options.buffer_size*options.num_channels];
     output_buffer = new float[options.buffer_size*options.num_channels];
     
+    if (thisInstaceCount == 1)
+    {
+        libchuck_vm_start(ck);
+    }
     
-    libchuck_vm_start(ck);
-        
     fileContainerManagerModel = new FileContainerManagerModel(ck, this);
     
     g_hostInfo->midiInputBufferP = (&midiInputBuffer);
@@ -87,6 +102,7 @@ ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor()
     if(input_buffer) { delete[] input_buffer; input_buffer = NULL; }
     if(output_buffer) { delete[] output_buffer; output_buffer = NULL; }
     
+    instanceCounter->decrementCount();
 }
 
 bool ChuckRacksAudioProcessor::mapNewParam(){
@@ -327,7 +343,10 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
         }
     }
     
-    libchuck_slave_process(ck, input_buffer, output_buffer, buffer.getNumSamples());
+    if (thisInstaceCount == 1)
+    {
+        libchuck_slave_process(ck, input_buffer, output_buffer, buffer.getNumSamples());
+    }
     
     // copy output
     
@@ -375,9 +394,17 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
     {
         float* channelData = buffer.getWritePointer (channel);
         
-        for (int i = 0; i < buffer.getNumSamples(); i++)
-        {
-            channelData[i] = output_buffer[i*2+channel];
+        if (thisInstaceCount == 1) {
+            
+            for (int i = 0; i < buffer.getNumSamples(); i++)
+            {
+                channelData[i] = output_buffer[i*2+channel];
+            }
+        } else {
+            for (int i = 0; i < buffer.getNumSamples(); i++)
+            {
+                channelData[i] = 0;
+            }
         }
     }
 }
@@ -387,7 +414,12 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
 //==============================================================================
 bool ChuckRacksAudioProcessor::hasEditor() const
 {
-    return true; // (change this to false if you choose to not supply an editor)
+    if (thisInstaceCount == 1)
+    {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 AudioProcessorEditor* ChuckRacksAudioProcessor::createEditor()
