@@ -8,4 +8,4 @@ ChucK-Racks makes it possible to write and execute ChucK programs as VST/AudioUn
 * Write synthesis plugins in ChucK that run as regular synthesizer audio plugins in a host/DAW
 * Synchronize clock and beat-team between a host/session and ChucK
 * Generate new MIDI/OSC events from ChucK (e.g. writing MIDI/OSC sequencer plugins)
-* Automate variable in ChucK code / host parameters (coming soon)
+* Automate variable in ChucK code / host parameters
