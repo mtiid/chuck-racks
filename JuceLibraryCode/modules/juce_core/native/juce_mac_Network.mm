@@ -391,7 +391,6 @@ public:
           connection (nil),
           data ([[NSMutableData data] retain]),
           headers (nil),
-          nsUrlErrorCode (0),
           statusCode (0),
           initialised (false),
           hasFailed (false),
@@ -509,7 +508,6 @@ public:
     void didFailWithError (NSError* error)
     {
         DBG (nsStringToJuce ([error description])); ignoreUnused (error);
-        nsUrlErrorCode = [error code];
         hasFailed = true;
         initialised = true;
         signalThreadShouldExit();
@@ -554,7 +552,6 @@ public:
     NSURLConnection* connection;
     NSMutableData* data;
     NSDictionary* headers;
-    NSInteger nsUrlErrorCode;
     int statusCode;
     bool initialised, hasFailed, hasFinished;
     const int numRedirectsToFollow;
@@ -747,20 +744,7 @@ private:
             connection = new URLConnectionState (req, numRedirectsToFollow);
 
             if (! connection->start (progressCallback, progressCallbackContext))
-            {
-                // Workaround for deployment targets below 10.10 where HTTPS POST requests with keep-alive fail with the NSURLErrorNetworkConnectionLost error code
-               #if ! (JUCE_IOS || (defined (__MAC_OS_X_VERSION_MIN_REQUIRED) && defined (__MAC_10_10) && __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_10))
-                if (connection->nsUrlErrorCode == NSURLErrorNetworkConnectionLost)
-                {
-                    connection = new URLConnectionState (req, numRedirectsToFollow);
-
-                    if (connection->start (progressCallback, progressCallbackContext))
-                        return;
-                }
-               #endif
-
                 connection = nullptr;
-            }
         }
     }
 

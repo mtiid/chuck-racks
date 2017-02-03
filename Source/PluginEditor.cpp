@@ -22,39 +22,55 @@ ChuckRacksAudioProcessorEditor::ChuckRacksAudioProcessorEditor (ChuckRacksAudioP
     // This is where our plugin's editor size is set.
     setSize (600, 700);
     
-    addAndMakeVisible(managerUI=new FileContainerManagerUI(getProcessor()->getFileContainerManagerModel()));
+    addAndMakeVisible(managerUI = new FileContainerManagerUI(getProcessor()->getFileContainerManagerModel()));
     managerUI->setBounds(0,40, getWidth(), getHeight()-40);
     managerUI->init();
     
     addAllShredsButton = new DrawableButton("Add All Shreds", DrawableButton::ButtonStyle::ImageFitted);
+    
     ScopedPointer<XmlElement> addAllShredSVGUp(XmlDocument::parse(BinaryData::addshrediconUp_svg));
     ScopedPointer<XmlElement> addAllShredSVGDown(XmlDocument::parse(BinaryData::addshrediconDown_svg));
     
-    addAllShredsButton->setImages(Drawable::createFromSVG(*addAllShredSVGUp), Drawable::createFromSVG(*addAllShredSVGUp), Drawable::createFromSVG(*addAllShredSVGDown));
+    addAllShredsButton->setImages(Drawable::createFromSVG(*addAllShredSVGUp),
+                                  Drawable::createFromSVG(*addAllShredSVGUp),
+                                  Drawable::createFromSVG(*addAllShredSVGDown));
+    
     addAndMakeVisible(addAllShredsButton);
     addAllShredsButton->setBounds(2, 4, 32,32);
     addAllShredsButton->addListener(this);
     
     removeAllShredsButton = new DrawableButton("Remove All Shreds", DrawableButton::ButtonStyle::ImageFitted);
+    
     ScopedPointer<XmlElement> removeAllShredSVGUp(XmlDocument::parse(BinaryData::removeAllShredUp_svg));
     ScopedPointer<XmlElement> removeAllShredSVGDown(XmlDocument::parse(BinaryData::removeAllShredDown_svg));
-    removeAllShredsButton->setImages(Drawable::createFromSVG(*removeAllShredSVGUp), Drawable::createFromSVG(*removeAllShredSVGUp), Drawable::createFromSVG(*removeAllShredSVGDown));
+    
+    removeAllShredsButton->setImages(Drawable::createFromSVG(*removeAllShredSVGUp),
+                                     Drawable::createFromSVG(*removeAllShredSVGUp),
+                                     Drawable::createFromSVG(*removeAllShredSVGDown));
+    
     addAndMakeVisible(removeAllShredsButton);
     removeAllShredsButton->setBounds(40, 4, 32,32);
     removeAllShredsButton->addListener(this);
     
     addNewFileContainerButton = new DrawableButton("Add Code Editor", DrawableButton::ButtonStyle::ImageFitted);
+    
     ScopedPointer<XmlElement> addFileContainerSVGUp(XmlDocument::parse(BinaryData::addcodeeditorUp_svg));
     ScopedPointer<XmlElement> addFileContainerSVGDown(XmlDocument::parse(BinaryData::addcodeeditorDown_svg));
-    addNewFileContainerButton->setImages(Drawable::createFromSVG(*addFileContainerSVGUp), Drawable::createFromSVG(*addFileContainerSVGUp), Drawable::createFromSVG(*addFileContainerSVGDown));
+    
+    addNewFileContainerButton->setImages(Drawable::createFromSVG(*addFileContainerSVGUp),
+                                         Drawable::createFromSVG(*addFileContainerSVGUp),
+                                         Drawable::createFromSVG(*addFileContainerSVGDown));
+    
     addAndMakeVisible(addNewFileContainerButton);
     addNewFileContainerButton->setBounds(78, 4, 32, 32);
     addNewFileContainerButton->addListener(this);
     
     
     openParameterListButton = new DrawableButton("Open Parameter List", DrawableButton::ButtonStyle::ImageFitted);
+    
     ScopedPointer<XmlElement> openParameterListSVGRight(XmlDocument::parse(BinaryData::collapse_svg));
     ScopedPointer<XmlElement> openParameterListSVGLeft(XmlDocument::parse(BinaryData::open_svg));
+    
     openParameterListButton->setClickingTogglesState(true);
     openParameterListButton->setToggleState(false, dontSendNotification);
     openParameterListButton->setImages(Drawable::createFromSVG(*openParameterListSVGRight),
@@ -68,10 +84,9 @@ ChuckRacksAudioProcessorEditor::ChuckRacksAudioProcessorEditor (ChuckRacksAudioP
     
     openParameterListButton->setColour(DrawableButton::backgroundOnColourId, Colour(0.0f,0.0f,0.0f,1.0f));
     openParameterListButton->setColour(DrawableButton::backgroundColourId, Colour(0.0f,0.0f,0.0f,1.0f));
-    addAndMakeVisible(openParameterListButton);
     openParameterListButton->setBounds(566, 4, 32, 32);
     openParameterListButton->addListener(this);
-    
+    addAndMakeVisible(openParameterListButton);
     
     parameterUI = new ParameterMapUI(getProcessor());
 

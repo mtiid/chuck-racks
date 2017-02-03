@@ -31,6 +31,18 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
 {
     //ConsoleGlobal *ConsoleGlobal::instance = 0;
     
+    instanceCount->incrementCount();
+    
+    if (instanceCount->getCount() > 1)
+    {
+        AlertWindow::showMessageBox (AlertWindow::AlertIconType::NoIcon,
+                                    "Warning",
+                                    "Only one instance of chuck racks may run at once.",
+                                    "Crash",
+                                     NULL);
+        
+    }
+
     fprintf(stderr, "ChuckRacksAudioProcessor::ChuckRacksAudioProcessor\n");
     chuck_options options;
     libchuck_options_reset(&options);
