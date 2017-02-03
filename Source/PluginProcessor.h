@@ -18,6 +18,7 @@
 #include "FileContainerManagerModel.h"
 #include "Defines.h"
 #include "FloatParameter.h"
+#include "Counter.h"
 //==============================================================================
 /**
 */
@@ -95,6 +96,9 @@ private:
     std::map<int, String>* parameterListModel;
 
     //AudioProcessorValueTreeState parameters;
+    
+    SharedResourcePointer<Counter> instanceCounter;
+    int thisInstaceCount;
 };
 
 #endif  // PLUGINPROCESSOR_H_INCLUDED
