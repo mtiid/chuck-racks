@@ -9,8 +9,9 @@ use  ‘adc =>’ to get audio from the host channel into chuck
 
 printing to console using <<< >>> doesn’t work yet.
 
-running more than 1 instance of chuck racks will crash the host
-
+Because of the design of ChucK, running more than 1 instance is impossible. 
+Trying to will give you a warning. This will fixed in a future update after
+the internal structure of ChucK is changed.
 
 
 FUNCTIONS:
@@ -54,6 +55,9 @@ Example:
 	}
 
 
+float PluginParameters.getValue( string parameterName )
+-returns a value between 0 and 1 from a plugin parameter
+-to use this you have to create a parameter using the arrow on the top right of the plugin window. You have to open the parameter “configure” options in your DAW’s plugin instance. While that’s open press the “map” button next to your created parameter. Alternatively you can name the parameter while “configure” is open. 
 
 if you have questions contact me at rodrigosena@alum.calarts.edu
 
