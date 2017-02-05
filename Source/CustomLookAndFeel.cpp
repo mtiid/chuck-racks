@@ -17,7 +17,6 @@ CustomLookAndFeel::CustomLookAndFeel()
     
     // Buttons
     //this->setColour(TextButton::buttonColourId, Colours::transparentBlack);
-    
     //TextEditor
     this->setColour(TextEditor::highlightColourId, Colours::transparentBlack);
     
@@ -30,7 +29,7 @@ CustomLookAndFeel::~CustomLookAndFeel()
     
 }
 
-void CustomLookAndFeel::drawButtonBackground (Graphics& g, Button& button, const Colour& backgroundColour,
+/*void CustomLookAndFeel::drawButtonBackground (Graphics& g, Button& button, const Colour& backgroundColour,
                                               bool isMouseOverButton, bool isButtonDown)
 {
     Colour baseColour (backgroundColour.withMultipliedSaturation (button.hasKeyboardFocus (true) ? 1.3f : 0.9f)
@@ -73,7 +72,7 @@ void CustomLookAndFeel::drawButtonBackground (Graphics& g, Button& button, const
             g.strokePath (outline, PathStrokeType (lineThickness));
         }
     }
-}
+}*/
 
 
 

@@ -18,8 +18,8 @@ public:
     ~CustomLookAndFeel();
     
 private:
-    void drawButtonBackground (Graphics& g, Button& button, const Colour& backgroundColour,
-                               bool isMouseOverButton, bool isButtonDown) override;
+    //void drawButtonBackground (Graphics& g, Button& button, const Colour& backgroundColour,
+    //                           bool isMouseOverButton, bool isButtonDown) override;
     void drawTextEditorOutline  (Graphics& g, int width, int height, TextEditor& textEditor) override;
     void drawTableHeaderBackground (Graphics& g, TableHeaderComponent& header) override;
     void drawTableHeaderColumn (Graphics& g, const String& columnName, int /*columnId*/,

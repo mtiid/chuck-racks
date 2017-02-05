@@ -124,15 +124,18 @@ public:
     }
     
     void paintButton (Graphics &g, bool isMouseOverButton, bool isButtonDown){
-        Colour colourToSet = Colour(62, 172, 133).withAlpha(0.2f);
+        Colour colourToSet = Colours::black.withAlpha(0.4f);
+        g.setColour(colourToSet);
         if (isMouseOverButton) {
-            g.setColour(Colours::grey.withAlpha(0.6f));
+            g.setColour(colourToSet.withAlpha(0.6f));
         }
         
         if(isButtonDown){
-            g.setColour(colourToSet.withAlpha(0.8f));
+            colourToSet = Colour(62, 172, 133).withAlpha(1.0f);
+            g.setColour(colourToSet);
+            g.fillAll();
         }
-        g.fillRect(0, 0, getWidth(), getHeight());
+        g.drawRect(0, 0, getWidth(), getHeight());
     }
     
 private:
