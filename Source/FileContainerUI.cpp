@@ -72,11 +72,12 @@ void FileContainerUI::init(){
     saveFileButton->addListener(this);
     
     // Create the editor..
-    addChildComponent(codeEditor = new CodeEditorComponent (mFileContainerModel->getCodeDocument(), &ckTokeniser));
+    addChildComponent(codeEditor = new CodeEditorComponent (mFileContainerModel->getCodeDocument(),
+                                                            &ckTokeniser));
 
     codeEditor->setFont(Font(Font::getDefaultMonospacedFontName(), 14.0, 0));
     
-    if (codeEditor->getDocument().getAllContent()=="") {
+    if (codeEditor->getDocument().getAllContent().isEmpty()) {
         codeEditor->loadContent(
                                 //        (
                                 "//my id:"
@@ -132,7 +133,7 @@ void FileContainerUI::init(){
                                 //TODO: Add a default file (from examples ) and load that instead of hardcoding this
                                 );
     }else {
-        codeEditor->loadContent(codeEditor->getDocument().getAllContent());
+        codeEditor->loadContent(mFileContainerModel->getCodeDocument().getAllContent());
         //std::cout << "content loaded" << std::endl;
     }
     

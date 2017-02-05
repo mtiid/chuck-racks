@@ -87,6 +87,8 @@ ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor()
     if(input_buffer) { delete[] input_buffer; input_buffer = NULL; }
     if(output_buffer) { delete[] output_buffer; output_buffer = NULL; }
     
+    delete fileContainerManagerModel;
+    
 }
 
 bool ChuckRacksAudioProcessor::mapNewParam(){
@@ -403,29 +405,32 @@ void ChuckRacksAudioProcessor::getStateInformation (MemoryBlock& destData)
     // as intermediaries to make it easy to save and load complex data.
     
     // Create outer XML element
-    XmlElement xml("CHUCKPLUGINSETTINGS");
+    XmlElement xml("CHUCKRACKSSETTINGS");
     
+    // Add parameters to XML tree
     XmlElement* parameterInfoElement = new XmlElement("PARAMETERS");
+    
     for (int i=0; i<parameterListModel->size(); ++i) {
         if (FloatParameter* p = dynamic_cast<FloatParameter*>(getParameters().getUnchecked(i))) {
             parameterInfoElement->setAttribute(p->getName(50), p->getValue());
-            std::cout << "storing: " << parameterInfoElement->getAttributeName(i) << " " << parameterInfoElement->getAttributeValue(i) << std::endl;
         }
     }
     
     xml.addChildElement(parameterInfoElement);
     
-   /* XmlElement* fileContainerElement = new XmlElement("FILECONTAINERS");
-    for (int i=0; i<fileContainerManagerModel->getNumFileContainers(); ++i) {
-        FileContainerModel* f = fileContainerManagerModel->fileContainerModelCollection.at(i);
-        fileContainerElement->setAttribute(String(i), "yippie");
-
-        //fileContainerElement->setAttribute(String(f->getUniqueFCId()), f->getCodeDocument().getAllContent());
-        DBG("writingXML: " << String(fileContainerElement->getAttributeName(i)));
+    
+    // Add FileContainers to XML tree
+    XmlElement* fileContainerElement = new XmlElement("FILECONTAINERS");
+    
+    for (auto itr : fileContainerManagerModel->fileContainerModelCollection) {
+        FileContainerModel* f = itr.second;
+        if (f != nullptr) {
+            fileContainerElement->setAttribute(Identifier(String("C")+String(itr.first)), String(f->getCodeDocument().getAllContent()));
+            xml.addChildElement(fileContainerElement);
+        }
     }
     
-    xml.addChildElement(fileContainerElement);
-*/
+    // Binarize and convert XML to output MemoryBlock
     copyXmlToBinary(xml, destData);
 
 }
@@ -435,22 +440,22 @@ void ChuckRacksAudioProcessor::setStateInformation (const void* data, int sizeIn
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
     
+    
+    // Turn Binarzed data back into xML
     ScopedPointer<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
     
     if (xmlState != nullptr) {
         //make sure it's actually our type of xml object
         if (xmlState->hasTagName("CHUCKPLUGINSETTINGS")) {
-            
             forEachXmlChildElement (*xmlState, child)
             {
+                // Restore any parameters
                 if (child->hasTagName ("PARAMETERS"))
                 {
-                    DBG("restoring parameters...") ;
                     for (int i=0; i<child->getNumAttributes(); ++i) {
                         if (FloatParameter* p = dynamic_cast<FloatParameter*>(getParameters().getUnchecked(i))) {
                             
                         p->setValueNotifyingHost(child->getDoubleAttribute(child->getAttributeName(i)));
-                        //p->setValueNotifyingHost((float) child->getDoubleAttribute(p->getName(50),p->getValue()));
                         mapNewParam();
                         parameterListModel->at(i) = child->getAttributeName(i);
                         updateParamNames(i, child->getAttributeName(i));
@@ -459,13 +464,13 @@ void ChuckRacksAudioProcessor::setStateInformation (const void* data, int sizeIn
                     }
                 }
                 
+                // Restore any FileContainers
                 else if (child->hasTagName("FILECONTAINERS"))
                 {
                     DBG("restoring filecontainers...") ;
                     for (int i=0; i<child->getNumAttributes(); ++i) {
                         FileContainerModel* f = fileContainerManagerModel->addFileContainer();
-                        f->getCodeDocument().insertText(0, child->getStringAttribute(child->getAttributeName(i)));
-                        
+                        f->getCodeDocument().replaceAllContent(child->getStringAttribute(child->getAttributeName(i)));
                     }
                 }
             }
