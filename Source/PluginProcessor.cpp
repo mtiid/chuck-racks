@@ -11,7 +11,7 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 #include "ulib_pluginhost.h"
-#include "ulib_PluginPanel.h"
+#include "ulib_PluginParameters.h"
 
 //AudioProcessor * ChuckRacksAudioProcessor::processorInstance = NULL;
 
@@ -62,7 +62,7 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
         ck = libchuck_create(&options);
         
         libchuck_add_module(ck, (void*)pluginhost_query);
-        libchuck_add_module(ck, (void*)pluginPanel_query);
+        libchuck_add_module(ck, (void*)pluginParameters_query);
         
         input_buffer = new float[options.buffer_size*options.num_channels];
         output_buffer = new float[options.buffer_size*options.num_channels];
@@ -77,7 +77,7 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
         g_hostInfo->midiInputBufferP = (&midiInputBuffer);
         g_hostInfo->midiOutputBufferP = (&midiOutputBuffer);
         
-        g_pluginPanel->fileContainerManager = fileContainerManagerModel;
+        g_pluginParameters->fileContainerManager = fileContainerManagerModel;
         
         for (int i=0; i<512; i++)
         {

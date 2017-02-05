@@ -96,14 +96,14 @@
         <FILE id="gHAc7u" name="Defines.h" compile="0" resource="0" file="Source/Defines.h"/>
       </GROUP>
       <GROUP id="{57A4279F-008A-1E9F-E16C-D3650CA35BFB}" name="Chuck extensions">
+        <FILE id="ktii7Q" name="ulib_PluginParameters.cpp" compile="1" resource="0"
+              file="Source/ulib_PluginParameters.cpp"/>
+        <FILE id="DanAFB" name="ulib_PluginParameters.h" compile="0" resource="0"
+              file="Source/ulib_PluginParameters.h"/>
         <FILE id="UsHU7H" name="ulib_pluginhost.cpp" compile="1" resource="0"
               file="Source/ulib_pluginhost.cpp"/>
         <FILE id="GqT6cA" name="ulib_pluginhost.h" compile="0" resource="0"
               file="Source/ulib_pluginhost.h"/>
-        <FILE id="zY5sse" name="ulib_PluginPanel.cpp" compile="1" resource="0"
-              file="Source/ulib_PluginPanel.cpp"/>
-        <FILE id="D5dXb6" name="ulib_PluginPanel.h" compile="0" resource="0"
-              file="Source/ulib_PluginPanel.h"/>
       </GROUP>
     </GROUP>
     <GROUP id="{F44E78E5-D606-BADB-92F6-0BA28F41A318}" name="libraries">
