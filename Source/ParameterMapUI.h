@@ -66,19 +66,51 @@ private:
 class EditableTextCustomComponent  : public Label
 {
 public:
-    EditableTextCustomComponent (ParameterMapUI& pm)  : owner (pm)
+    EditableTextCustomComponent (ParameterMapUI& pm)  : owner (pm),
+                                                        mapLabel()
     {
         // double click to edit the label text; single click handled below
         setEditable (false, true, false);
         setColour (textColourId, Colours::black);
+        addChildComponent(mapLabel);
+        mapLabel.setText("right-click to map", dontSendNotification);
+        mapLabel.setBounds(180, 0, 200, 20);
+        mapLabel.setInterceptsMouseClicks(false, false);
     }
     
     void mouseDown (const MouseEvent& event) override
     {
+        if(event.mods.isRightButtonDown() || event.mods.isCtrlDown())
+        {
+            PopupMenu m;
+            m.addItem (1, "Map");
+            const int result = m.show();
+            if (result == 0)
+            {
+                // user dismissed the menu without picking anything
+            }
+            else if (result == 1)
+            {
+                owner.updateParamMap(row);
+            }
+            mapLabel.setVisible(false);
+        }else{
         // single click on the label should simply select the row
-        owner.table.selectRowsBasedOnModifierKeys (row, event.mods, false);
+        //owner.table.selectRowsBasedOnModifierKeys (row, event.mods, false);
+            Label::mouseDown (event);
+        }
+    }
         
-        Label::mouseDown (event);
+    void mouseEnter (const MouseEvent& event) override
+    {
+        mapLabel.setVisible(true);
+        //setColour(backgroundColourId, Colour(62, 172, 133).withAlpha(0.8f));
+    }
+    
+    void mouseExit (const MouseEvent& event) override
+    {
+        mapLabel.setVisible(false);
+        //setColour(backgroundColourId, Colours::transparentBlack);
     }
     
     void textWasEdited() override
@@ -98,7 +130,7 @@ public:
 private:
     ParameterMapUI& owner;
     int row, columnId;
-    
+    Label mapLabel;
     
 };
 

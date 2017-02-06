@@ -11,6 +11,9 @@
 CustomLookAndFeel::CustomLookAndFeel()
 {
     
+    Colour bgDark(38, 40, 49);
+    Colour bgLight(100, 106, 127);
+
     // Window
     this->setColour(ScrollBar::trackColourId, Colours::red);
     this->setColour(TabbedButtonBar::tabTextColourId, Colour(38, 40, 49));
@@ -21,7 +24,11 @@ CustomLookAndFeel::CustomLookAndFeel()
     this->setColour(TextEditor::highlightColourId, Colours::transparentBlack);
     
     //Table
-    this->setColour(TableListBox::backgroundColourId, Colour(38, 40, 49));
+    this->setColour(TableListBox::backgroundColourId, bgDark);
+    
+    //Popup Menu
+    this->setColour(PopupMenu::backgroundColourId, bgLight);
+    this->setColour(PopupMenu::highlightedBackgroundColourId, Colours::black.withAlpha(0.2f));
 }
 
 CustomLookAndFeel::~CustomLookAndFeel()

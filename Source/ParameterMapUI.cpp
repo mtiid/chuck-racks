@@ -23,7 +23,7 @@ ParameterMapUI::ParameterMapUI(AudioProcessor* p_) : numRows(0)
     //table.setOutlineThickness (1);
     table.getHeader().addColumn(String(), 1, 22, TableHeaderComponent::notSortable);
     table.getHeader().addColumn("Parameter Name", 2, 280, TableHeaderComponent::notSortable);
-    table.getHeader().addColumn("Map", 3, 12, TableHeaderComponent::notSortable);
+    //table.getHeader().addColumn("Map", 3, 12, TableHeaderComponent::notSortable);
     
     table.setAutoSizeMenuOptionShown(false);
     table.getHeader().setStretchToFitActive(true);
@@ -59,7 +59,9 @@ void ParameterMapUI::paint (Graphics& g){
 
 void ParameterMapUI::resized(){
     table.setBoundsInset (BorderSize<int> (1));
-    addNewButton->setBounds(9, 2, 26, 26);
+    int bSize = table.getHeader().getHeight()*0.9;
+    int xPos = (table.getHeader().getColumnWidth(1)*0.5) - (bSize*0.5);
+    addNewButton->setBounds(xPos, 2, bSize, bSize);
 }
 
 void ParameterMapUI::buttonClicked (Button* buttonThatWasClicked){
