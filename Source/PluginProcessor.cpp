@@ -18,13 +18,13 @@
 //==============================================================================
 ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-    : AudioProcessor (BusesProperties()
-                    #if ! JucePlugin_IsMidiEffect
-                     #if ! JucePlugin_IsSynth
-                      .withInput  ("Input",  AudioChannelSet::stereo(), true)
-                     #endif
-                      .withOutput ("Output", AudioChannelSet::stereo(), true)
-                    #endif
+: AudioProcessor (BusesProperties()
+#if ! JucePlugin_IsMidiEffect
+#if ! JucePlugin_IsSynth
+                  .withInput  ("Input",  AudioChannelSet::stereo(), true)
+#endif
+                  .withOutput ("Output", AudioChannelSet::stereo(), true)
+#endif
                   )//,parameters (*this, nullptr)
 #endif
 
@@ -81,7 +81,7 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
         
         for (int i=0; i<512; i++)
         {
-
+            
             NormalisableRange<float> paramRange(0.0, 1.0, 0.1, 1.0);
             String id = String(i+1);
             FloatParameter* param = new FloatParameter(id, id, paramRange, 1.0);
@@ -396,7 +396,7 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
         for (int channel = 0; channel < getTotalNumOutputChannels(); ++channel)
         {
             float* channelData = buffer.getWritePointer (channel);
-    
+            
             for (int i = 0; i < buffer.getNumSamples(); i++)
             {
                 channelData[i] = output_buffer[i*2+channel];
@@ -408,12 +408,12 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
         for (int channel = 0; channel < getTotalNumOutputChannels(); ++channel)
         {
             float* channelData = buffer.getWritePointer (channel);
-                
+            
             for (int i = 0; i < buffer.getNumSamples(); i++)
             {
                 channelData[i] = 0;
             }
-
+            
         }
     }
 }
@@ -442,35 +442,36 @@ void ChuckRacksAudioProcessor::getStateInformation (MemoryBlock& destData)
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
     
-    
-    XmlElement xml("CHUCKPLUGINSETTINGS");
-    
-    XmlElement* parameterInfoElement = new XmlElement("PARAMETERS");
-    for (int i=0; i<parameterListModel->size(); ++i) {
-        if (FloatParameter* p = dynamic_cast<FloatParameter*>(getParameters().getUnchecked(i))) {
-            parameterInfoElement->setAttribute(p->getName(50), p->getValue());
-            std::cout << "storing: " << parameterInfoElement->getAttributeName(i) << " " << parameterInfoElement->getAttributeValue(i) << std::endl;
+    if (thisInstaceCount == 1)
+    {
+        XmlElement xml("CHUCKPLUGINSETTINGS");
+        
+        XmlElement* parameterInfoElement = new XmlElement("PARAMETERS");
+        for (int i=0; i<parameterListModel->size(); ++i) {
+            if (FloatParameter* p = dynamic_cast<FloatParameter*>(getParameters().getUnchecked(i))) {
+                parameterInfoElement->setAttribute(p->getName(50), p->getValue());
+                std::cout << "storing: " << parameterInfoElement->getAttributeName(i) << " " << parameterInfoElement->getAttributeValue(i) << std::endl;
+            }
         }
-    }
-    
-    xml.addChildElement(parameterInfoElement);
-    
-    
-    // Add FileContainers to XML tree
-    XmlElement* fileContainerElement = new XmlElement("FILECONTAINERS");
-    
-    for (auto itr : fileContainerManagerModel->fileContainerModelCollection) {
-        FileContainerModel* f = itr.second;
-        if (f != nullptr) {
-            fileContainerElement->setAttribute(Identifier(String("C")+String(itr.first)), String(f->getCodeDocument().getAllContent()));
+        
+        xml.addChildElement(parameterInfoElement);
+        
+        
+        // Add FileContainers to XML tree
+        XmlElement* fileContainerElement = new XmlElement("FILECONTAINERS");
+        
+        for (auto itr : fileContainerManagerModel->fileContainerModelCollection) {
+            FileContainerModel* f = itr.second;
+            if (f != nullptr) {
+                fileContainerElement->setAttribute(Identifier(String("C")+String(itr.first)), String(f->getCodeDocument().getAllContent()));
+            }
         }
+        
+        xml.addChildElement(fileContainerElement);
+        
+        // Binarize and convert XML to output MemoryBlock
+        copyXmlToBinary(xml, destData);
     }
-    
-    xml.addChildElement(fileContainerElement);
-    
-    // Binarize and convert XML to output MemoryBlock
-    copyXmlToBinary(xml, destData);
-
 }
 
 void ChuckRacksAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
@@ -478,39 +479,41 @@ void ChuckRacksAudioProcessor::setStateInformation (const void* data, int sizeIn
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
     
-    
-    // Turn Binarzed data back into xML
-    ScopedPointer<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
-    
-    if (xmlState != nullptr) {
-        //make sure it's actually our type of xml object
-        if (xmlState->hasTagName("CHUCKPLUGINSETTINGS")) {
-            
-            forEachXmlChildElement (*xmlState, child)
-            {
-                if (child->hasTagName ("PARAMETERS"))
+    if (thisInstaceCount == 1)
+    {
+        // Turn Binarzed data back into XML
+        ScopedPointer<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
+        
+        if (xmlState != nullptr) {
+            //make sure it's actually our type of xml object
+            if (xmlState->hasTagName("CHUCKPLUGINSETTINGS")) {
+                
+                forEachXmlChildElement (*xmlState, child)
                 {
-                    DBG("restoring parameters...") ;
-                    for (int i=0; i<child->getNumAttributes(); ++i) {
-                        if (FloatParameter* p = dynamic_cast<FloatParameter*>(getParameters().getUnchecked(i))) {
-                            
-                            p->setValueNotifyingHost(child->getDoubleAttribute(child->getAttributeName(i)));
-                            //p->setValueNotifyingHost((float) child->getDoubleAttribute(p->getName(50),p->getValue()));
-                            mapNewParam();
-                            parameterListModel->at(i) = child->getAttributeName(i);
-                            updateParamNames(i, child->getAttributeName(i));
-                            std::cout << parameterListModel->at(i) << std::endl;
+                    if (child->hasTagName ("PARAMETERS"))
+                    {
+                        DBG("restoring parameters...") ;
+                        for (int i=0; i<child->getNumAttributes(); ++i) {
+                            if (FloatParameter* p = dynamic_cast<FloatParameter*>(getParameters().getUnchecked(i))) {
+                                
+                                p->setValueNotifyingHost(child->getDoubleAttribute(child->getAttributeName(i)));
+                                //p->setValueNotifyingHost((float) child->getDoubleAttribute(p->getName(50),p->getValue()));
+                                mapNewParam();
+                                parameterListModel->at(i) = child->getAttributeName(i);
+                                updateParamNames(i, child->getAttributeName(i));
+                                std::cout << parameterListModel->at(i) << std::endl;
+                            }
                         }
                     }
-                }
-                
-                // Restore any FileContainers
-                else if (child->hasTagName("FILECONTAINERS"))
-                {
-                    DBG("restoring filecontainers...") ;
-                    for (int i=0; i<child->getNumAttributes(); ++i) {
-                        FileContainerModel* f = fileContainerManagerModel->addFileContainer();
-                        f->getCodeDocument().replaceAllContent(child->getStringAttribute(child->getAttributeName(i)));
+                    
+                    // Restore any FileContainers
+                    else if (child->hasTagName("FILECONTAINERS"))
+                    {
+                        DBG("restoring filecontainers...") ;
+                        for (int i=0; i<child->getNumAttributes(); ++i) {
+                            FileContainerModel* f = fileContainerManagerModel->addFileContainer();
+                            f->getCodeDocument().replaceAllContent(child->getStringAttribute(child->getAttributeName(i)));
+                        }
                     }
                 }
             }
