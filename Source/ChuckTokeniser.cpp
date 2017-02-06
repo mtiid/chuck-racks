@@ -224,7 +224,9 @@ static const char* const defaultUGens[] =
 
 static const char* const customClasses[] =
 {
-    "PluginHost", nullptr
+    "PluginHost",
+    "PluginParameters",
+    nullptr
 };
 
 struct ChuckTokeniserFunctions

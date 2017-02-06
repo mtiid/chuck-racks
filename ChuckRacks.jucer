@@ -8,7 +8,7 @@
               pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="1"
               pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="0"
               pluginAUExportPrefix="ChuckRacksAU" pluginRTASCategory="" aaxIdentifier="com.calartsmtiid.ChuckRacks"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.3.0"
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.3.1"
               buildAUv3="0" pluginIsMidiEffectPlugin="0">
   <MAINGROUP id="hkay95" name="ChuckRacks">
     <GROUP id="{21BA8925-7DBA-0C76-6E9B-2F1D8B0C76CF}" name="Resources">
@@ -69,6 +69,8 @@
               file="Source/FileContainerManagerUI.h"/>
       </GROUP>
       <GROUP id="{0BC81339-FAE6-5E28-35C5-650F3530477F}" name="other">
+        <FILE id="YfzBVZ" name="Counter.cpp" compile="1" resource="0" file="Source/Counter.cpp"/>
+        <FILE id="Irsltj" name="Counter.h" compile="0" resource="0" file="Source/Counter.h"/>
         <FILE id="D8L9oz" name="FileManager.cpp" compile="1" resource="0" file="Source/FileManager.cpp"/>
         <FILE id="BmV8oO" name="FileManager.h" compile="0" resource="0" file="Source/FileManager.h"/>
         <FILE id="WrylZB" name="FilenameComponentExtra.cpp" compile="1" resource="0"
@@ -94,14 +96,14 @@
         <FILE id="gHAc7u" name="Defines.h" compile="0" resource="0" file="Source/Defines.h"/>
       </GROUP>
       <GROUP id="{57A4279F-008A-1E9F-E16C-D3650CA35BFB}" name="Chuck extensions">
+        <FILE id="ktii7Q" name="ulib_PluginParameters.cpp" compile="1" resource="0"
+              file="Source/ulib_PluginParameters.cpp"/>
+        <FILE id="DanAFB" name="ulib_PluginParameters.h" compile="0" resource="0"
+              file="Source/ulib_PluginParameters.h"/>
         <FILE id="UsHU7H" name="ulib_pluginhost.cpp" compile="1" resource="0"
               file="Source/ulib_pluginhost.cpp"/>
         <FILE id="GqT6cA" name="ulib_pluginhost.h" compile="0" resource="0"
               file="Source/ulib_pluginhost.h"/>
-        <FILE id="zY5sse" name="ulib_PluginPanel.cpp" compile="1" resource="0"
-              file="Source/ulib_PluginPanel.cpp"/>
-        <FILE id="D5dXb6" name="ulib_PluginPanel.h" compile="0" resource="0"
-              file="Source/ulib_PluginPanel.h"/>
       </GROUP>
     </GROUP>
     <GROUP id="{F44E78E5-D606-BADB-92F6-0BA28F41A318}" name="libraries">
@@ -125,18 +127,18 @@
                        cppLanguageStandard="c++11" binaryPath=""/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_core" path="../../SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_events" path="../../SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_graphics" path="../../SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../../SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_basics" path="../../SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../../SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../../SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../../SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="../../SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../../SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../../SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_events" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_graphics" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_data_structures" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="JuceLibraryCode/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>

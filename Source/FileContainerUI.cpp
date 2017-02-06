@@ -80,11 +80,11 @@ void FileContainerUI::init(){
     if (codeEditor->getDocument().getAllContent().isEmpty()) {
         codeEditor->loadContent(
                                 //        (
-                                "//my id:"
-                                + String(mFileContainerModel->getUniqueFCId()) +
-                                "\n"
-                                + String(mFileContainerModel->getUniqueFCId()) +
-                                " => int myId; \n"
+                               // "//my id:"
+                               // + String(mFileContainerModel->getUniqueFCId()) +
+                               // "\n"
+                               // + String(mFileContainerModel->getUniqueFCId()) +
+                               // " => int myId; \n"
                                 //                                 "/*"
                                 //                                 "\n"
                                 //                                 "   Type in your ChucK code\n"
@@ -109,27 +109,27 @@ void FileContainerUI::init(){
                                 "SqrOsc osc => dac;\n"
                                 "0.1=> osc.gain;\n"
                                 "\n"
-                                "spork ~ updateVolume();\n"
+                                //"spork ~ updateVolume();\n"
                                 "while(true)\n"
                                 "{\n"
                                 "    Std.rand2(30, 80) => int randomMidiNote;\n"
                                 "    Std.mtof( randomMidiNote )=> float noteFreq; // mtof == Midi To Frequency\n"
                                 "    noteFreq => osc.freq;\n"
-                                "    //PluginPanel.getValue( myId, 0 ) => osc.gain;\n"
+                                //"    //PluginPanel.getValue( myId, 0 ) => osc.gain;\n"
                                 "    repeat ( Std.rand2(1, 3) ) //1,2 or 3 sixteenths\n"
                                 "    {\n"
                                 "        PluginHost.sixteenth()=>now; //synced with daw (press play)\n"
                                 "    }\n"
                                 "}\n"
                                 "\n"
-                                "fun void updateVolume()\n"
-                                "{\n"
-                                "    while(true)\n"
-                                "    {\n"
-                                "        PluginPanel.getValue( myId, 0 ) => osc.gain; //knob 0 controls volume \n"
-                                "        10::ms => now;\n"
-                                "    }\n"
-                                "}\n"
+                                //"fun void updateVolume()\n"
+                                //"{\n"
+                                //"    while(true)\n"
+                                //"    {\n"
+                                //"        PluginPanel.getValue( myId, 0 ) => osc.gain; //knob 0 controls volume \n"
+                                //"        10::ms => now;\n"
+                                //"    }\n"
+                                //"}\n"
                                 //TODO: Add a default file (from examples ) and load that instead of hardcoding this
                                 );
     }else {

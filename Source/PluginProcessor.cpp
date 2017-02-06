@@ -11,7 +11,7 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 #include "ulib_pluginhost.h"
-#include "ulib_PluginPanel.h"
+#include "ulib_PluginParameters.h"
 
 //AudioProcessor * ChuckRacksAudioProcessor::processorInstance = NULL;
 
@@ -29,66 +29,83 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
 #endif
 
 {
-    //ConsoleGlobal *ConsoleGlobal::instance = 0;
+    instanceCounter->incrementCount();
     
-    fprintf(stderr, "ChuckRacksAudioProcessor::ChuckRacksAudioProcessor\n");
-    chuck_options options;
-    libchuck_options_reset(&options);
-    //    options.buffer_size = getBlockSize();
-    //    options.adaptive_buffer_size = 0;
-    //    options.num_channels = getNumOutputChannels();
-    //    options.sample_rate = getSampleRate();
-    options.slave = true;
-    // hardcode (HACK!)
-    options.buffer_size = 512;
-    options.adaptive_buffer_size = 0;
-    options.num_channels = 2;
-    options.sample_rate = 44100;
+    thisInstaceCount = instanceCounter->getCount();
     
-    //TODO: check if a valid instance of chuck is running (how do I do this?)
-    ck = libchuck_create(&options);
-    
-    libchuck_add_module(ck, (void*)pluginhost_query);
-    libchuck_add_module(ck, (void*)pluginPanel_query);
-    
-    input_buffer = new float[options.buffer_size*options.num_channels];
-    output_buffer = new float[options.buffer_size*options.num_channels];
-    
-    
-    libchuck_vm_start(ck);
-        
-    fileContainerManagerModel = new FileContainerManagerModel(ck, this);
-    
-    g_hostInfo->midiInputBufferP = (&midiInputBuffer);
-    g_hostInfo->midiOutputBufferP = (&midiOutputBuffer);
-    
-    g_pluginPanel->fileContainerManager = fileContainerManagerModel;
-    
-    for (int i=0; i<512; i++)
+    if (thisInstaceCount > 1)
     {
-
-        NormalisableRange<float> paramRange(0.0, 1.0, 0.1, 1.0);
-        String id = String(i+1);
-        FloatParameter* param = new FloatParameter(id, id, paramRange, 1.0);
-        addParameter(param);
+        AlertWindow::showMessageBox (AlertWindow::AlertIconType::NoIcon,
+                                     "Sorry!",
+                                     "Currently only a single instance of ChuckRacks may run at once.\n This will be fixed in a future update.",
+                                     "Okay",
+                                     nullptr);
+        
     }
-    
-    parameterListModel = new std::map<int, String>;
-    //dynamic_cast<FloatParameter*>(getParameters().getUnchecked(0))->setName("Yes!");
+    else {
+        
+        fprintf(stderr, "ChuckRacksAudioProcessor::ChuckRacksAudioProcessor\n");
+        chuck_options options;
+        libchuck_options_reset(&options);
+        //    options.buffer_size = getBlockSize();
+        //    options.adaptive_buffer_size = 0;
+        //    options.num_channels = getNumOutputChannels();
+        //    options.sample_rate = getSampleRate();
+        options.slave = true;
+        // hardcode (HACK!)
+        options.buffer_size = 512;
+        options.adaptive_buffer_size = 0;
+        options.num_channels = 2;
+        options.sample_rate = 44100;
+        
+        //TODO: check if a valid instance of chuck is running (how do I do this?)
+        ck = libchuck_create(&options);
+        
+        libchuck_add_module(ck, (void*)pluginhost_query);
+        libchuck_add_module(ck, (void*)pluginParameters_query);
+        
+        input_buffer = new float[options.buffer_size*options.num_channels];
+        output_buffer = new float[options.buffer_size*options.num_channels];
+        
+        if (thisInstaceCount == 1)
+        {
+            libchuck_vm_start(ck);
+        }
+        
+        fileContainerManagerModel = new FileContainerManagerModel(ck, this);
+        
+        g_hostInfo->midiInputBufferP = (&midiInputBuffer);
+        g_hostInfo->midiOutputBufferP = (&midiOutputBuffer);
+        
+        g_pluginParameters->fileContainerManager = fileContainerManagerModel;
+        
+        for (int i=0; i<512; i++)
+        {
+
+            NormalisableRange<float> paramRange(0.0, 1.0, 0.1, 1.0);
+            String id = String(i+1);
+            FloatParameter* param = new FloatParameter(id, id, paramRange, 1.0);
+            addParameter(param);
+        }
+        
+        parameterListModel = new std::map<int, String>;
+        //dynamic_cast<FloatParameter*>(getParameters().getUnchecked(0))->setName("Yes!");
+    }
 }
 
 ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor()
 {
-    fprintf(stderr, "ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor\n");
+    if (thisInstaceCount == 1) {
+        fprintf(stderr, "ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor\n");
+        
+        libchuck_destroy(ck);
+        ck = NULL;
+        
+        if(input_buffer) { delete[] input_buffer; input_buffer = NULL; }
+        if(output_buffer) { delete[] output_buffer; output_buffer = NULL; }
+    }
     
-    libchuck_destroy(ck);
-    ck = NULL;
-    
-    if(input_buffer) { delete[] input_buffer; input_buffer = NULL; }
-    if(output_buffer) { delete[] output_buffer; output_buffer = NULL; }
-    
-    delete fileContainerManagerModel;
-    
+    instanceCounter->decrementCount();
 }
 
 bool ChuckRacksAudioProcessor::mapNewParam(){
@@ -235,161 +252,180 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
 //void ChuckRacksAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
     // Get current position/time info from host, otherwise set to some default
-    AudioPlayHead::CurrentPositionInfo pos;
-    if (getPlayHead() != nullptr && getPlayHead()->getCurrentPosition(pos)) {
-        lastPosInfo = pos;
-    }else{
-        lastPosInfo.resetToDefault();
-    }
-    
-    if (lastPosInfo.bpm != g_hostInfo->previousTempo)
-    {
-        g_hostInfo->setTempo(lastPosInfo.bpm);
-    }
-    
-    if(lastPosInfo.isPlaying&&!g_hostInfo->wasPlaying)
-    {
-        g_hostInfo->broadcastPlayEvent();
-    }
-    
-    if(!lastPosInfo.isPlaying&&g_hostInfo->wasPlaying)
-    {
-        g_hostInfo->broadcastStopEvent();
+    if (thisInstaceCount == 1) {
         
-    }
-    
-    g_hostInfo->wasPlaying = lastPosInfo.isPlaying;
-    
-    
-    g_hostInfo->positionInBeat = fmod( pos.ppqPosition,1 );
-    
-    //DBG(positionInBeat);
-    if (g_hostInfo->positionInBeat>0.749) //sixteenth
-    {
-        if (g_hostInfo->current16th!=3)
-        {
-            //DBG("16th3");
-            g_hostInfo->broadcast16thHit();
-            g_hostInfo->current16th=3;
+        AudioPlayHead::CurrentPositionInfo pos;
+        if (getPlayHead() != nullptr && getPlayHead()->getCurrentPosition(pos)) {
+            lastPosInfo = pos;
+        }else{
+            lastPosInfo.resetToDefault();
         }
-    }
-    else if (g_hostInfo->positionInBeat>0.499)
-    {
-        if (g_hostInfo->current16th!=2)
+        
+        if (lastPosInfo.bpm != g_hostInfo->previousTempo)
         {
-            //DBG("16th2");
-            g_hostInfo->broadcast16thHit();
-            g_hostInfo->current16th=2;
+            g_hostInfo->setTempo(lastPosInfo.bpm);
         }
-    }
-    else if (g_hostInfo->positionInBeat>0.249)
-    {
-        if (g_hostInfo->current16th!=1)
+        
+        if(lastPosInfo.isPlaying&&!g_hostInfo->wasPlaying)
         {
-            //DBG("16th1");
-            g_hostInfo->broadcast16thHit();
-            g_hostInfo->current16th=1;
+            g_hostInfo->broadcastPlayEvent();
         }
-    }
-    else if (g_hostInfo->positionInBeat>0.0)
-    {
-        if (g_hostInfo->current16th!=0)
+        
+        if(!lastPosInfo.isPlaying&&g_hostInfo->wasPlaying)
         {
-            //DBG("16th0");
-            g_hostInfo->broadcast16thHit();
-            g_hostInfo->broadcastBeatStartEvent();
-            
-            g_hostInfo->current16th=0;
-            //param->setValueNotifyingHost(.5);
+            g_hostInfo->broadcastStopEvent();
             
         }
-    }
-    // DBG(pos.ppqPosition);
-    // DBG("16th!");
-    
-    g_hostInfo->previousTempo=lastPosInfo.bpm;
-    
-    // In case we have more outputs than inputs, this code clears any output
-    // channels that didn't contain input data, (because these aren't
-    // guaranteed to be empty - they may contain garbage).
-    // I've added this to avoid people getting screaming feedback
-    // when they first compile the plugin, but obviously you don't need to
-    // this code if your algorithm already fills all the output channels.
-    for (int i = getTotalNumInputChannels(); i < getTotalNumOutputChannels(); ++i)
-        buffer.clear (i, 0, buffer.getNumSamples());
-    
-    // copy input
-    for (int channel = 0; channel < getTotalNumInputChannels(); ++channel)
-    {
-        float* channelData = buffer.getWritePointer (channel);
         
-        for (int i = 0; i < buffer.getNumSamples(); i++)
+        g_hostInfo->wasPlaying = lastPosInfo.isPlaying;
+        
+        
+        g_hostInfo->positionInBeat = fmod( pos.ppqPosition,1 );
+        
+        //DBG(positionInBeat);
+        if (g_hostInfo->positionInBeat>0.749) //sixteenth
         {
-            input_buffer[i*2+channel] = channelData[i];
+            if (g_hostInfo->current16th!=3)
+            {
+                //DBG("16th3");
+                g_hostInfo->broadcast16thHit();
+                g_hostInfo->current16th=3;
+            }
+        }
+        else if (g_hostInfo->positionInBeat>0.499)
+        {
+            if (g_hostInfo->current16th!=2)
+            {
+                //DBG("16th2");
+                g_hostInfo->broadcast16thHit();
+                g_hostInfo->current16th=2;
+            }
+        }
+        else if (g_hostInfo->positionInBeat>0.249)
+        {
+            if (g_hostInfo->current16th!=1)
+            {
+                //DBG("16th1");
+                g_hostInfo->broadcast16thHit();
+                g_hostInfo->current16th=1;
+            }
+        }
+        else if (g_hostInfo->positionInBeat>0.0)
+        {
+            if (g_hostInfo->current16th!=0)
+            {
+                //DBG("16th0");
+                g_hostInfo->broadcast16thHit();
+                g_hostInfo->broadcastBeatStartEvent();
+                
+                g_hostInfo->current16th=0;
+                //param->setValueNotifyingHost(.5);
+                
+            }
+        }
+        // DBG(pos.ppqPosition);
+        // DBG("16th!");
+        
+        g_hostInfo->previousTempo=lastPosInfo.bpm;
+        
+        // In case we have more outputs than inputs, this code clears any output
+        // channels that didn't contain input data, (because these aren't
+        // guaranteed to be empty - they may contain garbage).
+        // I've added this to avoid people getting screaming feedback
+        // when they first compile the plugin, but obviously you don't need to
+        // this code if your algorithm already fills all the output channels.
+        for (int i = getTotalNumInputChannels(); i < getTotalNumOutputChannels(); ++i)
+            buffer.clear (i, 0, buffer.getNumSamples());
+        
+        // copy input
+        for (int channel = 0; channel < getTotalNumInputChannels(); ++channel)
+        {
+            float* channelData = buffer.getWritePointer (channel);
+            
+            for (int i = 0; i < buffer.getNumSamples(); i++)
+            {
+                input_buffer[i*2+channel] = channelData[i];
+            }
+        }
+        
+        if (thisInstaceCount == 1)
+        {
+            libchuck_slave_process(ck, input_buffer, output_buffer, buffer.getNumSamples());
+        }
+        
+        // copy output
+        
+        
+        
+        MidiBuffer::Iterator midiIterator(midiMessages); //iterator to loop through our midi buffer that gets passed into the process block
+        MidiBuffer tempMidiBuffer; // temporary midi buffer where we do ou "work" and store transposed midi messages
+        MidiMessage tempMessage; // temporary midi message to store each midi message from our incoming buffer
+        int midiMessagePos; //temporary varirable to store the location of each midi message that we iterate through
+        bool doMidiBroadcast = false;
+        
+        midiInputBuffer.clear();
+        
+        
+        while(midiIterator.getNextEvent(tempMessage, midiMessagePos)){
+            
+            //if(tempMessage.isNoteOnOrOff()){
+            // tempMessage.setNoteNumber(tempMessage.getNoteNumber() + 12); //transpose the message
+            // tempMidiBuffer.addEvent(tempMessage, midiMessagePos);
+            //}
+            
+            midiInputBuffer.addEvent(tempMessage, midiMessagePos);
+            doMidiBroadcast = true;
+            
+            const uint8 *midiVals = tempMessage.getRawData();
+            int datasize = tempMessage.getRawDataSize();
+            //std::cout<<int(midiVals[0])<<" "<<int(midiVals[1])<<" "<<int(midiVals[2])<<std::endl;
+        }
+        
+        if(doMidiBroadcast)
+        {
+            g_hostInfo->midiOutputBufferPos = 0;
+            g_hostInfo->broadcastMidiEvent();
+        }
+        
+        midiMessages = midiOutputBuffer;
+        midiOutputBuffer.clear();
+        
+        
+        for (int channel = 0; channel < getTotalNumOutputChannels(); ++channel)
+        {
+            float* channelData = buffer.getWritePointer (channel);
+    
+            for (int i = 0; i < buffer.getNumSamples(); i++)
+            {
+                channelData[i] = output_buffer[i*2+channel];
+            }
         }
     }
-    
-    libchuck_slave_process(ck, input_buffer, output_buffer, buffer.getNumSamples());
-    
-    // copy output
-    
-    
-    
-    MidiBuffer::Iterator midiIterator(midiMessages); //iterator to loop through our midi buffer that gets passed into the process block
-    MidiBuffer tempMidiBuffer; // temporary midi buffer where we do ou "work" and store transposed midi messages
-    MidiMessage tempMessage; // temporary midi message to store each midi message from our incoming buffer
-    int midiMessagePos; //temporary varirable to store the location of each midi message that we iterate through
-    bool doMidiBroadcast = false;
-    
-    midiInputBuffer.clear();
-    
-    
-    while(midiIterator.getNextEvent(tempMessage, midiMessagePos)){
+    else {
         
-        //if(tempMessage.isNoteOnOrOff()){
-        // tempMessage.setNoteNumber(tempMessage.getNoteNumber() + 12); //transpose the message
-        // tempMidiBuffer.addEvent(tempMessage, midiMessagePos);
-        //}
-        
-        midiInputBuffer.addEvent(tempMessage, midiMessagePos);
-        doMidiBroadcast = true;
-        
-        const uint8 *midiVals = tempMessage.getRawData();
-        int datasize = tempMessage.getRawDataSize();
-        //std::cout<<int(midiVals[0])<<" "<<int(midiVals[1])<<" "<<int(midiVals[2])<<std::endl;
-    }
-    
-    if(doMidiBroadcast)
-    {
-        g_hostInfo->midiOutputBufferPos = 0;
-        g_hostInfo->broadcastMidiEvent();
-    }
-    
-    midiMessages = midiOutputBuffer;
-    midiOutputBuffer.clear();
-    
-    
-    
-    
-    
-    
-    for (int channel = 0; channel < getTotalNumOutputChannels(); ++channel)
-    {
-        float* channelData = buffer.getWritePointer (channel);
-        
-        for (int i = 0; i < buffer.getNumSamples(); i++)
+        for (int channel = 0; channel < getTotalNumOutputChannels(); ++channel)
         {
-            channelData[i] = output_buffer[i*2+channel];
+            float* channelData = buffer.getWritePointer (channel);
+                
+            for (int i = 0; i < buffer.getNumSamples(); i++)
+            {
+                channelData[i] = 0;
+            }
+
         }
     }
 }
 
 
-
 //==============================================================================
 bool ChuckRacksAudioProcessor::hasEditor() const
 {
-    return true; // (change this to false if you choose to not supply an editor)
+    if (thisInstaceCount == 1)
+    {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 AudioProcessorEditor* ChuckRacksAudioProcessor::createEditor()
