@@ -103,6 +103,8 @@ ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor()
         
         if(input_buffer) { delete[] input_buffer; input_buffer = NULL; }
         if(output_buffer) { delete[] output_buffer; output_buffer = NULL; }
+        
+        delete fileContainerManagerModel;
     }
     
     instanceCounter->decrementCount();
@@ -461,9 +463,10 @@ void ChuckRacksAudioProcessor::getStateInformation (MemoryBlock& destData)
         FileContainerModel* f = itr.second;
         if (f != nullptr) {
             fileContainerElement->setAttribute(Identifier(String("C")+String(itr.first)), String(f->getCodeDocument().getAllContent()));
-            xml.addChildElement(fileContainerElement);
         }
     }
+    
+    xml.addChildElement(fileContainerElement);
     
     // Binarize and convert XML to output MemoryBlock
     copyXmlToBinary(xml, destData);

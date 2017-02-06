@@ -8,7 +8,7 @@
               pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="1"
               pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="0"
               pluginAUExportPrefix="ChuckRacksAU" pluginRTASCategory="" aaxIdentifier="com.calartsmtiid.ChuckRacks"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.3.1"
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.3.0"
               buildAUv3="0" pluginIsMidiEffectPlugin="0">
   <MAINGROUP id="hkay95" name="ChuckRacks">
     <GROUP id="{21BA8925-7DBA-0C76-6E9B-2F1D8B0C76CF}" name="Resources">
