@@ -404,15 +404,14 @@ void ChuckRacksAudioProcessor::getStateInformation (MemoryBlock& destData)
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
     
-    // Create outer XML element
-    XmlElement xml("CHUCKRACKSSETTINGS");
     
-    // Add parameters to XML tree
+    XmlElement xml("CHUCKPLUGINSETTINGS");
+    
     XmlElement* parameterInfoElement = new XmlElement("PARAMETERS");
-    
     for (int i=0; i<parameterListModel->size(); ++i) {
         if (FloatParameter* p = dynamic_cast<FloatParameter*>(getParameters().getUnchecked(i))) {
             parameterInfoElement->setAttribute(p->getName(50), p->getValue());
+            std::cout << "storing: " << parameterInfoElement->getAttributeName(i) << " " << parameterInfoElement->getAttributeValue(i) << std::endl;
         }
     }
     
@@ -447,19 +446,21 @@ void ChuckRacksAudioProcessor::setStateInformation (const void* data, int sizeIn
     if (xmlState != nullptr) {
         //make sure it's actually our type of xml object
         if (xmlState->hasTagName("CHUCKPLUGINSETTINGS")) {
+            
             forEachXmlChildElement (*xmlState, child)
             {
-                // Restore any parameters
                 if (child->hasTagName ("PARAMETERS"))
                 {
+                    DBG("restoring parameters...") ;
                     for (int i=0; i<child->getNumAttributes(); ++i) {
                         if (FloatParameter* p = dynamic_cast<FloatParameter*>(getParameters().getUnchecked(i))) {
                             
-                        p->setValueNotifyingHost(child->getDoubleAttribute(child->getAttributeName(i)));
-                        mapNewParam();
-                        parameterListModel->at(i) = child->getAttributeName(i);
-                        updateParamNames(i, child->getAttributeName(i));
-                        std::cout << parameterListModel->at(i) << std::endl;
+                            p->setValueNotifyingHost(child->getDoubleAttribute(child->getAttributeName(i)));
+                            //p->setValueNotifyingHost((float) child->getDoubleAttribute(p->getName(50),p->getValue()));
+                            mapNewParam();
+                            parameterListModel->at(i) = child->getAttributeName(i);
+                            updateParamNames(i, child->getAttributeName(i));
+                            std::cout << parameterListModel->at(i) << std::endl;
                         }
                     }
                 }
