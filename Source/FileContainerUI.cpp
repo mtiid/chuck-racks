@@ -59,17 +59,17 @@ void FileContainerUI::init(){
      removeShredButton->addListener(this);
      */
     
-    openFileButton = new TextButton("Open");
-    addAndMakeVisible(openFileButton);
-    openFileButton->setButtonText("Open");
-    openFileButton->setBounds(400, 5, 60,20);
-    openFileButton->addListener(this);
-    
     saveFileButton = new TextButton("Save");
     addAndMakeVisible(saveFileButton);
     saveFileButton->setButtonText("Save");
-    saveFileButton->setBounds(470, 5, 60,20);
+    saveFileButton->setBounds(getWidth()-60, 5, 56,20);
     saveFileButton->addListener(this);
+    
+    openFileButton = new TextButton("Load");
+    addAndMakeVisible(openFileButton);
+    openFileButton->setButtonText("Load");
+    openFileButton->setBounds(saveFileButton->getX()-58, 5, 56,20);
+    openFileButton->addListener(this);
     
     // Create the editor..
     addChildComponent(codeEditor = new CodeEditorComponent (mFileContainerModel->getCodeDocument(),

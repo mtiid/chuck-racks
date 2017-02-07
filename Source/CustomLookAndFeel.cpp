@@ -13,13 +13,17 @@ CustomLookAndFeel::CustomLookAndFeel()
     
     Colour bgDark(38, 40, 49);
     Colour bgLight(100, 106, 127);
+    
+    Colour customGreen(62, 172, 133);
 
     // Window
     this->setColour(ScrollBar::trackColourId, Colours::red);
     this->setColour(TabbedButtonBar::tabTextColourId, Colour(38, 40, 49));
     
     // Buttons
-    //this->setColour(TextButton::buttonColourId, Colours::transparentBlack);
+    this->setColour(TextButton::buttonColourId, Colours::black.withAlpha(0.2f));
+    this->setColour(TextButton::textColourOffId, Colour(220, 220, 220));
+    
     //TextEditor
     this->setColour(TextEditor::highlightColourId, bgLight);
     
@@ -36,14 +40,14 @@ CustomLookAndFeel::~CustomLookAndFeel()
     
 }
 
-/*void CustomLookAndFeel::drawButtonBackground (Graphics& g, Button& button, const Colour& backgroundColour,
+void CustomLookAndFeel::drawButtonBackground (Graphics& g, Button& button, const Colour& backgroundColour,
                                               bool isMouseOverButton, bool isButtonDown)
 {
     Colour baseColour (backgroundColour.withMultipliedSaturation (button.hasKeyboardFocus (true) ? 1.3f : 0.9f)
                        .withMultipliedAlpha (button.isEnabled() ? 0.9f : 0.5f));
     
     if (isButtonDown || isMouseOverButton)
-        baseColour = baseColour.contrasting (isButtonDown ? 0.2f : 0.1f);
+        baseColour = baseColour.contrasting (isButtonDown ? 0.4f : 0.3f);
     
     const bool flatOnLeft   = button.isConnectedOnLeft();
     const bool flatOnRight  = button.isConnectedOnRight();
@@ -76,10 +80,10 @@ CustomLookAndFeel::~CustomLookAndFeel()
         if (! button.getToggleState())
         {
             g.setColour (outlineColour);
-            g.strokePath (outline, PathStrokeType (lineThickness));
+            //g.strokePath (outline, PathStrokeType (lineThickness));
         }
     }
-}*/
+}
 
 
 
