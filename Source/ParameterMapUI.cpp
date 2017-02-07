@@ -118,7 +118,7 @@ void ParameterMapUI::paintCell (Graphics& g, int rowNumber, int columnId,
         }
         
         else if (columnId == 2){
-            g.setColour (Colours::grey);
+            //g.setColour (Colours::white);
             text = parameterListModel->at(rowNumber);
         }else{
             text = String();

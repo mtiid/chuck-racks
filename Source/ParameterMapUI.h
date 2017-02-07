@@ -71,7 +71,7 @@ public:
     {
         // double click to edit the label text; single click handled below
         setEditable (false, true, false);
-        setColour (textColourId, Colours::black);
+        setColour (textColourId, Colour(180, 180, 180));
         addChildComponent(mapLabel);
         mapLabel.setText("right-click to map", dontSendNotification);
         mapLabel.setBounds(180, 0, 200, 20);

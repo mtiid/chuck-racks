@@ -21,7 +21,7 @@ CustomLookAndFeel::CustomLookAndFeel()
     // Buttons
     //this->setColour(TextButton::buttonColourId, Colours::transparentBlack);
     //TextEditor
-    this->setColour(TextEditor::highlightColourId, Colours::transparentBlack);
+    this->setColour(TextEditor::highlightColourId, bgLight);
     
     //Table
     this->setColour(TableListBox::backgroundColourId, bgDark);
