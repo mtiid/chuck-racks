@@ -49,15 +49,15 @@ void FileContainerUI::init(){
     addShredButton->setBounds(28, 5, 20,20);
     addShredButton->addListener(this);
     
-    /*
-     removeShredButton = new DrawableButton("Remove All Shreds", DrawableButton::ButtonStyle::ImageFitted);
+    
+     /*removeShredButton = new DrawableButton("Remove All Shreds", DrawableButton::ButtonStyle::ImageFitted);
      ScopedPointer<XmlElement> removeShredSVGUp(XmlDocument::parse(BinaryData::removeAllShredUp_svg));
      ScopedPointer<XmlElement> removeShredSVGDown(XmlDocument::parse(BinaryData::removeAllShredDown_svg));
      removeShredButton->setImages(Drawable::createFromSVG(*removeShredSVGUp), Drawable::createFromSVG(*removeShredSVGUp), Drawable::createFromSVG(*removeShredSVGDown));
      addAndMakeVisible(removeShredButton);
      removeShredButton->setBounds(52, 5, 20, 20);
      removeShredButton->addListener(this);
-     */
+    */
     
     saveFileButton = new TextButton("Save");
     addAndMakeVisible(saveFileButton);
