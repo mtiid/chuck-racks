@@ -78,8 +78,6 @@ void FileContainerModel::removeLastShred()
 
 void FileContainerModel::removeShred(int idNumber)
 {
-    //std::cout<<"shred to be removed:" << idNumber << "\n";
-
     chuck_result result = libchuck_remove_shred(ck, idNumber);
     if(result.type == chuck_result::OK)
     {

@@ -49,27 +49,27 @@ void FileContainerUI::init(){
     addShredButton->setBounds(28, 5, 20,20);
     addShredButton->addListener(this);
     
-    /*
-     removeShredButton = new DrawableButton("Remove All Shreds", DrawableButton::ButtonStyle::ImageFitted);
+    
+     /*removeShredButton = new DrawableButton("Remove All Shreds", DrawableButton::ButtonStyle::ImageFitted);
      ScopedPointer<XmlElement> removeShredSVGUp(XmlDocument::parse(BinaryData::removeAllShredUp_svg));
      ScopedPointer<XmlElement> removeShredSVGDown(XmlDocument::parse(BinaryData::removeAllShredDown_svg));
      removeShredButton->setImages(Drawable::createFromSVG(*removeShredSVGUp), Drawable::createFromSVG(*removeShredSVGUp), Drawable::createFromSVG(*removeShredSVGDown));
      addAndMakeVisible(removeShredButton);
      removeShredButton->setBounds(52, 5, 20, 20);
      removeShredButton->addListener(this);
-     */
-    
-    openFileButton = new TextButton("Open");
-    addAndMakeVisible(openFileButton);
-    openFileButton->setButtonText("Open");
-    openFileButton->setBounds(400, 5, 60,20);
-    openFileButton->addListener(this);
+    */
     
     saveFileButton = new TextButton("Save");
     addAndMakeVisible(saveFileButton);
     saveFileButton->setButtonText("Save");
-    saveFileButton->setBounds(470, 5, 60,20);
+    saveFileButton->setBounds(getWidth()-60, 5, 56,20);
     saveFileButton->addListener(this);
+    
+    openFileButton = new TextButton("Load");
+    addAndMakeVisible(openFileButton);
+    openFileButton->setButtonText("Load");
+    openFileButton->setBounds(saveFileButton->getX()-58, 5, 56,20);
+    openFileButton->addListener(this);
     
     // Create the editor..
     addChildComponent(codeEditor = new CodeEditorComponent (mFileContainerModel->getCodeDocument(),

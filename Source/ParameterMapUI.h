@@ -49,7 +49,6 @@ public:
     void buttonClicked (Button*) override;
     
 private:
-    //ScopedPointer<TextButton> addNewButton;
     ScopedPointer<DrawableButton> addNewButton;
     
     Font font;
@@ -71,7 +70,7 @@ public:
     {
         // double click to edit the label text; single click handled below
         setEditable (false, true, false);
-        setColour (textColourId, Colours::black);
+        setColour (textColourId, Colour(180, 180, 180));
         addChildComponent(mapLabel);
         mapLabel.setText("right-click to map", dontSendNotification);
         mapLabel.setBounds(180, 0, 200, 20);
@@ -104,22 +103,19 @@ public:
     void mouseEnter (const MouseEvent& event) override
     {
         mapLabel.setVisible(true);
-        //setColour(backgroundColourId, Colour(62, 172, 133).withAlpha(0.8f));
     }
     
     void mouseExit (const MouseEvent& event) override
     {
         mapLabel.setVisible(false);
-        //setColour(backgroundColourId, Colours::transparentBlack);
     }
     
     void textWasEdited() override
     {
         owner.setText (columnId, row, getText());
-        //std::cout << getText() << std::endl;
     }
     
-    // Our demo code will call this when we may need to update our contents
+    // This is called when we may need to update our contents
     void setRowAndColumn (const int newRow, const int newColumn)
     {
         row = newRow;
@@ -133,49 +129,5 @@ private:
     Label mapLabel;
     
 };
-
-//==============================================================================
-// This is a custom Button component, which we use for the table's parameter map trigger column.
-class ButtonCustomComponent  : public Button
-{
-public:
-    ButtonCustomComponent (ParameterMapUI& pm)  : Button(String()), owner (pm)
-    {
-    }
-    
-    
-    void clicked(){
-        owner.updateParamMap(row);
-    }
-    
-    // Our demo code will call this when we may need to update our contents
-    void setRowAndColumn (const int newRow, const int newColumn)
-    {
-        row = newRow;
-        columnId = newColumn;
-    }
-    
-    void paintButton (Graphics &g, bool isMouseOverButton, bool isButtonDown){
-        Colour colourToSet = Colours::black.withAlpha(0.4f);
-        g.setColour(colourToSet);
-        if (isMouseOverButton) {
-            g.setColour(colourToSet.withAlpha(0.6f));
-        }
-        
-        if(isButtonDown){
-            colourToSet = Colour(62, 172, 133).withAlpha(1.0f);
-            g.setColour(colourToSet);
-            g.fillAll();
-        }
-        g.drawRect(0, 0, getWidth(), getHeight());
-    }
-    
-private:
-    ParameterMapUI& owner;
-    int row, columnId;
-    
-    
-};
-
 
 #endif  // PARAMETERMAPUI_H_INCLUDED
