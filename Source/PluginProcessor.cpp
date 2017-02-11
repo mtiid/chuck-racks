@@ -31,9 +31,9 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
 {
     instanceCounter->incrementCount();
     
-    thisInstaceCount = instanceCounter->getCount();
+    thisInstanceCount = instanceCounter->getCount();
     
-    if (thisInstaceCount > 1)
+    if (thisInstanceCount > 1)
     {
         AlertWindow::showMessageBox (AlertWindow::AlertIconType::NoIcon,
                                      "Sorry!",
@@ -67,7 +67,7 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
         input_buffer = new float[options.buffer_size*options.num_channels];
         output_buffer = new float[options.buffer_size*options.num_channels];
         
-        if (thisInstaceCount == 1)
+        if (thisInstanceCount == 1)
         {
             libchuck_vm_start(ck);
         }
@@ -95,7 +95,7 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
 
 ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor()
 {
-    if (thisInstaceCount == 1) {
+    if (thisInstanceCount == 1) {
         fprintf(stderr, "ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor\n");
         
         libchuck_destroy(ck);
@@ -254,7 +254,7 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
 //void ChuckRacksAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
     // Get current position/time info from host, otherwise set to some default
-    if (thisInstaceCount == 1) {
+    if (thisInstanceCount == 1) {
         
         AudioPlayHead::CurrentPositionInfo pos;
         if (getPlayHead() != nullptr && getPlayHead()->getCurrentPosition(pos)) {
@@ -350,7 +350,7 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
             }
         }
         
-        if (thisInstaceCount == 1)
+        if (thisInstanceCount == 1)
         {
             libchuck_slave_process(ck, input_buffer, output_buffer, buffer.getNumSamples());
         }
@@ -422,7 +422,7 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
 //==============================================================================
 bool ChuckRacksAudioProcessor::hasEditor() const
 {
-    if (thisInstaceCount == 1)
+    if (thisInstanceCount == 1)
     {
         return true;
     } else {
@@ -442,7 +442,7 @@ void ChuckRacksAudioProcessor::getStateInformation (MemoryBlock& destData)
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
     
-    if (thisInstaceCount == 1)
+    if (thisInstanceCount == 1)
     {
         XmlElement xml("CHUCKPLUGINSETTINGS");
         
@@ -479,7 +479,7 @@ void ChuckRacksAudioProcessor::setStateInformation (const void* data, int sizeIn
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
     
-    if (thisInstaceCount == 1)
+    if (thisInstanceCount == 1)
     {
         // Turn Binarzed data back into XML
         ScopedPointer<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));

@@ -98,7 +98,7 @@ private:
     //AudioProcessorValueTreeState parameters;
     
     SharedResourcePointer<Counter> instanceCounter;
-    int thisInstaceCount;
+    int thisInstanceCount;
 };
 
 #endif  // PLUGINPROCESSOR_H_INCLUDED
