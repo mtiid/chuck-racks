@@ -1,7 +1,6 @@
 //By R Sena 2017
 
 [24,26,28,29,31,33,35,36] @=> int scale[]; 
-SqrOsc osc => dac;
 int sequence[32]; //change number for different length sequences
 
 Math.srandom( 9439 ); //random seed. change number for different sequences
