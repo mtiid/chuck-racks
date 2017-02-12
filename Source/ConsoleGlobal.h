@@ -12,13 +12,13 @@
 #include <stdio.h>
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class ConsoleGlobal
+class ConsoleGlobal : public Component
 {
 static ConsoleGlobal * instance;
     
 public:
-    ConsoleGlobal() {};
-    ~ConsoleGlobal() {};
+    ConsoleGlobal();
+    ~ConsoleGlobal();
     
     static ConsoleGlobal * Instance()
     {
@@ -33,8 +33,11 @@ public:
     void updateText();
     void setConsoleComponent(TextEditor * console);
 
+    void paint (Graphics& g) override;
+    void resized() override;
     
 private:
+    ScopedPointer<ResizableEdgeComponent> componentResizer;
     TextEditor * consoleComponent;
     String fullText;
     

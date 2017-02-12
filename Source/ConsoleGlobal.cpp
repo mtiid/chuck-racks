@@ -10,6 +10,25 @@
 
 ConsoleGlobal * ConsoleGlobal::instance = NULL;
 
+ConsoleGlobal::ConsoleGlobal(){
+    
+    componentResizer = new ResizableEdgeComponent(this, nullptr, ResizableEdgeComponent::topEdge);
+    addAndMakeVisible(componentResizer);
+}
+
+ConsoleGlobal::~ConsoleGlobal(){
+    
+}
+
+void ConsoleGlobal::paint (Graphics& g){
+    
+}
+
+void ConsoleGlobal::resized(){
+    componentResizer->setBounds(getBounds());
+    consoleComponent->setBounds(getBounds());
+}
+
 void ConsoleGlobal::addText( String text )
 {
     if(text.length() > 1)
