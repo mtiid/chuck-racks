@@ -1,6 +1,6 @@
 // Eric Heep
 // February 14th, 2017
-// syncedMarkovMelody.ck
+// markovMelodySynced.ck
 
 class Markov {
 
@@ -191,7 +191,7 @@ while (true) {
         sin.freq(Std.mtof(chain[i] + rootNote));
 
         //synced with daw (press play)
-   		PluginHost.sixteenth() => now;
+        PluginHost.sixteenth() => now;
     }
     markov.generateChain(base, transitionMatrix, order, range) @=> chain;
 }
