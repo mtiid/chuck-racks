@@ -72,13 +72,11 @@ class Markov {
             return sequence;
         }
         else {
-            int inc;
             int sequence[size$int][order];
             for (0 => int i; i < size; i++) {
                 for (0 => int j; j < order; j++) {
-                    inc/Math.pow(range, j)$int % range => sequence[i][order - j - 1];
+                    i/Math.pow(range, j)$int % range => sequence[i][order - j - 1];
                 }
-                inc++;
             }
 
             return sequence;
