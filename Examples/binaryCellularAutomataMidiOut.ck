@@ -79,8 +79,7 @@ class BinaryCellularAutomata {
         }
         else {
             return (input >> (idx - 1)) & 7;
-        }
-
+	}
     }
 
     fun int generate(int input) {
@@ -138,11 +137,11 @@ fun void midiOn(MidiMsg msg, int num, int val) {
     0x90 => msg.data1;
     num => msg.data2;
     val => msg.data3;
-	PluginHost.sendMidi(msg);
+    PluginHost.sendMidi(msg);
 }
 
 fun void midiOffDelay(MidiMsg msg, int num, dur delay) {
-	delay => now;
+    delay => now;
     0x80 => msg.data1;
     num => msg.data2;
     0 => msg.data3;
