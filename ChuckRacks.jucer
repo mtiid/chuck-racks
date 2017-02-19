@@ -118,12 +118,12 @@
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="10.10 SDK" osxArchitecture="default"
                        isDebug="1" optimisation="1" targetName="ChuckRacks" headerPath="$(PROJECT_DIR)/../../libchuck&#10;$(PROJECT_DIR)/../../libchuck/chuck/src"
-                       libraryPath="$(PROJECT_DIR)/../../libraries/mac" cppLibType="libstdc++"
+                       libraryPath="$(PROJECT_DIR)/../../libraries/mac" cppLibType="libc++"
                        cppLanguageStandard="c++11"/>
         <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="10.10 SDK"
                        osxArchitecture="default" isDebug="0" optimisation="3" targetName="ChuckRacks"
                        headerPath="$(PROJECT_DIR)/../../libchuck&#10;$(PROJECT_DIR)/../../libchuck/chuck/src"
-                       libraryPath="$(PROJECT_DIR)/../../libraries/mac" cppLibType="libstdc++"
+                       libraryPath="$(PROJECT_DIR)/../../libraries/mac" cppLibType="libc++"
                        cppLanguageStandard="c++11" binaryPath=""/>
       </CONFIGURATIONS>
       <MODULEPATHS>
