@@ -97,18 +97,18 @@ void ChuckRacksAudioProcessorEditor::buttonClicked(Button *buttonThatWasPressed)
     if (buttonThatWasPressed==addAllShredsButton)
     {
         DBG("Add all shreds button pressed");
-        getProcessor()->getFileContainerManagerModel()->addAllShreds();
+        getProcessor()->getChuckCodeModelManager()->addAllShreds();
     }
     
     else if (buttonThatWasPressed==removeAllShredsButton)
     {
-        getProcessor()->getFileContainerManagerModel()->removeAllShreds();
+        getProcessor()->getChuckCodeModelManager()->removeAllShreds();
     }
     
     else if (buttonThatWasPressed==addNewFileContainerButton)
     {
-        auto fc = getProcessor()->getFileContainerManagerModel()->addFileContainer();
-        mainView.addNewFileContainerUI(fc);
+        auto fc = getProcessor()->getChuckCodeModelManager()->addFileContainer();
+        mainView.addNewChuckCodeComponent(fc);
     }
     
     else if (buttonThatWasPressed == openParameterListButton){

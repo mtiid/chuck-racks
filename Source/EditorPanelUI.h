@@ -12,7 +12,8 @@
 #define EDITORPANELUI_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "CodeDocumentManagerComponent.h"
+#include "ChuckCodeManagerComponent.h"
+#include "ChuckCodeModelManager.h"
 #include "ConsoleComponent.h"
 
 //==============================================================================
@@ -21,17 +22,17 @@
 class EditorPanelUI    : public Component
 {
 public:
-    EditorPanelUI(FileContainerManagerModel* managerModel);
+    EditorPanelUI(ChuckCodeModelManager* modelManager);
     ~EditorPanelUI();
 
     void paint (Graphics&) override;
     void resized() override;
-    void addNewFileContainerUI(FileContainerModel* fileContainerModel);
+    void addNewChuckCodeComponent(ChuckCodeModel* chuckCodeModel);
 
 private:
     
-    CodeDocumentManagerComponent codeManagerComponent;
-    ConsoleComponent consoleComponent;
+    ChuckCodeManagerComponent codeManagerComponent;
+    ScopedPointer<ConsoleComponent> consoleComponent;
     
     StretchableLayoutManager horizontalLayout;
     StretchableLayoutResizerBar horizontalDividerBar;

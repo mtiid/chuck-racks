@@ -72,12 +72,12 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
             libchuck_vm_start(ck);
         }
         
-        fileContainerManagerModel = new FileContainerManagerModel(ck, this);
+        chuckCodeModelManager = new ChuckCodeModelManager(ck, this);
         
         g_hostInfo->midiInputBufferP = (&midiInputBuffer);
         g_hostInfo->midiOutputBufferP = (&midiOutputBuffer);
         
-        g_pluginParameters->fileContainerManager = fileContainerManagerModel;
+        g_pluginParameters->chuckCodeModelManager = chuckCodeModelManager;
         
         for (int i=0; i<512; i++)
         {
@@ -104,7 +104,7 @@ ChuckRacksAudioProcessor::~ChuckRacksAudioProcessor()
         if(input_buffer) { delete[] input_buffer; input_buffer = NULL; }
         if(output_buffer) { delete[] output_buffer; output_buffer = NULL; }
         
-        delete fileContainerManagerModel;
+        delete chuckCodeModelManager;
     }
     
     instanceCounter->decrementCount();
@@ -460,8 +460,8 @@ void ChuckRacksAudioProcessor::getStateInformation (MemoryBlock& destData)
         // Add FileContainers to XML tree
         XmlElement* fileContainerElement = new XmlElement("FILECONTAINERS");
         
-        for (auto itr : fileContainerManagerModel->fileContainerModelCollection) {
-            FileContainerModel* f = itr.second;
+        for (auto itr : chuckCodeModelManager->chuckCodeModelCollection) {
+            ChuckCodeModel* f = itr.second;
             if (f != nullptr) {
                 fileContainerElement->setAttribute(Identifier(String("C")+String(itr.first)), String(f->getCodeDocument().getAllContent()));
             }
@@ -511,7 +511,7 @@ void ChuckRacksAudioProcessor::setStateInformation (const void* data, int sizeIn
                     {
                         DBG("restoring filecontainers...") ;
                         for (int i=0; i<child->getNumAttributes(); ++i) {
-                            FileContainerModel* f = fileContainerManagerModel->addFileContainer();
+                            ChuckCodeModel* f = chuckCodeModelManager->addFileContainer();
                             f->getCodeDocument().replaceAllContent(child->getStringAttribute(child->getAttributeName(i)));
                         }
                     }

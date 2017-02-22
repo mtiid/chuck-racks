@@ -24,7 +24,6 @@ ConsoleComponent::ConsoleComponent(){
 }
 
 ConsoleComponent::~ConsoleComponent(){
-    
 }
 
 void ConsoleComponent::paint (Graphics& g){
@@ -58,4 +57,8 @@ void ConsoleComponent::updateText()
         consoleEditor->moveCaretToEnd();
         
     }
+}
+
+void ConsoleComponent::consoleMessageCallback(String msg){
+    addText(msg);
 }

@@ -30,24 +30,24 @@
     </GROUP>
     <GROUP id="{D0073CB7-6ED0-2BAE-61D7-940DBA09947F}" name="Source">
       <GROUP id="{C2FEEE1C-55F6-83CB-019D-970EBE61C249}" name="main">
-        <FILE id="cMbin7" name="FileContainerManagerModel.cpp" compile="1"
-              resource="0" file="Source/FileContainerManagerModel.cpp"/>
-        <FILE id="KI4Ffx" name="FileContainerManagerModel.h" compile="0" resource="0"
-              file="Source/FileContainerManagerModel.h"/>
-        <FILE id="CzbKlu" name="FileContainerModel.cpp" compile="1" resource="0"
-              file="Source/FileContainerModel.cpp"/>
-        <FILE id="NZ3F1Z" name="FileContainerModel.h" compile="0" resource="0"
-              file="Source/FileContainerModel.h"/>
+        <FILE id="cMbin7" name="ChuckCodeModelManager.cpp" compile="1" resource="0"
+              file="Source/ChuckCodeModelManager.cpp"/>
+        <FILE id="KI4Ffx" name="ChuckCodeModelManager.h" compile="0" resource="0"
+              file="Source/ChuckCodeModelManager.h"/>
+        <FILE id="CzbKlu" name="ChuckCodeModel.cpp" compile="1" resource="0"
+              file="Source/ChuckCodeModel.cpp"/>
+        <FILE id="NZ3F1Z" name="ChuckCodeModel.h" compile="0" resource="0"
+              file="Source/ChuckCodeModel.h"/>
         <FILE id="v9FbfI" name="PluginProcessor.cpp" compile="1" resource="0"
               file="Source/PluginProcessor.cpp"/>
         <FILE id="HaQxhO" name="PluginProcessor.h" compile="0" resource="0"
               file="Source/PluginProcessor.h"/>
       </GROUP>
       <GROUP id="{B23D9CAC-7F47-44FE-6887-62B360440FB4}" name="UI">
-        <FILE id="k34etH" name="CodeDocumentManagerComponent.cpp" compile="1"
-              resource="0" file="Source/CodeDocumentManagerComponent.cpp"/>
-        <FILE id="mWeTEh" name="CodeDocumentManagerComponent.h" compile="0"
-              resource="0" file="Source/CodeDocumentManagerComponent.h"/>
+        <FILE id="k34etH" name="ChuckCodeManagerComponent.cpp" compile="1"
+              resource="0" file="Source/ChuckCodeManagerComponent.cpp"/>
+        <FILE id="mWeTEh" name="ChuckCodeManagerComponent.h" compile="0" resource="0"
+              file="Source/ChuckCodeManagerComponent.h"/>
         <FILE id="m747HT" name="EditorPanelUI.cpp" compile="1" resource="0"
               file="Source/EditorPanelUI.cpp"/>
         <FILE id="pp6xHu" name="EditorPanelUI.h" compile="0" resource="0" file="Source/EditorPanelUI.h"/>
@@ -70,12 +70,16 @@
               file="Source/CustomLookAndFeel.cpp"/>
         <FILE id="Bnjg1a" name="CustomLookAndFeel.h" compile="0" resource="0"
               file="Source/CustomLookAndFeel.h"/>
-        <FILE id="R4G386" name="FileContainerUI.cpp" compile="1" resource="0"
-              file="Source/FileContainerUI.cpp"/>
-        <FILE id="xFaubs" name="FileContainerUI.h" compile="0" resource="0"
-              file="Source/FileContainerUI.h"/>
+        <FILE id="R4G386" name="ChuckCodeComponent.cpp" compile="1" resource="0"
+              file="Source/ChuckCodeComponent.cpp"/>
+        <FILE id="xFaubs" name="ChuckCodeComponent.h" compile="0" resource="0"
+              file="Source/ChuckCodeComponent.h"/>
       </GROUP>
       <GROUP id="{0BC81339-FAE6-5E28-35C5-650F3530477F}" name="other">
+        <FILE id="xyj9bb" name="ConsoleListener.cpp" compile="1" resource="0"
+              file="Source/ConsoleListener.cpp"/>
+        <FILE id="wRcqTu" name="ConsoleListener.h" compile="0" resource="0"
+              file="Source/ConsoleListener.h"/>
         <FILE id="YfzBVZ" name="Counter.cpp" compile="1" resource="0" file="Source/Counter.cpp"/>
         <FILE id="Irsltj" name="Counter.h" compile="0" resource="0" file="Source/Counter.h"/>
         <FILE id="D8L9oz" name="FileManager.cpp" compile="1" resource="0" file="Source/FileManager.cpp"/>

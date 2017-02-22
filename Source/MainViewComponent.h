@@ -24,7 +24,7 @@ public:
     void resized();
     
     void toggleParamListVisibility();
-    void addNewFileContainerUI(FileContainerModel* fileContainerModel);
+    void addNewChuckCodeComponent(ChuckCodeModel* chuckCodeModel);
     
 private:
     ChuckRacksAudioProcessor* processor;

@@ -37,7 +37,7 @@ namespace BinaryData
     const int            addcodeeditorDown_svgSize = 1130;
 
     extern const char*   libchuck_a;
-    const int            libchuck_aSize = 25039824;
+    const int            libchuck_aSize = 7224920;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

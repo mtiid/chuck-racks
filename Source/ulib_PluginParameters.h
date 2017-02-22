@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include "chuck_dl.h"
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "FileContainerManagerModel.h"
+#include "ChuckCodeModelManager.h"
 #include "PluginProcessor.h"
 
 
@@ -25,7 +25,7 @@ public:
     PluginParameters();
     ~PluginParameters();
     
-    ScopedPointer<FileContainerManagerModel> fileContainerManager;
+    ScopedPointer<ChuckCodeModelManager> chuckCodeModelManager;
 };
 
 

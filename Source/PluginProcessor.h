@@ -15,7 +15,7 @@
 
 #include "libchuck.h"
 #include "CodeEditorDemo.h"
-#include "FileContainerManagerModel.h"
+#include "ChuckCodeModelManager.h"
 #include "Defines.h"
 #include "FloatParameter.h"
 #include "Counter.h"
@@ -71,7 +71,7 @@ public:
     //*********************************************************************
 
     
-    FileContainerManagerModel* getFileContainerManagerModel(){return fileContainerManagerModel;};
+    ChuckCodeModelManager* getChuckCodeModelManager(){return chuckCodeModelManager;};
     AudioProcessor * getProcessor() { return this; };
     
     std::map<int, String>* getParameterListModel(){return parameterListModel;};
@@ -92,7 +92,7 @@ private:
     
     AudioPlayHead::CurrentPositionInfo lastPosInfo;
 
-    FileContainerManagerModel*  fileContainerManagerModel;
+    ChuckCodeModelManager*  chuckCodeModelManager;
     std::map<int, String>* parameterListModel;
 
     //AudioProcessorValueTreeState parameters;

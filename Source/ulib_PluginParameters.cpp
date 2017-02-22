@@ -34,7 +34,7 @@ CK_DLL_SFUN(pluginParameters_getValue)
     
     Chuck_String* paramName = (Chuck_String*)GET_NEXT_OBJECT(ARGS);
 
-    ChuckRacksAudioProcessor* proc = static_cast<ChuckRacksAudioProcessor*>(g_pluginParameters->fileContainerManager->processor);
+    ChuckRacksAudioProcessor* proc = static_cast<ChuckRacksAudioProcessor*>(g_pluginParameters->chuckCodeModelManager->processor);
     
     float val = proc->getParamValue( String(paramName->str) );
     

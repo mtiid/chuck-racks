@@ -12,10 +12,11 @@
 #include "EditorPanelUI.h"
 
 //==============================================================================
-EditorPanelUI::EditorPanelUI(FileContainerManagerModel* managerModel):
-    codeManagerComponent(managerModel),
+EditorPanelUI::EditorPanelUI(ChuckCodeModelManager* modelManager):
+    codeManagerComponent(modelManager),
     horizontalDividerBar (&horizontalLayout, 1, false)
 {
+    consoleComponent = new ConsoleComponent();
     addAndMakeVisible(codeManagerComponent);
     addAndMakeVisible(consoleComponent);
     addAndMakeVisible(horizontalDividerBar);
@@ -41,7 +42,7 @@ void EditorPanelUI::resized()
     Rectangle<int> r (getLocalBounds().reduced (0));
     
     // make a list of two of our child components that we want to reposition
-    Component* comps[] = { &codeManagerComponent, &horizontalDividerBar, &consoleComponent };
+    Component* comps[] = { &codeManagerComponent, &horizontalDividerBar, consoleComponent.get() };
     
     // this will position the 3 components, one above the other, to fit
     // vertically into the rectangle provided.
@@ -50,7 +51,8 @@ void EditorPanelUI::resized()
                                        true, true);
 }
 
-void EditorPanelUI::addNewFileContainerUI(FileContainerModel* fileContainerModel){
-    codeManagerComponent.addNewFileContainerUI(fileContainerModel);
+void EditorPanelUI::addNewChuckCodeComponent(ChuckCodeModel* chuckCodeModel){
+    codeManagerComponent.addNewChuckCodeComponent(chuckCodeModel);
+    chuckCodeModel->addListener(consoleComponent);
 }
 

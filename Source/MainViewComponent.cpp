@@ -11,7 +11,7 @@
 MainViewComponent::MainViewComponent(ChuckRacksAudioProcessor* processor_) :
     processor(processor_),
     verticalDividerBar (&verticalLayout, 1, true),
-    editorArea(processor->getFileContainerManagerModel()),
+    editorArea(processor->getChuckCodeModelManager()),
     parameterUI(processor_)
 
 {
@@ -47,8 +47,8 @@ void MainViewComponent::toggleParamListVisibility()
     refresh(parameterUI.isVisible());
 }
 
-void MainViewComponent::addNewFileContainerUI(FileContainerModel* fileContainerModel){
-    editorArea.addNewFileContainerUI(fileContainerModel);
+void MainViewComponent::addNewChuckCodeComponent(ChuckCodeModel* chuckCodeModel){
+    editorArea.addNewChuckCodeComponent(chuckCodeModel);
 }
 
 
