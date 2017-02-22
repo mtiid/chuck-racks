@@ -15,16 +15,12 @@
 
 //==============================================================================
 ChuckRacksAudioProcessorEditor::ChuckRacksAudioProcessorEditor (ChuckRacksAudioProcessor* ownerFilter)
-: AudioProcessorEditor (ownerFilter)
+: AudioProcessorEditor (ownerFilter), mainView(getProcessor())
 {
     LookAndFeel::setDefaultLookAndFeel(new CustomLookAndFeel());
     
     // This is where our plugin's editor size is set.
-    setSize (600, 700);
-    
-    addAndMakeVisible(managerUI=new FileContainerManagerUI(getProcessor()->getFileContainerManagerModel()));
-    managerUI->setBounds(0,40, getWidth(), getHeight()-40);
-    managerUI->init();
+    setSize (650, 700);
     
     addAllShredsButton = new DrawableButton("Add All Shreds", DrawableButton::ButtonStyle::ImageFitted);
     ScopedPointer<XmlElement> addAllShredSVGUp(XmlDocument::parse(BinaryData::addshrediconUp_svg));
@@ -69,18 +65,13 @@ ChuckRacksAudioProcessorEditor::ChuckRacksAudioProcessorEditor (ChuckRacksAudioP
     openParameterListButton->setColour(DrawableButton::backgroundOnColourId, Colour(0.0f,0.0f,0.0f,1.0f));
     openParameterListButton->setColour(DrawableButton::backgroundColourId, Colour(0.0f,0.0f,0.0f,1.0f));
     addAndMakeVisible(openParameterListButton);
-    openParameterListButton->setBounds(566, 4, 32, 32);
+    openParameterListButton->setBounds(getWidth()-32, 4, 32, 32);
     openParameterListButton->addListener(this);
-    
-    
-    parameterUI = new ParameterMapUI(getProcessor());
-
-    parameterUI->setBounds(getWidth()-370, 40, 370, getBottom()-40);
-    addChildComponent(parameterUI);
-    //addAndMakeVisible(parameterUI);
     
     startTimer(50);
     timerCallback();
+    
+    addAndMakeVisible(&mainView);
 }
 
 ChuckRacksAudioProcessorEditor::~ChuckRacksAudioProcessorEditor()
@@ -98,7 +89,7 @@ void ChuckRacksAudioProcessorEditor::paint (Graphics& g)
 
 void ChuckRacksAudioProcessorEditor::resized()
 {
-    
+    mainView.setBounds( 0, 40, getWidth(), getHeight() - 40 );
 }
 
 void ChuckRacksAudioProcessorEditor::buttonClicked(Button *buttonThatWasPressed)
@@ -117,16 +108,12 @@ void ChuckRacksAudioProcessorEditor::buttonClicked(Button *buttonThatWasPressed)
     else if (buttonThatWasPressed==addNewFileContainerButton)
     {
         auto fc = getProcessor()->getFileContainerManagerModel()->addFileContainer();
-        managerUI->addNewFileContainerUI(fc);
-        //getProcessor()->updateParamNames();
-        //managerUI->addNewFileContainerUI(getProcessor()->getFileContainerManagerModel()->fileContainerModels.back());
+        mainView.addNewFileContainerUI(fc);
     }
     
     else if (buttonThatWasPressed == openParameterListButton){
-        parameterUI->setVisible(openParameterListButton->getToggleState());
+        mainView.toggleParamListVisibility();
     }
-        
-    
     
     //if (buttonThatWasPressed==browseCodeButton) {
     //    getProcessor()->fileManager.openBrowser();

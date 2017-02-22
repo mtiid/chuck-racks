@@ -13,8 +13,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
-#include "FileContainerManagerUI.h"
 #include "ParameterMapUI.h"
+#include "MainViewComponent.h"
 
 //==============================================================================
 /**
@@ -39,13 +39,6 @@ public:
         
     }
     
-    //ScopedPointer<TextButton> addAllShredsButton;
-    ScopedPointer<TextButton> browseCodeButton;
-    //ScopedPointer<TextButton> removeShredButton;
-    //ScopedPointer<TextButton> addFileContainerButton;
-    
-    ScopedPointer<FileContainerManagerUI> managerUI;
-    
     void buttonClicked(Button* buttonThatWasPressed) override;
     String lastFileLoaded;
     
@@ -58,9 +51,13 @@ private:
     ScopedPointer<DrawableButton> removeAllShredsButton;
     ScopedPointer<DrawableButton> addNewFileContainerButton;
     ScopedPointer<DrawableButton> openParameterListButton;
-
     
-    ScopedPointer<ParameterMapUI> parameterUI;
+    //ScopedPointer<TextButton> addAllShredsButton;
+    ScopedPointer<TextButton> browseCodeButton;
+    //ScopedPointer<TextButton> removeShredButton;
+    //ScopedPointer<TextButton> addFileContainerButton;
+    
+    MainViewComponent mainView;
 };
 
 

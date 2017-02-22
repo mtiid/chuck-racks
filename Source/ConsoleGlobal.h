@@ -22,7 +22,7 @@ public:
     
     static ConsoleGlobal * Instance()
     {
-        if(instance == NULL)
+        if(instance == nullptr)
         {
             instance = new ConsoleGlobal();
         }
@@ -37,9 +37,11 @@ public:
     void resized() override;
     
 private:
-    ScopedPointer<ResizableEdgeComponent> componentResizer;
     TextEditor * consoleComponent;
     String fullText;
+    
+    ScopedPointer<ResizableEdgeComponent> consoleResizer;
+    ScopedPointer<ComponentBoundsConstrainer> consoleContrainer;
     
 };
 

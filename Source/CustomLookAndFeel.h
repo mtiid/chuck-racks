@@ -25,7 +25,8 @@ private:
     void drawTableHeaderColumn (Graphics& g, const String& columnName, int /*columnId*/,
                                 int width, int height, bool isMouseOver, bool isMouseDown,
                                 int columnFlags) override;
-
+    void drawStretchableLayoutResizerBar (Graphics& g, int /*w*/, int /*h*/, bool /*isVerticalBar*/,
+                                          bool isMouseOver, bool isMouseDragging) override;
 };
 
 #endif /* defined(__ChuckRacks__CustomLookAndFeel__) */

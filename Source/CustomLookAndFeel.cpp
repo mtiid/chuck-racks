@@ -14,7 +14,7 @@ CustomLookAndFeel::CustomLookAndFeel()
     Colour bgDark(38, 40, 49);
     Colour bgLight(100, 106, 127);
     
-    Colour customGreen(62, 172, 133);
+    Colour crGreen(62, 172, 133);
 
     // Window
     this->setColour(ScrollBar::trackColourId, Colours::red);
@@ -131,4 +131,11 @@ void CustomLookAndFeel::drawTableHeaderColumn (Graphics& g, const String& column
     }else{
         g.drawFittedText (columnName, area, Justification::centredLeft, 1);
     }
+}
+
+void CustomLookAndFeel::drawStretchableLayoutResizerBar (Graphics& g, int /*w*/, int /*h*/, bool /*isVerticalBar*/,
+                                 bool isMouseOver, bool isMouseDragging)
+{
+    if (isMouseOver || isMouseDragging)
+        g.fillAll (Colour(100, 106, 127).withAlpha (0.6f));
 }

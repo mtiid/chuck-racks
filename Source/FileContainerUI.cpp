@@ -9,36 +9,9 @@
 #include "FileContainerUI.h"
 #include "Defines.h"
 
-FileContainerUI::FileContainerUI(FileContainerModel* fileContainerModel) :
-//filenameComponent("File", File::nonexistent, true, false, false, "*.ck", String::empty,"Choose a ChucK file to open it in the editor"),
-editorWidth(600),
-editorHeight(600)
+FileContainerUI::FileContainerUI(FileContainerModel* fileContainerModel)
 {
     mFileContainerModel = fileContainerModel;
-    mCodeEditorVisible = mFileContainerModel->getCanBeEdited();
-}
-
-void FileContainerUI::init(){
-    updateSize();
-    
-    ScopedPointer<XmlElement> expandSVGUp(XmlDocument::parse(BinaryData::collapse_svg));
-    ScopedPointer<XmlElement> collapseSVGDown(XmlDocument::parse(BinaryData::expand_svg));
-    showHideCodeEditorButton = new DrawableButton("Show/Hide Editor", DrawableButton::ButtonStyle::ImageFitted);
-    showHideCodeEditorButton->setClickingTogglesState(true);
-    showHideCodeEditorButton->setToggleState(true, dontSendNotification);
-    showHideCodeEditorButton->setImages(Drawable::createFromSVG(*expandSVGUp),
-                                        nullptr,
-                                        Drawable::createFromSVG(*collapseSVGDown),
-                                        nullptr,
-                                        Drawable::createFromSVG(*collapseSVGDown),
-                                        nullptr,
-                                        Drawable::createFromSVG(*expandSVGUp),
-                                        nullptr);
-    
-    showHideCodeEditorButton->setColour(DrawableButton::backgroundOnColourId, Colour(0.0f,0.0f,0.0f,0.0f));
-    addAndMakeVisible(showHideCodeEditorButton);
-    showHideCodeEditorButton->setBounds(2, 5, 20,20);
-    showHideCodeEditorButton->addListener(this);
     
     addShredButton = new DrawableButton("Add Shreds", DrawableButton::ButtonStyle::ImageFitted);
     ScopedPointer<XmlElement> addShredSVGUp(XmlDocument::parse(BinaryData::addshrediconUp_svg));
@@ -46,45 +19,42 @@ void FileContainerUI::init(){
     
     addShredButton->setImages(Drawable::createFromSVG(*addShredSVGUp), Drawable::createFromSVG(*addShredSVGUp), Drawable::createFromSVG(*addShredSVGDown));
     addAndMakeVisible(addShredButton);
-    addShredButton->setBounds(28, 5, 20,20);
     addShredButton->addListener(this);
     
     
-     /*removeShredButton = new DrawableButton("Remove All Shreds", DrawableButton::ButtonStyle::ImageFitted);
+    /*removeShredButton = new DrawableButton("Remove All Shreds", DrawableButton::ButtonStyle::ImageFitted);
      ScopedPointer<XmlElement> removeShredSVGUp(XmlDocument::parse(BinaryData::removeAllShredUp_svg));
      ScopedPointer<XmlElement> removeShredSVGDown(XmlDocument::parse(BinaryData::removeAllShredDown_svg));
      removeShredButton->setImages(Drawable::createFromSVG(*removeShredSVGUp), Drawable::createFromSVG(*removeShredSVGUp), Drawable::createFromSVG(*removeShredSVGDown));
      addAndMakeVisible(removeShredButton);
      removeShredButton->setBounds(52, 5, 20, 20);
      removeShredButton->addListener(this);
-    */
+     */
     
     saveFileButton = new TextButton("Save");
     addAndMakeVisible(saveFileButton);
     saveFileButton->setButtonText("Save");
-    saveFileButton->setBounds(getWidth()-60, 5, 56,20);
     saveFileButton->addListener(this);
     
     openFileButton = new TextButton("Load");
     addAndMakeVisible(openFileButton);
     openFileButton->setButtonText("Load");
-    openFileButton->setBounds(saveFileButton->getX()-58, 5, 56,20);
     openFileButton->addListener(this);
     
     // Create the editor..
-    addChildComponent(codeEditor = new CodeEditorComponent (mFileContainerModel->getCodeDocument(),
+    addAndMakeVisible(codeEditor = new CodeEditorComponent (mFileContainerModel->getCodeDocument(),
                                                             &ckTokeniser));
-
+    
     codeEditor->setFont(Font(Font::getDefaultMonospacedFontName(), 14.0, 0));
     
     if (codeEditor->getDocument().getAllContent().isEmpty()) {
         codeEditor->loadContent(
                                 //        (
-                               // "//my id:"
-                               // + String(mFileContainerModel->getUniqueFCId()) +
-                               // "\n"
-                               // + String(mFileContainerModel->getUniqueFCId()) +
-                               // " => int myId; \n"
+                                // "//my id:"
+                                // + String(mFileContainerModel->getUniqueFCId()) +
+                                // "\n"
+                                // + String(mFileContainerModel->getUniqueFCId()) +
+                                // " => int myId; \n"
                                 //                                 "/*"
                                 //                                 "\n"
                                 //                                 "   Type in your ChucK code\n"
@@ -135,120 +105,28 @@ void FileContainerUI::init(){
     }else {
         codeEditor->loadContent(mFileContainerModel->getCodeDocument().getAllContent());
         //std::cout << "content loaded" << std::endl;
-    }
-    
-    
-#ifdef  USE_VER1_KNOBS
-    for(int i=0; i<knobAmount; i++)
-    {
-        knobs.add(new Slider("knob"+String(i)));
-        //knobs.push_back(new Slider("knob"+String(i)));
-        addAndMakeVisible(knobs.getLast());
-        //addAndMakeVisible(knobs.back());
-        
-        knobs.getLast()->setRange(0.0, 1.0);
-        knobs.getLast()->setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
-        knobs.getLast()->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
-        knobs.getLast()->setColour(Slider::rotarySliderFillColourId, Colours::black);
-        knobs.getLast()->setColour(Slider::rotarySliderOutlineColourId, Colours::black);
-        knobs.getLast()->addListener(this);
-        if(i<knobsPerRow)
-        {
-            knobs.getLast()->setBounds(knobStartX+(i*(knobSpacing+knobSize)), knobStartY, knobSize, knobSize);
-        }
-        else
-        {
-            knobs.getLast()->setBounds(knobStartX+((i-knobsPerRow)*(knobSpacing+knobSize)), knobStartY+(knobSpacing+knobSize), knobSize, knobSize);
-        }
-        
-    }
-#endif //USE_VER1_KNOBS
-    
-    switch ( currentViewMode ) {
-        case AppViewMode::RackView:
-            codeEditor->setBounds( 1, 30, editorWidth-2, editorHeight-31 );
-            break;
-        case AppViewMode::TabView:
-            codeEditor->setBounds( 1, 30, editorWidth-2, editorHeight );
-            break;
-        default:
-            break;
-    }
-    
-    codeEditor->setVisible( mCodeEditorVisible );
-    
-    // Create a file chooser control to load files into it..
-    //addAndMakeVisible (filenameComponent);
-    //filenameComponent.addListener (this);
-    
-    startTimer( 50 );
+    }    
 }
-
-
 
 FileContainerUI::~FileContainerUI()
 {
-    //filenameComponent.removeListener(this);
 }
 
 void FileContainerUI::paint( Graphics& g )
 {
-    if ( mCodeEditorVisible )
-    {
-        g.fillAll(Colour(100, 106, 127));
-    }else{
-        g.fillAll(Colour(50, 53, 64));
-    }
-    
+    g.fillAll(Colour(100, 106, 127));
     g.setColour(Colour(40, 43, 34));
     g.drawRect(getLocalBounds(), 1);
 }
 
-void FileContainerUI::updateSize()
-{
-    switch (currentViewMode)
-    {
-        case AppViewMode::RackView :
-            editorHeight = 410;
-            break;
-        case AppViewMode::TabView :
-            editorHeight = 629;
-            break;
-        default:
-            break;
-    }
-    
-    if (mCodeEditorVisible)
-    {
-        setSize(editorWidth, editorHeight);
-    }else{
-        setSize(editorWidth, 30);
-    }
+void FileContainerUI::resized(){
+    addShredButton->setBounds(28, 5, 20,20);
+    saveFileButton->setBounds(getWidth()-59, 5, 56,20);
+    openFileButton->setBounds(saveFileButton->getX()-58, 5, 56,20);
+    codeEditor->setBounds( 1, 30, getWidth()-4, getHeight()-30 );
 }
 
 
-void FileContainerUI::timerCallback()
-{
-#ifdef USE_VER1_KNOBS
-    for( int i=0; i<knobs.size(); i++ )
-    {
-        knobs[i]->setValue(mFileContainerModel->knobParameters.at(i)->getValue(), dontSendNotification);
-    }
-#endif //USE_VER1_KNOBS
-}
-
-void FileContainerUI::sliderValueChanged(juce::Slider *slider)
-{
-    for(int i=0; i<knobs.size(); i++)
-    {
-        if(slider == knobs[i])
-        {
-            mFileContainerModel->knobParameters.at(i)->beginChangeGesture();
-            mFileContainerModel->knobParameters.at(i)->setValueNotifyingHost(slider->getValue());
-            mFileContainerModel->knobParameters.at(i)->endChangeGesture();
-        }
-    }
-}
 
 
 void FileContainerUI::filenameComponentChanged (FilenameComponent*)
@@ -259,15 +137,7 @@ void FileContainerUI::filenameComponentChanged (FilenameComponent*)
 void FileContainerUI::buttonClicked(Button *buttonThatWasPressed)
 {
     
-    if (buttonThatWasPressed == showHideCodeEditorButton) {
-        mCodeEditorVisible = showHideCodeEditorButton->getToggleState();
-        codeEditor->setVisible(mCodeEditorVisible);
-        mFileContainerModel->setCanBeEdited(mCodeEditorVisible);
-        updateSize();
-        sendChangeMessage();
-    }
-    
-    else if ( buttonThatWasPressed == addShredButton )
+    if ( buttonThatWasPressed == addShredButton )
     {
         mFileContainerModel->addShred();
     }
@@ -315,11 +185,4 @@ void FileContainerUI::buttonClicked(Button *buttonThatWasPressed)
         }
     }
 }
-
-void FileContainerUI::setViewMode( AppViewMode vm )
-{
-    currentViewMode = vm;
-}
-
-
 

@@ -44,6 +44,17 @@
               file="Source/PluginProcessor.h"/>
       </GROUP>
       <GROUP id="{B23D9CAC-7F47-44FE-6887-62B360440FB4}" name="UI">
+        <FILE id="k34etH" name="CodeDocumentManagerComponent.cpp" compile="1"
+              resource="0" file="Source/CodeDocumentManagerComponent.cpp"/>
+        <FILE id="mWeTEh" name="CodeDocumentManagerComponent.h" compile="0"
+              resource="0" file="Source/CodeDocumentManagerComponent.h"/>
+        <FILE id="m747HT" name="EditorPanelUI.cpp" compile="1" resource="0"
+              file="Source/EditorPanelUI.cpp"/>
+        <FILE id="pp6xHu" name="EditorPanelUI.h" compile="0" resource="0" file="Source/EditorPanelUI.h"/>
+        <FILE id="s9fGU9" name="ConsoleComponent.cpp" compile="1" resource="0"
+              file="Source/ConsoleComponent.cpp"/>
+        <FILE id="Rnnin5" name="ConsoleComponent.h" compile="0" resource="0"
+              file="Source/ConsoleComponent.h"/>
         <FILE id="CyqqZC" name="ParameterMapUI.cpp" compile="1" resource="0"
               file="Source/ParameterMapUI.cpp"/>
         <FILE id="BJ1HEd" name="ParameterMapUI.h" compile="0" resource="0"
@@ -63,10 +74,6 @@
               file="Source/FileContainerUI.cpp"/>
         <FILE id="xFaubs" name="FileContainerUI.h" compile="0" resource="0"
               file="Source/FileContainerUI.h"/>
-        <FILE id="zmIVB0" name="FileContainerManagerUI.cpp" compile="1" resource="0"
-              file="Source/FileContainerManagerUI.cpp"/>
-        <FILE id="VyDcV8" name="FileContainerManagerUI.h" compile="0" resource="0"
-              file="Source/FileContainerManagerUI.h"/>
       </GROUP>
       <GROUP id="{0BC81339-FAE6-5E28-35C5-650F3530477F}" name="other">
         <FILE id="YfzBVZ" name="Counter.cpp" compile="1" resource="0" file="Source/Counter.cpp"/>

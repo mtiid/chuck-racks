@@ -10,9 +10,9 @@
 
 #include "ParameterMapUI.h"
 
-ParameterMapUI::ParameterMapUI(AudioProcessor* p_) : numRows(0)
+ParameterMapUI::ParameterMapUI(AudioProcessor* processor_) : numRows(0)
 {
-    processor = static_cast<ChuckRacksAudioProcessor*>(p_);
+    processor = static_cast<ChuckRacksAudioProcessor*>(processor_);
     parameterListModel = processor->getParameterListModel();
     addAndMakeVisible(table);
     table.setRowHeight (20);

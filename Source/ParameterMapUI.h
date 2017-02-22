@@ -21,7 +21,7 @@ class ParameterMapUI :  public Component,
 {
     
 public:
-    ParameterMapUI(AudioProcessor* p_);
+    ParameterMapUI(AudioProcessor* processor_);
     ~ParameterMapUI();
     
     void paint (Graphics &) override;
