@@ -12,10 +12,10 @@
 #define CONSOLECOMPONENT_H_INCLUDED
 
 #include "JuceHeader.h"
-#include "ConsoleListener.h"
+#include "ConsoleMessage.h"
 
 class ConsoleComponent :    public Component,
-                            public ConsoleListener
+                            public MessageListener
 {
     
 public:
@@ -28,7 +28,9 @@ public:
     void addText( String text );
     void updateText();
     
-    void consoleMessageCallback(String msg) override;
+    void handleMessage (const Message & message);
+
+    //void consoleMessageCallback(String msg) override;
     
 private:
     ScopedPointer<TextEditor> consoleEditor;

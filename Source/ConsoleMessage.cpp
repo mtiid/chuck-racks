@@ -1,23 +1,20 @@
 /*
   ==============================================================================
 
-    ConsoleListener.cpp
+    ConsoleMessage.cpp
     Created: 21 Feb 2017 10:27:44pm
     Author:  Jordan Hochenbaum
 
   ==============================================================================
 */
 
-#include "ConsoleListener.h"
+#include "ConsoleMessage.h"
 
-ConsoleListener::ConsoleListener(){
+ConsoleMessage::ConsoleMessage(String newText) : text(newText)
+{
     
 }
 
-ConsoleListener::~ConsoleListener(){
-    
-}
-
-void ConsoleListener::consoleMessageCallback(String msg){
+ConsoleMessage::~ConsoleMessage(){
     
 }

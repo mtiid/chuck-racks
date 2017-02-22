@@ -58,7 +58,7 @@ private:
     int uniqueFileContainerId;
 
     ListenerList<ConsoleComponent> listeners;
-
+    ConsoleComponent* consoleComponent;
 };
 
 #endif /* defined(__ChuckRacks__ChuckCodeModel__) */

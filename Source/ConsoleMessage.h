@@ -1,28 +1,26 @@
 /*
   ==============================================================================
 
-    ConsoleListener.h
+    ConsoleMessage.h
     Created: 21 Feb 2017 10:27:44pm
     Author:  Jordan Hochenbaum
 
   ==============================================================================
 */
 
-#ifndef CONSOLELISTENER_H_INCLUDED
-#define CONSOLELISTENER_H_INCLUDED
+#ifndef CONSOLEMESSAGE_H_INCLUDED
+#define CONSOLEMESSAGE_H_INCLUDED
 
 #include "JuceHeader.h"
 
-class ConsoleListener{
+class ConsoleMessage : public Message{
     
 public:
-    ConsoleListener();
-    virtual ~ConsoleListener();
-    
-    virtual void consoleMessageCallback(String msg);
+    ConsoleMessage(String newText);
+    ~ConsoleMessage();
     
 private:
-    
+    String text;
 };
 
 

@@ -54,6 +54,8 @@ void ChuckCodeModel::addShred()
         
     }
     
+    if (consoleComponent)
+        consoleComponent->addText(text);
     ///listeners.call(&ConsoleComponent::consoleMessageCallback, text);
 
 }
@@ -148,10 +150,12 @@ CodeDocument& ChuckCodeModel::getCodeDocument()
 }
 
 void ChuckCodeModel::addListener(ConsoleComponent* listenerToAdd){
-    listeners.add(listenerToAdd);
+    consoleComponent = listenerToAdd;
+    //listeners.add(listenerToAdd);
 }
 
 void ChuckCodeModel::removeListener(ConsoleComponent* listenerToRemove){
-    listeners.remove(listenerToRemove);
+    delete consoleComponent;
+    //listeners.remove(listenerToRemove);
 }
 

@@ -59,6 +59,10 @@ void ConsoleComponent::updateText()
     }
 }
 
-void ConsoleComponent::consoleMessageCallback(String msg){
-    addText(msg);
+void ConsoleComponent::handleMessage (const Message & message){
+    
 }
+
+/*void ConsoleComponent::consoleMessageCallback(String msg){
+    addText(msg);
+}*/
