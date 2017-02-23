@@ -8,7 +8,7 @@
 
 #include "ConsoleGlobal.h"
 
-ConsoleGlobal * ConsoleGlobal::instance = NULL;
+ConsoleGlobal * ConsoleGlobal::instance = nullptr;
 
 ConsoleGlobal::ConsoleGlobal(){
     consoleContrainer = new ComponentBoundsConstrainer();

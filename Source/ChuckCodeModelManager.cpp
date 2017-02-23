@@ -26,7 +26,6 @@ ChuckCodeModel* ChuckCodeModelManager::addFileContainer()
     chuckCodeModelCollection.insert( std::make_pair(fc->getUniqueFCId(), fc) );
     
     return fc;
-    //fileContainerModels.push_back( new ChuckCodeModel(ck, processor) );
 }
 
 
@@ -34,13 +33,6 @@ void ChuckCodeModelManager::removeFileContainer( ChuckCodeModel* fc )
 {
     chuckCodeModelCollection.erase( fc->getUniqueFCId() );
     delete fc;
-    /*for ( int i=0; i<fileContainerModels.size(); i++ )
-    {
-        if (fileContainerModels[i] == whichPointer) {
-            fileContainerModels.erase( fileContainerModels.begin() + i );
-            break;
-        }
-    }*/
 }
 
 
@@ -48,7 +40,8 @@ void ChuckCodeModelManager::removeFileContainer( ChuckCodeModel* fc )
 void ChuckCodeModelManager::addAllShreds()
 {
     for (auto it : chuckCodeModelCollection)
-        it.second->addShred();
+        if (it.second != nullptr)
+            it.second->addShred();
 }
 
 void ChuckCodeModelManager::removeAllShreds()

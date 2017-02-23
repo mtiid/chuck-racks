@@ -181,7 +181,6 @@ void ChuckCodeComponent::buttonClicked(Button *buttonThatWasPressed)
                                               "File Chooser...",
                                               "You picked: " + chosen);
             codeEditor->loadContent(fc.getResult().loadFileAsString());
-            //mChuckCodeModel->codeDocument.
         }
     }
 }

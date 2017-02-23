@@ -27,14 +27,13 @@ ChuckCodeModel::ChuckCodeModel(chuck_inst* ck_,
 }
 
 ChuckCodeModel::~ChuckCodeModel(){
-    listeners.clear();
 }
 
 void ChuckCodeModel::addShred()
 {
     String text;
     chuck_result result = libchuck_add_shred(ck, filePath.toRawUTF8(), codeDocument.getAllContent().toRawUTF8());
-    std::cout << "result type: " << result.type << " result id" << result.shred_id << "\n";
+    std::cout << "result type: " << result.type << " result id " << result.shred_id << "\n";
     //libchuck_add_shred(ck, fileChooser->getFullPathName().toRawUTF8(),
     //codeEditorDemo->codeDocument.getAllContent().toRawUTF8());
     if(result.type == chuck_result::OK || result.type == chuck_result::ERR_TIMEOUT)
@@ -48,14 +47,14 @@ void ChuckCodeModel::addShred()
     else
     {
         text = libchuck_last_error_string(ck);
-        //std::cout<<"problem add shred:" + resStr << "\n";
+       // std::cout<<"problem add shred:" + resStr << "\n";
         //ConsoleGlobal::Instance()->addText(resStr);
         //CONSOLE ADD TEXT
         
     }
-    
-    if (consoleComponent)
-        consoleComponent->addText(text);
+    ConsoleComponent::getInstance()->addText(text);
+    //if (consoleComponent)
+    //    consoleComponent->addText("hey there");
     ///listeners.call(&ConsoleComponent::consoleMessageCallback, text);
 
 }
@@ -79,6 +78,11 @@ void ChuckCodeModel::removeLastShred()
        text = "No shreds to remove";
         //ConsoleGlobal::Instance()->addText("No shreds to remove");
     }
+    
+    ConsoleComponent::getInstance()->addText(text);
+    
+    //if (consoleComponent)
+    //    consoleComponent->addText(text);
    /// listeners.call(&ConsoleComponent::consoleMessageCallback, text);
 }
 
@@ -102,6 +106,9 @@ void ChuckCodeModel::removeShred(int idNumber)
         //CONSOLE ADD TEXT
     }
     
+    ConsoleComponent::getInstance()->addText(text);
+    //if (consoleComponent)
+        //consoleComponent->addText(text);
    /// listeners.call(&ConsoleComponent::consoleMessageCallback, text);
 
 }
@@ -109,13 +116,26 @@ void ChuckCodeModel::removeShred(int idNumber)
 
 void ChuckCodeModel::replaceShred()
 {
+    String text;
+    
     chuck_result result = libchuck_replace_shred( ck, shredIds.back(), filePath.toRawUTF8(),
                                                codeDocument.getAllContent().toRawUTF8() );
+    int idNumber = result.shred_id;
+    
     if( result.type == chuck_result::OK )
     {
         shredIds.pop_back();
         shredIds.push_back( result.shred_id );
+        text = "shred with Id replaced "+ String(idNumber);
     }
+    else
+    {
+        text = "problem replacing shred:" + String(idNumber);
+    }
+    
+    ConsoleComponent::getInstance()->addText(text);
+    //if (consoleComponent != nullptr)
+    //    consoleComponent->addText(text);
     
 }
 void ChuckCodeModel::removeAllShreds()
@@ -148,14 +168,3 @@ CodeDocument& ChuckCodeModel::getCodeDocument()
 {
     return codeDocument;
 }
-
-void ChuckCodeModel::addListener(ConsoleComponent* listenerToAdd){
-    consoleComponent = listenerToAdd;
-    //listeners.add(listenerToAdd);
-}
-
-void ChuckCodeModel::removeListener(ConsoleComponent* listenerToRemove){
-    delete consoleComponent;
-    //listeners.remove(listenerToRemove);
-}
-

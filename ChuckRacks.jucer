@@ -76,10 +76,6 @@
               file="Source/ChuckCodeComponent.h"/>
       </GROUP>
       <GROUP id="{0BC81339-FAE6-5E28-35C5-650F3530477F}" name="other">
-        <FILE id="xyj9bb" name="ConsoleMessage.cpp" compile="1" resource="0"
-              file="Source/ConsoleMessage.cpp"/>
-        <FILE id="wRcqTu" name="ConsoleMessage.h" compile="0" resource="0"
-              file="Source/ConsoleMessage.h"/>
         <FILE id="YfzBVZ" name="Counter.cpp" compile="1" resource="0" file="Source/Counter.cpp"/>
         <FILE id="Irsltj" name="Counter.h" compile="0" resource="0" file="Source/Counter.h"/>
         <FILE id="D8L9oz" name="FileManager.cpp" compile="1" resource="0" file="Source/FileManager.cpp"/>

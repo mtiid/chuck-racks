@@ -10,24 +10,27 @@
 
 #include "ConsoleComponent.h"
 #include "CustomLookAndFeel.h"
+
+//ConsoleComponent* ConsoleComponent::instance = nullptr;
+juce_ImplementSingleton (ConsoleComponent);
+
 ConsoleComponent::ConsoleComponent(){
-    consoleEditor = new TextEditor("ConsoleEditor");
-    addAndMakeVisible(consoleEditor);
+    //consoleEditor = new TextEditor("ConsoleEditor");
+    //addAndMakeVisible(consoleEditor);
     
     // Set up console component
     //consoleEditor->setReadOnly(true);
-    consoleEditor->setMultiLine(true);
+    /*consoleEditor->setMultiLine(true);
     consoleEditor->setCaretVisible(false);
     consoleEditor->setScrollbarsShown(true);
     consoleEditor->setScrollBarThickness(10);
-    consoleEditor->setColour(TextEditor::backgroundColourId, Colour(38, 40, 49));
+    consoleEditor->setColour(TextEditor::backgroundColourId, Colour(38, 40, 49));*/
 }
 
 ConsoleComponent::~ConsoleComponent(){
 }
 
 void ConsoleComponent::paint (Graphics& g){
-    g.fillAll(Colours::red);
 }
 
 void ConsoleComponent::resized(){
@@ -36,21 +39,22 @@ void ConsoleComponent::resized(){
 
 void ConsoleComponent::addText( String text )
 {
-    if(text.length() > 1)
+    if(text.isNotEmpty())
     {
-        fullText = fullText + "\n" + text;
-        if( consoleEditor != NULL )
+        fullText = "\n" + text;
+        //fullText = fullText + "\n" + text;
+        if( consoleEditor != nullptr )
         {
-            consoleEditor->setText( fullText );
-            consoleEditor->scrollDown();
-            consoleEditor->moveCaretToEnd();
+            consoleEditor->insertTextAtCaret( fullText );
+            //consoleEditor->scrollDown();
+            //consoleEditor->moveCaretToEnd();
         }
     }
 }
 
 void ConsoleComponent::updateText()
 {
-    if(consoleEditor != NULL)
+    if(consoleEditor != nullptr)
     {
         consoleEditor->setText( fullText );
         consoleEditor->scrollDown();
@@ -59,10 +63,7 @@ void ConsoleComponent::updateText()
     }
 }
 
-void ConsoleComponent::handleMessage (const Message & message){
-    
+void ConsoleComponent::setConsoleComponent(TextEditor * console)
+{
+    consoleEditor = console;
 }
-
-/*void ConsoleComponent::consoleMessageCallback(String msg){
-    addText(msg);
-}*/

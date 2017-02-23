@@ -16,7 +16,17 @@ EditorPanelUI::EditorPanelUI(ChuckCodeModelManager* modelManager):
     codeManagerComponent(modelManager),
     horizontalDividerBar (&horizontalLayout, 1, false)
 {
-    consoleComponent = new ConsoleComponent();
+    consoleComponent = new TextEditor("Console");
+    // Set up console component
+    consoleComponent->setReadOnly(true);
+    consoleComponent->setMultiLine(true);
+    consoleComponent->setCaretVisible(false);
+    consoleComponent->setScrollbarsShown(true);
+    consoleComponent->setScrollBarThickness(10);
+    consoleComponent->setColour(TextEditor::backgroundColourId, Colour(38, 40, 49));
+    ConsoleComponent::getInstance()->setConsoleComponent(consoleComponent.get());
+    ConsoleComponent::getInstance()->updateText();
+    
     addAndMakeVisible(codeManagerComponent);
     addAndMakeVisible(consoleComponent);
     addAndMakeVisible(horizontalDividerBar);
@@ -24,7 +34,7 @@ EditorPanelUI::EditorPanelUI(ChuckCodeModelManager* modelManager):
     // set up layout manager limits
     horizontalLayout.setItemLayout (0, -0.1, -1.0, -0.9);   // code area
     horizontalLayout.setItemLayout (1, 5, 5, 5);            // divider bar
-    horizontalLayout.setItemLayout (2, -0.1, -0.5, -0.1);      // console area
+    horizontalLayout.setItemLayout (2, -0.1, -0.5, -0.1);   // console area
 
 }
 
@@ -42,7 +52,7 @@ void EditorPanelUI::resized()
     Rectangle<int> r (getLocalBounds().reduced (0));
     
     // make a list of two of our child components that we want to reposition
-    Component* comps[] = { &codeManagerComponent, &horizontalDividerBar, consoleComponent.get() };
+    Component* comps[] = { &codeManagerComponent, &horizontalDividerBar, consoleComponent };
     
     // this will position the 3 components, one above the other, to fit
     // vertically into the rectangle provided.
@@ -53,6 +63,5 @@ void EditorPanelUI::resized()
 
 void EditorPanelUI::addNewChuckCodeComponent(ChuckCodeModel* chuckCodeModel){
     codeManagerComponent.addNewChuckCodeComponent(chuckCodeModel);
-    chuckCodeModel->addListener(consoleComponent);
 }
 

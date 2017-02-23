@@ -38,9 +38,6 @@ public:
     
     CodeDocument& getCodeDocument();
     
-    void addListener(ConsoleComponent* listenerToAdd);
-    void removeListener(ConsoleComponent* listenerToRemove);
-    
 private:
     
     chuck_inst *ck;
@@ -57,7 +54,6 @@ private:
     
     int uniqueFileContainerId;
 
-    ListenerList<ConsoleComponent> listeners;
     ConsoleComponent* consoleComponent;
 };
 

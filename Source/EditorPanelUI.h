@@ -32,7 +32,8 @@ public:
 private:
     
     ChuckCodeManagerComponent codeManagerComponent;
-    ScopedPointer<ConsoleComponent> consoleComponent;
+    ScopedPointer<TextEditor> consoleComponent;
+    //ScopedPointer<ConsoleComponent> consoleComponent;
     
     StretchableLayoutManager horizontalLayout;
     StretchableLayoutResizerBar horizontalDividerBar;

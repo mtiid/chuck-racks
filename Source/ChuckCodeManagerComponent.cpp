@@ -16,7 +16,6 @@ ChuckCodeManagerComponent::ChuckCodeManagerComponent(ChuckCodeModelManager* mode
     tabView(TabbedButtonBar::Orientation::TabsAtTop)
 {
     mModelManager = modelManager;
-    
     addAndMakeVisible(tabView);
     
     for (auto& fc : mModelManager->chuckCodeModelCollection)

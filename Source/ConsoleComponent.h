@@ -12,15 +12,25 @@
 #define CONSOLECOMPONENT_H_INCLUDED
 
 #include "JuceHeader.h"
-#include "ConsoleMessage.h"
 
-class ConsoleComponent :    public Component,
-                            public MessageListener
+class ConsoleComponent :    public Component
 {
     
 public:
+    
+    //static ConsoleComponent * instance;
+    
     ConsoleComponent();
     ~ConsoleComponent();
+    
+    /*static ConsoleComponent * Instance()
+    {
+        if(instance == nullptr)
+        {
+            instance = new ConsoleComponent();
+        }
+        return instance;
+    }*/
     
     void paint (Graphics& g) override;
     void resized() override;
@@ -28,12 +38,12 @@ public:
     void addText( String text );
     void updateText();
     
-    void handleMessage (const Message & message);
-
-    //void consoleMessageCallback(String msg) override;
+    void setConsoleComponent(TextEditor * console);
+    
+    juce_DeclareSingleton (ConsoleComponent, false);
     
 private:
-    ScopedPointer<TextEditor> consoleEditor;
+    TextEditor* consoleEditor;
     String fullText;
 
 };
