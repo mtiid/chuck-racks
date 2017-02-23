@@ -17,21 +17,9 @@ class ConsoleComponent :    public Component
 {
     
 public:
-    
-    //static ConsoleComponent * instance;
-    
     ConsoleComponent();
     ~ConsoleComponent();
-    
-    /*static ConsoleComponent * Instance()
-    {
-        if(instance == nullptr)
-        {
-            instance = new ConsoleComponent();
-        }
-        return instance;
-    }*/
-    
+
     void paint (Graphics& g) override;
     void resized() override;
     

@@ -16,8 +16,9 @@ EditorPanelUI::EditorPanelUI(ChuckCodeModelManager* modelManager):
     codeManagerComponent(modelManager),
     horizontalDividerBar (&horizontalLayout, 1, false)
 {
-    consoleComponent = new TextEditor("Console");
+    
     // Set up console component
+    consoleComponent = new TextEditor("Console");
     consoleComponent->setReadOnly(true);
     consoleComponent->setMultiLine(true);
     consoleComponent->setCaretVisible(false);
@@ -25,8 +26,6 @@ EditorPanelUI::EditorPanelUI(ChuckCodeModelManager* modelManager):
     consoleComponent->setScrollBarThickness(10);
     consoleComponent->setColour(TextEditor::backgroundColourId, Colour(38, 40, 49));
     ConsoleComponent::getInstance()->setConsoleComponent(consoleComponent.get());
-    ConsoleComponent::getInstance()->updateText();
-    
     addAndMakeVisible(codeManagerComponent);
     addAndMakeVisible(consoleComponent);
     addAndMakeVisible(horizontalDividerBar);

@@ -11,20 +11,9 @@
 #include "ConsoleComponent.h"
 #include "CustomLookAndFeel.h"
 
-//ConsoleComponent* ConsoleComponent::instance = nullptr;
 juce_ImplementSingleton (ConsoleComponent);
 
 ConsoleComponent::ConsoleComponent(){
-    //consoleEditor = new TextEditor("ConsoleEditor");
-    //addAndMakeVisible(consoleEditor);
-    
-    // Set up console component
-    //consoleEditor->setReadOnly(true);
-    /*consoleEditor->setMultiLine(true);
-    consoleEditor->setCaretVisible(false);
-    consoleEditor->setScrollbarsShown(true);
-    consoleEditor->setScrollBarThickness(10);
-    consoleEditor->setColour(TextEditor::backgroundColourId, Colour(38, 40, 49));*/
 }
 
 ConsoleComponent::~ConsoleComponent(){
@@ -42,13 +31,8 @@ void ConsoleComponent::addText( String text )
     if(text.isNotEmpty())
     {
         fullText = "\n" + text;
-        //fullText = fullText + "\n" + text;
         if( consoleEditor != nullptr )
-        {
             consoleEditor->insertTextAtCaret( fullText );
-            //consoleEditor->scrollDown();
-            //consoleEditor->moveCaretToEnd();
-        }
     }
 }
 
