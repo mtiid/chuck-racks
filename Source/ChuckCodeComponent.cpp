@@ -115,12 +115,10 @@ ChuckCodeComponent::~ChuckCodeComponent()
 void ChuckCodeComponent::paint( Graphics& g )
 {
     g.fillAll(Colour(100, 106, 127));
-    g.setColour(Colour(40, 43, 34));
-    g.drawRect(getLocalBounds(), 1);
 }
 
 void ChuckCodeComponent::resized(){
-    addShredButton->setBounds(28, 5, 20,20);
+    addShredButton->setBounds(5, 5, 20,20);
     saveFileButton->setBounds(getWidth()-59, 5, 56,20);
     openFileButton->setBounds(saveFileButton->getX()-58, 5, 56,20);
     codeEditor->setBounds( 1, 30, getWidth()-4, getHeight()-30 );

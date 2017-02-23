@@ -29,12 +29,11 @@ CustomLookAndFeel::CustomLookAndFeel()
     
     //Table
     this->setColour(TableListBox::backgroundColourId, bgDark);
+    this->setColour(TableListBox::outlineColourId, Colours::black);
     
     //Popup Menu
     this->setColour(PopupMenu::backgroundColourId, bgLight);
     this->setColour(PopupMenu::highlightedBackgroundColourId, Colours::black.withAlpha(0.2f));
-    
-    //this->setColour(CodeEditorComponent::backgroundColourId, Colour(0, 43, 54));
 }
 
 CustomLookAndFeel::~CustomLookAndFeel()
