@@ -29,7 +29,7 @@ public:
     void removeAllShreds();
     void openBrowser();
 
-    std::vector<int> shredIds;
+    Array<int> shredIds;
     
     void setCanBeEdited( bool shouldEdit ){ canBeEdited = shouldEdit; };
     bool getCanBeEdited(){ return canBeEdited; };

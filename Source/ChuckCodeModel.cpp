@@ -34,15 +34,13 @@ void ChuckCodeModel::addShred()
     String text;
     chuck_result result = libchuck_add_shred(ck, filePath.toRawUTF8(), codeDocument.getAllContent().toRawUTF8());
     std::cout << "result type: " << result.type << " result id " << result.shred_id << "\n";
-    //libchuck_add_shred(ck, fileChooser->getFullPathName().toRawUTF8(),
-    //codeEditorDemo->codeDocument.getAllContent().toRawUTF8());
+
     if(result.type == chuck_result::OK || result.type == chuck_result::ERR_TIMEOUT)
         // TODO ask spencer why it's returning error timeout and fix that
     {
-        shredIds.push_back(result.shred_id);
-        text = "shred with Id: " + String(shredIds.back()) + " added";
-        
-        //ConsoleGlobal::Instance()->addText(txt);
+        shredIds.add(result.shred_id);
+        //shredIds.push_back(result.shred_id);
+        text = "shred with Id: " + String(shredIds.getLast()) + " added";
     }
     else
     {
@@ -61,17 +59,14 @@ void ChuckCodeModel::addShred()
 
 void ChuckCodeModel::removeLastShred()
 {
-    //std::cout<< "remove last shred called";
-    std::cout<<"shredIds size:" << shredIds.size() << "\n";
     String text;
     
     if( shredIds.size() > 0 )
     {
-        text = "shredId to be removed:" + String(shredIds.back());
-
-        removeShred( shredIds.back() );
-        
-        shredIds.pop_back();
+        text = "shredId to be removed:" + String(shredIds.getLast());
+        /// \todo update once we're storing actual shred id
+        removeShred( shredIds.size()-1 );
+        shredIds.removeLast();
     }
     else
     {
@@ -91,20 +86,20 @@ void ChuckCodeModel::removeShred(int idNumber)
     String text;
     
     chuck_result result = libchuck_remove_shred(ck, idNumber);
+    
     if(result.type == chuck_result::OK)
     {
-        std::cout<<"shred with Id removed "<< idNumber << "\n";
+        //std::cout<<"shred with Id removed "<< idNumber << "\n";
         text = "shred with Id removed "+ String(idNumber);
-        //ConsoleGlobal::Instance()->addText("shred with Id removed "+ String(idNumber));
     }
     else
     {
-        std::string resStr(libchuck_last_error_string(ck));
+        //std::string resStr(libchuck_last_error_string(ck));
         text = "problem removing shred:" + String(idNumber);
-        //ConsoleGlobal::Instance()->addText("problem removing shred:" + String(idNumber));
-        ///getProcessor()->fileContainerManagerModel->addTextToConsole(resStr);
-        //CONSOLE ADD TEXT
     }
+    
+    
+    shredIds.remove(idNumber);
     
     ConsoleComponent::getInstance()->addText(text);
     //if (consoleComponent)
@@ -113,19 +108,31 @@ void ChuckCodeModel::removeShred(int idNumber)
 
 }
 
+void ChuckCodeModel::removeAllShreds()
+{
+    /// \todo use actual shred ids once that's being returned correctly from libchuck
+    /*for (int i=0; i<shredIds.size(); i++) {
+        removeShred(i+1);
+    }*/
+    
+    for (int i=0; i<20; i++){
+        removeShred(i);
+    }
+}
+
 
 void ChuckCodeModel::replaceShred()
 {
     String text;
-    
-    chuck_result result = libchuck_replace_shred( ck, shredIds.back(), filePath.toRawUTF8(),
+
+    chuck_result result = libchuck_replace_shred( ck, shredIds.getLast(), filePath.toRawUTF8(),
                                                codeDocument.getAllContent().toRawUTF8() );
     int idNumber = result.shred_id;
     
     if( result.type == chuck_result::OK )
     {
-        shredIds.pop_back();
-        shredIds.push_back( result.shred_id );
+        shredIds.removeLast();
+        shredIds.add( result.shred_id );
         text = "shred with Id replaced "+ String(idNumber);
     }
     else
@@ -137,20 +144,6 @@ void ChuckCodeModel::replaceShred()
     //if (consoleComponent != nullptr)
     //    consoleComponent->addText(text);
     
-}
-void ChuckCodeModel::removeAllShreds()
-{
-    
-    while ( !shredIds.empty() )
-    {
-        removeLastShred();
-    }
-    
-    //Horrible hack. Remove after finding out why libchuck_remove_shred is not returning chuck_result::OK
-    for ( int i = 0; i<20; i++ )
-    {
-        removeShred(i);
-    }
 }
 
 void ChuckCodeModel::openBrowser()
