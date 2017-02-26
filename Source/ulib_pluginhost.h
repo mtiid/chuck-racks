@@ -18,42 +18,48 @@ class PluginHostInfo
 {
 public:
     PluginHostInfo();
-    
+
     float tempo;
     int currentBeat;
     int beatsPerMeasure;
-    
+
     float quarterLength;
     float eighthLength;
     float sixteenthLength;
-    
-    
+
+
     Chuck_Event *playEvent;
+    Chuck_Event *quarterEvent;
+    Chuck_Event *eighthEvent;
     Chuck_Event *sixteenthEvent;
     Chuck_Event *beatStartEvent;
     Chuck_Event *stopEvent;
     Chuck_Event *midiEvent;
-    
-    
+
+
     void setTempo(float newTempo);
 
-    
     void broadcastPlayEvent();
     void broadcastStopEvent();
     void broadcastBeatStartEvent();
-    void broadcast16thHit();
+
+    void broadcastQuarterHit();
+    void broadcastEighthHit();
+    void broadcastSixteenthHit();
+
     void broadcastMidiEvent();
     void getMidiMessage(MidiMessage message);
-    
-    
+
     float previousTempo;
     float previousBar;
     bool wasPlaying;
-    int current16th;
+
+    int currentSixteenth;
+
     float positionInBeat;
     float absolutePosition;
     float lastBar;
-    
+
     MidiBuffer* midiInputBufferP;
     MidiBuffer* midiOutputBufferP;
     MidiBuffer* tempMidiBuffer;

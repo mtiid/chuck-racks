@@ -287,40 +287,42 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
         //DBG(positionInBeat);
         if (g_hostInfo->positionInBeat>0.749) //sixteenth
         {
-            if (g_hostInfo->current16th!=3)
+            if (g_hostInfo->currentSixteenth!=3)
             {
                 //DBG("16th3");
-                g_hostInfo->broadcast16thHit();
-                g_hostInfo->current16th=3;
+                g_hostInfo->broadcastSixteenthHit();
+                g_hostInfo->currentSixteenth=3;
             }
         }
         else if (g_hostInfo->positionInBeat>0.499)
         {
-            if (g_hostInfo->current16th!=2)
+            if (g_hostInfo->currentSixteenth!=2)
             {
                 //DBG("16th2");
-                g_hostInfo->broadcast16thHit();
-                g_hostInfo->current16th=2;
+                g_hostInfo->broadcastEighthHit();
+                g_hostInfo->broadcastSixteenthHit();
+                g_hostInfo->currentSixteenth=2;
             }
         }
         else if (g_hostInfo->positionInBeat>0.249)
         {
-            if (g_hostInfo->current16th!=1)
+            if (g_hostInfo->currentSixteenth!=1)
             {
                 //DBG("16th1");
-                g_hostInfo->broadcast16thHit();
-                g_hostInfo->current16th=1;
+                g_hostInfo->broadcastSixteenthHit();
+                g_hostInfo->currentSixteenth=1;
             }
         }
         else if (g_hostInfo->positionInBeat>0.0)
         {
-            if (g_hostInfo->current16th!=0)
+            if (g_hostInfo->currentSixteenth!=0)
             {
                 //DBG("16th0");
-                g_hostInfo->broadcast16thHit();
+                g_hostInfo->broadcastQuarterHit();
+                g_hostInfo->broadcastEighthHit();
+                g_hostInfo->broadcastSixteenthHit();
                 g_hostInfo->broadcastBeatStartEvent();
-                
-                g_hostInfo->current16th=0;
+                g_hostInfo->currentSixteenth=0;
                 //param->setValueNotifyingHost(.5);
                 
             }
