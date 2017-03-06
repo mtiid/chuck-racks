@@ -21,14 +21,16 @@ extern t_CKUINT MidiMsg_offset_data3;
 PluginHostInfo::PluginHostInfo()
 {
     wasPlaying=false;
-    current16th=-1;
+
+    currentSixteenth=-1;
+
     previousBar=-1;
-    
+
     tempo=120;
     quarterLength=60/tempo;
     eighthLength=30/tempo;
     sixteenthLength=15/tempo;
-    
+
     tempMidiBuffer = new MidiBuffer();
 
 }
@@ -69,35 +71,45 @@ void PluginHostInfo::setTempo(float newTempo)
     sixteenthLength=15/tempo;
 }
 
-void PluginHostInfo::broadcast16thHit()
+void PluginHostInfo::broadcastQuarterHit()
 {
-    
+    if(g_hostInfo->quarterEvent!= NULL)
+        g_hostInfo->quarterEvent->broadcast();
+}
+
+void PluginHostInfo::broadcastEighthHit()
+{
+    if(g_hostInfo->eighthEvent!= NULL)
+        g_hostInfo->eighthEvent->broadcast();
+}
+
+void PluginHostInfo::broadcastSixteenthHit()
+{
     if(g_hostInfo->sixteenthEvent != NULL)
         g_hostInfo->sixteenthEvent->broadcast();
-
 }
 
 void PluginHostInfo::getMidiMessage(MidiMessage message)
 {
     //Chuck_Object *_msg = GET_NEXT_OBJECT(ARGS);
-    
+
     // get next msg from JUCE
     // if no msg, return 0
     // if msg return 1
     //unsigned char byte1 = 0x90;
     //unsigned char byte2 = 60;
     //unsigned char byte3 = 100;
-    
+
     //OBJ_MEMBER_INT(_msg, MidiMsg_offset_data1) = byte1;
     //OBJ_MEMBER_INT(_msg, MidiMsg_offset_data2) = byte2;
     //OBJ_MEMBER_INT(_msg, MidiMsg_offset_data3) = byte3;
-    
+
     //OBJ_MEMBER_INT(_msg, 0)=    message.getRawData();
 
-    
+
     //RETURN->v_int = 1;
 
-    
+
 }
 
 
@@ -109,10 +121,10 @@ CK_DLL_SFUN(pluginhost_getTempo)
 CK_DLL_SFUN(pluginhost_setTempo)
 {
     t_CKFLOAT tempo = GET_NEXT_FLOAT(ARGS);
-    
+
     //JUCE::SetTEMPO(tempo);
-    
-    
+
+
     RETURN->v_float = g_hostInfo->tempo;
 }
 
@@ -123,7 +135,7 @@ CK_DLL_SFUN(pluginhost_onPlay)
         g_hostInfo->playEvent = new Chuck_Event();
         initialize_object(g_hostInfo->playEvent, &t_event);
     }
-    
+
     RETURN->v_object = g_hostInfo->playEvent;
 }
 
@@ -134,7 +146,7 @@ CK_DLL_SFUN(pluginhost_onStop)
         g_hostInfo->stopEvent = new Chuck_Event();
         initialize_object(g_hostInfo->stopEvent, &t_event);
     }
-    
+
     RETURN->v_object = g_hostInfo->stopEvent;
 }
 
@@ -145,10 +157,31 @@ CK_DLL_SFUN(pluginhost_onBeatStart)
         g_hostInfo->beatStartEvent = new Chuck_Event();
         initialize_object(g_hostInfo->beatStartEvent, &t_event);
     }
-    
+
     RETURN->v_object = g_hostInfo->beatStartEvent;
 }
 
+CK_DLL_SFUN(pluginhost_quarter)
+{
+    if(g_hostInfo->quarterEvent == NULL)
+    {
+        g_hostInfo->quarterEvent = new Chuck_Event();
+        initialize_object(g_hostInfo->quarterEvent, &t_event);
+    }
+
+    RETURN->v_object = g_hostInfo->quarterEvent;
+}
+
+CK_DLL_SFUN(pluginhost_eighth)
+{
+    if(g_hostInfo->eighthEvent == NULL)
+    {
+        g_hostInfo->eighthEvent = new Chuck_Event();
+        initialize_object(g_hostInfo->eighthEvent, &t_event);
+    }
+
+    RETURN->v_object = g_hostInfo->eighthEvent;
+}
 
 CK_DLL_SFUN(pluginhost_sixteenth)
 {
@@ -157,10 +190,9 @@ CK_DLL_SFUN(pluginhost_sixteenth)
         g_hostInfo->sixteenthEvent = new Chuck_Event();
         initialize_object(g_hostInfo->sixteenthEvent, &t_event);
     }
-    
+
     RETURN->v_object = g_hostInfo->sixteenthEvent;
 }
-
 
 CK_DLL_SFUN(pluginhost_isPlaying)
 {
@@ -171,17 +203,7 @@ CK_DLL_SFUN(pluginhost_isPlaying)
     {
         RETURN->v_int = 0;
     }
-    
-}
 
-CK_DLL_SFUN(pluginhost_sixteenthLength)
-{
-    RETURN->v_float = g_hostInfo->sixteenthLength;
-}
-
-CK_DLL_SFUN(pluginhost_eightLength)
-{
-    RETURN->v_float = g_hostInfo->eighthLength;
 }
 
 CK_DLL_SFUN(pluginhost_quarterLength)
@@ -189,6 +211,15 @@ CK_DLL_SFUN(pluginhost_quarterLength)
     RETURN->v_float = g_hostInfo->quarterLength;
 }
 
+CK_DLL_SFUN(pluginhost_eighthLength)
+{
+    RETURN->v_float = g_hostInfo->eighthLength;
+}
+
+CK_DLL_SFUN(pluginhost_sixteenthLength)
+{
+    RETURN->v_float = g_hostInfo->sixteenthLength;
+}
 
 CK_DLL_SFUN(pluginhost_positionInBeat)
 {
@@ -203,7 +234,7 @@ CK_DLL_SFUN(pluginhost_onMidi)
         g_hostInfo->midiEvent = new Chuck_Event();
         initialize_object(g_hostInfo->midiEvent, &t_event);
     }
-    
+
     RETURN->v_object = g_hostInfo->midiEvent;
 }
 
@@ -212,7 +243,7 @@ CK_DLL_SFUN(pluginhost_onMidi)
 CK_DLL_SFUN(pluginhost_recvMidi)
 {
     Chuck_Object *_msg = GET_NEXT_OBJECT(ARGS);
-    
+
     unsigned char byte1 = 0;
     unsigned char byte2 = 0;
     unsigned char byte3 = 0;
@@ -221,9 +252,9 @@ CK_DLL_SFUN(pluginhost_recvMidi)
     // get next msg from JUCE
     MidiBuffer::Iterator iterator(*g_hostInfo->midiInputBufferP);
     MidiMessage messageIn;
-    
+
     int pos = 0;
-    
+
     if(!g_hostInfo->midiInputBufferP->isEmpty())
     {
         if(iterator.getNextEvent(messageIn, pos))
@@ -231,107 +262,112 @@ CK_DLL_SFUN(pluginhost_recvMidi)
             const uint8 *midivals = messageIn.getRawData();
             int datasize = messageIn.getRawDataSize();
             //DBG(String(*messageIn.getRawData()));
-            
+
             // if no msg, return 0
             // if msg return 1
-            
+
             if(datasize>0)
                 byte1 = midivals[0];
             if(datasize>1)
                 byte2 = midivals[1];
             if(datasize>2)
                 byte3 = midivals[2];
-            
+
             ret_val = 1;
-            
+
         }
         g_hostInfo->tempMidiBuffer->clear();
-        
+
         while( iterator.getNextEvent(messageIn, pos) )
         {
             g_hostInfo->tempMidiBuffer->addEvent(messageIn, pos); //adds all events not used in here to temp buffer
         }
         g_hostInfo->midiInputBufferP->swapWith( *g_hostInfo->tempMidiBuffer ); //swaps old buffer with new buffer without used event
     }
-    
+
     OBJ_MEMBER_INT(_msg, MidiMsg_offset_data1) = byte1;
     OBJ_MEMBER_INT(_msg, MidiMsg_offset_data2) = byte2;
     OBJ_MEMBER_INT(_msg, MidiMsg_offset_data3) = byte3;
-    
+
     RETURN->v_int = ret_val;
 }
 
 CK_DLL_SFUN(pluginhost_sendMidi)
 {
     Chuck_Object *_msg = GET_NEXT_OBJECT(ARGS);
-    
+
     unsigned char byte1 = OBJ_MEMBER_INT(_msg, MidiMsg_offset_data1);
     unsigned char byte2 = OBJ_MEMBER_INT(_msg, MidiMsg_offset_data2);
     unsigned char byte3 = OBJ_MEMBER_INT(_msg, MidiMsg_offset_data3);
-    
+
     juce::MidiMessage midiMessage(byte1, byte2, byte3);
     g_hostInfo->midiOutputBufferP->addEvent( midiMessage, 0); //TODO: find if there's a way of getting a close sample instead of using 0
-    
+
     RETURN->v_int = 1;
 }
-
-
-
 
 t_CKBOOL pluginhost_query( Chuck_DL_Query * QUERY )
 {
     g_hostInfo = new PluginHostInfo;
     g_hostInfo->playEvent = NULL;
     g_hostInfo->stopEvent = NULL;
+    g_hostInfo->quarterEvent = NULL;
+    g_hostInfo->eighthEvent = NULL;
     g_hostInfo->sixteenthEvent = NULL;
     g_hostInfo->beatStartEvent = NULL;
     g_hostInfo->midiEvent = NULL;
 
     QUERY->begin_class(QUERY, "PluginHost", "Object");
     QUERY->doc_class(QUERY, "Class for interacting with plugin host. ");
-    
-    
+
+
     QUERY->add_sfun(QUERY, pluginhost_getTempo, "float", "getTempo"); //return type, chuck function name
     QUERY->doc_func(QUERY, "Returns current tempo in BPM.");
-    
+
     QUERY->add_sfun(QUERY, pluginhost_setTempo, "float", "setTempo"); //return type, chuck function name
 
-    QUERY->add_arg(QUERY, "float", "tempo"); // first argument 
-    
+    QUERY->add_arg(QUERY, "float", "tempo"); // first argument
+
     QUERY->add_sfun(QUERY, pluginhost_onPlay, "Event", "onPlay"); //return type, chuck function name
-    
+
     QUERY->add_sfun(QUERY, pluginhost_onStop, "Event", "onStop");
-    
+
     QUERY->add_sfun(QUERY, pluginhost_onBeatStart, "Event", "onBeat");
-    
+
     QUERY->add_sfun(QUERY, pluginhost_onMidi, "Event", "onMidi");
-    
+
+    QUERY->add_sfun(QUERY, pluginhost_quarter,"Event", "quarter");
+
+    QUERY->add_sfun(QUERY, pluginhost_quarterLength, "float", "quarterLength");
+    QUERY->doc_func(QUERY, "Returns the length of a quarter notes in seconds at the current BPM. ");
+
+    QUERY->add_sfun(QUERY, pluginhost_eighth,"Event", "eighth");
+
+    QUERY->add_sfun(QUERY, pluginhost_eighthLength, "float", "eighthLength");
+    QUERY->doc_func(QUERY, "Returns the length of a 8th notes in seconds at the current BPM. ");
+
+    QUERY->add_sfun(QUERY, pluginhost_sixteenth,"Event", "sixteenth");
 
     QUERY->add_sfun(QUERY, pluginhost_sixteenthLength, "float", "sixteenthLength");
     QUERY->doc_func(QUERY, "Returns the length of a 16th notes in seconds at the current BPM. ");
-    
-    QUERY->add_sfun(QUERY, pluginhost_sixteenth,"Event", "sixteenth");
-    
-    
+
     QUERY->add_sfun(QUERY, pluginhost_isPlaying, "int", "isPlaying");
     QUERY->doc_func(QUERY, "Returns a 1 if the host is playing. Otherwise it returns 0. ");
 
     QUERY->add_sfun(QUERY, pluginhost_positionInBeat, "float", "positionInBeat"); //returns a value between 0 and 0.9999 for the position in the beat. It can be used for finer subdivisions than 16ths.
-    
-    
 
 
     QUERY->add_sfun(QUERY, pluginhost_recvMidi, "int", "recvMidi");
     QUERY->add_arg(QUERY, "MidiMsg", "msg");
-    
+
     QUERY->add_sfun(QUERY, pluginhost_sendMidi, "int", "sendMidi");
     QUERY->add_arg(QUERY, "MidiMsg", "msg");
-    
-    
-    
-    
+
+
+
+
     QUERY->end_class(QUERY);
-    
+
     return TRUE;
 }
 
