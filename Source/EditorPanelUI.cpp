@@ -25,6 +25,7 @@ EditorPanelUI::EditorPanelUI(ChuckCodeModelManager* modelManager):
     consoleComponent->setScrollbarsShown(true);
     consoleComponent->setScrollBarThickness(10);
     consoleComponent->setColour(TextEditor::backgroundColourId, Colour(38, 40, 49));
+    consoleComponent->setColour(TextEditor::textColourId, Colours::grey);
     consoleComponent->setColour(TabbedButtonBar::tabOutlineColourId, Colour(38, 40, 49));
     ConsoleComponent::getInstance()->setConsoleComponent(consoleComponent.get());
     addAndMakeVisible(codeManagerComponent);

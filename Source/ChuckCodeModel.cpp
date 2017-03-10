@@ -95,7 +95,8 @@ void ChuckCodeModel::removeShred(int idNumber)
     else
     {
         //std::string resStr(libchuck_last_error_string(ck));
-        text = "problem removing shred:" + String(idNumber);
+        //text = "problem removing shred:" + String(idNumber);
+        /// \todo add back when once correct shred ids are returned correctly from libchuck
     }
     
     
