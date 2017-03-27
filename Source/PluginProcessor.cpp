@@ -78,6 +78,7 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
         g_hostInfo->midiOutputBufferP = (&midiOutputBuffer);
         
         g_pluginParameters->chuckCodeModelManager = chuckCodeModelManager;
+        g_hostInfo->sampleRate = 44100; //// hardcode (HACK!) TODO update when options.sample_rate uses the real value
         
         for (int i=0; i<512; i++)
         {

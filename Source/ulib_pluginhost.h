@@ -23,6 +23,8 @@ public:
     int currentBeat;
     int beatsPerMeasure;
 
+    float wholeLength;
+    float halfLength;
     float quarterLength;
     float eighthLength;
     float sixteenthLength;
@@ -59,6 +61,8 @@ public:
     float positionInBeat;
     float absolutePosition;
     float lastBar;
+    
+    float sampleRate;
 
     MidiBuffer* midiInputBufferP;
     MidiBuffer* midiOutputBufferP;

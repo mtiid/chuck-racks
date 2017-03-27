@@ -26,11 +26,26 @@ Event PluginHost.onStop()
 -Returns an event when the stop button is pressed
        
 Event PluginHost.onBeat()
--Returns an event on the start of each bar
+-Returns an event on the start of each beat (quarter notes)
     
 Event PluginHost.sixteenth()
 -Returns an event at the beginning of each 16th note
+
+dur PluginHost.wholeDur()
+-Returns the duration of a whole note calculated at the current tempo
     
+dur PluginHost.halfDur()
+-Returns the duration of a half note calculated at the current tempo
+
+dur PluginHost.quarterDur()
+-Returns the duration of a quarter note calculated at the current tempo
+
+dur PluginHost.eighthDur()
+-Returns the duration of an eighth note calculated at the current tempo
+
+dur PluginHost.sixteenthDur()
+-Returns the duration of a sixteenth note calculated at the current tempo
+
 int PluginHost.isPlaying()
 -Returns a 1 if the host is playing. Otherwise it returns 0.
 

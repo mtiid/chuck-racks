@@ -26,12 +26,17 @@ PluginHostInfo::PluginHostInfo()
 
     previousBar=-1;
 
-    tempo=120;
-    quarterLength=60/tempo;
-    eighthLength=30/tempo;
-    sixteenthLength=15/tempo;
+    tempo = 120;
+    
+    wholeLength = 240/tempo;
+    halfLength = 120/tempo;
+    quarterLength = 60/tempo;
+    eighthLength = 30/tempo;
+    sixteenthLength = 15/tempo;
 
     tempMidiBuffer = new MidiBuffer();
+    
+    sampleRate = 44100; //default
 
 }
 
@@ -65,10 +70,12 @@ void PluginHostInfo::broadcastMidiEvent()
 
 void PluginHostInfo::setTempo(float newTempo)
 {
-    tempo=newTempo;
-    quarterLength=60/tempo;
-    eighthLength=30/tempo;
-    sixteenthLength=15/tempo;
+    tempo = newTempo;
+    wholeLength = 240/tempo;
+    halfLength = 120/tempo;
+    quarterLength = 60/tempo;
+    eighthLength = 30/tempo;
+    sixteenthLength = 15/tempo;
 }
 
 void PluginHostInfo::broadcastQuarterHit()
@@ -206,20 +213,47 @@ CK_DLL_SFUN(pluginhost_isPlaying)
 
 }
 
+CK_DLL_SFUN(pluginhost_wholeDur)
+{
+    RETURN->v_dur = g_hostInfo->wholeLength * g_hostInfo->sampleRate;
+}
+
+CK_DLL_SFUN(pluginhost_halfDur)
+{
+    RETURN->v_dur = g_hostInfo->halfLength * g_hostInfo->sampleRate;
+}
+
 CK_DLL_SFUN(pluginhost_quarterLength)
 {
     RETURN->v_float = g_hostInfo->quarterLength;
 }
+
+CK_DLL_SFUN(pluginhost_quarterDur)
+{
+    RETURN->v_dur = g_hostInfo->quarterLength * g_hostInfo->sampleRate;
+}
+
 
 CK_DLL_SFUN(pluginhost_eighthLength)
 {
     RETURN->v_float = g_hostInfo->eighthLength;
 }
 
+CK_DLL_SFUN(pluginhost_eighthDur)
+{
+    RETURN->v_dur = g_hostInfo->eighthLength * g_hostInfo->sampleRate;
+}
+
 CK_DLL_SFUN(pluginhost_sixteenthLength)
 {
     RETURN->v_float = g_hostInfo->sixteenthLength;
 }
+
+CK_DLL_SFUN(pluginhost_sixteenthDur)
+{
+    RETURN->v_dur = g_hostInfo->sixteenthLength * g_hostInfo->sampleRate;
+}
+
 
 CK_DLL_SFUN(pluginhost_positionInBeat)
 {
@@ -340,16 +374,35 @@ t_CKBOOL pluginhost_query( Chuck_DL_Query * QUERY )
 
     QUERY->add_sfun(QUERY, pluginhost_quarterLength, "float", "quarterLength");
     QUERY->doc_func(QUERY, "Returns the length of a quarter notes in seconds at the current BPM. ");
+    
+    QUERY->add_sfun(QUERY, pluginhost_quarterDur, "dur", "quarterDur");
+    QUERY->doc_func(QUERY, "Returns the duration of a quarter note as a dur. ");
 
+    
+    QUERY->add_sfun(QUERY, pluginhost_wholeDur, "dur", "wholeDur");
+    QUERY->doc_func(QUERY, "Returns the duration of a whole note as a dur. ");
+    
+    QUERY->add_sfun(QUERY, pluginhost_halfDur, "dur", "halfDur");
+    QUERY->doc_func(QUERY, "Returns the duration of a half note as a dur. ");
+    
+    
     QUERY->add_sfun(QUERY, pluginhost_eighth,"Event", "eighth");
-
+    
     QUERY->add_sfun(QUERY, pluginhost_eighthLength, "float", "eighthLength");
     QUERY->doc_func(QUERY, "Returns the length of a 8th notes in seconds at the current BPM. ");
+    
+    QUERY->add_sfun(QUERY, pluginhost_eighthDur, "dur", "eighthDur");
+    QUERY->doc_func(QUERY, "Returns the duration of an eighth note as a dur. ");
+    
 
     QUERY->add_sfun(QUERY, pluginhost_sixteenth,"Event", "sixteenth");
 
     QUERY->add_sfun(QUERY, pluginhost_sixteenthLength, "float", "sixteenthLength");
     QUERY->doc_func(QUERY, "Returns the length of a 16th notes in seconds at the current BPM. ");
+    
+    QUERY->add_sfun(QUERY, pluginhost_sixteenthDur, "dur", "sixteenthDur");
+    QUERY->doc_func(QUERY, "Returns the duration of an sixteenth note as a dur. ");
+    
 
     QUERY->add_sfun(QUERY, pluginhost_isPlaying, "int", "isPlaying");
     QUERY->doc_func(QUERY, "Returns a 1 if the host is playing. Otherwise it returns 0. ");
