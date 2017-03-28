@@ -1,6 +1,5 @@
 // binaryCelluarAutomataSynced.ck
-ModalBar bar => dac;
-4 => bar.preset;
+Rhodey rhod => dac;
 
 // Cellular Automata rule
 110 => int rule;
@@ -27,8 +26,8 @@ while (true) {
         (state << i) | output => output;
 
         if (state == 1) {
-            bar.strike(Math.random2f(0.4, 1.0));
-            bar.freq(Std.mtof(48 + pentatonicScale[i]));
+            rhod.noteOn(Math.random2f(0.4, 1.0));
+            rhod.freq(Std.mtof(48 + pentatonicScale[i]));
         }
 
         PluginHost.nextSixteenth() => now;
