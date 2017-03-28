@@ -190,7 +190,7 @@ while (true) {
         }
 
         // wait a sixteenth note
-        PluginHost.sixteenth() => now;
+        PluginHost.nextSixteenth() => now;
     }
 
     // uncomment out the line below to
