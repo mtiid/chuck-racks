@@ -3,11 +3,11 @@ Rhodey rhod => dac;
 
 // Cellular Automata rule
 110 => int rule;
-11 => int rhythmLength;
+12 => int rhythmLength;
 
 // Cellular Automata binary input
 1 => int input;
-[0, 2, 4, 7, 9, 12, 14, 16, 19, 21, 24] @=> int pentatonicScale[];
+[0, 2, 4, 7, 9, 12, 14, 16, 19, 21, 24, 26] @=> int pentatonicScale[];
 
 while (true) {
     int output, lookup, state;
