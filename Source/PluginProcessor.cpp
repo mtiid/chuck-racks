@@ -90,6 +90,7 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
         }
         
         parameterListModel = new std::map<int, String>;
+        lastBarStart = -1;
         //dynamic_cast<FloatParameter*>(getParameters().getUnchecked(0))->setName("Yes!");
     }
 }
@@ -277,14 +278,20 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
         if(!lastPosInfo.isPlaying&&g_hostInfo->wasPlaying)
         {
             g_hostInfo->broadcastStopEvent();
-            
+            lastBarStart = -1;
         }
         
         g_hostInfo->wasPlaying = lastPosInfo.isPlaying;
         
-        
+        if( pos.isPlaying )
+        {
+            if ((pos.ppqPositionOfLastBarStart != lastBarStart) && (pos.ppqPosition >= pos.ppqPositionOfLastBarStart))
+            {
+                g_hostInfo->broadcastNextBarEvent();
+                lastBarStart = pos.ppqPositionOfLastBarStart;
+            }
+        }
         g_hostInfo->positionInBeat = fmod( pos.ppqPosition,1 );
-        
         //DBG(positionInBeat);
         if (g_hostInfo->positionInBeat>0.749) //sixteenth
         {
@@ -322,10 +329,9 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
                 g_hostInfo->broadcastQuarterHit();
                 g_hostInfo->broadcastEighthHit();
                 g_hostInfo->broadcastSixteenthHit();
-                g_hostInfo->broadcastBeatStartEvent();
-                g_hostInfo->currentSixteenth=0;
-                //param->setValueNotifyingHost(.5);
+                g_hostInfo->currentSixteenth = 0;
                 
+                //param->setValueNotifyingHost(.5);
             }
         }
         // DBG(pos.ppqPosition);

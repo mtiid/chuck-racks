@@ -99,6 +99,7 @@ private:
     
     SharedResourcePointer<Counter> instanceCounter;
     int thisInstanceCount;
+    float lastBarStart;
 };
 
 #endif  // PLUGINPROCESSOR_H_INCLUDED

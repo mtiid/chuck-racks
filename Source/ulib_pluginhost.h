@@ -34,7 +34,7 @@ public:
     Chuck_Event *quarterEvent;
     Chuck_Event *eighthEvent;
     Chuck_Event *sixteenthEvent;
-    Chuck_Event *beatStartEvent;
+    Chuck_Event *nextBarEvent;
     Chuck_Event *stopEvent;
     Chuck_Event *midiEvent;
 
@@ -43,7 +43,8 @@ public:
 
     void broadcastPlayEvent();
     void broadcastStopEvent();
-    void broadcastBeatStartEvent();
+    //void broadcastBeatStartEvent();
+    void broadcastNextBarEvent();
 
     void broadcastQuarterHit();
     void broadcastEighthHit();

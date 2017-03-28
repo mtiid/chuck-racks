@@ -25,9 +25,9 @@ Event PluginHost.onPlay()
 Event PluginHost.onStop()
 -Returns an event when the stop button is pressed
        
-Event PluginHost.onBeat()
--Returns an event on the start of each beat (quarter notes)
-    
+Event PluginHost.nextBar()
+-Returns an event when a new bar starts
+
 Event PluginHost.nextSixteenth()
 -Returns an event at the beginning of each 16th note
 

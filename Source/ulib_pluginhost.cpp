@@ -50,10 +50,10 @@ void PluginHostInfo::broadcastPlayEvent()
         g_hostInfo->playEvent->broadcast();
 }
 
-void PluginHostInfo::broadcastBeatStartEvent()
+void PluginHostInfo::broadcastNextBarEvent()
 {
-    if(g_hostInfo->beatStartEvent != NULL)
-        g_hostInfo->beatStartEvent->broadcast();
+    if(g_hostInfo->nextBarEvent != NULL)
+        g_hostInfo->nextBarEvent->broadcast();
 }
 
 void PluginHostInfo::broadcastStopEvent()
@@ -157,15 +157,15 @@ CK_DLL_SFUN(pluginhost_onStop)
     RETURN->v_object = g_hostInfo->stopEvent;
 }
 
-CK_DLL_SFUN(pluginhost_onBeatStart)
+CK_DLL_SFUN(pluginhost_nextBar)
 {
-    if(g_hostInfo->beatStartEvent == NULL)
+    if(g_hostInfo->nextBarEvent == NULL)
     {
-        g_hostInfo->beatStartEvent = new Chuck_Event();
-        initialize_object(g_hostInfo->beatStartEvent, &t_event);
+        g_hostInfo->nextBarEvent = new Chuck_Event();
+        initialize_object(g_hostInfo->nextBarEvent, &t_event);
     }
 
-    RETURN->v_object = g_hostInfo->beatStartEvent;
+    RETURN->v_object = g_hostInfo->nextBarEvent;
 }
 
 CK_DLL_SFUN(pluginhost_quarter)
@@ -348,7 +348,7 @@ t_CKBOOL pluginhost_query( Chuck_DL_Query * QUERY )
     g_hostInfo->quarterEvent = NULL;
     g_hostInfo->eighthEvent = NULL;
     g_hostInfo->sixteenthEvent = NULL;
-    g_hostInfo->beatStartEvent = NULL;
+    g_hostInfo->nextBarEvent = NULL;
     g_hostInfo->midiEvent = NULL;
 
     QUERY->begin_class(QUERY, "PluginHost", "Object");
@@ -362,7 +362,7 @@ t_CKBOOL pluginhost_query( Chuck_DL_Query * QUERY )
     
     QUERY->add_sfun(QUERY, pluginhost_onMidi, "Event", "onMidi");
     
-    QUERY->add_sfun(QUERY, pluginhost_onBeatStart, "Event", "onBeat");
+    QUERY->add_sfun(QUERY, pluginhost_nextBar, "Event", "nextBar");
     
     QUERY->add_sfun(QUERY, pluginhost_quarter,"Event", "nextQuarter");
     
