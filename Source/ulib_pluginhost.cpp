@@ -354,30 +354,27 @@ t_CKBOOL pluginhost_query( Chuck_DL_Query * QUERY )
     QUERY->begin_class(QUERY, "PluginHost", "Object");
     QUERY->doc_class(QUERY, "Class for interacting with plugin host. ");
 
-
-    QUERY->add_sfun(QUERY, pluginhost_getTempo, "float", "getTempo"); //return type, chuck function name
-    QUERY->doc_func(QUERY, "Returns current tempo in BPM.");
-
-    QUERY->add_sfun(QUERY, pluginhost_setTempo, "float", "setTempo"); //return type, chuck function name
-
-    QUERY->add_arg(QUERY, "float", "tempo"); // first argument
-
+    //events
+    
     QUERY->add_sfun(QUERY, pluginhost_onPlay, "Event", "onPlay"); //return type, chuck function name
-
+    
     QUERY->add_sfun(QUERY, pluginhost_onStop, "Event", "onStop");
-
-    QUERY->add_sfun(QUERY, pluginhost_onBeatStart, "Event", "onBeat");
-
+    
     QUERY->add_sfun(QUERY, pluginhost_onMidi, "Event", "onMidi");
-
-    QUERY->add_sfun(QUERY, pluginhost_quarter,"Event", "quarter");
-
-    QUERY->add_sfun(QUERY, pluginhost_quarterLength, "float", "quarterLength");
-    QUERY->doc_func(QUERY, "Returns the length of a quarter notes in seconds at the current BPM. ");
+    
+    QUERY->add_sfun(QUERY, pluginhost_onBeatStart, "Event", "onBeat");
+    
+    QUERY->add_sfun(QUERY, pluginhost_quarter,"Event", "nextQuarter");
+    
+    QUERY->add_sfun(QUERY, pluginhost_eighth,"Event", "nextEighth");
+    
+    QUERY->add_sfun(QUERY, pluginhost_sixteenth,"Event", "nextSixteenth");
+    
+    
+    //durs and lengths
     
     QUERY->add_sfun(QUERY, pluginhost_quarterDur, "dur", "quarterDur");
     QUERY->doc_func(QUERY, "Returns the duration of a quarter note as a dur. ");
-
     
     QUERY->add_sfun(QUERY, pluginhost_wholeDur, "dur", "wholeDur");
     QUERY->doc_func(QUERY, "Returns the duration of a whole note as a dur. ");
@@ -385,23 +382,31 @@ t_CKBOOL pluginhost_query( Chuck_DL_Query * QUERY )
     QUERY->add_sfun(QUERY, pluginhost_halfDur, "dur", "halfDur");
     QUERY->doc_func(QUERY, "Returns the duration of a half note as a dur. ");
     
+    QUERY->add_sfun(QUERY, pluginhost_eighthDur, "dur", "eighthDur");
+    QUERY->doc_func(QUERY, "Returns the duration of an eighth note as a dur. ");
     
-    QUERY->add_sfun(QUERY, pluginhost_eighth,"Event", "eighth");
+    QUERY->add_sfun(QUERY, pluginhost_sixteenthDur, "dur", "sixteenthDur");
+    QUERY->doc_func(QUERY, "Returns the duration of an sixteenth note as a dur. ");
+    
+    
+    
+    QUERY->add_sfun(QUERY, pluginhost_quarterLength, "float", "quarterLength");
+    QUERY->doc_func(QUERY, "Returns the length of a quarter notes in seconds at the current BPM. ");
     
     QUERY->add_sfun(QUERY, pluginhost_eighthLength, "float", "eighthLength");
     QUERY->doc_func(QUERY, "Returns the length of a 8th notes in seconds at the current BPM. ");
     
-    QUERY->add_sfun(QUERY, pluginhost_eighthDur, "dur", "eighthDur");
-    QUERY->doc_func(QUERY, "Returns the duration of an eighth note as a dur. ");
-    
-
-    QUERY->add_sfun(QUERY, pluginhost_sixteenth,"Event", "sixteenth");
-
     QUERY->add_sfun(QUERY, pluginhost_sixteenthLength, "float", "sixteenthLength");
     QUERY->doc_func(QUERY, "Returns the length of a 16th notes in seconds at the current BPM. ");
     
-    QUERY->add_sfun(QUERY, pluginhost_sixteenthDur, "dur", "sixteenthDur");
-    QUERY->doc_func(QUERY, "Returns the duration of an sixteenth note as a dur. ");
+    
+    //other
+
+    QUERY->add_sfun(QUERY, pluginhost_getTempo, "float", "getTempo"); //return type, chuck function name
+    QUERY->doc_func(QUERY, "Returns current tempo in BPM.");
+
+    QUERY->add_sfun(QUERY, pluginhost_setTempo, "float", "setTempo"); //return type, chuck function name
+    QUERY->add_arg(QUERY, "float", "tempo");
     
 
     QUERY->add_sfun(QUERY, pluginhost_isPlaying, "int", "isPlaying");

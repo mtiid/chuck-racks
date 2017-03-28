@@ -28,8 +28,14 @@ Event PluginHost.onStop()
 Event PluginHost.onBeat()
 -Returns an event on the start of each beat (quarter notes)
     
-Event PluginHost.sixteenth()
+Event PluginHost.nextSixteenth()
 -Returns an event at the beginning of each 16th note
+
+Event PluginHost.nextEighth()
+-Returns an event at the beginning of some eighth notes (TODO needs a better description)
+
+Event PluginHost.nextQuarter()
+-Returns an event at the beginning of each quarter note
 
 dur PluginHost.wholeDur()
 -Returns the duration of a whole note calculated at the current tempo

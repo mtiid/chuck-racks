@@ -72,7 +72,7 @@ ChuckCodeComponent::ChuckCodeComponent(ChuckCodeModel* chuckCodeModel)
                                  "{\n"
                                  
                                  "   Std.rand2f(30, 1000)=>osc.freq;\n"
-                                 "   PluginHost.sixteenth()=>now; //synced with daw (press play)\n"
+                                 "   PluginHost.nextSixteenth()=>now; //synced with daw (press play)\n"
                                  "}"
                                  */
                                 
@@ -88,7 +88,7 @@ ChuckCodeComponent::ChuckCodeComponent(ChuckCodeModel* chuckCodeModel)
                                 //"    //PluginPanel.getValue( myId, 0 ) => osc.gain;\n"
                                 "    repeat ( Std.rand2(1, 3) ) //1,2 or 3 sixteenths\n"
                                 "    {\n"
-                                "        PluginHost.sixteenth()=>now; //synced with daw (press play)\n"
+                                "        PluginHost.nextSixteenth()=>now; //synced with daw (press play)\n"
                                 "    }\n"
                                 "}\n"
                                 "\n"
