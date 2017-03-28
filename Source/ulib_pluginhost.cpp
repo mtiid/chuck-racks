@@ -37,7 +37,9 @@ PluginHostInfo::PluginHostInfo()
     tempMidiBuffer = new MidiBuffer();
     
     sampleRate = 44100; //default
-
+    
+    position = positionInBar = positionInBeat = 0;
+    lastBarStartPosition = 0;
 }
 
 
@@ -94,29 +96,6 @@ void PluginHostInfo::broadcastSixteenthHit()
 {
     if(g_hostInfo->sixteenthEvent != NULL)
         g_hostInfo->sixteenthEvent->broadcast();
-}
-
-void PluginHostInfo::getMidiMessage(MidiMessage message)
-{
-    //Chuck_Object *_msg = GET_NEXT_OBJECT(ARGS);
-
-    // get next msg from JUCE
-    // if no msg, return 0
-    // if msg return 1
-    //unsigned char byte1 = 0x90;
-    //unsigned char byte2 = 60;
-    //unsigned char byte3 = 100;
-
-    //OBJ_MEMBER_INT(_msg, MidiMsg_offset_data1) = byte1;
-    //OBJ_MEMBER_INT(_msg, MidiMsg_offset_data2) = byte2;
-    //OBJ_MEMBER_INT(_msg, MidiMsg_offset_data3) = byte3;
-
-    //OBJ_MEMBER_INT(_msg, 0)=    message.getRawData();
-
-
-    //RETURN->v_int = 1;
-
-
 }
 
 
@@ -259,6 +238,23 @@ CK_DLL_SFUN(pluginhost_positionInBeat)
 {
     RETURN->v_float = g_hostInfo->positionInBeat;
 }
+
+CK_DLL_SFUN(pluginhost_positionInBar)
+{
+    RETURN->v_float = g_hostInfo->positionInBar;
+}
+
+CK_DLL_SFUN(pluginhost_position)
+{
+    RETURN->v_float = g_hostInfo->position;
+}
+
+CK_DLL_SFUN(pluginhost_lastBarPosition)
+{
+    RETURN->v_float = g_hostInfo->lastBarStartPosition;
+}
+
+
 
 
 CK_DLL_SFUN(pluginhost_onMidi)
@@ -412,8 +408,14 @@ t_CKBOOL pluginhost_query( Chuck_DL_Query * QUERY )
     QUERY->add_sfun(QUERY, pluginhost_isPlaying, "int", "isPlaying");
     QUERY->doc_func(QUERY, "Returns a 1 if the host is playing. Otherwise it returns 0. ");
 
-    QUERY->add_sfun(QUERY, pluginhost_positionInBeat, "float", "positionInBeat"); //returns a value between 0 and 0.9999 for the position in the beat. It can be used for finer subdivisions than 16ths.
-
+    QUERY->add_sfun(QUERY, pluginhost_positionInBeat, "float", "posInBeat"); //returns a value between 0 and 0.9999 for the position in the beat. It can be used for finer subdivisions than 16ths.
+    QUERY->add_sfun(QUERY, pluginhost_positionInBar, "float", "posInBar");
+    
+    QUERY->add_sfun(QUERY, pluginhost_position, "float", "position");
+    
+    QUERY->add_sfun(QUERY, pluginhost_lastBarPosition, "float", "lastBarStartPosition");
+    
+    
 
     QUERY->add_sfun(QUERY, pluginhost_recvMidi, "int", "recvMidi");
     QUERY->add_arg(QUERY, "MidiMsg", "msg");

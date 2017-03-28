@@ -55,8 +55,17 @@ dur PluginHost.sixteenthDur()
 int PluginHost.isPlaying()
 -Returns a 1 if the host is playing. Otherwise it returns 0.
 
-float PluginHost.positionInBeat()
+float PluginHost.posInBeat()
 -Returns a value between 0 and 0.9999 for the position in the beat. It can be used for finer subdivisions than 16ths.
+
+float PluginHost.posInBar()
+-Returns a value between 0 and the number of quarters in the signature (0.0 - 3.999 in 4/4) for the position in the bar. 
+
+float PluginHost.position()
+-Returns the position of the playhead in the transport in quarter notes
+
+float PluginHost.lastBarStartPosition()
+-Returns the position in quarter notes of the last bar that started
 
 Event PluginHost.onMidi()
 -Returns an event when a midi message is received from host.

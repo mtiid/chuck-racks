@@ -291,7 +291,11 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
                 lastBarStart = pos.ppqPositionOfLastBarStart;
             }
         }
+        
+        g_hostInfo->position = pos.ppqPosition;
+        g_hostInfo->positionInBar = pos.ppqPosition - pos.ppqPositionOfLastBarStart;
         g_hostInfo->positionInBeat = fmod( pos.ppqPosition,1 );
+        g_hostInfo->lastBarStartPosition = pos.ppqPositionOfLastBarStart;
         //DBG(positionInBeat);
         if (g_hostInfo->positionInBeat>0.749) //sixteenth
         {

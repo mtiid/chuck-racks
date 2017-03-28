@@ -60,8 +60,9 @@ public:
     int currentSixteenth;
 
     float positionInBeat;
-    float absolutePosition;
-    float lastBar;
+    float positionInBar;
+    float position;
+    float lastBarStartPosition;
     
     float sampleRate;
 
