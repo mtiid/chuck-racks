@@ -40,6 +40,9 @@ PluginHostInfo::PluginHostInfo()
     
     position = positionInBar = positionInBeat = 0;
     lastBarStartPosition = 0;
+    
+    timeSigNumerator = 1;
+    timeSigDenominator = 1;
 }
 
 
@@ -254,8 +257,15 @@ CK_DLL_SFUN(pluginhost_lastBarPosition)
     RETURN->v_float = g_hostInfo->lastBarStartPosition;
 }
 
+CK_DLL_SFUN(pluginhost_timeSigNumerator)
+{
+    RETURN->v_int = g_hostInfo->timeSigNumerator;
+}
 
-
+CK_DLL_SFUN(pluginhost_timeSigDenominator)
+{
+    RETURN->v_int = g_hostInfo->timeSigDenominator;
+}
 
 CK_DLL_SFUN(pluginhost_onMidi)
 {
@@ -415,6 +425,9 @@ t_CKBOOL pluginhost_query( Chuck_DL_Query * QUERY )
     
     QUERY->add_sfun(QUERY, pluginhost_lastBarPosition, "float", "lastBarStartPosition");
     
+    QUERY->add_sfun(QUERY, pluginhost_timeSigNumerator, "int", "timeSigNumerator");
+    
+    QUERY->add_sfun(QUERY, pluginhost_timeSigDenominator, "int", "timeSigDenominator");
     
 
     QUERY->add_sfun(QUERY, pluginhost_recvMidi, "int", "recvMidi");
@@ -422,8 +435,6 @@ t_CKBOOL pluginhost_query( Chuck_DL_Query * QUERY )
 
     QUERY->add_sfun(QUERY, pluginhost_sendMidi, "int", "sendMidi");
     QUERY->add_arg(QUERY, "MidiMsg", "msg");
-
-
 
 
     QUERY->end_class(QUERY);

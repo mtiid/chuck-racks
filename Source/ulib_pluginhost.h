@@ -64,6 +64,9 @@ public:
     float position;
     float lastBarStartPosition;
     
+    int timeSigNumerator;
+    int timeSigDenominator;
+    
     float sampleRate;
 
     MidiBuffer* midiInputBufferP;

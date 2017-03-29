@@ -281,6 +281,16 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
             lastBarStart = -1;
         }
         
+        if( pos.timeSigDenominator != g_hostInfo->timeSigDenominator )
+        {
+            g_hostInfo->timeSigDenominator = pos.timeSigDenominator;
+        }
+        
+        if( pos.timeSigNumerator != g_hostInfo->timeSigNumerator )
+        {
+            g_hostInfo->timeSigNumerator = pos.timeSigNumerator;
+        }
+        
         g_hostInfo->wasPlaying = lastPosInfo.isPlaying;
         
         if( pos.isPlaying )

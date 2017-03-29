@@ -67,6 +67,12 @@ float PluginHost.position()
 float PluginHost.lastBarStartPosition()
 -Returns the position in quarter notes of the last bar that started
 
+int PluginHost.timeSigNumerator()
+-Returns numerator of current time signature (6 in 6/8)
+
+int PluginHost.timeSigDenominator()
+-Returns denominator of current time signature (8 in 6/8)
+
 Event PluginHost.onMidi()
 -Returns an event when a midi message is received from host.
 
