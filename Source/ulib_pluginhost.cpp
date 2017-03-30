@@ -418,16 +418,16 @@ t_CKBOOL pluginhost_query( Chuck_DL_Query * QUERY )
     QUERY->add_sfun(QUERY, pluginhost_isPlaying, "int", "isPlaying");
     QUERY->doc_func(QUERY, "Returns a 1 if the host is playing. Otherwise it returns 0. ");
 
-    QUERY->add_sfun(QUERY, pluginhost_positionInBeat, "float", "positionInBeat"); //returns a value between 0 and 0.9999 for the position in the beat. It can be used for finer subdivisions than 16ths.
-    QUERY->add_sfun(QUERY, pluginhost_positionInBar, "float", "positionInBar");
+    QUERY->add_sfun(QUERY, pluginhost_positionInBeat, "float", "posInBeat"); //returns a value between 0 and 0.9999 for the position in the beat. It can be used for finer subdivisions than 16ths.
+    QUERY->add_sfun(QUERY, pluginhost_positionInBar, "float", "posInBar");
     
-    QUERY->add_sfun(QUERY, pluginhost_position, "float", "position");
+    QUERY->add_sfun(QUERY, pluginhost_position, "float", "pos");
     
-    QUERY->add_sfun(QUERY, pluginhost_lastBarPosition, "float", "positionLastBarStart");
+    QUERY->add_sfun(QUERY, pluginhost_lastBarPosition, "float", "posLastBarStart");
     
-    QUERY->add_sfun(QUERY, pluginhost_timeSigNumerator, "int", "timeSigNumerator");
+    QUERY->add_sfun(QUERY, pluginhost_timeSigNumerator, "int", "timeSigUpper");
     
-    QUERY->add_sfun(QUERY, pluginhost_timeSigDenominator, "int", "timeSigDenominator");
+    QUERY->add_sfun(QUERY, pluginhost_timeSigDenominator, "int", "timeSigLower");
     
 
     QUERY->add_sfun(QUERY, pluginhost_recvMidi, "int", "recvMidi");
