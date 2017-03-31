@@ -12,8 +12,8 @@
 #include "ChuckCodeManagerComponent.h"
 
 //==============================================================================
-ChuckCodeManagerComponent::ChuckCodeManagerComponent(ChuckCodeModelManager* modelManager)    :
-    tabView(TabbedButtonBar::Orientation::TabsAtTop)
+ChuckCodeManagerComponent::ChuckCodeManagerComponent(ChuckCodeModelManager* modelManager)    //:
+    //tabView(TabbedButtonBar::Orientation::TabsAtTop)
 {
     mModelManager = modelManager;
     addAndMakeVisible(tabView);

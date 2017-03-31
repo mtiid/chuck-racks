@@ -8,7 +8,7 @@
               pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="1"
               pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="0"
               pluginAUExportPrefix="ChuckRacksAU" pluginRTASCategory="" aaxIdentifier="com.calartsmtiid.ChuckRacks"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.3.0"
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.3.1"
               buildAUv3="0" pluginIsMidiEffectPlugin="0">
   <MAINGROUP id="hkay95" name="ChuckRacks">
     <GROUP id="{21BA8925-7DBA-0C76-6E9B-2F1D8B0C76CF}" name="Resources">
@@ -44,6 +44,10 @@
               file="Source/PluginProcessor.h"/>
       </GROUP>
       <GROUP id="{B23D9CAC-7F47-44FE-6887-62B360440FB4}" name="UI">
+        <FILE id="oGRamd" name="CRTabbedComponent.cpp" compile="1" resource="0"
+              file="Source/CRTabbedComponent.cpp"/>
+        <FILE id="otyiNj" name="CRTabbedComponent.h" compile="0" resource="0"
+              file="Source/CRTabbedComponent.h"/>
         <FILE id="k34etH" name="ChuckCodeManagerComponent.cpp" compile="1"
               resource="0" file="Source/ChuckCodeManagerComponent.cpp"/>
         <FILE id="mWeTEh" name="ChuckCodeManagerComponent.h" compile="0" resource="0"

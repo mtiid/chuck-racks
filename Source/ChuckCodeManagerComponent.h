@@ -14,6 +14,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "ChuckCodeModelManager.h"
 #include "ChuckCodeComponent.h"
+#include "CRTabbedComponent.h"
 
 //==============================================================================
 /*
@@ -35,7 +36,7 @@ private:
     ChuckCodeModelManager* mModelManager;
     OwnedArray<ChuckCodeComponent> chuckCodeComponents;
 
-    TabbedComponent tabView;
+    CRTabbedComponent tabView;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChuckCodeManagerComponent)
 };
