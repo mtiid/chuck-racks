@@ -18,6 +18,8 @@ ChuckCodeManagerComponent::ChuckCodeManagerComponent(ChuckCodeModelManager* mode
     mModelManager = modelManager;
     addAndMakeVisible(tabView);
     
+    tabView.addListener(this);
+    
     for (auto& fc : mModelManager->chuckCodeModelCollection)
         addNewChuckCodeComponent(fc.second);
 
@@ -41,6 +43,23 @@ void ChuckCodeManagerComponent::addNewChuckCodeComponent(ChuckCodeModel* chuckCo
     ChuckCodeComponent* newChuckCodeComponent = new ChuckCodeComponent(chuckCodeModel);
     chuckCodeComponents.add(newChuckCodeComponent);
     tabView.addTab("New", Colour(100, 106, 127), newChuckCodeComponent, false);
+}
+
+void ChuckCodeManagerComponent::removeChuckCodeComponent(int tabIndex){
+    //for (int i=0; i<mModelManager->chuckCodeModelCollection.size(); ++i){
+    //    if (i == tabIndex){
+    //        DBG("removing");
+    //        mModelManager->removeFileContainer(mModelManager->chuckCodeModelCollection.at(i));
+    auto it = mModelManager->chuckCodeModelCollection.begin();
+    std::advance(it, tabIndex);
+    mModelManager->removeFileContainer(it->second);
+    chuckCodeComponents.remove(tabIndex);
+    //    }
+    //}
+}
+
+void ChuckCodeManagerComponent::removeTabComponent(int tabIndex){
+    removeChuckCodeComponent(tabIndex);
 }
 
 

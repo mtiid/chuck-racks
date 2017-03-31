@@ -12,6 +12,7 @@
 #define CRTABBEDCOMPONENT_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "CRTabbedComponentListener.h"
 
 class CRTabbedComponent : public TabbedComponent
 {
@@ -22,7 +23,10 @@ public:
     
     void popupMenuClickOnTab (int tabIndex, const String &tabName) override;
     
+    void addListener(CRTabbedComponentListener* comp){listeners.add(comp);};
+    
 private:
+    ListenerList<CRTabbedComponentListener> listeners;
     
 };
 

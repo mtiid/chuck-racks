@@ -17,7 +17,7 @@ CRTabbedComponent::CRTabbedComponent() : TabbedComponent(TabbedButtonBar::Orient
 
 CRTabbedComponent::~CRTabbedComponent()
 {
-    
+    listeners.clear();
 }
 
 void CRTabbedComponent::popupMenuClickOnTab (int tabIndex, const String &tabName){
@@ -30,7 +30,7 @@ void CRTabbedComponent::popupMenuClickOnTab (int tabIndex, const String &tabName
     else if (result == 1)
     {
         removeTab(tabIndex);
-    }
+        listeners.call(&CRTabbedComponentListener::removeTabComponent, tabIndex);}
 }
 
 

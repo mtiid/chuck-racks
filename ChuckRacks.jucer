@@ -44,6 +44,8 @@
               file="Source/PluginProcessor.h"/>
       </GROUP>
       <GROUP id="{B23D9CAC-7F47-44FE-6887-62B360440FB4}" name="UI">
+        <FILE id="FYwCeU" name="CRTabbedComponentListener.h" compile="0" resource="0"
+              file="Source/CRTabbedComponentListener.h"/>
         <FILE id="oGRamd" name="CRTabbedComponent.cpp" compile="1" resource="0"
               file="Source/CRTabbedComponent.cpp"/>
         <FILE id="otyiNj" name="CRTabbedComponent.h" compile="0" resource="0"

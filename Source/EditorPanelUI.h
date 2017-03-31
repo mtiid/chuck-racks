@@ -13,6 +13,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "ChuckCodeManagerComponent.h"
+#include "CRTabbedComponent.h"
 #include "ChuckCodeModelManager.h"
 #include "ConsoleComponent.h"
 

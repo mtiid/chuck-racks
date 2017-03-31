@@ -15,11 +15,13 @@
 #include "ChuckCodeModelManager.h"
 #include "ChuckCodeComponent.h"
 #include "CRTabbedComponent.h"
-
 //==============================================================================
 /*
 */
-class ChuckCodeManagerComponent    : public Component
+
+
+class ChuckCodeManagerComponent :   public Component,
+                                    public CRTabbedComponentListener
 {
     
 public:
@@ -30,7 +32,9 @@ public:
     void resized() override;
     
     void addNewChuckCodeComponent(ChuckCodeModel* chuckCodeModel);
-
+    void removeChuckCodeComponent(int tabIndex);
+    
+    void removeTabComponent(int tabIndex);
 
 private:
     ChuckCodeModelManager* mModelManager;
