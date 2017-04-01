@@ -34,7 +34,8 @@ public:
     void addNewChuckCodeComponent(ChuckCodeModel* chuckCodeModel);
     void removeChuckCodeComponent(int tabIndex);
     
-    void removeTabComponent(int tabIndex);
+    void removeTabComponent(int tabIndex) override;
+    void duplicateTabComponent(int tabIndex) override;
 
 private:
     ChuckCodeModelManager* mModelManager;

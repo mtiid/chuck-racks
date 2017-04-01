@@ -27,6 +27,7 @@ ChuckCodeManagerComponent::ChuckCodeManagerComponent(ChuckCodeModelManager* mode
 
 ChuckCodeManagerComponent::~ChuckCodeManagerComponent()
 {
+    chuckCodeComponents.clear();
 }
 
 void ChuckCodeManagerComponent::paint (Graphics& g)
@@ -48,11 +49,11 @@ void ChuckCodeManagerComponent::addNewChuckCodeComponent(ChuckCodeModel* chuckCo
 void ChuckCodeManagerComponent::removeChuckCodeComponent(int tabIndex){
     auto it = mModelManager->chuckCodeModelCollection.begin();
     
+    if (tabIndex > 0)
+        std::advance(it, tabIndex);
+    
     if (it != mModelManager->chuckCodeModelCollection.end())
     {
-        if (tabIndex > 0)
-            std::advance(it, tabIndex);
-        
         tabView.removeTab(tabIndex);
         mModelManager->removeFileContainer(it->second);
     }
@@ -61,6 +62,19 @@ void ChuckCodeManagerComponent::removeChuckCodeComponent(int tabIndex){
 
 void ChuckCodeManagerComponent::removeTabComponent(int tabIndex){
     removeChuckCodeComponent(tabIndex);
+}
+
+void ChuckCodeManagerComponent::duplicateTabComponent(int tabIndex){
+    
+    // Get model to copy
+    ChuckCodeComponent* copyComponent = static_cast<ChuckCodeComponent*>( tabView.getTabContentComponent(tabIndex) );
+    ChuckCodeModel* copyModel = copyComponent->getChuckCodeModel();
+
+    // Add new model, update it's content, and create  new chuck code component for the model
+    ChuckCodeModel* newChuckCodeModel = mModelManager->addFileContainer();
+    newChuckCodeModel->getCodeDocument().replaceAllContent(copyModel->getCodeDocument().getAllContent());
+    addNewChuckCodeComponent(newChuckCodeModel);
+    
 }
 
 

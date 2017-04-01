@@ -19,6 +19,7 @@ public:
     virtual ~CRTabbedComponentListener(){};
     
     virtual void removeTabComponent(int tabIndex){};
+    virtual void duplicateTabComponent(int tabIndex){};
     
 private:
     

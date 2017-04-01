@@ -23,14 +23,22 @@ CRTabbedComponent::~CRTabbedComponent()
 void CRTabbedComponent::popupMenuClickOnTab (int tabIndex, const String &tabName){
     PopupMenu m;
     m.addItem (1, "Remove");
+    m.addItem(2, "Duplicate");
+    
     const int result = m.show();
     if (result == 0){
         // user dismissed the menu without picking anything
     }
+    
     else if (result == 1)
     {
         listeners.call(&CRTabbedComponentListener::removeTabComponent, tabIndex);
         //removeTab(tabIndex);
+    }
+    
+    else if (result == 2)
+    {
+        listeners.call(&CRTabbedComponentListener::duplicateTabComponent, tabIndex);
     }
 }
 

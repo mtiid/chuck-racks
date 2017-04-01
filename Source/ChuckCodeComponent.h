@@ -28,7 +28,8 @@ public:
     
     void filenameComponentChanged (FilenameComponent*) override;
     void buttonClicked(Button* buttonThatWasPressed) override;
-        
+    
+    ChuckCodeModel* getChuckCodeModel(){return mChuckCodeModel;};
 private:
     
     ChuckCodeModel* mChuckCodeModel;
