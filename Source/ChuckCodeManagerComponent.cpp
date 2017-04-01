@@ -42,20 +42,21 @@ void ChuckCodeManagerComponent::resized()
 void ChuckCodeManagerComponent::addNewChuckCodeComponent(ChuckCodeModel* chuckCodeModel){
     ChuckCodeComponent* newChuckCodeComponent = new ChuckCodeComponent(chuckCodeModel);
     chuckCodeComponents.add(newChuckCodeComponent);
-    tabView.addTab("New", Colour(100, 106, 127), newChuckCodeComponent, false);
+    tabView.addTab("Untitled", Colour(100, 106, 127), newChuckCodeComponent, false);
 }
 
 void ChuckCodeManagerComponent::removeChuckCodeComponent(int tabIndex){
-    //for (int i=0; i<mModelManager->chuckCodeModelCollection.size(); ++i){
-    //    if (i == tabIndex){
-    //        DBG("removing");
-    //        mModelManager->removeFileContainer(mModelManager->chuckCodeModelCollection.at(i));
     auto it = mModelManager->chuckCodeModelCollection.begin();
-    std::advance(it, tabIndex);
-    mModelManager->removeFileContainer(it->second);
-    chuckCodeComponents.remove(tabIndex);
-    //    }
-    //}
+    
+    if (it != mModelManager->chuckCodeModelCollection.end())
+    {
+        if (tabIndex > 0)
+            std::advance(it, tabIndex);
+        
+        tabView.removeTab(tabIndex);
+        mModelManager->removeFileContainer(it->second);
+    }
+    
 }
 
 void ChuckCodeManagerComponent::removeTabComponent(int tabIndex){

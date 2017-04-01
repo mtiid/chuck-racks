@@ -38,7 +38,7 @@ public:
 
 private:
     ChuckCodeModelManager* mModelManager;
-    OwnedArray<ChuckCodeComponent> chuckCodeComponents;
+    Array<ChuckCodeComponent*> chuckCodeComponents;
 
     CRTabbedComponent tabView;
     

@@ -25,23 +25,25 @@ public:
     void paint (Graphics& g) override;
     void resized() override;
     
-    ScopedPointer<CodeEditorComponent> codeEditor;
     
     void filenameComponentChanged (FilenameComponent*) override;
     void buttonClicked(Button* buttonThatWasPressed) override;
         
 private:
     
-    ChuckTokeniser ckTokeniser;
     ChuckCodeModel* mChuckCodeModel;
-    //FilenameComponent filenameComponent;
-    
+    ChuckTokeniser ckTokeniser;
+    ScopedPointer<CodeEditorComponent> codeEditor;
+
     ScopedPointer<TextButton> browseCodeButton;
     ScopedPointer<DrawableButton> addShredButton;
     ScopedPointer<DrawableButton> removeShredButton;
     
     ScopedPointer<TextButton> openFileButton;
     ScopedPointer<TextButton> saveFileButton;
+    
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChuckCodeComponent);
+
 };
 
 #endif /* defined(__ChuckRacks__FileContainerUI__) */

@@ -29,13 +29,14 @@ public:
     int getNumFileContainers(){return chuckCodeModelCollection.size();};
     ChuckCodeModel* findFileContainer(int askedUniqueId);
     
-    CodeDocument consoleDocument;
+    //CodeDocument consoleDocument;
     std::map<int, ChuckCodeModel*> chuckCodeModelCollection;
 
     AudioProcessor* processor;
     
 private:
-    
+  
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChuckCodeModelManager);
 };
 
 

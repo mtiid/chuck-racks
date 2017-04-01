@@ -55,6 +55,9 @@ private:
     int uniqueFileContainerId;
 
     ConsoleComponent* consoleComponent;
+    
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChuckCodeModel);
+
 };
 
 #endif /* defined(__ChuckRacks__ChuckCodeModel__) */
