@@ -79,20 +79,22 @@ public:
     void updateParamNames(int num, String newText);
     float getParamValue(String paramName);
     
+    void cleanUp();
+    
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChuckRacksAudioProcessor)
     
-    chuck_inst *ck;
-    float *input_buffer;
-    float *output_buffer;
+    chuck_inst *ck = NULL;
+    float *input_buffer = NULL;
+    float *output_buffer = NULL;
     
     MidiBuffer midiInputBuffer;
     MidiBuffer midiOutputBuffer;
     
     AudioPlayHead::CurrentPositionInfo lastPosInfo;
 
-    ChuckCodeModelManager*  chuckCodeModelManager;
+    ChuckCodeModelManager*  chuckCodeModelManager = NULL;
     std::map<int, String>* parameterListModel;
 
     //AudioProcessorValueTreeState parameters;
