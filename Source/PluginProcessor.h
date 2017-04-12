@@ -72,7 +72,7 @@ public:
 
     
     ChuckCodeModelManager* getChuckCodeModelManager(){return chuckCodeModelManager;};
-    AudioProcessor * getProcessor() { return this; };
+    AudioProcessor* getProcessor() { return this; };
     
     std::map<int, String>* getParameterListModel(){return parameterListModel;};
     bool mapNewParam();
@@ -84,6 +84,13 @@ public:
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChuckRacksAudioProcessor)
+    
+    /** internal */
+    bool isSingleInstance();
+    /** internal */
+    void checkForMultipleInstances();
+    /** internal */
+    void initializeParameterList();
     
     chuck_inst *ck = NULL;
     float *input_buffer = NULL;
