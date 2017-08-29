@@ -267,7 +267,7 @@
  #define JucePlugin_Desc                   "Chuck Racks"
 #endif
 #ifndef  JucePlugin_Manufacturer
- #define JucePlugin_Manufacturer           "MTIID"
+ #define JucePlugin_Manufacturer           "CalArts MTIID"
 #endif
 #ifndef  JucePlugin_ManufacturerWebsite
  #define JucePlugin_ManufacturerWebsite    ""
@@ -369,5 +369,5 @@
  #define JucePlugin_IAASubType             JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_IAAName
- #define JucePlugin_IAAName                "MTIID: Chuck Racks"
+ #define JucePlugin_IAAName                "CalArts MTIID: Chuck Racks"
 #endif

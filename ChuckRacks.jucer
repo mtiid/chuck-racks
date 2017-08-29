@@ -3,7 +3,7 @@
 <JUCERPROJECT id="uZ8Og2" name="Chuck Racks" projectType="audioplug" version="1.0.0"
               bundleIdentifier="com.mtiid.ChuckRacks" includeBinaryInAppConfig="1"
               buildVST="1" buildVST3="0" buildAU="1" buildRTAS="0" buildAAX="0"
-              pluginName="Chuck Racks" pluginDesc="Chuck Racks" pluginManufacturer="MTIID"
+              pluginName="Chuck Racks" pluginDesc="Chuck Racks" pluginManufacturer="CalArts MTIID"
               pluginManufacturerCode="Mtec" pluginCode="Rack" pluginChannelConfigs=""
               pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="1"
               pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="0"
