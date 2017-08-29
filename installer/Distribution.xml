@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<installer-gui-script minSpecVersion="1">
+    
+    <pkg-ref id="edu.calarts.mtiid.ChuckRacks"/>
+    
+    <title>ChuckRacks</title>
+    <background file="chuck_logo.png" alignment="topleft" scaling="none"/>
+    <allowed-os-versions><os-version min="10.5"/></allowed-os-versions>
+    <options customize="allow" require-scripts="false"/>
+    <choices-outline>
+        <line choice="edu.calarts.mtiid.ChuckRacks.vst"/>
+    </choices-outline>
+
+    <choice id="edu.calarts.mtiid.ChuckRacks.vst" title="ChuckRacks (VST)" description="Music programming => your DAW (VST version).">
+        <pkg-ref id="edu.stanford.ChuckRacks.vst"/>
+    </choice>
+    <pkg-ref id="edu.stanford.ChuckRacks.vst" version="0" onConclusion="none">ChuckRacks.vst.pkg</pkg-ref>
+
+</installer-gui-script>
