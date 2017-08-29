@@ -9,11 +9,17 @@
     <options customize="allow" require-scripts="false"/>
     <choices-outline>
         <line choice="edu.calarts.mtiid.ChuckRacks.vst"/>
+        <line choice="edu.calarts.mtiid.ChuckRacks.au"/>
     </choices-outline>
 
     <choice id="edu.calarts.mtiid.ChuckRacks.vst" title="ChuckRacks (VST)" description="Music programming => your DAW (VST version).">
         <pkg-ref id="edu.stanford.ChuckRacks.vst"/>
     </choice>
     <pkg-ref id="edu.stanford.ChuckRacks.vst" version="0" onConclusion="none">ChuckRacks.vst.pkg</pkg-ref>
+    
+    <choice id="edu.calarts.mtiid.ChuckRacks.au" title="ChuckRacks (AU)" description="Music programming => your DAW (AudioUnit version).">
+        <pkg-ref id="edu.stanford.ChuckRacks.au"/>
+    </choice>
+    <pkg-ref id="edu.stanford.ChuckRacks.au" version="0" onConclusion="none">ChuckRacks.component.pkg</pkg-ref>
 
 </installer-gui-script>

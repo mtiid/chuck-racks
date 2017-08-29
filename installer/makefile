@@ -3,22 +3,20 @@ BUILD_ROOT=$(SRC_ROOT)/Builds/MacOSX
 PRODUCTS_ROOT=$(BUILD_ROOT)/build/Release
 
 PRODUCT_NAME=ChuckRacks
-PRODUCT_VERSION=0.1
+PRODUCT_VERSION=1.0
 INSTALLER=$(PRODUCT_NAME)-$(PRODUCT_VERSION).pkg
 
 XCODE_PROJECT=ChuckRacks.xcodeproj
-XCODE_TARGET_VST="ChuckRacks (VST)"
-XCODE_TARGET_AU="ChuckRacks (AU)"
+XCODE_TARGET_VST="ChuckRacks - VST"
+XCODE_TARGET_AU="ChuckRacks - AU"
 XCODE_CONFIGURATION=Release
 
 PLUGIN_VST=$(PRODUCT_NAME).vst
 PLUGIN_AU=$(PRODUCT_NAME).component
 
-PLUGINS=$(PLUGIN_VST)
-
 VST_PKG=$(PLUGIN_VST).pkg
 AU_PKG=$(PLUGIN_AU).pkg
-PLUGIN_PKGS=$(VST_PKG)
+PLUGIN_PKGS=$(VST_PKG) $(AU_PKG)
 
 VST_DIR=/Library/Audio/Plug-Ins/VST
 AU_DIR=/Library/Audio/Plug-Ins/Components
@@ -72,7 +70,7 @@ clean-vst:
 	xcodebuild clean -project $(BUILD_ROOT)/$(XCODE_PROJECT)/ -target $(XCODE_TARGET_VST) -configuration $(XCODE_CONFIGURATION)
 
 clean-au:
-	xcodebuild clean -project $(BUILD_ROOT)/$(XCODE_PROJECT)/ -target $(XCODE_TARGET_VST) -configuration $(XCODE_CONFIGURATION)
+	xcodebuild clean -project $(BUILD_ROOT)/$(XCODE_PROJECT)/ -target $(XCODE_TARGET_AU) -configuration $(XCODE_CONFIGURATION)
 
 clean-all: clean clean-vst clean-au
 	
