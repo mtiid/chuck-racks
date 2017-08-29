@@ -11,8 +11,7 @@
 
 */
 
-#ifndef __JUCE_APPCONFIG_UZ8OG2__
-#define __JUCE_APPCONFIG_UZ8OG2__
+#pragma once
 
 //==============================================================================
 // [BEGIN_USER_CODE_SECTION]
@@ -20,6 +19,27 @@
 // (You can add your own code in this section, and the Projucer will not overwrite it)
 
 // [END_USER_CODE_SECTION]
+
+/*
+  ==============================================================================
+
+   In accordance with the terms of the JUCE 5 End-Use License Agreement, the
+   JUCE Code in SECTION A cannot be removed, changed or otherwise rendered
+   ineffective unless you have a JUCE Indie or Pro license, or are using JUCE
+   under the GPL v3 license.
+
+   End User License Agreement: www.juce.com/juce-5-licence
+  ==============================================================================
+*/
+
+// BEGIN SECTION A
+
+#define JUCE_DISPLAY_SPLASH_SCREEN 1
+#define JUCE_REPORT_APP_USAGE 1
+
+// END SECTION A
+
+#define JUCE_USE_DARK_SPLASH_SCREEN 1
 
 //==============================================================================
 #define JUCE_MODULE_AVAILABLE_juce_audio_basics             1
@@ -37,7 +57,7 @@
 
 //==============================================================================
 #ifndef    JUCE_STANDALONE_APPLICATION
- #ifdef JucePlugin_Build_Standalone
+ #if defined(JucePlugin_Name) && defined(JucePlugin_Build_Standalone)
   #define  JUCE_STANDALONE_APPLICATION JucePlugin_Build_Standalone
  #else
   #define  JUCE_STANDALONE_APPLICATION 0
@@ -213,7 +233,6 @@
  //#define JUCE_ENABLE_LIVE_CONSTANT_EDITOR
 #endif
 
-
 //==============================================================================
 // Audio plugin settings..
 
@@ -224,7 +243,7 @@
  #define JucePlugin_Build_VST3             0
 #endif
 #ifndef  JucePlugin_Build_AU
- #define JucePlugin_Build_AU               0
+ #define JucePlugin_Build_AU               1
 #endif
 #ifndef  JucePlugin_Build_AUv3
  #define JucePlugin_Build_AUv3             0
@@ -238,14 +257,17 @@
 #ifndef  JucePlugin_Build_STANDALONE
  #define JucePlugin_Build_STANDALONE       0
 #endif
+#ifndef  JucePlugin_Enable_IAA
+ #define JucePlugin_Enable_IAA             0
+#endif
 #ifndef  JucePlugin_Name
- #define JucePlugin_Name                   "ChuckRacks"
+ #define JucePlugin_Name                   "Chuck Racks"
 #endif
 #ifndef  JucePlugin_Desc
- #define JucePlugin_Desc                   "ChuckRacks"
+ #define JucePlugin_Desc                   "Chuck Racks"
 #endif
 #ifndef  JucePlugin_Manufacturer
- #define JucePlugin_Manufacturer           "Sena, Salazar, Hochenbaum"
+ #define JucePlugin_Manufacturer           "MTIID"
 #endif
 #ifndef  JucePlugin_ManufacturerWebsite
  #define JucePlugin_ManufacturerWebsite    ""
@@ -254,10 +276,10 @@
  #define JucePlugin_ManufacturerEmail      ""
 #endif
 #ifndef  JucePlugin_ManufacturerCode
- #define JucePlugin_ManufacturerCode       0x4d616e75 // 'Manu'
+ #define JucePlugin_ManufacturerCode       0x4d746563 // 'Mtec'
 #endif
 #ifndef  JucePlugin_PluginCode
- #define JucePlugin_PluginCode             0x506c7567 // 'Plug'
+ #define JucePlugin_PluginCode             0x5261636b // 'Rack'
 #endif
 #ifndef  JucePlugin_IsSynth
  #define JucePlugin_IsSynth                0
@@ -305,7 +327,7 @@
  #define JucePlugin_AUManufacturerCode     JucePlugin_ManufacturerCode
 #endif
 #ifndef  JucePlugin_CFBundleIdentifier
- #define JucePlugin_CFBundleIdentifier     com.calartsmtiid.ChuckRacks
+ #define JucePlugin_CFBundleIdentifier     com.mtiid.ChuckRacks
 #endif
 #ifndef  JucePlugin_RTASCategory
  #define JucePlugin_RTASCategory           ePlugInCategory_None
@@ -323,7 +345,7 @@
  #define JucePlugin_RTASDisableMultiMono   0
 #endif
 #ifndef  JucePlugin_AAXIdentifier
- #define JucePlugin_AAXIdentifier          com.calartsmtiid.ChuckRacks
+ #define JucePlugin_AAXIdentifier          com.mtiid.ChuckRacks
 #endif
 #ifndef  JucePlugin_AAXManufacturerCode
  #define JucePlugin_AAXManufacturerCode    JucePlugin_ManufacturerCode
@@ -340,5 +362,12 @@
 #ifndef  JucePlugin_AAXDisableMultiMono
  #define JucePlugin_AAXDisableMultiMono    0
 #endif
-
-#endif  // __JUCE_APPCONFIG_UZ8OG2__
+#ifndef  JucePlugin_IAAType
+ #define JucePlugin_IAAType                0x6175726d // 'aurm'
+#endif
+#ifndef  JucePlugin_IAASubType
+ #define JucePlugin_IAASubType             JucePlugin_PluginCode
+#endif
+#ifndef  JucePlugin_IAAName
+ #define JucePlugin_IAAName                "MTIID: Chuck Racks"
+#endif

@@ -62,7 +62,7 @@
 		A5B0D0BF95349DC390ECC3B8 = {isa = PBXBuildFile; fileRef = 19F3A0E13FA72C2A668373FB; };
 		02DDE49AA4A3D4CC13E8565C = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_audio_plugin_client_VST_utils.mm"; path = "../../JuceLibraryCode/include_juce_audio_plugin_client_VST_utils.mm"; sourceTree = "SOURCE_ROOT"; };
 		0449767416B56741D4F272F8 = {isa = PBXFileReference; lastKnownFileType = file; name = "juce_audio_formats"; path = "../../JuceLibraryCode/modules/juce_audio_formats"; sourceTree = "SOURCE_ROOT"; };
-		068FBDA583B72A4B0618203C = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChuckRacks.vst; sourceTree = "BUILT_PRODUCTS_DIR"; };
+		068FBDA583B72A4B0618203C = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Chuck Racks.vst"; sourceTree = "BUILT_PRODUCTS_DIR"; };
 		0771327756FC7D999B495D94 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ConsoleGlobal.h; path = ../../Source/ConsoleGlobal.h; sourceTree = "SOURCE_ROOT"; };
 		07EAFBEC9017119381EC3443 = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		09062C9D0352D334026BEAE3 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "ulib_pluginhost.cpp"; path = "../../Source/ulib_pluginhost.cpp"; sourceTree = "SOURCE_ROOT"; };
@@ -92,8 +92,8 @@
 		44160157A89B1D42BD39840A = {isa = PBXFileReference; lastKnownFileType = file.svg; name = addshrediconUp.svg; path = ../../Resources/addshrediconUp.svg; sourceTree = "SOURCE_ROOT"; };
 		4D2BCFE919EEA23D57377CBB = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginProcessor.h; path = ../../Source/PluginProcessor.h; sourceTree = "SOURCE_ROOT"; };
 		51068E753805CFB7DC211DBC = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_audio_basics.mm"; path = "../../JuceLibraryCode/include_juce_audio_basics.mm"; sourceTree = "SOURCE_ROOT"; };
-		D093917DE6637B1167421778 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChuckRacks.component; sourceTree = "BUILT_PRODUCTS_DIR"; };
-		3ECD50A7CBBB98D18F582A0B = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libChuckRacks.a; sourceTree = "BUILT_PRODUCTS_DIR"; };
+		D093917DE6637B1167421778 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Chuck Racks.component"; sourceTree = "BUILT_PRODUCTS_DIR"; };
+		3ECD50A7CBBB98D18F582A0B = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libChuck Racks.a"; sourceTree = "BUILT_PRODUCTS_DIR"; };
 		3ED21130FC7CE435B3B30C6D = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ChuckCodeManagerComponent.h; path = ../../Source/ChuckCodeManagerComponent.h; sourceTree = "SOURCE_ROOT"; };
 		4AA595D8BAD217018EDC2F9A = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = KnobInfo.h; path = ../../Source/KnobInfo.h; sourceTree = "SOURCE_ROOT"; };
 		4B1801D08CE3E1E57FA73267 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FloatParameter.h; path = ../../Source/FloatParameter.h; sourceTree = "SOURCE_ROOT"; };
@@ -130,7 +130,6 @@
 		9E492B65A8C095082A98261E = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ChuckCodeModel.cpp; path = ../../Source/ChuckCodeModel.cpp; sourceTree = "SOURCE_ROOT"; };
 		9F5646D10C8B5FA05941A848 = {isa = PBXFileReference; lastKnownFileType = file; name = "juce_audio_utils"; path = "../../JuceLibraryCode/modules/juce_audio_utils"; sourceTree = "SOURCE_ROOT"; };
 		A16F66BF754286C8D340EB54 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ChuckCodeModelManager.h; path = ../../Source/ChuckCodeModelManager.h; sourceTree = "SOURCE_ROOT"; };
-		A2CE0C1F363290A5C331688C = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ChuckRacks.entitlements; path = ChuckRacks.entitlements; sourceTree = "SOURCE_ROOT"; };
 		A48222AC3AD53771428D6D9F = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-VST.plist"; path = "Info-VST.plist"; sourceTree = "SOURCE_ROOT"; };
 		A53472E47A1F91BC46757B9C = {isa = PBXFileReference; lastKnownFileType = file.r; name = "include_juce_audio_plugin_client_AU.r"; path = "../../JuceLibraryCode/include_juce_audio_plugin_client_AU.r"; sourceTree = "SOURCE_ROOT"; };
 		A839224858F43D213DF9FEFF = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ConsoleComponent.h; path = ../../Source/ConsoleComponent.h; sourceTree = "SOURCE_ROOT"; };
@@ -167,6 +166,7 @@
 		F68904EDC816145C83580A63 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppConfig.h; path = ../../JuceLibraryCode/AppConfig.h; sourceTree = "SOURCE_ROOT"; };
 		FA022FBB61A50163EBA83B64 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_audio_devices.mm"; path = "../../JuceLibraryCode/include_juce_audio_devices.mm"; sourceTree = "SOURCE_ROOT"; };
 		FA9F3CADE99C16A8240E5DA3 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ConsoleComponent.cpp; path = ../../Source/ConsoleComponent.cpp; sourceTree = "SOURCE_ROOT"; };
+		FB859D007F81AB7EEE7CFCF6 = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Chuck Racks.entitlements"; path = "Chuck Racks.entitlements"; sourceTree = "SOURCE_ROOT"; };
 		FEDB42310CAB74B5F8E5A45D = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_graphics.mm"; path = "../../JuceLibraryCode/include_juce_graphics.mm"; sourceTree = "SOURCE_ROOT"; };
 		E8E9EFF13A9B3C8D08C0D83F = {isa = PBXGroup; children = (
 					9A368807AB806D43078FB43C,
@@ -240,7 +240,7 @@
 		5A7D26DD4FE258623D696E23 = {isa = PBXGroup; children = (
 					E8E9EFF13A9B3C8D08C0D83F,
 					7371BF174E02CD1C54E55137,
-					2528430D2D40891CCA1BDAB2, ); name = ChuckRacks; sourceTree = "<group>"; };
+					2528430D2D40891CCA1BDAB2, ); name = "Chuck Racks"; sourceTree = "<group>"; };
 		7C0DC26007E36336E49667CD = {isa = PBXGroup; children = (
 					3990AA8A5DC511B7C24F926B,
 					9330D02A956C9B0ED38F5551,
@@ -298,7 +298,7 @@
 					D093917DE6637B1167421778,
 					3ECD50A7CBBB98D18F582A0B, ); name = Products; sourceTree = "<group>"; };
 		34636A7707BE4F4C4C2E0B6A = {isa = PBXGroup; children = (
-					A2CE0C1F363290A5C331688C,
+					FB859D007F81AB7EEE7CFCF6,
 					5A7D26DD4FE258623D696E23,
 					7C0DC26007E36336E49667CD,
 					847781C784B873B2EAAC25CD,
@@ -308,6 +308,7 @@
 		1C775BDD1B118794F6E42FAC = {isa = XCBuildConfiguration; buildSettings = {  }; name = Debug; };
 		62CAD09CB1D4EF709C31FD24 = {isa = XCBuildConfiguration; buildSettings = {  }; name = Release; };
 		09D46D4A9A42B426D3F5F326 = {isa = XCBuildConfiguration; buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -342,12 +343,13 @@
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
-				OTHER_LDFLAGS = "-bundle -lChuckRacks -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
-				PRODUCT_BUNDLE_IDENTIFIER = com.calartsmtiid.ChuckRacks;
+				OTHER_LDFLAGS = "-bundle -lChuck\\ Racks -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mtiid.ChuckRacks;
 				SDKROOT_ppc = macosx10.5;
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = vst; }; name = Debug; };
 		BFCFBCEDA3ABC751648D9467 = {isa = XCBuildConfiguration; buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -383,12 +385,13 @@
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
-				OTHER_LDFLAGS = "-bundle -lChuckRacks -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
-				PRODUCT_BUNDLE_IDENTIFIER = com.calartsmtiid.ChuckRacks;
+				OTHER_LDFLAGS = "-bundle -lChuck\\ Racks -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mtiid.ChuckRacks;
 				SDKROOT_ppc = macosx10.5;
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = vst; }; name = Release; };
 		AC6EC4F747A6F779EF2AC222 = {isa = XCBuildConfiguration; buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -423,13 +426,14 @@
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
-				OTHER_LDFLAGS = "-bundle -lChuckRacks -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
+				OTHER_LDFLAGS = "-bundle -lChuck\\ Racks -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.calartsmtiid.ChuckRacks;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mtiid.ChuckRacks;
 				SDKROOT_ppc = macosx10.5;
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = component; }; name = Debug; };
 		B567129B868B651F8541B2A0 = {isa = XCBuildConfiguration; buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -465,13 +469,14 @@
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
-				OTHER_LDFLAGS = "-bundle -lChuckRacks -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
+				OTHER_LDFLAGS = "-bundle -lChuck\\ Racks -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.calartsmtiid.ChuckRacks;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mtiid.ChuckRacks;
 				SDKROOT_ppc = macosx10.5;
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = component; }; name = Release; };
 		2948924665151481B5E95E19 = {isa = XCBuildConfiguration; buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -503,10 +508,11 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
 				OTHER_LDFLAGS = "-F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
-				PRODUCT_BUNDLE_IDENTIFIER = com.calartsmtiid.ChuckRacks;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mtiid.ChuckRacks;
 				SDKROOT_ppc = macosx10.5;
 				USE_HEADERMAP = NO; }; name = Debug; };
 		E09A79D43CFA50D857239CE4 = {isa = XCBuildConfiguration; buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -539,7 +545,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
 				OTHER_LDFLAGS = "-F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
-				PRODUCT_BUNDLE_IDENTIFIER = com.calartsmtiid.ChuckRacks;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mtiid.ChuckRacks;
 				SDKROOT_ppc = macosx10.5;
 				USE_HEADERMAP = NO; }; name = Release; };
 		9BA1815A52351B00F5F37E4A = {isa = XCBuildConfiguration; buildSettings = {
@@ -555,8 +561,7 @@
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "ChuckRacks";
+				PRODUCT_NAME = "Chuck Racks";
 				WARNING_CFLAGS = -Wreorder;
 				ZERO_LINK = NO; }; name = Debug; };
 		4147A33DCD28493D34DC4AAF = {isa = XCBuildConfiguration; buildSettings = {
@@ -571,7 +576,7 @@
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PRODUCT_NAME = "ChuckRacks";
+				PRODUCT_NAME = "Chuck Racks";
 				WARNING_CFLAGS = -Wreorder;
 				ZERO_LINK = NO; }; name = Release; };
 		2C10DECC6423C9A130606A33 = {isa = PBXTargetDependency; target = 2CC2BEEBC54AD84D910B8F2A; };
@@ -586,7 +591,7 @@
 		55D45A7FC1BB65B1697C1FB8 = {isa = PBXAggregateTarget; buildConfigurationList = 73B73054ABE7BF9FE38B1F0C; buildPhases = (  ); buildRules = ( ); dependencies = (
 					2C10DECC6423C9A130606A33,
 					D0EFC23C80CC5D3B3B4BFF16,
-					AC47F01C73A543FBD25960AD, ); name = "ChuckRacks - All"; productName = ChuckRacks; };
+					AC47F01C73A543FBD25960AD, ); name = "Chuck Racks - All"; productName = "Chuck Racks"; };
 		9BC92943BA3A5058F311DA46 = {isa = XCConfigurationList; buildConfigurations = (
 					09D46D4A9A42B426D3F5F326,
 					BFCFBCEDA3ABC751648D9467, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Debug; };
@@ -609,7 +614,7 @@
 					04BA8C48A8FC80A24D394FE8,
 					279B05F68A9A8D4DA7B17644,
 					8110C30662967EEE79DB62B9, ); buildRules = ( ); dependencies = (
-					AC47F01C73A543FBD25960AD, ); name = "ChuckRacks - VST"; productName = ChuckRacks; productReference = 068FBDA583B72A4B0618203C; productType = "com.apple.product-type.bundle"; };
+					AC47F01C73A543FBD25960AD, ); name = "Chuck Racks - VST"; productName = "Chuck Racks"; productReference = 068FBDA583B72A4B0618203C; productType = "com.apple.product-type.bundle"; };
 		C30A272C2705EC2029E71E5A = {isa = XCConfigurationList; buildConfigurations = (
 					AC6EC4F747A6F779EF2AC222,
 					B567129B868B651F8541B2A0, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Debug; };
@@ -638,7 +643,7 @@
 					F41125485DEFDAA23B80D426,
 					833308796073B722EC91F6F9,
 					C348C80893BAB7C28E54A507, ); buildRules = ( ); dependencies = (
-					AC47F01C73A543FBD25960AD, ); name = "ChuckRacks - AU"; productName = ChuckRacks; productReference = D093917DE6637B1167421778; productType = "com.apple.product-type.bundle"; };
+					AC47F01C73A543FBD25960AD, ); name = "Chuck Racks - AU"; productName = "Chuck Racks"; productReference = D093917DE6637B1167421778; productType = "com.apple.product-type.bundle"; };
 		52E30A729B89190B4F71BAB6 = {isa = XCConfigurationList; buildConfigurations = (
 					2948924665151481B5E95E19,
 					E09A79D43CFA50D857239CE4, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Debug; };
@@ -678,7 +683,7 @@
 					EF35FD607420D60B302ECC4B,
 					A5B0D0BF95349DC390ECC3B8, ); runOnlyForDeploymentPostprocessing = 0; };
 		A688325D2EEEF27BD3C63650 = {isa = PBXNativeTarget; buildConfigurationList = 52E30A729B89190B4F71BAB6; buildPhases = (
-					83F4532A5B736017062892D0, ); buildRules = ( ); dependencies = (  ); name = "ChuckRacks - Shared Code"; productName = ChuckRacks; productReference = 3ECD50A7CBBB98D18F582A0B; productType = "com.apple.product-type.library.static"; };
+					83F4532A5B736017062892D0, ); buildRules = ( ); dependencies = (  ); name = "Chuck Racks - Shared Code"; productName = "Chuck Racks"; productReference = 3ECD50A7CBBB98D18F582A0B; productType = "com.apple.product-type.library.static"; };
 		CCE4E2688D14EC4BFBC51676 = {isa = PBXProject; buildConfigurationList = 3E8EE7C955D148CE77A832EE; attributes = { LastUpgradeCheck = 0830; TargetAttributes = { 55D45A7FC1BB65B1697C1FB8 = { SystemCapabilities = {com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; }; };2CC2BEEBC54AD84D910B8F2A = { SystemCapabilities = {com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; }; };FCDB9E4F47C1267DE8740CDB = { SystemCapabilities = {com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; }; };A688325D2EEEF27BD3C63650 = { SystemCapabilities = {com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; }; }; }; }; compatibilityVersion = "Xcode 3.2"; hasScannedForEncodings = 0; mainGroup = 34636A7707BE4F4C4C2E0B6A; projectDirPath = ""; projectRoot = ""; targets = (55D45A7FC1BB65B1697C1FB8, 2CC2BEEBC54AD84D910B8F2A, FCDB9E4F47C1267DE8740CDB, A688325D2EEEF27BD3C63650); };
 	};
 	rootObject = CCE4E2688D14EC4BFBC51676;

@@ -25,5 +25,24 @@
     <string></string>
     <key>NSHighResolutionCapable</key>
     <true/>
+    <key>AudioComponents</key>
+    <array>
+      <dict>
+        <key>name</key>
+        <string>MTIID: Chuck Racks</string>
+        <key>description</key>
+        <string>Chuck Racks</string>
+        <key>factoryFunction</key>
+        <string>ChuckRacksAUFactory</string>
+        <key>manufacturer</key>
+        <string>Mtec</string>
+        <key>type</key>
+        <string>aumf</string>
+        <key>subtype</key>
+        <string>Rack</string>
+        <key>version</key>
+        <integer>65536</integer>
+      </dict>
+    </array>
   </dict>
 </plist>
