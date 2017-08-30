@@ -3,16 +3,18 @@ BUILD_ROOT=$(SRC_ROOT)/Builds/MacOSX
 PRODUCTS_ROOT=$(BUILD_ROOT)/build/Release
 
 PRODUCT_NAME=ChuckRacks
-PRODUCT_VERSION=1.0
+PRODUCT_VERSION=0.9-beta
 INSTALLER=$(PRODUCT_NAME)-$(PRODUCT_VERSION).pkg
 
 XCODE_PROJECT=ChuckRacks.xcodeproj
 XCODE_TARGET_VST="ChuckRacks - VST"
 XCODE_TARGET_AU="ChuckRacks - AU"
+XCODE_TARGET_SHARED="ChuckRacks - All"
 XCODE_CONFIGURATION=Release
 
 PLUGIN_VST=$(PRODUCT_NAME).vst
 PLUGIN_AU=$(PRODUCT_NAME).component
+PLUGINS=$(PLUGIN_VST) $(PLUGIN_AU)
 
 VST_PKG=$(PLUGIN_VST).pkg
 AU_PKG=$(PLUGIN_AU).pkg
@@ -41,15 +43,15 @@ $(VST_PKG): %.pkg: %
 	rm -rf $<.tmp/$(VST_DIR)
 	mkdir -p $<.tmp/$(VST_DIR)
 	cp -afRL $< $<.tmp/$(VST_DIR)
-	pkgbuild --root $<.tmp --identifier $(IDENTIFIER_BASE).$(basename $<) $@
-	rm -rf $<.tmp
+	pkgbuild --root $<.tmp --identifier $(IDENTIFIER_BASE).$< $@
+	# rm -rf $<.tmp
 
 $(AU_PKG): %.pkg: %
 	rm -rf $<.tmp/$(AU_DIR)
 	mkdir -p $<.tmp/$(AU_DIR)
 	cp -afRL $< $<.tmp/$(AU_DIR)
-	pkgbuild --root $<.tmp --identifier $(IDENTIFIER_BASE).$(basename $<) $@
-	rm -rf $<.tmp
+	pkgbuild --root $<.tmp --identifier $(IDENTIFIER_BASE).$< $@
+	# rm -rf $<.tmp
 
 $(PLUGIN_VST):
 	xcodebuild -project $(BUILD_ROOT)/$(XCODE_PROJECT)/ -target $(XCODE_TARGET_VST) -configuration $(XCODE_CONFIGURATION)
@@ -64,13 +66,10 @@ $(PLUGIN_AU):
 	touch $@
 
 clean:
-	rm -rf $(PLUGINS) $(PLUGIN_PKGS) $(INSTALLER)
-
-clean-vst:
-	xcodebuild clean -project $(BUILD_ROOT)/$(XCODE_PROJECT)/ -target $(XCODE_TARGET_VST) -configuration $(XCODE_CONFIGURATION)
-
-clean-au:
-	xcodebuild clean -project $(BUILD_ROOT)/$(XCODE_PROJECT)/ -target $(XCODE_TARGET_AU) -configuration $(XCODE_CONFIGURATION)
+	rm -rf $(PLUGIN_PKGS) $(INSTALLER)
 
 clean-all: clean clean-vst clean-au
-	
+	xcodebuild clean -project $(BUILD_ROOT)/$(XCODE_PROJECT)/ -target $(XCODE_TARGET_SHARED) -configuration $(XCODE_CONFIGURATION)
+	xcodebuild clean -project $(BUILD_ROOT)/$(XCODE_PROJECT)/ -target $(XCODE_TARGET_VST) -configuration $(XCODE_CONFIGURATION)
+	xcodebuild clean -project $(BUILD_ROOT)/$(XCODE_PROJECT)/ -target $(XCODE_TARGET_AU) -configuration $(XCODE_CONFIGURATION)
+
