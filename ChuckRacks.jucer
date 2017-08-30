@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="uZ8Og2" name="Chuck Racks" projectType="audioplug" version="1.0.0"
-              bundleIdentifier="com.mtiid.ChuckRacks" includeBinaryInAppConfig="1"
+<JUCERPROJECT id="uZ8Og2" name="ChuckRacks" projectType="audioplug" version="0.9"
+              bundleIdentifier="edu.mtiid.ChuckRacks" includeBinaryInAppConfig="1"
               buildVST="1" buildVST3="0" buildAU="1" buildRTAS="0" buildAAX="0"
               pluginName="Chuck Racks" pluginDesc="Chuck Racks" pluginManufacturer="CalArts MTIID"
               pluginManufacturerCode="Mtec" pluginCode="Rack" pluginChannelConfigs=""
               pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="1"
               pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="0"
-              pluginAUExportPrefix="ChuckRacksAU" pluginRTASCategory="" aaxIdentifier="com.mtiid.ChuckRacks"
+              pluginAUExportPrefix="ChuckRacksAU" pluginRTASCategory="" aaxIdentifier="edu.mtiid.ChuckRacks"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.0.2"
               buildAUv3="0" pluginIsMidiEffectPlugin="0" displaySplashScreen="1"
               reportAppUsage="1" splashScreenColour="Dark" buildStandalone="0"
-              enableIAA="0">
-  <MAINGROUP id="hkay95" name="Chuck Racks">
+              enableIAA="0" companyName="CalArts MTIID" companyWebsite="http://mtiid.calarts.edu">
+  <MAINGROUP id="hkay95" name="ChuckRacks">
     <GROUP id="{21BA8925-7DBA-0C76-6E9B-2F1D8B0C76CF}" name="Resources">
       <FILE id="AOcOk5" name="open.svg" compile="0" resource="1" file="Resources/open.svg"/>
       <FILE id="BmGVoT" name="collapse.svg" compile="0" resource="1" file="Resources/collapse.svg"/>

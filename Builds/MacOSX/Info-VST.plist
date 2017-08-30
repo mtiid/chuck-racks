@@ -10,19 +10,19 @@
     <key>CFBundleIdentifier</key>
     <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
     <key>CFBundleName</key>
-    <string>Chuck Racks</string>
+    <string>ChuckRacks</string>
     <key>CFBundleDisplayName</key>
-    <string>Chuck Racks</string>
+    <string>ChuckRacks</string>
     <key>CFBundlePackageType</key>
     <string>BNDL</string>
     <key>CFBundleSignature</key>
     <string>????</string>
     <key>CFBundleShortVersionString</key>
-    <string>1.0.0</string>
+    <string>0.9</string>
     <key>CFBundleVersion</key>
-    <string>1.0.0</string>
+    <string>0.9</string>
     <key>NSHumanReadableCopyright</key>
-    <string></string>
+    <string>CalArts MTIID</string>
     <key>NSHighResolutionCapable</key>
     <true/>
   </dict>

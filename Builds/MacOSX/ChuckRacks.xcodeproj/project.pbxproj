@@ -62,7 +62,7 @@
 		A5B0D0BF95349DC390ECC3B8 = {isa = PBXBuildFile; fileRef = 19F3A0E13FA72C2A668373FB; };
 		02DDE49AA4A3D4CC13E8565C = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_audio_plugin_client_VST_utils.mm"; path = "../../JuceLibraryCode/include_juce_audio_plugin_client_VST_utils.mm"; sourceTree = "SOURCE_ROOT"; };
 		0449767416B56741D4F272F8 = {isa = PBXFileReference; lastKnownFileType = file; name = "juce_audio_formats"; path = "../../JuceLibraryCode/modules/juce_audio_formats"; sourceTree = "SOURCE_ROOT"; };
-		068FBDA583B72A4B0618203C = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChuckRacks.vst; sourceTree = "BUILT_PRODUCTS_DIR"; };
+		068FBDA583B72A4B0618203C = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Chuck Racks.vst"; sourceTree = "BUILT_PRODUCTS_DIR"; };
 		0771327756FC7D999B495D94 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ConsoleGlobal.h; path = ../../Source/ConsoleGlobal.h; sourceTree = "SOURCE_ROOT"; };
 		07EAFBEC9017119381EC3443 = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		09062C9D0352D334026BEAE3 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "ulib_pluginhost.cpp"; path = "../../Source/ulib_pluginhost.cpp"; sourceTree = "SOURCE_ROOT"; };
@@ -92,8 +92,8 @@
 		44160157A89B1D42BD39840A = {isa = PBXFileReference; lastKnownFileType = file.svg; name = addshrediconUp.svg; path = ../../Resources/addshrediconUp.svg; sourceTree = "SOURCE_ROOT"; };
 		4D2BCFE919EEA23D57377CBB = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginProcessor.h; path = ../../Source/PluginProcessor.h; sourceTree = "SOURCE_ROOT"; };
 		51068E753805CFB7DC211DBC = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_audio_basics.mm"; path = "../../JuceLibraryCode/include_juce_audio_basics.mm"; sourceTree = "SOURCE_ROOT"; };
-		D093917DE6637B1167421778 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChuckRacks.component; sourceTree = "BUILT_PRODUCTS_DIR"; };
-		3ECD50A7CBBB98D18F582A0B = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libChuckRacks.a; sourceTree = "BUILT_PRODUCTS_DIR"; };
+		D093917DE6637B1167421778 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Chuck Racks.component"; sourceTree = "BUILT_PRODUCTS_DIR"; };
+		3ECD50A7CBBB98D18F582A0B = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libChuck Racks.a"; sourceTree = "BUILT_PRODUCTS_DIR"; };
 		3ED21130FC7CE435B3B30C6D = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ChuckCodeManagerComponent.h; path = ../../Source/ChuckCodeManagerComponent.h; sourceTree = "SOURCE_ROOT"; };
 		4AA595D8BAD217018EDC2F9A = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = KnobInfo.h; path = ../../Source/KnobInfo.h; sourceTree = "SOURCE_ROOT"; };
 		4B1801D08CE3E1E57FA73267 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FloatParameter.h; path = ../../Source/FloatParameter.h; sourceTree = "SOURCE_ROOT"; };
@@ -308,6 +308,7 @@
 		1C775BDD1B118794F6E42FAC = {isa = XCBuildConfiguration; buildSettings = {  }; name = Debug; };
 		62CAD09CB1D4EF709C31FD24 = {isa = XCBuildConfiguration; buildSettings = {  }; name = Release; };
 		09D46D4A9A42B426D3F5F326 = {isa = XCBuildConfiguration; buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -324,8 +325,8 @@
 					"DEBUG=1",
 					"__MACOSX_CORE__",
 					"JUCER_XCODE_MAC_F6D2F4CF=1",
-					"JUCE_APP_VERSION=1.0.0",
-					"JUCE_APP_VERSION_HEX=0x10000",
+					"JUCE_APP_VERSION=0.9",
+					"JUCE_APP_VERSION_HEX=0x900",
 					"JucePlugin_Build_VST=1",
 					"JucePlugin_Build_VST3=0",
 					"JucePlugin_Build_AU=0",
@@ -342,12 +343,13 @@
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
-				OTHER_LDFLAGS = "-bundle -lChuckRacks -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
-				PRODUCT_BUNDLE_IDENTIFIER = com.calartsmtiid.ChuckRacks;
+				OTHER_LDFLAGS = "-bundle -lChuck\\ Racks -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.mtiid.ChuckRacks;
 				SDKROOT_ppc = macosx10.5;
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = vst; }; name = Debug; };
 		BFCFBCEDA3ABC751648D9467 = {isa = XCBuildConfiguration; buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -364,8 +366,8 @@
 					"NDEBUG=1",
 					"__MACOSX_CORE__",
 					"JUCER_XCODE_MAC_F6D2F4CF=1",
-					"JUCE_APP_VERSION=1.0.0",
-					"JUCE_APP_VERSION_HEX=0x10000",
+					"JUCE_APP_VERSION=0.9",
+					"JUCE_APP_VERSION_HEX=0x900",
 					"JucePlugin_Build_VST=1",
 					"JucePlugin_Build_VST3=0",
 					"JucePlugin_Build_AU=0",
@@ -383,12 +385,13 @@
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
-				OTHER_LDFLAGS = "-bundle -lChuckRacks -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
-				PRODUCT_BUNDLE_IDENTIFIER = com.calartsmtiid.ChuckRacks;
+				OTHER_LDFLAGS = "-bundle -lChuck\\ Racks -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.mtiid.ChuckRacks;
 				SDKROOT_ppc = macosx10.5;
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = vst; }; name = Release; };
 		AC6EC4F747A6F779EF2AC222 = {isa = XCBuildConfiguration; buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -405,8 +408,8 @@
 					"DEBUG=1",
 					"__MACOSX_CORE__",
 					"JUCER_XCODE_MAC_F6D2F4CF=1",
-					"JUCE_APP_VERSION=1.0.0",
-					"JUCE_APP_VERSION_HEX=0x10000",
+					"JUCE_APP_VERSION=0.9",
+					"JUCE_APP_VERSION_HEX=0x900",
 					"JucePlugin_Build_VST=0",
 					"JucePlugin_Build_VST3=0",
 					"JucePlugin_Build_AU=1",
@@ -423,13 +426,14 @@
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
-				OTHER_LDFLAGS = "-bundle -lChuckRacks -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
+				OTHER_LDFLAGS = "-bundle -lChuck\\ Racks -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.calartsmtiid.ChuckRacks;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.mtiid.ChuckRacks;
 				SDKROOT_ppc = macosx10.5;
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = component; }; name = Debug; };
 		B567129B868B651F8541B2A0 = {isa = XCBuildConfiguration; buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -446,8 +450,8 @@
 					"NDEBUG=1",
 					"__MACOSX_CORE__",
 					"JUCER_XCODE_MAC_F6D2F4CF=1",
-					"JUCE_APP_VERSION=1.0.0",
-					"JUCE_APP_VERSION_HEX=0x10000",
+					"JUCE_APP_VERSION=0.9",
+					"JUCE_APP_VERSION_HEX=0x900",
 					"JucePlugin_Build_VST=0",
 					"JucePlugin_Build_VST3=0",
 					"JucePlugin_Build_AU=1",
@@ -465,13 +469,14 @@
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
-				OTHER_LDFLAGS = "-bundle -lChuckRacks -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
+				OTHER_LDFLAGS = "-bundle -lChuck\\ Racks -F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.calartsmtiid.ChuckRacks;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.mtiid.ChuckRacks;
 				SDKROOT_ppc = macosx10.5;
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = component; }; name = Release; };
 		2948924665151481B5E95E19 = {isa = XCBuildConfiguration; buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -486,8 +491,8 @@
 					"DEBUG=1",
 					"__MACOSX_CORE__",
 					"JUCER_XCODE_MAC_F6D2F4CF=1",
-					"JUCE_APP_VERSION=1.0.0",
-					"JUCE_APP_VERSION_HEX=0x10000",
+					"JUCE_APP_VERSION=0.9",
+					"JUCE_APP_VERSION_HEX=0x900",
 					"JucePlugin_Build_VST=1",
 					"JucePlugin_Build_VST3=0",
 					"JucePlugin_Build_AU=1",
@@ -503,10 +508,11 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
 				OTHER_LDFLAGS = "-F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
-				PRODUCT_BUNDLE_IDENTIFIER = com.calartsmtiid.ChuckRacks;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.mtiid.ChuckRacks;
 				SDKROOT_ppc = macosx10.5;
 				USE_HEADERMAP = NO; }; name = Debug; };
 		E09A79D43CFA50D857239CE4 = {isa = XCBuildConfiguration; buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -521,8 +527,8 @@
 					"NDEBUG=1",
 					"__MACOSX_CORE__",
 					"JUCER_XCODE_MAC_F6D2F4CF=1",
-					"JUCE_APP_VERSION=1.0.0",
-					"JUCE_APP_VERSION_HEX=0x10000",
+					"JUCE_APP_VERSION=0.9",
+					"JUCE_APP_VERSION_HEX=0x900",
 					"JucePlugin_Build_VST=1",
 					"JucePlugin_Build_VST3=0",
 					"JucePlugin_Build_AU=1",
@@ -539,7 +545,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
 				OTHER_LDFLAGS = "-F/System/Library/PrivateFrameworks -weak_framework MultitouchSupport -lchuck";
-				PRODUCT_BUNDLE_IDENTIFIER = com.calartsmtiid.ChuckRacks;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.mtiid.ChuckRacks;
 				SDKROOT_ppc = macosx10.5;
 				USE_HEADERMAP = NO; }; name = Release; };
 		9BA1815A52351B00F5F37E4A = {isa = XCBuildConfiguration; buildSettings = {
@@ -555,8 +561,7 @@
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "ChuckRacks";
+				PRODUCT_NAME = "Chuck Racks";
 				WARNING_CFLAGS = -Wreorder;
 				ZERO_LINK = NO; }; name = Debug; };
 		4147A33DCD28493D34DC4AAF = {isa = XCBuildConfiguration; buildSettings = {
@@ -571,7 +576,7 @@
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PRODUCT_NAME = "ChuckRacks";
+				PRODUCT_NAME = "Chuck Racks";
 				WARNING_CFLAGS = -Wreorder;
 				ZERO_LINK = NO; }; name = Release; };
 		2C10DECC6423C9A130606A33 = {isa = PBXTargetDependency; target = 2CC2BEEBC54AD84D910B8F2A; };

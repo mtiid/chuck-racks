@@ -38,8 +38,8 @@
 #if ! JUCE_DONT_DECLARE_PROJECTINFO
 namespace ProjectInfo
 {
-    const char* const  projectName    = "Chuck Racks";
-    const char* const  versionString  = "1.0.0";
-    const int          versionNumber  = 0x10000;
+    const char* const  projectName    = "ChuckRacks";
+    const char* const  versionString  = "0.9";
+    const int          versionNumber  = 0x900;
 }
 #endif
