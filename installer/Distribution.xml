@@ -6,7 +6,7 @@
 
     <title>Chuck Racks</title>
     <background file="chuck_logo.png" alignment="topleft" scaling="none"/>
-    <allowed-os-versions><os-version min="10.10"/></allowed-os-versions>
+    <allowed-os-versions><os-version min="10.9"/></allowed-os-versions>
     <options customize="allow" require-scripts="false"/>
     <choices-outline>
         <line choice="edu.calarts.mtiid.ChuckRacks.vst"/>

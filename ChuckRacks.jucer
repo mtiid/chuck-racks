@@ -131,13 +131,12 @@
     <XCODE_MAC targetFolder="Builds/MacOSX" vstFolder="~/SDKs/VST3 SDK" postbuildCommand=""
                extraDefs="__MACOSX_CORE__" externalLibraries="chuck" extraLinkerFlags="-F/System/Library/PrivateFrameworks&#10;-weak_framework&#10;MultitouchSupport&#10;">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="10.10 SDK" osxArchitecture="64BitUniversal"
+        <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
                        isDebug="1" optimisation="1" targetName="Chuck Racks" headerPath="$(PROJECT_DIR)/../../libchuck&#10;$(PROJECT_DIR)/../../libchuck/chuck/src"
                        libraryPath="$(PROJECT_DIR)/../../libraries/mac" cppLibType="libc++"
                        cppLanguageStandard="c++11"/>
-        <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="10.10 SDK"
-                       osxArchitecture="64BitUniversal" isDebug="0" optimisation="3"
-                       targetName="Chuck Racks" headerPath="$(PROJECT_DIR)/../../libchuck&#10;$(PROJECT_DIR)/../../libchuck/chuck/src"
+        <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="10.9 SDK" osxArchitecture="64BitUniversal"
+                       isDebug="0" optimisation="3" targetName="Chuck Racks" headerPath="$(PROJECT_DIR)/../../libchuck&#10;$(PROJECT_DIR)/../../libchuck/chuck/src"
                        libraryPath="$(PROJECT_DIR)/../../libraries/mac" cppLibType="libc++"
                        cppLanguageStandard="c++11" binaryPath=""/>
       </CONFIGURATIONS>
