@@ -44,14 +44,14 @@ $(VST_PKG): %.pkg: %
 	mkdir -p $<.tmp/$(VST_DIR)
 	cp -afRL $< $<.tmp/$(VST_DIR)
 	pkgbuild --root $<.tmp --identifier $(IDENTIFIER_BASE).$< $@
-	# rm -rf $<.tmp
+	rm -rf $<.tmp
 
 $(AU_PKG): %.pkg: %
 	rm -rf $<.tmp/$(AU_DIR)
 	mkdir -p $<.tmp/$(AU_DIR)
 	cp -afRL $< $<.tmp/$(AU_DIR)
 	pkgbuild --root $<.tmp --identifier $(IDENTIFIER_BASE).$< $@
-	# rm -rf $<.tmp
+	rm -rf $<.tmp
 
 $(PLUGIN_VST):
 	xcodebuild -project $(BUILD_ROOT)/$(XCODE_PROJECT)/ -target $(XCODE_TARGET_VST) -configuration $(XCODE_CONFIGURATION)
@@ -66,9 +66,9 @@ $(PLUGIN_AU):
 	touch $@
 
 clean:
-	rm -rf $(PLUGIN_PKGS) $(INSTALLER)
+	rm -rf $(PLUGIN_PKGS) $(INSTALLER) $(PLUGINS)
 
-clean-all: clean clean-vst clean-au
+clean-all: clean
 	xcodebuild clean -project $(BUILD_ROOT)/$(XCODE_PROJECT)/ -target $(XCODE_TARGET_SHARED) -configuration $(XCODE_CONFIGURATION)
 	xcodebuild clean -project $(BUILD_ROOT)/$(XCODE_PROJECT)/ -target $(XCODE_TARGET_VST) -configuration $(XCODE_CONFIGURATION)
 	xcodebuild clean -project $(BUILD_ROOT)/$(XCODE_PROJECT)/ -target $(XCODE_TARGET_AU) -configuration $(XCODE_CONFIGURATION)
