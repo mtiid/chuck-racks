@@ -35,6 +35,7 @@ public:
     bool getCanBeEdited(){ return canBeEdited; };
     
     const int getUniqueFCId() { return uniqueFileContainerId; };
+    String getFilename(){ return fileName; };
     
     CodeDocument& getCodeDocument();
     

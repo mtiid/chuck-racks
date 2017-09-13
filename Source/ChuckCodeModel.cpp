@@ -11,8 +11,9 @@
 #include <sstream>
 
 ChuckCodeModel::ChuckCodeModel(chuck_inst* ck_,
-                                       AudioProcessor* p_) :
-                                        canBeEdited(true)
+                                AudioProcessor* p_) :
+                                canBeEdited(true),
+                                fileName("Untitled")
 {
     ck = ck_;
     processor = p_;

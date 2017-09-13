@@ -43,7 +43,10 @@ void ChuckCodeManagerComponent::resized()
 void ChuckCodeManagerComponent::addNewChuckCodeComponent(ChuckCodeModel* chuckCodeModel){
     ChuckCodeComponent* newChuckCodeComponent = new ChuckCodeComponent(chuckCodeModel);
     chuckCodeComponents.add(newChuckCodeComponent);
-    tabView.addTab("Untitled", Colour(100, 106, 127), newChuckCodeComponent, false);
+    tabView.addTab(newChuckCodeComponent->getChuckCodeModel()->getFilename(),
+                   Colour(100, 106, 127),
+                   newChuckCodeComponent,
+                   false);
 }
 
 void ChuckCodeManagerComponent::removeChuckCodeComponent(int tabIndex){
