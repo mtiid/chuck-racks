@@ -6,7 +6,7 @@
               pluginName="Chuck Racks" pluginDesc="Chuck Racks" pluginManufacturer="CalArts MTIID"
               pluginManufacturerCode="Mtec" pluginCode="Rack" pluginChannelConfigs=""
               pluginIsSynth="0" pluginWantsMidiIn="1" pluginProducesMidiOut="1"
-              pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="0"
+              pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="1"
               pluginAUExportPrefix="ChuckRacksAU" pluginRTASCategory="" aaxIdentifier="edu.mtiid.ChuckRacks"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.0.2"
               buildAUv3="0" pluginIsMidiEffectPlugin="0" displaySplashScreen="1"
