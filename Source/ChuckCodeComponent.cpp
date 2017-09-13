@@ -160,6 +160,9 @@ void ChuckCodeComponent::buttonClicked(Button *buttonThatWasPressed)
                                               "File Chooser...",
                                               "You picked: " + chosenFile.getFullPathName());
             fc.getResult().replaceWithText(mChuckCodeModel->getCodeDocument().getAllContent());
+            
+            mChuckCodeModel->setFilename(fc.getResult().getFileName());
+            sendChangeMessage();
         }
     }
     
@@ -179,6 +182,8 @@ void ChuckCodeComponent::buttonClicked(Button *buttonThatWasPressed)
                                               "File Chooser...",
                                               "You picked: " + chosen);
             codeEditor->loadContent(fc.getResult().loadFileAsString());
+            mChuckCodeModel->setFilename(fc.getResult().getFileName());
+            sendChangeMessage();
         }
     }
 }

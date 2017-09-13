@@ -20,6 +20,7 @@ public:
     
     virtual void removeTabComponent(int tabIndex){};
     virtual void duplicateTabComponent(int tabIndex){};
+    virtual void updateTabComponentName(int tabIndex){};
     
 private:
     

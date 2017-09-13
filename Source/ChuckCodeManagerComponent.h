@@ -21,7 +21,8 @@
 
 
 class ChuckCodeManagerComponent :   public Component,
-                                    public CRTabbedComponentListener
+                                    public CRTabbedComponentListener,
+                                    public ChangeListener
 {
     
 public:
@@ -36,6 +37,9 @@ public:
     
     void removeTabComponent(int tabIndex) override;
     void duplicateTabComponent(int tabIndex) override;
+    void updateTabComponentName(int tabIndex) override;
+    
+    void changeListenerCallback (ChangeBroadcaster* source) override;
 
 private:
     ChuckCodeModelManager* mModelManager;

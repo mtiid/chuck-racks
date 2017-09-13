@@ -148,7 +148,7 @@ void ChuckCodeModel::replaceShred()
     
 }
 
-void ChuckCodeModel::openBrowser()
+/*void ChuckCodeModel::openBrowser()
 {
     if ( fileChooser->browseForFileToOpen() )
     {
@@ -157,7 +157,7 @@ void ChuckCodeModel::openBrowser()
         filePath = chuckFile.getFullPathName();
     }
     
-}
+}*/
 
 CodeDocument& ChuckCodeModel::getCodeDocument()
 {

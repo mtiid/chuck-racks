@@ -42,7 +42,10 @@ void ChuckCodeManagerComponent::resized()
 
 void ChuckCodeManagerComponent::addNewChuckCodeComponent(ChuckCodeModel* chuckCodeModel){
     ChuckCodeComponent* newChuckCodeComponent = new ChuckCodeComponent(chuckCodeModel);
+    newChuckCodeComponent->addChangeListener(this);
+
     chuckCodeComponents.add(newChuckCodeComponent);
+    
     tabView.addTab(newChuckCodeComponent->getChuckCodeModel()->getFilename(),
                    Colour(100, 106, 127),
                    newChuckCodeComponent,
@@ -79,6 +82,16 @@ void ChuckCodeManagerComponent::duplicateTabComponent(int tabIndex){
     addNewChuckCodeComponent(newChuckCodeModel);
     
 }
+
+void ChuckCodeManagerComponent::updateTabComponentName(int tabIndex){
+    ChuckCodeComponent* chuckCodeComponent = static_cast<ChuckCodeComponent*>( tabView.getTabContentComponent(tabIndex) );
+    tabView.setTabName(tabIndex, chuckCodeComponent->getFilename());
+}
+
+void ChuckCodeManagerComponent::changeListenerCallback(ChangeBroadcaster* source){
+    updateTabComponentName(tabView.getCurrentTabIndex());
+}
+
 
 
 

@@ -13,9 +13,10 @@
 #include "ChuckTokeniser.h"
 #include "ChuckCodeModel.h"
 
-class ChuckCodeComponent : public Component,
-                        private FilenameComponentListener,
-                        public Button::Listener
+class ChuckCodeComponent :  public Component,
+                            private FilenameComponentListener,
+                            public Button::Listener,
+                            public ChangeBroadcaster
 {
     
 public:
@@ -30,6 +31,7 @@ public:
     void buttonClicked(Button* buttonThatWasPressed) override;
     
     ChuckCodeModel* getChuckCodeModel(){return mChuckCodeModel;};
+    String getFilename(){return mChuckCodeModel->getFilename();};
 private:
     
     ChuckCodeModel* mChuckCodeModel;

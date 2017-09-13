@@ -27,7 +27,7 @@ public:
     void removeShred(int idNumber);
     void replaceShred();
     void removeAllShreds();
-    void openBrowser();
+    //void openBrowser();
 
     Array<int> shredIds;
     
@@ -36,6 +36,7 @@ public:
     
     const int getUniqueFCId() { return uniqueFileContainerId; };
     String getFilename(){ return fileName; };
+    void setFilename(String fname){ fileName = fname; };
     
     CodeDocument& getCodeDocument();
     
