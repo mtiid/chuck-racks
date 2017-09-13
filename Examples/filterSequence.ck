@@ -30,7 +30,7 @@ while(true)
             Std.rand2f( minDecayInMs, maxDecayInMs)::ms => env.decayTime; //random variation in envelope decay time
             env.keyOn(1);
         }
-        PluginHost.sixteenth()=>now;
+        PluginHost.nextSixteenth()=>now;
         env.keyOff(1);
     }
 }

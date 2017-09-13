@@ -24,7 +24,7 @@ while(true)
 		{
 			playAllNotesInBuffer( velocitySequence[i] );
 		}
-    	PluginHost.sixteenth() => now;
+    	PluginHost.nextSixteenth() => now;
 	}
 }
 
@@ -90,7 +90,7 @@ fun void playNoteProcess( int midiNote, int velocity ) //only used when sporking
     velocity => msg.data3;
     PluginHost.sendMidi( msg );
 
-    PluginHost.sixteenth() => now;
+    PluginHost.nextSixteenth() => now;
     
     0x80 => msg.data1; //note off
     midiNote => msg.data2;

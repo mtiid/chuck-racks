@@ -1,7 +1,7 @@
 SqrOsc osc => dac;
 0.1=> osc.gain;
 
-PluginHost.onBeat()=>now; //to sync on the first beat happening after hitting play
+PluginHost.nextQuarter()=>now; //to sync on the first beat happening after hitting play
 while(true)
 {
     setRandPitch();

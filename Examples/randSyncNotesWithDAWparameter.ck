@@ -12,7 +12,7 @@ while(true)
 
 	repeat ( Std.rand2(1, 3) ) //1,2 or 3 sixteenths 
 	{
-   		PluginHost.sixteenth()=>now; //synced with daw (press play)
+   		PluginHost.nextSixteenth()=>now; //synced with daw (press play)
 	}
 }
 

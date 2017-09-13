@@ -189,7 +189,7 @@ while (true) {
         sin.freq(Std.mtof(chain[i] + rootNote));
 
         //synced with daw (press play)
-        PluginHost.sixteenth() => now;
+        PluginHost.nextSixteenth() => now;
     }
     markov.generateChain(base, transitionMatrix, order, range) @=> chain;
 }
