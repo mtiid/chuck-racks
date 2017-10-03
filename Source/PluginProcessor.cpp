@@ -85,7 +85,7 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
             
             NormalisableRange<float> paramRange(0.0, 1.0, 0.1, 1.0);
             String id = String(i+1);
-            FloatParameter* param = new FloatParameter(id, id, paramRange, 1.0);
+            FloatParameter* param = new FloatParameter(id, "null", paramRange, 1.0);
             addParameter(param);
         }
         
