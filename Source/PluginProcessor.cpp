@@ -91,7 +91,7 @@ ChuckRacksAudioProcessor::ChuckRacksAudioProcessor()
         
         parameterListModel = new std::map<int, String>;
         lastBarStart = -1;
-        //dynamic_cast<FloatParameter*>(getParameters().getUnchecked(0))->setName("Yes!");
+        
     }
 }
 
@@ -391,19 +391,13 @@ void ChuckRacksAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
         midiInputBuffer.clear();
         
         
-        while(midiIterator.getNextEvent(tempMessage, midiMessagePos)){
-            
-            //if(tempMessage.isNoteOnOrOff()){
-            // tempMessage.setNoteNumber(tempMessage.getNoteNumber() + 12); //transpose the message
-            // tempMidiBuffer.addEvent(tempMessage, midiMessagePos);
-            //}
-            
+        while(midiIterator.getNextEvent(tempMessage, midiMessagePos))
+        {
             midiInputBuffer.addEvent(tempMessage, midiMessagePos);
             doMidiBroadcast = true;
             
             const uint8 *midiVals = tempMessage.getRawData();
             int datasize = tempMessage.getRawDataSize();
-            //std::cout<<int(midiVals[0])<<" "<<int(midiVals[1])<<" "<<int(midiVals[2])<<std::endl;
         }
         
         if(doMidiBroadcast)
