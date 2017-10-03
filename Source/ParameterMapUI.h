@@ -112,6 +112,7 @@ public:
     
     void textWasEdited() override
     {
+        setText(getText().removeCharacters(" " ), dontSendNotification);
         owner.setText (columnId, row, getText());
     }
     

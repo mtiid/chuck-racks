@@ -153,9 +153,8 @@ String ParameterMapUI::getText (const int columnNumber, const int rowNumber) con
 void ParameterMapUI::setText (const int columnNumber, const int rowNumber, const String& newText)
 {
     String text = newText;
-    
     if (text.isEmpty())
-        text = "not assigned";
+        text = "";
     
     parameterListModel->find(rowNumber)->second = text;
     processor->updateParamNames(rowNumber, text);
