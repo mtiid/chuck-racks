@@ -110,14 +110,8 @@ void ChuckCodeModel::removeShred(int idNumber)
 
 void ChuckCodeModel::removeAllShreds()
 {
-    /// \todo use actual shred ids once that's being returned correctly from libchuck
-    /*for (int i=0; i<shredIds.size(); i++) {
-        removeShred(i+1);
-    }*/
-    
-    for (int i=0; i<20; i++){
-        removeShred(i);
-    }
+    while ( !shredIds.isEmpty() )
+        removeLastShred();
 }
 
 
