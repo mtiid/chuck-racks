@@ -41,7 +41,7 @@ void ChuckCodeModel::addShred()
     {
         shredIds.add(result.shred_id);
         //shredIds.push_back(result.shred_id);
-        text = "shred with Id: " + String(shredIds.getLast()) + " added";
+        text = "adding shred: " + String(shredIds.getLast());
     }
     else
     {
@@ -64,10 +64,8 @@ void ChuckCodeModel::removeLastShred()
     
     if( shredIds.size() > 0 )
     {
-        text = "shredId to be removed:" + String(shredIds.getLast());
-        /// \todo update once we're storing actual shred id
-        removeShred( shredIds.size()-1 );
-        shredIds.removeLast();
+        removeShred( shredIds.getLast() );
+        //shredIds.removeLast();
     }
     else
     {
@@ -90,24 +88,24 @@ void ChuckCodeModel::removeShred(int idNumber)
     
     if(result.type == chuck_result::OK)
     {
-        //std::cout<<"shred with Id removed "<< idNumber << "\n";
-        text = "shred with Id removed "+ String(idNumber);
+        text = "removing shred: " + String(result.shred_id);
+        shredIds.remove( result.shred_id - 1 );
     }
+    
     else
     {
         //std::string resStr(libchuck_last_error_string(ck));
-        //text = "problem removing shred:" + String(idNumber);
-        /// \todo add back when once correct shred ids are returned correctly from libchuck
+        text = "problem removing shred:" + String(idNumber);
     }
     
     
-    shredIds.remove(idNumber);
+    //shredIds.remove(idNumber);
     
     ConsoleComponent::getInstance()->addText(text);
     //if (consoleComponent)
-        //consoleComponent->addText(text);
-   /// listeners.call(&ConsoleComponent::consoleMessageCallback, text);
-
+    //consoleComponent->addText(text);
+    /// listeners.call(&ConsoleComponent::consoleMessageCallback, text);
+    
 }
 
 void ChuckCodeModel::removeAllShreds()

@@ -13,7 +13,7 @@ ChuckCodeComponent::ChuckCodeComponent(ChuckCodeModel* chuckCodeModel)
 {
     mChuckCodeModel = chuckCodeModel;
     
-    addShredButton = new DrawableButton("Add Shreds", DrawableButton::ButtonStyle::ImageFitted);
+    addShredButton = new DrawableButton("Add Shred", DrawableButton::ButtonStyle::ImageFitted);
     ScopedPointer<XmlElement> addShredSVGUp(XmlDocument::parse(BinaryData::addshrediconUp_svg));
     ScopedPointer<XmlElement> addShredSVGDown(XmlDocument::parse(BinaryData::addshrediconDown_svg));
     
@@ -22,14 +22,13 @@ ChuckCodeComponent::ChuckCodeComponent(ChuckCodeModel* chuckCodeModel)
     addShredButton->addListener(this);
     
     
-    /*removeShredButton = new DrawableButton("Remove All Shreds", DrawableButton::ButtonStyle::ImageFitted);
+    removeShredButton = new DrawableButton("Remove Shred", DrawableButton::ButtonStyle::ImageFitted);
      ScopedPointer<XmlElement> removeShredSVGUp(XmlDocument::parse(BinaryData::removeAllShredUp_svg));
      ScopedPointer<XmlElement> removeShredSVGDown(XmlDocument::parse(BinaryData::removeAllShredDown_svg));
      removeShredButton->setImages(Drawable::createFromSVG(*removeShredSVGUp), Drawable::createFromSVG(*removeShredSVGUp), Drawable::createFromSVG(*removeShredSVGDown));
      addAndMakeVisible(removeShredButton);
-     removeShredButton->setBounds(52, 5, 20, 20);
      removeShredButton->addListener(this);
-     */
+    
     
     saveFileButton = new TextButton("Save");
     addAndMakeVisible(saveFileButton);
@@ -119,6 +118,7 @@ void ChuckCodeComponent::paint( Graphics& g )
 
 void ChuckCodeComponent::resized(){
     addShredButton->setBounds(5, 5, 20,20);
+    removeShredButton->setBounds(addShredButton->getRight() + 2, 5, 20, 20);
     saveFileButton->setBounds(getWidth()-59, 5, 56,20);
     openFileButton->setBounds(saveFileButton->getX()-58, 5, 56,20);
     codeEditor->setBounds( 1, 30, getWidth()-4, getHeight()-30 );
