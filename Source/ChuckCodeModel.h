@@ -14,6 +14,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "libchuck.h"
 #include "ConsoleComponent.h"
+#include <map>
 
 class ChuckCodeModel
 {
@@ -29,7 +30,7 @@ public:
     void removeAllShreds();
     //void openBrowser();
 
-    Array<int> shredIds;
+    std::map<int, int> shredIds;
     
     void setCanBeEdited( bool shouldEdit ){ canBeEdited = shouldEdit; };
     bool getCanBeEdited(){ return canBeEdited; };

@@ -36,12 +36,10 @@ void ChuckCodeModel::addShred()
     chuck_result result = libchuck_add_shred(ck, filePath.toRawUTF8(), codeDocument.getAllContent().toRawUTF8());
     std::cout << "result type: " << result.type << " result id " << result.shred_id << "\n";
 
-    if(result.type == chuck_result::OK || result.type == chuck_result::ERR_TIMEOUT)
-        // TODO ask spencer why it's returning error timeout and fix that
+    if(result.type == chuck_result::OK)
     {
-        shredIds.add(result.shred_id);
-        //shredIds.push_back(result.shred_id);
-        text = "adding shred: " + String(shredIds.getLast());
+        shredIds.insert( std::make_pair(result.shred_id, result.shred_id) );
+        text = "adding shred: " + String(result.shred_id);
     }
     else
     {
@@ -64,8 +62,8 @@ void ChuckCodeModel::removeLastShred()
     
     if( shredIds.size() > 0 )
     {
-        removeShred( shredIds.getLast() );
-        //shredIds.removeLast();
+        std::cout << "remove last shred, id: " << shredIds.end()->first << std::endl;
+        removeShred(shredIds.rbegin()->first);
     }
     else
     {
@@ -88,8 +86,8 @@ void ChuckCodeModel::removeShred(int idNumber)
     
     if(result.type == chuck_result::OK)
     {
-        text = "removing shred: " + String(result.shred_id);
-        shredIds.remove( result.shred_id - 1 );
+        text = "removing shred: " + String( result.shred_id );
+        shredIds.erase( shredIds.at( result.shred_id ) );
     }
     
     else
@@ -99,7 +97,6 @@ void ChuckCodeModel::removeShred(int idNumber)
     }
     
     
-    //shredIds.remove(idNumber);
     
     ConsoleComponent::getInstance()->addText(text);
     //if (consoleComponent)
@@ -110,7 +107,7 @@ void ChuckCodeModel::removeShred(int idNumber)
 
 void ChuckCodeModel::removeAllShreds()
 {
-    while ( !shredIds.isEmpty() )
+    while ( !shredIds.empty() )
         removeLastShred();
 }
 
@@ -119,14 +116,16 @@ void ChuckCodeModel::replaceShred()
 {
     String text;
 
-    chuck_result result = libchuck_replace_shred( ck, shredIds.getLast(), filePath.toRawUTF8(),
+    chuck_result result = libchuck_replace_shred( ck, shredIds.end()->first, filePath.toRawUTF8(),
                                                codeDocument.getAllContent().toRawUTF8() );
     int idNumber = result.shred_id;
     
     if( result.type == chuck_result::OK )
     {
-        shredIds.removeLast();
-        shredIds.add( result.shred_id );
+        shredIds.erase( shredIds.at(idNumber) );
+        shredIds.insert( std::make_pair(result.shred_id, result.shred_id) );
+        //shredIds.removeLast();
+        //shredIds.add( result.shred_id );
         text = "shred with Id replaced "+ String(idNumber);
     }
     else
